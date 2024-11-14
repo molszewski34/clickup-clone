@@ -1,36 +1,15 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+**MIT License**
 
-## Getting Started
+Copyright (c) [2024] Mariusz Olszewski
 
-First, run the development server:
+Zezwala się na korzystanie, kopiowanie, modyfikowanie, scalanie, publikowanie, dystrybucję, sublicencjonowanie i/lub sprzedaż kopii Oprogramowania wyłącznie do celów naukowych, badawczych lub edukacyjnych. Oprogramowanie nie może być używane do celów komercyjnych. Wszelkie kopiowanie i dystrybucja oprogramowania muszą zawierać powyższą notkę licencyjną oraz powiadomienie o braku gwarancji.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Oprogramowanie jest dostarczane "w takim stanie, w jakim jest", bez żadnej gwarancji, wyrażonej ani domniemanej, w tym m. in. gwarancji przydatności handlowej czy przydatności do określonego celu. W żadnym wypadku autorzy ani właściciele praw autorskich nie ponoszą odpowiedzialności za jakiekolwiek roszczenia, szkody lub inne zobowiązania wynikające z umowy, czynu niedozwolonego lub w inny sposób wynikające z używania Oprogramowania.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**MIT License**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Copyright (c) [2024] Mariusz Olszewski
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Permission is hereby granted, free of charge, to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software solely for academic, research, or educational purposes. The Software may not be used for commercial purposes. Copies of the Software must include the above copyright notice and this permission notice.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The Software is provided "as is", without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose, or non-infringement. In no event shall the authors or copyright holders be liable for any claims, damages, or other liabilities, whether in an action of contract, tort, or otherwise, arising from, out of, or in connection with the Software or the use or other dealings in the Software.
