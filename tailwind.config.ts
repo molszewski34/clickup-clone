@@ -12,6 +12,9 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      backgroundImage: {
+        "login-page": "url('/background_login.svg')",
+      },
     },
   },
   plugins: [],
