@@ -2,10 +2,15 @@ import { render, fireEvent, waitFor } from '@testing-library/react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import useLoginHandler from './useLoginHandler';
 import { auth } from '@/db/firebase/lib/firebase';
+import { useRouter } from 'next/navigation';
 
 jest.mock('firebase/auth', () => ({
   signInWithEmailAndPassword: jest.fn(),
   getAuth: jest.fn().mockReturnValue({}),
+}));
+
+jest.mock('next/navigation', () => ({
+  useRouter: jest.fn(),
 }));
 
 const TestComponent = () => {
@@ -34,18 +39,21 @@ const TestComponent = () => {
         placeholder="Password"
       />
       <button type="submit">Login</button>
-      {loginError && <div>{loginError}</div>}
+      {loginError && <div role="alert">{loginError}</div>}
     </form>
   );
 };
 
 describe('useLoginHandler', () => {
   it('should call signInWithEmailAndPassword with correct parameters', async () => {
-    const { getByPlaceholderText, getByText } = render(<TestComponent />);
+    const push = jest.fn();
+    (useRouter as jest.Mock).mockReturnValue({ push });
 
     (signInWithEmailAndPassword as jest.Mock).mockResolvedValueOnce({
-      user: { email: 'test@example.com' },
+      user: { email: 'test@example.com', uid: 'userId' },
     });
+
+    const { getByPlaceholderText, getByText } = render(<TestComponent />);
 
     const emailInput = getByPlaceholderText('Email') as HTMLInputElement;
     const passwordInput = getByPlaceholderText('Password') as HTMLInputElement;
@@ -61,6 +69,8 @@ describe('useLoginHandler', () => {
         'test@example.com',
         'password123'
       );
+
+      expect(push).toHaveBeenCalledWith('/userId/home');
     });
   });
 
@@ -80,6 +90,11 @@ describe('useLoginHandler', () => {
     fireEvent.change(emailInput, { target: { value: 'wrong@example.com' } });
     fireEvent.change(passwordInput, { target: { value: 'wrongpassword' } });
     fireEvent.click(button);
+
+    await waitFor(() => {
+      const errorMessage = getByRole('alert');
+      expect(errorMessage).toHaveTextContent('Invalid email or password');
+    });
   });
 
   it('should display an unknown error message when an unknown error occurs', async () => {
@@ -101,7 +116,7 @@ describe('useLoginHandler', () => {
 
     await waitFor(() => {
       const errorMessage = getByRole('alert');
-      expect(errorMessage).toHaveTextContent('Some unknown error occurred.');
+      expect(errorMessage).toHaveTextContent('Some unknown error');
     });
   });
 });
