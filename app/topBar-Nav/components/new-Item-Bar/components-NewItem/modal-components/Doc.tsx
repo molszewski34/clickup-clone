@@ -7,7 +7,9 @@ import LastLineButtons from "./doc-components/LastLineButtons";
 export default function Doc() {
   const [query, setQuery] = useState("");
 
-  const handleInputChange = (event) => {
+  const handleInputChange = (event: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
     setQuery(event.target.value);
   };
 

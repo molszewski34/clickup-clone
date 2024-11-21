@@ -8,7 +8,9 @@ export default function Chat() {
   const [query, setQuery] = useState("");
   const [isInputFocused, setIsInputFocused] = useState(false);
 
-  const handleInputChange = (event) => {
+  const handleInputChange = (event: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
     setQuery(event.target.value);
   };
 

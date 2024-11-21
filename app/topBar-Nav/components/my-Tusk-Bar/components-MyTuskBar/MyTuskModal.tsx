@@ -3,8 +3,10 @@ import React, { useState, useEffect } from "react";
 import InfoSection from "./modal-components/InfoSection";
 import ButtonAiResults from "./modal-components/ButtonAiResults";
 import MenuRender from "./modal-components/MenuRender";
+import { MyTuskModalProps } from "../../type"; //Import typeScript
+import IconArrowDownStatic from "../../icon/IconArrowDownStatic";
 
-export default function MyTuskModal({ onClose }) {
+export default function MyTuskModal({ onClose }: MyTuskModalProps) {
   const [userInitial, setUserInitial] = useState("?"); // State for the initials
   const [fullName, setFullName] = useState(""); // State for the full name
   const [loading, setLoading] = useState(true); // State for loading data
@@ -26,7 +28,9 @@ export default function MyTuskModal({ onClose }) {
 
   // Run fetchUserData on mount
   useEffect(() => {
-    fetchUserData();
+    if (typeof window !== "undefined") {
+      fetchUserData();
+    }
   }, []);
 
   return (
@@ -53,17 +57,10 @@ export default function MyTuskModal({ onClose }) {
           <div className="flex-row w-full ">
             <div className="flex justify-between items-center mb-3">
               <button className="flex gap-[2px] items-center justify-center rounded-md hover:bg-gray-100 p-1 pl-2 ">
-                <div className="flex items-center text-lg font-sans font-medium text-gray-950">
+                <div className="flex items-center text-lg font-sans font-medium text-gray-950 mr-1">
                   {loading ? "Loading..." : fullName}
                 </div>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 512 512"
-                  className="fill-gray-900 ml-1"
-                  width="12px"
-                >
-                  <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
-                </svg>
+                <IconArrowDownStatic size="10" color="gray-900" ml="4" />
               </button>
               <div className="flex items-center bg-green-200 bg-opacity-50 rounded text-green-700 px-2 py-[5px] mt-1 ml-2 text-xs font-sans">
                 Online

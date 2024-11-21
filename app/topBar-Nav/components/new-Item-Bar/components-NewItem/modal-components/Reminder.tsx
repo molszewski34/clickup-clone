@@ -6,7 +6,9 @@ import LastLineButtons from "./reminder-components/LastLineButtons";
 export default function Reminder() {
   const [query, setQuery] = useState("");
 
-  const handleInputChange = (event) => {
+  const handleInputChange = (event: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
     setQuery(event.target.value);
   };
   return (

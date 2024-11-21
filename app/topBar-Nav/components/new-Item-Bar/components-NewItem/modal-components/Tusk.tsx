@@ -4,11 +4,14 @@ import ButtonDescrition from "./tusk-components/ButtonDescription";
 import FirstLineButtons from "./tusk-components/FirstLineButtons";
 import SecondLineButtons from "./tusk-components/SecondLineButtons";
 import LastLineButtons from "./tusk-components/LastLineButtons";
+import { FaPlus } from "react-icons/fa6";
 
 export default function Tusk() {
   const [query, setQuery] = useState("");
 
-  const handleInputChange = (event) => {
+  const handleInputChange = (event: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
     setQuery(event.target.value);
   };
 
@@ -32,14 +35,7 @@ export default function Tusk() {
             Custom Fields
           </div>
           <button className="flex gap-1 h-6 items-center justify-center rounded-md bg-gray-100 hover:bg-gray-200 px-[7px] mt-4 ">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 448 512"
-              className="fill-gray-600"
-              height="12px"
-            >
-              <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z" />
-            </svg>
+            <FaPlus className="w-3 h-3 text-gray-600" />
             <div className="flex items-center text-xs font-sans font-medium text-gray-600">
               Create new field
             </div>

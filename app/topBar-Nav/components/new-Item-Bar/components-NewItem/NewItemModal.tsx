@@ -7,11 +7,13 @@ import Reminder from "./modal-components/Reminder";
 import Chat from "./modal-components/Chat";
 import Dashboard from "./modal-components/Dashboard";
 import Whiteboard from "./modal-components/Whiteboard";
+import { ModalTabName, ModalTabComponents, NewModalProps } from "../../type";
 
-export default function NewItemModal({ onClose, defaultTab }) {
-  const [activeTab, setActiveTab] = useState(defaultTab);
+export default function NewItemModal({ onClose, defaultTab }: NewModalProps) {
+  const [activeTab, setActiveTab] = useState<ModalTabName>(defaultTab);
 
-  const tabClasses = (tabName) =>
+  // Funkcja dla klas CSS zakładek
+  const tabClasses = (tabName: ModalTabName) =>
     `flex items-center font-sans font-medium h-[47px] text-sm/4 text-center ${
       activeTab === tabName
         ? "text-gray-800 border-b-2 border-blue-500 cursor-default"
@@ -19,7 +21,7 @@ export default function NewItemModal({ onClose, defaultTab }) {
     }`;
 
   // Obiekt mapujący zakładki na komponenty
-  const tabComponents = {
+  const tabComponents: ModalTabComponents = {
     Task: <Tusk />,
     Doc: <Doc />,
     Reminder: <Reminder />,
@@ -69,10 +71,10 @@ export default function NewItemModal({ onClose, defaultTab }) {
             Dashboard
           </button>
         </div>
-        {/* Button to close modal */}
+        {/* Przycisk do zamknięcia modala */}
         <button
           className="absolute flex justify-center items-center p-[10px] top-2 right-2 rounded-lg hover:bg-gray-200 w-8 h-8"
-          onClick={onClose} // use function to close modal
+          onClick={onClose} // użycie funkcji do zamknięcia modala
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -85,7 +87,7 @@ export default function NewItemModal({ onClose, defaultTab }) {
         </button>
       </div>
       <div className="w-full h-px bg-gray-200" />
-      {/* render a component depending on the active button */}
+      {/* Renderowanie komponentu na podstawie aktywnej zakładki */}
       {tabComponents[activeTab] || <div>Error</div>}
     </>
   );

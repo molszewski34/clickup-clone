@@ -1,24 +1,23 @@
 "use client";
 
 import { useState } from "react";
-
 import Activity from "./menu-render-components/Activity";
 import MyWork from "./menu-render-components/MyWork";
 import Assig from "./menu-render-components/Assig";
 import Calendar from "./menu-render-components/Calendar";
+import { MyTuskTabName, MyTuskTabComponents } from "../../../type";
 
 export default function MenuRender() {
-  const [activeTab, setActiveTab] = useState("Activity");
+  const [activeTab, setActiveTab] = useState<MyTuskTabName>("Activity");
 
-  const tabClasses = (tabName) =>
+  const tabClasses = (tabName: MyTuskTabName) =>
     `flex items-center font-sans font-medium h-[47px] text-sm/4 text-center ${
       activeTab === tabName
         ? "text-blue-500 border-b-2 border-blue-500 cursor-default"
         : "text-gray-500 border-b-2 border-transparent hover:border-gray-300"
     }`;
 
-  // Maping components we will render
-  const tabComponents = {
+  const tabComponents: MyTuskTabComponents = {
     Activity: <Activity />,
     MyWork: <MyWork />,
     Assig: <Assig />,
@@ -57,7 +56,7 @@ export default function MenuRender() {
       </div>
       <div className="w-full h-px bg-gray-200" />
 
-      {/* render a component depending on the active button */}
+      {/* renderuje komponent na podstawie aktywnej zakładki */}
       {tabComponents[activeTab] || <div>Error</div>}
     </>
   );

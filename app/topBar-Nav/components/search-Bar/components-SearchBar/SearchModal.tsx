@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 import ButtonAI from "./modal-components/button/ButtonAI";
 import NavInModal from "./modal-components/NavInModal";
 import SortMenuModal from "./modal-components/SortMenuModal";
@@ -9,7 +9,9 @@ import SearchResults from "./modal-components/SearchResults";
 export default function SearchModal() {
   const [query, setQuery] = useState("");
 
-  const handleInputChange = (event) => {
+  const handleInputChange = (event: {
+    target: { value: SetStateAction<string> };
+  }) => {
     setQuery(event.target.value);
   };
 

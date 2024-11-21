@@ -19,7 +19,9 @@ export default function ButtonList() {
 
   // Call the fetch function when the component is mounted
   useEffect(() => {
-    fetchUserInitial(); // Simulate fetching the initials of the user's full name
+    if (typeof window !== "undefined") {
+      fetchUserInitial(); // Simulate fetching the initials of the user's full name
+    }
   }, []);
 
   return (

@@ -1,7 +1,8 @@
 import NotepadSVG from "../../../../icons/notepadBar.svg";
 import Image from "next/image";
+import { ModalProps } from "../../type"; //Import typeScript
 
-export default function NotePadModal({ onClose }) {
+export default function NotePadModal({ onClose }: ModalProps) {
   return (
     <>
       <div className="flex items-center justify-between bg-yellow-500 bg-opacity-50 px-2 py-[10px]">

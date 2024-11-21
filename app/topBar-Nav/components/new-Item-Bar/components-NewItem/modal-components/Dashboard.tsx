@@ -6,7 +6,9 @@ import LastLineButtons from "./dashboard-components/LastLineButtons";
 export default function Whiteboard() {
   const [query, setQuery] = useState("");
 
-  const handleInputChange = (event) => {
+  const handleInputChange = (event: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
     setQuery(event.target.value);
   };
 

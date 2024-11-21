@@ -1,9 +1,7 @@
 "use client";
-
 import React, { useState } from "react";
-import Image from "next/image";
-import IconPlus from "../../../icons/plus.svg";
 import NewItemModal from "./components-NewItem/NewItemModal";
+import IconPlusCircle from "../icon/IconPlusCircle";
 
 export default function NewItemBar() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -16,16 +14,10 @@ export default function NewItemBar() {
   return (
     <>
       <button
-        className="flex justify-center items-center hover:bg-white bg-opacity-10 hover:bg-opacity-20 rounded-md h-8 w-16 mr-1"
+        className="flex justify-center items-center hover:bg-white bg-opacity-10 hover:bg-opacity-20 rounded-md h-8 px-[11px] mx-1"
         onClick={openModal}
       >
-        <Image
-          src={IconPlus}
-          alt="Icon Plus"
-          height={14}
-          color="white"
-          className="fill-white"
-        />
+        <IconPlusCircle size="16" color="white" ml="1" />
         <span className="h-4 w-8 ml-1 text-sm/[16px] text-center font-semibold text-white font-sans">
           New
         </span>

@@ -5,24 +5,25 @@ import ButtonAiResults from "./button/ButtonAiResults";
 import ButtonAttach from "./button/ButtonAttach";
 import ButtonEnter from "./button/ButtonEnter";
 import ButtonNewTab from "./button/ButtonNewTab";
-import IconDashboard from "./icon/IconDashboard";
-import IconDoc from "./icon/IconDoc";
-import IconWhiteboard from "./icon/IconWhiteboard"; // Zaimportuj nową ikonę
+import IconDashboard from "../../../icon/IconDashboard";
+import IconDoc from "../../../icon/IconDoc";
+import IconWhiteboard from "../../../icon/IconWhiteboard";
 import ButtonTab from "./button/ButtonTab";
+import { SearchResult, IconMap } from "../../../type";
 
-// Mapa typów na odpowiednie ikony
-const iconMap = {
+// Mapowanie ikon na typy
+const iconMap: IconMap = {
   Doc: IconDoc,
   Dashboard: IconDashboard,
   Whiteboard: IconWhiteboard,
 };
 
 export default function SearchResults() {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<SearchResult[]>([]); // Użycie typów dla danych
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fakeData = [
+    const fakeData: SearchResult[] = [
       {
         title: "Project 1",
         type: "Doc",
@@ -38,7 +39,7 @@ export default function SearchResults() {
         updated: "5 days ago",
       },
       {
-        title: "Dashboard",
+        title: "Whiteboard",
         type: "Whiteboard",
         space: "Team Space",
         category: "Design",
@@ -62,12 +63,14 @@ export default function SearchResults() {
   return (
     <>
       {data.map((item, index) => {
-        const Icon = iconMap[item.type];
+        const Icon = iconMap[item.type]; // Dopasowanie ikony do typu
         return (
           <div key={index} className="flex items-center group">
             <div className="flex items-center justify-between w-full hover:bg-gray-100">
-              <button className="flex items-center w-full ">
-                {Icon && <Icon />}
+              <button className="flex items-center w-full">
+                <div className="flex justify-center items-center w-[60px] h-[60px] p-3">
+                  {Icon && <Icon />} {/* Renderowanie ikony */}
+                </div>
                 <div className="flex-row font-sans">
                   <div className="text-sm text-gray-900 font-medium text-left">
                     {item.title}
@@ -84,6 +87,7 @@ export default function SearchResults() {
                 </div>
               </button>
               <div className="flex gap-2 pr-3 w-auto opacity-0 group-hover:opacity-100">
+                {/* Przyciski zależne od typu */}
                 {item.type === "Doc" ? <ButtonAiResults /> : <ButtonTab />}
                 <ButtonAttach />
                 <ButtonNewTab />

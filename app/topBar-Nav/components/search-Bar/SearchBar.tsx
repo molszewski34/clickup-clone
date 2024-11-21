@@ -36,11 +36,11 @@ export default function SearchBar() {
       {isModalOpen && (
         <div
           className="fixed inset-0 flex justify-center  bg-transparent z-50"
-          onClick={closeModal} // Zamknięcie modala po kliknięciu w tło
+          onClick={closeModal}
         >
           <div
             className="bg-white rounded-xl w-[798px] h-[590px] mt-52 shadow-custom border border-gray-200"
-            onClick={(e) => e.stopPropagation()} // Zapobieganie propagowaniu kliknięcia w modal
+            onClick={(e) => e.stopPropagation()}
           >
             <SearchModal />
           </div>

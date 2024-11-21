@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { FaRegCheckCircle } from "react-icons/fa";
 import MyTuskModal from "./components-MyTuskBar/MyTuskModal";
 
 export default function MyTuskBar() {
@@ -12,17 +13,10 @@ export default function MyTuskBar() {
     <>
       {/* Button to open modal */}
       <button
-        className="flex justify-center items-center hover:bg-white bg-opacity-10 hover:bg-opacity-20 rounded-md h-8 w-8 mr-1"
+        className="flex justify-center items-center hover:bg-white bg-opacity-10 hover:bg-opacity-20 rounded-md h-8 w-8 mx-1"
         onClick={openModal}
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 512 512"
-          height="14px"
-          className="fill-white"
-        >
-          <path d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-111 111-47-47c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l64 64c9.4 9.4 24.6 9.4 33.9 0L369 209z" />
-        </svg>
+        <FaRegCheckCircle className="w-[14px] h-[14px] text-white" />
       </button>
 
       {/* Modal */}
