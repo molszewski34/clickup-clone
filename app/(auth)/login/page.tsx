@@ -1,6 +1,7 @@
 'use client';
 
 import { authFormTypes } from '../types/types';
+import LogInWithGoogle from './_components/LogInWithGoogle';
 import useLoginHandler from './_hooks/useLoginHandler';
 
 const Login: React.FC<authFormTypes> = () => {
@@ -16,6 +17,7 @@ const Login: React.FC<authFormTypes> = () => {
   return (
     <div style={{ padding: '2rem' }}>
       <h1>Logowanie</h1>
+      <LogInWithGoogle />
       <form onSubmit={handleLogin}>
         <div>
           <label>Email:</label>
