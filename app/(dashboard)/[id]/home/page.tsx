@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '@/db/firebase/lib/firebase';
+import { useInitializeWorkspace } from '../../_hooks/useInitializeWorkspace';
 
 interface UserHomeProps {
   params: {
@@ -14,6 +15,8 @@ interface UserHomeProps {
 const UserHomePage: React.FC<UserHomeProps> = ({ params }) => {
   const { id } = params;
   const router = useRouter();
+
+  useInitializeWorkspace();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
