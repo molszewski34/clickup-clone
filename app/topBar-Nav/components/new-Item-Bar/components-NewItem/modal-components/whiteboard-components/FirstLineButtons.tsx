@@ -1,8 +1,10 @@
 export default function FirstLineButtons() {
   return (
     <>
-      <div className=" flex items-center px-6 gap-2 mb-4">
-        <button className="flex gap-[2px] items-center justify-center rounded-md border border-gray-200 hover:bg-gray-100 px-[7px] py-[3px] ">
+      <div className="flex items-center px-6 gap-2 mb-4">
+        {/* Button to open My Whiteboards section */}
+        <button className="flex gap-[2px] items-center justify-center rounded-md border border-gray-200 hover:bg-gray-100 px-[7px] py-[3px]">
+          {/* Icon for the My Whiteboards button (SVG of a circle) */}
           <svg
             viewBox="0 0 16 16"
             xmlns="http://www.w3.org/2000/svg"
@@ -16,6 +18,7 @@ export default function FirstLineButtons() {
               strokeLinejoin="round"
             ></g>
             <g id="SVGRepo_iconCarrier">
+              {/* Circle icon */}
               <path
                 className="fill-gray-500"
                 d="M8 4c-2.2 0-4 1.8-4 4s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4z"
@@ -27,9 +30,12 @@ export default function FirstLineButtons() {
             </g>
           </svg>
 
+          {/* Text label for the button */}
           <div className="flex items-center text-xs font-sans font-medium text-gray-600">
             My Whiteboards
           </div>
+
+          {/* Arrow icon to indicate dropdown or expansion */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 512 512"

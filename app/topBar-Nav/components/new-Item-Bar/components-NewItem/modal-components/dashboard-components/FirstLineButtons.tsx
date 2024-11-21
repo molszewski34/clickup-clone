@@ -1,8 +1,11 @@
 export default function FirstLineButtons() {
   return (
     <>
-      <div className=" flex items-center px-6 gap-2 mb-4">
-        <button className="flex gap-[2px] items-center justify-center rounded-md border border-gray-200 hover:bg-gray-100 px-[7px] py-[3px] ">
+      {/* Main container for the first line of buttons */}
+      <div className="flex items-center px-6 gap-2 mb-4">
+        {/* Button for "My Dashboards" */}
+        <button className="flex gap-[2px] items-center justify-center rounded-md border border-gray-200 hover:bg-gray-100 px-[7px] py-[3px]">
+          {/* Icon for the button (user icon) */}
           <svg
             viewBox="0 0 16 16"
             xmlns="http://www.w3.org/2000/svg"
@@ -27,9 +30,12 @@ export default function FirstLineButtons() {
             </g>
           </svg>
 
+          {/* Text for the button */}
           <div className="flex items-center text-xs font-sans font-medium text-gray-600">
             My Dashboards
           </div>
+
+          {/* Arrow icon to indicate dropdown or expand functionality */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 512 512"

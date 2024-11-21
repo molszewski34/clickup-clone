@@ -1,8 +1,10 @@
 export default function FirstLineButtons() {
   return (
     <>
-      <div className=" flex items-center px-6 gap-2 mb-3">
-        <button className="flex gap-[2px] items-center justify-center rounded-md border border-gray-200 hover:bg-gray-100 px-[7px] py-[3px] ">
+      <div className="flex items-center px-6 gap-2 mb-3">
+        {/* Button with an icon and text */}
+        <button className="flex gap-[2px] items-center justify-center rounded-md border border-gray-200 hover:bg-gray-100 px-[7px] py-[3px]">
+          {/* First SVG Icon (Circle Icon) */}
           <svg
             viewBox="0 0 16 16"
             xmlns="http://www.w3.org/2000/svg"
@@ -27,9 +29,12 @@ export default function FirstLineButtons() {
             </g>
           </svg>
 
+          {/* Label Text */}
           <div className="flex items-center text-xs font-sans font-medium text-gray-600">
             Work Space
           </div>
+
+          {/* Second SVG Icon (Arrow Icon) */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 512 512"

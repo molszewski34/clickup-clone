@@ -1,6 +1,6 @@
 "use client";
 
-export default function IconAI({ width = "16px", className = "" }) {
+export default function IconAI({ width = "16", className = "" }) {
   return (
     <svg
       fill="url(#custom-gradient)" // Use LinearGradient

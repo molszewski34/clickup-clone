@@ -1,20 +1,20 @@
 import { ReactNode, MouseEventHandler } from "react";
 
-// Wspólny typ dla funkcji zamykającej modal
+// Common type for the function that closes the modal
 export interface ModalProps {
-  onClose: () => void; // Funkcja do zamykania modala
+  onClose: () => void; // Function to close the modal
 }
 
-// Typy dla MyTuskModal
+// Types for MyTuskModal
 export type MyTuskTabName = "Activity" | "MyWork" | "Assig" | "Calendar";
 
 export type MyTuskTabComponents = Record<MyTuskTabName, JSX.Element>;
 
 export interface MyTuskModalProps extends ModalProps {
-  defaultTab?: MyTuskTabName; // Opcjonalna domyślna zakładka
+  defaultTab?: MyTuskTabName; // Optional default tab
 }
 
-// Typy dla NewItemModal
+// Types for NewItemModal
 export type ModalTabName =
   | "Task"
   | "Doc"
@@ -26,30 +26,30 @@ export type ModalTabName =
 export type ModalTabComponents = Record<ModalTabName, JSX.Element>;
 
 export interface NewModalProps extends ModalProps {
-  defaultTab: ModalTabName; // Domyślna zakładka
+  defaultTab: ModalTabName; // Default tab
 }
 
-// Typ dla pojedynczego elementu wyników
+// Type for a single search result item
 export interface SearchResult {
   title: string;
-  type: "Doc" | "Dashboard" | "Whiteboard"; // Typy związane z `iconMap`
+  type: "Doc" | "Dashboard" | "Whiteboard"; // Types related to `iconMap`
   space: string;
   category: string;
   updated: string;
 }
 
-// Typ dla mapowania ikon
+// Type for icon mapping
 export type IconMap = Record<SearchResult["type"], React.FC>;
 
-// Definicja typów dla propsów komponentu Button
+// Definition of types for Button component props
 export interface ButtonProps {
-  /** Dzieci elementu - tekst lub inne komponenty wyświetlane w przycisku */
+  /** Children elements - text or other components displayed inside the button */
   children?: ReactNode;
-  /** Ikona wyświetlana obok tekstu */
+  /** Icon displayed next to the text */
   icon?: ReactNode;
-  /** Funkcja wywoływana po kliknięciu przycisku */
+  /** Function called when the button is clicked */
   onClick?: MouseEventHandler<HTMLButtonElement>;
-  /** Czy obramowanie ma być przerywane */
+  /** Whether the border should be dashed */
   dashed?: boolean;
 
   iconPosition?: string;

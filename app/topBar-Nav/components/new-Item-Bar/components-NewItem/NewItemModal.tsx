@@ -10,17 +10,17 @@ import Whiteboard from "./modal-components/Whiteboard";
 import { ModalTabName, ModalTabComponents, NewModalProps } from "../../type";
 
 export default function NewItemModal({ onClose, defaultTab }: NewModalProps) {
-  const [activeTab, setActiveTab] = useState<ModalTabName>(defaultTab);
+  const [activeTab, setActiveTab] = useState<ModalTabName>(defaultTab); // State to track active tab
 
-  // Funkcja dla klas CSS zakładek
+  // Function for generating the CSS classes for each tab
   const tabClasses = (tabName: ModalTabName) =>
     `flex items-center font-sans font-medium h-[47px] text-sm/4 text-center ${
       activeTab === tabName
-        ? "text-gray-800 border-b-2 border-blue-500 cursor-default"
-        : "text-gray-500 border-b-2 border-transparent hover:border-gray-300"
+        ? "text-gray-800 border-b-2 border-blue-500 cursor-default" // Active tab styles
+        : "text-gray-500 border-b-2 border-transparent hover:border-gray-300" // Inactive tab styles
     }`;
 
-  // Obiekt mapujący zakładki na komponenty
+  // Object mapping tab names to their corresponding components
   const tabComponents: ModalTabComponents = {
     Task: <Tusk />,
     Doc: <Doc />,
@@ -33,10 +33,11 @@ export default function NewItemModal({ onClose, defaultTab }: NewModalProps) {
   return (
     <>
       <div className="flex relative items-center justify-between">
+        {/* Tab buttons */}
         <div className="flex items-center gap-6 h-12 px-6 ">
           <button
             className={tabClasses("Task")}
-            onClick={() => setActiveTab("Task")}
+            onClick={() => setActiveTab("Task")} // Change the active tab when clicked
           >
             Task
           </button>
@@ -71,11 +72,12 @@ export default function NewItemModal({ onClose, defaultTab }: NewModalProps) {
             Dashboard
           </button>
         </div>
-        {/* Przycisk do zamknięcia modala */}
+        {/* Close button for the modal */}
         <button
           className="absolute flex justify-center items-center p-[10px] top-2 right-2 rounded-lg hover:bg-gray-200 w-8 h-8"
-          onClick={onClose} // użycie funkcji do zamknięcia modala
+          onClick={onClose} // Calls the function to close the modal
         >
+          {/* Close icon */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 384 512"
@@ -87,8 +89,9 @@ export default function NewItemModal({ onClose, defaultTab }: NewModalProps) {
         </button>
       </div>
       <div className="w-full h-px bg-gray-200" />
-      {/* Renderowanie komponentu na podstawie aktywnej zakładki */}
-      {tabComponents[activeTab] || <div>Error</div>}
+      {/* Render the component based on the active tab */}
+      {tabComponents[activeTab] || <div>Error</div>}{" "}
+      {/* Default Error if no component found */}
     </>
   );
 }
