@@ -16,9 +16,13 @@ export default {
         customColor: "rgba(8, 128, 234, 1)",
         subNavBackgroud:'#2a2e34',
         textGray:'#87909E',
+        textFullWhite:"#FFFFFF",
         textWhite:'#F0F1F3',  
         borderColor:"rgb(60,65,74)",
         hoverGray:"#3C414A",
+        buttonBackgroundBlue:"#7F77F1",
+        buttonBackgroundBlueHover:"#9992F4",
+        expandButtonBgHover:"#4F5762",
       },
       boxShadow: {
         custom:
