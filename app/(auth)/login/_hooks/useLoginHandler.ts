@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { auth } from "@/db/firebase/lib/firebase";
+import { auth, initializeFirebasePersistence } from "@/db/firebase/lib/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { LoginInputs } from "../_components/LoginForm";
@@ -15,6 +15,7 @@ function useLoginHandler() {
     setLoginError("");
 
     try {
+      await initializeFirebasePersistence();
       const userCredential = await signInWithEmailAndPassword(auth, data.login, data.password);
       const userId = userCredential.user.uid;
 
