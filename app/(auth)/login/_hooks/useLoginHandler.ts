@@ -1,24 +1,21 @@
-'use client';
+"use client";
 
-import { FormEvent, useState } from 'react';
-import { auth } from '@/db/firebase/lib/firebase';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { useRouter } from 'next/navigation';
+import { useState } from "react";
+import { auth } from "@/db/firebase/lib/firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { useRouter } from "next/navigation";
+import { LoginInputs } from "../_components/LoginForm";
 function useLoginHandler() {
-  const [loginError, setLoginError] = useState('');
-  const [loginEmail, setLoginEmail] = useState('');
-  const [loginPassword, setLoginPassword] = useState('');
+  const [loginError, setLoginError] = useState("");
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
   const router = useRouter();
-  const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setLoginError('');
+
+  const handleLogin = async (data: LoginInputs) => {
+    setLoginError("");
 
     try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        loginEmail,
-        loginPassword
-      );
+      const userCredential = await signInWithEmailAndPassword(auth, data.login, data.password);
       const userId = userCredential.user.uid;
 
       router.push(`/${userId}/home`);
@@ -26,7 +23,7 @@ function useLoginHandler() {
       if (err instanceof Error) {
         setLoginError(err.message);
       } else {
-        setLoginError('An unknown error occurred.');
+        setLoginError("An unknown error occurred.");
       }
     }
   };
