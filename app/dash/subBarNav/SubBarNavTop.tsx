@@ -1,85 +1,78 @@
 'use client'
-import React from 'react'
+import React, { useState } from 'react'
 import { Icons } from '../icons/icons'
-// type Props = {}
-
+import ButtonVariant1 from '../components/ButtonVariant1'
+import ButtonVariant2 from '../components/ButtonVariant2'
+import ButtonVariant3 from '../components/ButtonVariant3'
+import ButtonVariant4 from '../components/ButtonVariant4'
 const SubBarNavTop = () => {
+  const [isToolView,setIsToolView]=useState(false);
+  
   return (
     <nav className=' bg-nav border-borderColor border-t border-b dark:bg-subNavBackgroud font-sans font-medium flex px-4'>
       <div className='w-full flex items-center h-12 text-sm capitalize '>
         <div className='flex mr-2 h-12 gap-2'>
-        <div className='border-b-2 border-b-blue-600 h-full flex items-center'>
-          <div className='flex gap-1 px-2 py-1 rounded-md hover:bg-hoverGray hover:text-textWhite active:text-textWhite '>
-            <Icons.DashboardIcon className='text-[14px] relative top-[4px]'/>
-            overview
-          </div>
+        <ButtonVariant1 onClick={()=>setIsToolView(false)}>
+          <Icons.DashboardIcon className='text-[14px] relative top-[4px]'/>
+          overview
+        </ButtonVariant1>
+        <ButtonVariant1 onClick={()=>setIsToolView(true)}>
+          <Icons.BoardIcon className='text-[14px] relative top-[4px]'/>
+          board
+        </ButtonVariant1 >
+        <ButtonVariant1 onClick={()=>setIsToolView(true)}>
+          <Icons.ListUlicon className='text-[14px] relative top-[4px]'/>
+          list
+        </ButtonVariant1>
+        <ButtonVariant1 onClick={()=>setIsToolView(true)}>
+          <Icons.CalendarIcon className='text-[14px] relative top-[4px] 'style={{strokeWidth:"2.4px"}}/>
+          calendar
+        </ButtonVariant1>
+        <ButtonVariant1 onClick={()=>setIsToolView(true)}>
+          <Icons.GantIcon className='text-[14px] relative top-[4px]'/>
+          gantt
+        </ButtonVariant1>
+        <ButtonVariant1 onClick={()=>setIsToolView(true)}>
+          <Icons.TeableIcon className='text-[14px] relative top-[4px]'/>
+          table
+        </ButtonVariant1>
         </div>
-        <div className='border-b-2 border-b-blue-600 h-full flex items-center'>
-          <div className='flex gap-1 px-2 py-1 rounded-md hover:bg-hoverGray hover:text-textWhite active:text-textWhite '>
-            <Icons.BoardIcon className='text-[14px] relative top-[4px]' />
-            Board
-          </div>
-        </div>
-        <div className='border-b-2 border-b-blue-600 h-full flex items-center'>
-          <div className='flex gap-1 px-2 py-1 rounded-md hover:bg-hoverGray hover:text-textWhite active:text-textWhite  '>
-            <Icons.ListUlicon className='text-[14px] relative top-[4px]' />
-            list
-          </div>
-        </div>
-        <div className='border-b-2 border-b-blue-600 h-full flex items-center'>
-          <div className='flex gap-1 px-2 py-1 rounded-md hover:bg-hoverGray hover:text-textWhite active:text-textWhite '>
-            <Icons.CalendarIcon className='text-[14px] relative top-[4px] 'style={{strokeWidth:"2.4px"}}/>
-            calendar
-          </div>
-        </div>
-        <div className='border-b-2 border-b-blue-600 h-full flex items-center'>
-          <div className='flex gap-1 px-2 py-1 rounded-md hover:bg-hoverGray hover:text-textWhite active:text-textWhite '>
-            <Icons.GantIcon className='text-[14px] relative top-[4px]' />
-            gantt
-          </div>
-        </div>
-        <div className='border-b-2 border-b-blue-600 h-full flex items-center'>
-          <div className='flex gap-1 px-2 py-1 rounded-md hover:bg-hoverGray hover:text-textWhite active:text-textWhite  '>
-            <Icons.TeableIcon className='text-[14px] relative top-[4px]' />
-            table
-          </div>
-        </div>
-        
-        </div>
-        
-        <div className=' ml-[14px] relative h-full flex items-center
-         before:content-[""] before:absolute before:-left-[9px] before:font-thin before:bg-hoverGray before:w-[0.5px] before:h-4 before:flex-shrink-0 '>
-          <div className='flex gap-1 px-2 py-1 rounded-md hover:bg-hoverGray cursor-pointer '>
-            <Icons.PlusIco className='text-[14px] relative top-[4px]' />
-            view
-          </div>
-        </div>
+        <ButtonVariant2 isLineBefore={true}>
+          <Icons.PlusIco className='text-[14px] relative top-[4px]'/>
+          view
+        </ButtonVariant2>
         
       </div>
       <div className='flex items-center h-12 text-sm capitalize'>
         <div className='flex items-center pl-2 h-12 gap-2'>
-          <div className='border-b-2 border-b-blue-600 h-full flex items-center'>
-          <div className='flex gap-1 px-2 py-1 rounded-md hover:bg-hoverGray hover:text-textWhite active:text-textWhite cursor-pointer'>
-            <Icons.SliderHorizontal className='text-[14px] relative top-[4px]'/>
-            show
-          </div>
-          </div>
+          {isToolView?
+            <>
+              <ButtonVariant2>
+                <Icons.SearchIcon className='text-[16px] relative top-[2px]'/>
+                search  
+              </ButtonVariant2>
+              <ButtonVariant2>
+                <Icons.SliderHorizontal className='text-[14px] relative top-[4px]'/>
+                show
+              </ButtonVariant2>
+              <ButtonVariant2>
+                <Icons.SettingsIcon className='text-[16px] relative top-[3px]'/>
+                customize
+              </ButtonVariant2>
+            </>
+          : 
+            <ButtonVariant2>
+              <Icons.SliderHorizontal className='text-[14px] relative top-[4px]'/>
+              show
+            </ButtonVariant2>
+          }
           <div className='w-[1px] h-4 mx-[2px] bg-hoverGray'></div>
-          {/* Blue button --component */}
-          <div className='h-full flex items-center min-w-max normal-case'>
-          <div className='flex px-[7px] h-6 text-xs items-center rounded-[0.25rem] bg-buttonBackgroundBlue hover:bg-buttonBackgroundBlueHover text-textFullWhite hover:text-textFullWhite'>
+          <ButtonVariant3>
             Add card
-          </div>
-          </div>
-          {/* end button component */}
-          {/* drop down button -- component */}
-          <div className='h-full flex items-center'>
-          <div className='flex w-[26px] h-[26px] min-w-[26px] rounded-[13px] items-center justify-center bg-hoverGray hover:bg-expandButtonBgHover cursor-pointer'>
+          </ButtonVariant3>
+          <ButtonVariant4>
             <Icons.ArrowDownIcon className='text-[16px] relative top-[1px]'/>
-
-          </div>
-          </div>
-          {/* end drop button component */}
+          </ButtonVariant4>
         </div>
       </div>
     </nav>
