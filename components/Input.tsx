@@ -9,18 +9,29 @@ type InputProps = {
   value: string;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   className?: string;
+  inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
 };
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   (
-    { label, children, id, placeholder, type, value, onChange, className, ...props }: InputProps,
+    {
+      label,
+      children,
+      id,
+      placeholder,
+      type,
+      value,
+      onChange,
+      className,
+      ...inputProps
+    }: InputProps,
     ref
   ) => {
     Input.displayName = "Input";
 
     return (
       <div className="flex flex-col w-full">
-        <label className="text-xs text-gray-700 font-semibold py-2" htmlFor={id}>
+        <label className="text-xs text-gray-700 font-semibold py-1" htmlFor={id}>
           {label}
         </label>
         <div className="relative flex flex-row">
@@ -34,7 +45,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             type={type}
             value={value}
             onChange={onChange}
-            {...props}></input>
+            {...inputProps}></input>
         </div>
       </div>
     );

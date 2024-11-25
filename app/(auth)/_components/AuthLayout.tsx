@@ -1,12 +1,15 @@
 import Image from "next/image";
 import logo from "@/public/app_logo.svg";
+import { ReactNode } from "react";
+import { AuthRedirectButton } from "./AuthRedirectButton";
+import { RedirectTo } from "../types/types";
 
 export default function AuthLayout({
-  Form,
-  RedirectButton,
+  redirectTo,
+  children,
 }: {
-  Form: React.ComponentType;
-  RedirectButton: React.ComponentType;
+  redirectTo: RedirectTo;
+  children: ReactNode;
 }) {
   return (
     <html lang="en">
@@ -14,11 +17,11 @@ export default function AuthLayout({
         <div className="flex flex-col h-screen bg-login-page bg-cover">
           <div className="flex flex-row px-10 py-12 justify-between">
             <Image src={logo} alt="demo logo"></Image>
-            <RedirectButton />
+            <AuthRedirectButton redirectTo={redirectTo} />
           </div>
           <div className="flex h-full justify-center">
             <div className="flex flex-col w-[480px] py-[30px] px-[60px] shadow-md bg-white rounded-2xl h-fit items-center gap-5">
-              <Form />
+              {children}
             </div>
           </div>
         </div>

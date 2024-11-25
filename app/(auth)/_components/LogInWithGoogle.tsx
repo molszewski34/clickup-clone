@@ -1,6 +1,6 @@
 import React from "react";
 import { FcGoogle } from "react-icons/fc";
-import useLoginWithGoogle from "./login/_hooks/useLoginWithGoogle";
+import useLoginWithGoogle from "../login/_hooks/useLoginWithGoogle";
 
 const LogInWithGoogle = () => {
   const { handleLoginWithGoogle } = useLoginWithGoogle();
