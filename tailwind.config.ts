@@ -23,6 +23,7 @@ export default {
         grayv3:"#3C414A",
         grayv4:'#2a2e34',
         grayv5:"rgb(60,65,74)",
+        grayv6:'#2a2e3433'
       },
       boxShadow: {
         custom:

@@ -10,6 +10,7 @@ type Props = {
 const ViewBarNavTop:React.FC<Props> = ({activeButton}) => {
     const [buttonActive,setButtonActive]=useState<string|null>(null);
     const [isExpandButtonActive,setIsExpandButtonActive]=useState(false);
+    const [isDoubleButtonActive,setIsDoubleButtonActive]=useState(false);
   return (
     <div className='flex items-center h-12 text-sm capitalize'>
         <div className='flex items-center pl-2 h-12 gap-2'>
@@ -36,16 +37,21 @@ const ViewBarNavTop:React.FC<Props> = ({activeButton}) => {
           </>
           }
           <div className='w-[1px] h-4 mx-[2px] bg-grayv3'></div>
+          {activeButton==="overview"?
           <ButtonVariant3>
             Add card
           </ButtonVariant3>
-          <ButtonVariant3 doubleButton={true}>
-            Add Task
-          </ButtonVariant3>
-          <ButtonVariant3 doubleButtonRight={true}>
-          <Icons.ArrowDownIcon className={`text-[12px] relative top-[1px] transition-transform ease-in-out
-               ${isExpandButtonActive?"rotate-180":''} `}/>
-          </ButtonVariant3>
+          :
+          <div className='flex'>
+            <ButtonVariant3 doubleButtonLeft={true}>
+                Add Task
+            </ButtonVariant3>
+            <ButtonVariant3 doubleButtonRight={true} onClick={()=>setIsDoubleButtonActive((prev)=>!prev)}>
+            <Icons.ArrowDownIcon className={`text-[12px] relative top-[1px] transition-transform ease-in-out
+                ${isDoubleButtonActive?"rotate-180":''}`}/>
+            </ButtonVariant3>
+          </div>
+        }
           <ButtonVariant4  onClick={()=>setIsExpandButtonActive((prev)=>!prev)}>
             <Icons.ArrowDownIcon className={`text-[16px] relative top-[1px] transition-transform ease-in-out
                ${isExpandButtonActive?"rotate-180":''} `}/>
