@@ -4,6 +4,8 @@ import { authFormTypes } from '../types/types';
 import useSignUpHandler from './_hooks/useSignUpHandler';
 const Signup: React.FC<authFormTypes> = () => {
   const {
+    signUpFullName,
+    setSignUpFullName,
     signUpEmail,
     setSignUpEmail,
     signUpPassword,
@@ -16,6 +18,15 @@ const Signup: React.FC<authFormTypes> = () => {
     <div style={{ padding: '2rem' }}>
       <h1>Rejestracja</h1>
       <form onSubmit={handleRegister}>
+        <div>
+          <label>Full Name:</label>
+          <input
+            type="text"
+            value={signUpFullName}
+            onChange={(e) => setSignUpFullName(e.target.value)}
+            required
+          />
+        </div>
         <div>
           <label>Email:</label>
           <input

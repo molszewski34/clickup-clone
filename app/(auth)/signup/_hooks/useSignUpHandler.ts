@@ -1,8 +1,10 @@
 import React, { FormEvent, useState } from 'react';
 
-import { auth } from '@/db/firebase/lib/firebase';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth, db } from '@/db/firebase/lib/firebase';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { doc, setDoc } from 'firebase/firestore';
 function useSignUpHandler() {
+  const [signUpFullName, setSignUpFullName] = useState('');
   const [signUpEmail, setSignUpEmail] = useState('');
   const [signUpPassword, setSignUpPassword] = useState('');
   const [signUpError, setSignUpError] = useState('');
@@ -11,7 +13,21 @@ function useSignUpHandler() {
     setSignUpError('');
 
     try {
-      await createUserWithEmailAndPassword(auth, signUpEmail, signUpPassword);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        signUpEmail,
+        signUpPassword
+      );
+      const user = userCredential.user;
+      await updateProfile(user, { displayName: signUpFullName });
+      await setDoc(doc(db, 'users', user.uid), {
+        signUpFullName,
+        signUpEmail,
+        uid: user.uid,
+        createdAt: new Date().toISOString(),
+      });
+
+      console.log('Account created successfully!');
     } catch (err: unknown) {
       if (err instanceof Error) {
         setSignUpError(err.message);
@@ -21,6 +37,8 @@ function useSignUpHandler() {
     }
   };
   return {
+    signUpFullName,
+    setSignUpFullName,
     signUpEmail,
     setSignUpEmail,
     signUpPassword,
