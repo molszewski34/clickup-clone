@@ -24,10 +24,10 @@ const AuthForm = ({
   type,
 }: AuthFormProps) => {
   return (
-    <form className="flex flex-col gap-1 w-full h-full items-center" onSubmit={onSubmit}>
-      <h1 className="text-4xl font-bold text-gray-700 mb-3">{title}</h1>
+    <form className="flex flex-col w-full h-full items-center" onSubmit={onSubmit}>
+      <h1 className="text-3xl font-bold text-gray-700 mb-3">{title}</h1>
       <LogInWithGoogle />
-      <div className="flex flex-row w-full gap-2">
+      <div className="flex flex-row w-full gap-2 mt-2">
         <div className="flex h-[1px] w-full bg-gray-300 mt-2.5"></div>
         <p className="text-gray-400 text-sm">OR</p>
         <div className="flex h-[1px] w-full bg-gray-300 mt-2.5"></div>
@@ -42,7 +42,7 @@ const AuthForm = ({
         <div className="p-2.5"></div>
       )}
       <Button
-        className="flex justify-end w-full h-14 mt-3"
+        className="flex justify-end w-full h-12 mt-3"
         type="submit"
         disabled={isSubmitting}
         key={type}>

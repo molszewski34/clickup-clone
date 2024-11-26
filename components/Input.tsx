@@ -31,7 +31,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
     return (
       <div className="flex flex-col w-full">
-        <label className="text-xs text-gray-700 font-semibold py-1" htmlFor={id}>
+        <label className="text-xs text-gray-700 font-semibold py-2" htmlFor={id}>
           {label}
         </label>
         <div className="relative flex flex-row">
@@ -43,7 +43,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             id={id}
             placeholder={placeholder}
             className={`
-              w-full border hover:border-gray-400 p-2.5 pl-10 rounded-xl active:border focus:ring-0 focus:outline-0 focus:border-gray-400 ${className}`}
+              w-full text-sm border hover:border-gray-400 p-2.5 pl-10 rounded-lg active:border focus:ring-0 focus:outline-0 focus:border-gray-400 ${className}`}
             type={type}
             value={value}
             onChange={onChange}

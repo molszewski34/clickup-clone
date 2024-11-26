@@ -5,6 +5,7 @@ import { TfiLock } from "react-icons/tfi";
 import { TiWarning } from "react-icons/ti";
 import { LiaEye } from "react-icons/lia";
 import { LiaEyeSlash } from "react-icons/lia";
+import { BiUser } from "react-icons/bi";
 import { Input } from "@/components/Input";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -16,7 +17,7 @@ import { RedirectTo } from "../types/types";
 import { useState } from "react";
 
 export type SignupInputs = {
-  // fullName: string; TODO: uncomment when implemented in backend
+  fullName: string;
   login: string;
   password: string;
 };
@@ -24,8 +25,8 @@ export type SignupInputs = {
 const SignupPage = () => {
   const [isShowPassword, setIsShowPassword] = useState(false);
   const {
-    // signUpFullName,
-    // setSignUpFullName,
+    signUpFullName,
+    setSignUpFullName,
     signUpEmail,
     setSignUpEmail,
     signUpPassword,
@@ -56,6 +57,30 @@ const SignupPage = () => {
         onSubmit={handleSubmit(onSubmit)}
         error={signUpError}
         type="signup">
+        <div className="w-full">
+          <Input
+            {...register("fullName")}
+            id="fullName"
+            placeholder="John Doe"
+            label="Full Name"
+            value={signUpFullName}
+            onChange={(e) => setSignUpFullName(e.target.value)}
+            className={
+              errors.fullName && "border-red-500 hover:border-red-500 focus:border-red-500"
+            }>
+            <BiUser size={20} color={errors.fullName && "red"} />
+          </Input>
+          {errors.fullName ? (
+            <div className="flex flex-row text-red-500 gap-1">
+              <TiWarning />
+              <p className="first-letter:capitalize text-xs  font-semibold">
+                {errors.fullName.message}!
+              </p>
+            </div>
+          ) : (
+            <div className="p-2"></div>
+          )}
+        </div>
         <div className="w-full">
           <Input
             {...register("login")}
