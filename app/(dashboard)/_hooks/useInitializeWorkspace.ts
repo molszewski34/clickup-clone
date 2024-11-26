@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { auth } from '@/db/firebase/lib/firebase';
-import { createDefaultWorkspace } from '@/app/server-actions/createDefaultWorkspace';
+import { createDefaultWorkspace } from '@/app/server-actions/workspace/createDefaultWorkspace';
 
 export const useInitializeWorkspace = () => {
   useEffect(() => {
