@@ -20,7 +20,6 @@ export const Button = ({
   type = "button",
   disabled,
 }: ButtonProps) => {
-  console.log(disabled);
   return (
     <button
       onClick={onClick}
