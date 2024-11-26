@@ -3,6 +3,8 @@
 import { HiOutlineMail } from "react-icons/hi";
 import { TfiLock } from "react-icons/tfi";
 import { TiWarning } from "react-icons/ti";
+import { LiaEye } from "react-icons/lia";
+import { LiaEyeSlash } from "react-icons/lia";
 import { Input } from "@/components/Input";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -11,6 +13,7 @@ import AuthForm from "../_components/AuthForm";
 import useSignUpHandler from "./_hooks/useSignUpHandler";
 import { signupSchema } from "../schemas/signupSchema";
 import { RedirectTo } from "../types/types";
+import { useState } from "react";
 
 export type SignupInputs = {
   // fullName: string; TODO: uncomment when implemented in backend
@@ -18,7 +21,8 @@ export type SignupInputs = {
   password: string;
 };
 
-const LoginPage = () => {
+const SignupPage = () => {
+  const [isShowPassword, setIsShowPassword] = useState(false);
   const {
     signUpEmail,
     setSignUpEmail,
@@ -78,13 +82,26 @@ const LoginPage = () => {
             id="login-password"
             label="Password"
             placeholder="Enter password"
-            type="password"
+            type={isShowPassword ? "text" : "password"}
             value={signUpPassword}
             onChange={(e) => setSignUpPassword(e.target.value)}
             className={
               errors.password && " border-red-500 hover:border-red-500 focus:border-red-500"
             }>
-            <TfiLock color={errors.password && "red"} />
+            <div className="flex flex-row justify-between w-full">
+              <TfiLock color={errors.password && "red"} />
+              {isShowPassword ? (
+                <LiaEyeSlash
+                  className="pointer-events-auto cursor-pointer text-gray-600"
+                  onClick={() => setIsShowPassword(false)}
+                />
+              ) : (
+                <LiaEye
+                  className="pointer-events-auto cursor-pointer text-gray-600"
+                  onClick={() => setIsShowPassword(true)}
+                />
+              )}
+            </div>
           </Input>
           {errors.password ? (
             <div className="flex flex-row text-red-500 gap-1">
@@ -102,4 +119,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default SignupPage;

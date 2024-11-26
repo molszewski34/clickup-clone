@@ -35,7 +35,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           {label}
         </label>
         <div className="relative flex flex-row">
-          <div className="absolute h-full flex items-center left-3 text-gray-400">{children}</div>
+          <div className="absolute px-3 h-full w-full flex items-center justify-between text-gray-400 pointer-events-none">
+            {children}
+          </div>
           <input
             ref={ref}
             id={id}

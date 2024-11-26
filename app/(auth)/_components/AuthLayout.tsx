@@ -1,5 +1,5 @@
 import Image from "next/image";
-import logo from "@/public/app_logo.svg";
+import logo from "@/public/big_logo.svg";
 import { ReactNode } from "react";
 import { AuthRedirectButton } from "./AuthRedirectButton";
 import { RedirectTo } from "../types/types";
@@ -15,7 +15,7 @@ export default function AuthLayout({
     <html lang="en">
       <body>
         <div className="flex flex-col h-screen bg-login-page bg-cover">
-          <div className="flex flex-row px-10 py-12 justify-between">
+          <div className="flex flex-row px-10 py-8 justify-between">
             <Image src={logo} alt="demo logo"></Image>
             <AuthRedirectButton redirectTo={redirectTo} />
           </div>

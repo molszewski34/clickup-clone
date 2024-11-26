@@ -8,9 +8,12 @@ import { Input } from "@/components/Input";
 import { HiOutlineMail } from "react-icons/hi";
 import { TfiLock } from "react-icons/tfi";
 import { TiWarning } from "react-icons/ti";
+import { LiaEye } from "react-icons/lia";
+import { LiaEyeSlash } from "react-icons/lia";
 import useLoginHandler from "./_hooks/useLoginHandler";
 import { RedirectTo } from "../types/types";
 import { loginSchema } from "../schemas/loginSchema";
+import { useState } from "react";
 
 export type LoginInputs = {
   login: string;
@@ -18,6 +21,7 @@ export type LoginInputs = {
 };
 
 const LoginPage = () => {
+  const [isShowPassword, setIsShowPassword] = useState(false);
   const {
     loginError,
     loginEmail,
@@ -77,15 +81,28 @@ const LoginPage = () => {
             id="password"
             label="Password"
             placeholder="Enter password"
-            type="password"
+            type={isShowPassword ? "text" : "password"}
             value={loginPassword}
             onChange={(e) => {
               setLoginPassword(e.target.value);
             }}
-            className={
-              errors.password && " border-red-500 hover:border-red-500 focus:border-red-500"
-            }>
-            <TfiLock color={errors.password && "red"} />
+            className={`
+              ${errors.password && "border-red-500 hover:border-red-500 focus:border-red-500"}
+            `}>
+            <div className="flex flex-row justify-between w-full">
+              <TfiLock color={errors.password && "red"} />
+              {isShowPassword ? (
+                <LiaEyeSlash
+                  className="pointer-events-auto cursor-pointer text-gray-600"
+                  onClick={() => setIsShowPassword(false)}
+                />
+              ) : (
+                <LiaEye
+                  className="pointer-events-auto cursor-pointer text-gray-600"
+                  onClick={() => setIsShowPassword(true)}
+                />
+              )}
+            </div>
           </Input>
           {errors.password ? (
             <div className="flex flex-row text-red-500 gap-1">

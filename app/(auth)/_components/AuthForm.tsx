@@ -36,7 +36,7 @@ const AuthForm = ({
       {error ? (
         <div className="flex flex-row text-red-500 gap-1 items-center">
           <TiWarning />
-          <p className="first-letter:capitalize text-sm  font-semibold">{error}!</p>
+          <p className="first-letter:capitalize text-sm font-semibold">{error}</p>
         </div>
       ) : (
         <div className="p-2.5"></div>

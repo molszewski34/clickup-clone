@@ -9,7 +9,7 @@ type AuthRedirectButtonProps = {
 export const AuthRedirectButton = ({ redirectTo }: AuthRedirectButtonProps) => {
   const router = useRouter();
   return (
-    <div className="flex flex-row gap-10 items-center">
+    <div className="flex flex-row gap-4 items-center">
       {redirectTo === RedirectTo.login && (
         <p className="font-semibold text-gray-800">Already have an account?</p>
       )}
