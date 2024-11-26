@@ -24,6 +24,8 @@ export type SignupInputs = {
 const SignupPage = () => {
   const [isShowPassword, setIsShowPassword] = useState(false);
   const {
+    // signUpFullName,
+    // setSignUpFullName,
     signUpEmail,
     setSignUpEmail,
     signUpPassword,
