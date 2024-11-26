@@ -1,8 +1,8 @@
 'use client'
 import React, { useState } from 'react'
-import { Icons } from '../icons/icons'
-import ButtonVariant1 from '../components/ButtonVariant1'
-import ButtonVariant2 from '../components/ButtonVariant2'
+import { Icons } from '../../../icons/icons'
+import ButtonVariant1 from '../../../components/ButtonVariant1'
+import ButtonVariant2 from '../../../components/ButtonVariant2'
 import ViewBarNavTop from './ViewBarNavTop'
 const SubBarNavTop = () => {
   const [activeButton,setActiveButton]=useState<string|null>(null);
