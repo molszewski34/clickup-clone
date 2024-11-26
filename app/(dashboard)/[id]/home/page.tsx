@@ -1,19 +1,22 @@
 'use client';
 
-import { useEffect } from 'react';
+import { use, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '@/db/firebase/lib/firebase';
+import { logoutUser } from '../../utils/logoutUser';
+import { useInitializeWorkspace } from '../../_hooks/useInitializeWorkspace';
+
 
 interface UserHomeProps {
-  params: {
-    id: string;
-  };
+  params: Promise<{ id: string }>;
 }
 
 const UserHomePage: React.FC<UserHomeProps> = ({ params }) => {
-  const { id } = params;
+  const { id } = use(params);
   const router = useRouter();
+
+  useInitializeWorkspace();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -29,6 +32,7 @@ const UserHomePage: React.FC<UserHomeProps> = ({ params }) => {
     <div>
       <h1>Użytkownik ma id: {id}!</h1>
       <p>Witaj w swoim dashboard</p>
+      <button onClick={logoutUser}>Wyloguj</button>
     </div>
   );
 };
