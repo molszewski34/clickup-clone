@@ -10,3 +10,8 @@ export interface authFormTypes {
     signUpError: string;
   }[];
 }
+
+export enum RedirectTo {
+  login = "Log in",
+  signup = "Sign up",
+}
