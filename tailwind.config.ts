@@ -14,6 +14,16 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
         customColor: "rgba(8, 128, 234, 1)",
+        whitev1:"#FFFFFF",
+        whitev2:'#F0F1F3',  
+        bluev1:"#7F77F1",
+        bluev2:"#9992F4",
+        grayv1:'#656F7D',
+        grayv2:"#4F5762",
+        grayv3:"#3C414A",
+        grayv4:'#2a2e34',
+        grayv5:"rgb(60,65,74)",
+        grayv6:'#2a2e3433'
       },
       boxShadow: {
         custom:
