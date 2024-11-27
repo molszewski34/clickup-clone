@@ -14,6 +14,17 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
         customColor: "rgba(8, 128, 234, 1)",
+        whitev1: "#FFFFFF",
+        whitev2: "#F0F1F3",
+        bluev1: "#7F77F1",
+        bluev2: "#9992F4",
+        grayv1: "#656F7D",
+        grayv2: "#4F5762",
+        grayv3: "#3C414A",
+        grayv4: "#2a2e34",
+        grayv5: "rgb(60,65,74)",
+        grayv6: "#2a2e3433",
+        iconDarkMode: "#999b9e",
       },
       boxShadow: {
         custom:
@@ -37,6 +48,7 @@ export default {
       },
       backgroundImage: {
         "text-gradient": `linear-gradient(54deg, rgba(8, 128, 234, 1) -3.99%, rgba(137, 32, 254, 1) 39.35%, rgba(233, 61, 130, 1) 72.09%, rgba(233, 61, 195, 1) 72.1%, rgba(198, 42, 182, 1) 92.75%)`,
+        "login-page": "url('/background_login.svg')",
       },
     },
   },

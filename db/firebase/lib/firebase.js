@@ -1,4 +1,4 @@
-import { initializeApp } from 'firebase/app';
+import { initializeApp } from "firebase/app";
 
 import {
   getAuth,
@@ -6,8 +6,6 @@ import {
   setPersistence,
   browserLocalPersistence,
 } from 'firebase/auth';
-
-import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 
 import { getFirestore } from 'firebase/firestore';
 const firebaseConfig = {
@@ -27,4 +25,3 @@ export const db = getFirestore(app);
 export const initializeFirebasePersistence = async () => {
   await setPersistence(auth, browserLocalPersistence);
 };
-
