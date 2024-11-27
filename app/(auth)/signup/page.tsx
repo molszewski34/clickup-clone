@@ -32,6 +32,7 @@ const SignupPage = () => {
     signUpPassword,
     setSignUpPassword,
     signUpError,
+    signUpSuccess,
     handleRegister,
     isSigningUp,
   } = useSignUpHandler();
@@ -56,6 +57,7 @@ const SignupPage = () => {
         isSubmitting={isFormBeingSubmitted}
         onSubmit={handleSubmit(onSubmit)}
         error={signUpError}
+        success={signUpSuccess}
         type="signup">
         <div className="w-full">
           <Input
