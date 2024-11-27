@@ -9,7 +9,6 @@ type Props = {
 
 const ButtonVariant2:React.FC<Props> = ({children, isLineBefore=false, onClick,isActive=false}) => {
     const line=`ml-[14px] relative before:content-[""] before:absolute before:-left-[9px] before:font-thin before:bg-grayv3 before:w-[1px] before:h-4 before:flex-shrink-0`
-    console.log(isLineBefore)
     return (
     <div className={`h-full flex items-center
     ${isLineBefore?line:''}`} >

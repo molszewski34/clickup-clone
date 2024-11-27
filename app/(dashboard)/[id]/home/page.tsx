@@ -10,7 +10,8 @@ import TopbarNav from '@/app/topBar-Nav/components/TopbarNav';
 import PageNavbar from '../../ui/PageNavbar';
 import PageIndicator from '../../ui/PageIndicator';
 import { Icons } from '@/icons/icons';
-
+import SubBarNavTop from '../../_components/SubBarNavTop';
+import SubBarNavHeader from '../../_components/SubBarNavHeader';
 interface UserHomeProps {
   params: Promise<{ id: string }>;
 }
@@ -32,8 +33,12 @@ const UserHomePage: React.FC<UserHomeProps> = ({ params }) => {
   }, [id, router]);
 
   return (
-    <div>
+    <div >
       <TopbarNav />
+      <SubBarNavHeader spaceName='Team space'>
+
+      </SubBarNavHeader>
+      <SubBarNavTop/>
       <PageNavbar>
         <PageIndicator icon={<Icons.HomePageIndicatorIcon />} name="Home" />
       </PageNavbar>

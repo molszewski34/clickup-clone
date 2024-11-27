@@ -7,6 +7,8 @@ import { FiSearch } from 'react-icons/fi';
 import { LuSettings } from 'react-icons/lu';
 import { BsLayoutTextSidebar } from 'react-icons/bs';
 import { FiHome } from 'react-icons/fi';
+import { HiOutlineDotsHorizontal } from "react-icons/hi";
+
 export const Icons = {
   ListUlicon: FaListUl,
   CalendarIcon: HiOutlineCalendar,
@@ -21,4 +23,5 @@ export const Icons = {
   SettingsIcon: LuSettings,
   SidebarExpandIcon: BsLayoutTextSidebar,
   HomePageIndicatorIcon: FiHome,
+  DotsIcon:HiOutlineDotsHorizontal,
 };

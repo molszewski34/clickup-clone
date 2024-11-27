@@ -7,7 +7,7 @@ import ViewBarNavTop from './ViewBarNavTop'
 const SubBarNavTop = () => {
   const [activeButton,setActiveButton]=useState<string|null>(null);
   return (
-    <nav className=' bg-nav border-grayv5 border-t border-b dark:bg-grayv4 font-sans font-medium flex px-4'>
+    <nav className='text-gray_400 bg-nav border-grayv5 border-t border-b dark:bg-grayv4 font-sans font-medium flex px-4'>
       <div className='w-full flex items-center h-12 text-sm capitalize '>
         <div className='flex mr-2 h-12 gap-2'>
         <ButtonVariant1 onClick={()=>setActiveButton("overview")} isActive={activeButton==="overview"}>
