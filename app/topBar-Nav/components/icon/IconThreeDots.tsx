@@ -1,4 +1,4 @@
-import { PiDotsThreeBold } from "react-icons/pi";
+import { BsThreeDots } from "react-icons/bs";
 
 export default function IconThreeDots({
   size = "16",
@@ -7,8 +7,9 @@ export default function IconThreeDots({
 }) {
   return (
     <>
-      <PiDotsThreeBold
-        className={`w-[${size}px] h-[${size}px] text-${color} ${classN}`}
+      <BsThreeDots
+        style={{ width: `${size}px`, height: `${size}px` }}
+        className={`text-${color} ${classN}`}
       />
     </>
   );

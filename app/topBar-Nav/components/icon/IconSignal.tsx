@@ -1,6 +1,6 @@
-import { HiOutlineChartSquareBar } from "react-icons/hi";
+import { HiMiniSignal } from "react-icons/hi2";
 
-export default function IconDashboard({
+export default function IconSignal({
   color = "gray-700",
   size = "20",
 }: {
@@ -9,10 +9,10 @@ export default function IconDashboard({
 }) {
   return (
     <>
-      <HiOutlineChartSquareBar
+      <HiMiniSignal
         style={{ width: `${size}px`, height: `${size}px` }}
         className={`text-${color} `}
-        strokeWidth="1.5"
+        strokeWidth="0"
       />
     </>
   );
