@@ -23,13 +23,14 @@ export const createNewWorkspace = async (
     });
     console.log('Workspace added successfully');
 
-    // Dodanie domyślnego projektu "List" do workspace
     const projectRef = doc(
       db,
       `users/${userId}/workspaces/${newWorkspace.id}/projects/list`
     );
     await setDoc(projectRef, {
-      name: 'List', // Domyślna nazwa projektu
+      id: crypto.randomUUID(),
+      name: 'List',
+      isPrivate: false,
     });
     console.log('Default project "List" added successfully');
   } catch (error) {
