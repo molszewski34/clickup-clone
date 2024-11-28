@@ -1,6 +1,6 @@
 'use client';
 
-import { use, useEffect, useState } from 'react';
+import { use, useEffect, useState} from 'react';
 import { useRouter } from 'next/navigation';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '@/db/firebase/lib/firebase';
@@ -17,6 +17,7 @@ interface UserHomeProps {
 }
 
 const UserHomePage: React.FC<UserHomeProps> = ({ params }) => {
+  const [subBarNavHeaderActive,setSubBarNavHeaderActive]=useState<boolean>(false);
   const { id } = use(params);
   const router = useRouter();
 
@@ -35,10 +36,8 @@ const UserHomePage: React.FC<UserHomeProps> = ({ params }) => {
   return (
     <div >
       <TopbarNav />
-      <SubBarNavHeader spaceName='Team space'>
-
-      </SubBarNavHeader>
-      <SubBarNavTop/>
+      <SubBarNavHeader spaceName='Team space'/>
+      <SubBarNavTop  setSubBarNavHeaderActive={setSubBarNavHeaderActive}/>
       <PageNavbar>
         <PageIndicator icon={<Icons.HomePageIndicatorIcon />} name="Home" />
       </PageNavbar>

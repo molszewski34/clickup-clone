@@ -4,7 +4,10 @@ import { Icons } from '../../../icons/icons'
 import ButtonVariant1 from '../../../components/ButtonVariant1'
 import ButtonVariant2 from '../../../components/ButtonVariant2'
 import ViewBarNavTop from './ViewBarNavTop'
-const SubBarNavTop = () => {
+interface Props{
+  setSubBarNavHeaderActive:React.Dispatch<React.SetStateAction<boolean>>;
+}
+const SubBarNavTop:React.FC<Props> = ({ setSubBarNavHeaderActive}) => {
   const [activeButton,setActiveButton]=useState<string|null>(null);
   return (
     <nav className='text-gray_400 bg-nav border-grayv5 border-t border-b dark:bg-grayv4 font-sans font-medium flex px-4'>
@@ -41,7 +44,7 @@ const SubBarNavTop = () => {
         </ButtonVariant2>
         
       </div>
-      <ViewBarNavTop activeButton={activeButton}/>
+      <ViewBarNavTop activeButton={activeButton}  setSubBarNavHeaderActive={setSubBarNavHeaderActive}/>
     </nav>
   )
 }

@@ -4,13 +4,16 @@ import ButtonVariant3 from '../../../components/ButtonVariant3'
 import ButtonVariant4 from '../../../components/ButtonVariant4'
 import { Icons } from '../../../icons/icons'
 type Props = {
-    activeButton:string|null
+  activeButton:string|null;
+  setSubBarNavHeaderActive:React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const ViewBarNavTop:React.FC<Props> = ({activeButton}) => {
+const ViewBarNavTop:React.FC<Props> = ({activeButton,setSubBarNavHeaderActive}) => {
     const [buttonActive,setButtonActive]=useState<string|null>(null);
-    const [isExpandButtonActive,setIsExpandButtonActive]=useState(false);
-    const [isDoubleButtonActive,setIsDoubleButtonActive]=useState(false);
+    const expandButtonHandler=()=>{
+      setButtonActive((prev)=>prev==="expandButton"?"":"expandButton")
+      setSubBarNavHeaderActive((prev)=>!prev);
+    }
   return (
     <div className='flex items-center h-12 text-sm capitalize'>
         <div className='flex items-center pl-2 h-12 gap-2'>
@@ -46,15 +49,15 @@ const ViewBarNavTop:React.FC<Props> = ({activeButton}) => {
             <ButtonVariant3 doubleButtonLeft={true}>
                 Add Task
             </ButtonVariant3>
-            <ButtonVariant3 doubleButtonRight={true} onClick={()=>setIsDoubleButtonActive((prev)=>!prev)}>
+            <ButtonVariant3 doubleButtonRight={true} onClick={()=>setButtonActive((prev)=>prev==="AddTaskDoubleRightButton"?"":"AddTaskDoubleRightButton")}>
             <Icons.ArrowDownIcon className={`text-[12px] relative top-[1px] transition-transform ease-in-out
-                ${isDoubleButtonActive?"rotate-180":''}`}/>
+                ${buttonActive==="AddTaskDoubleRightButton"?"rotate-180":''}`}/>
             </ButtonVariant3>
           </div>
         }
-          <ButtonVariant4  onClick={()=>setIsExpandButtonActive((prev)=>!prev)}>
+          <ButtonVariant4  onClick={()=>setButtonActive((prev)=>prev==="expandButton"?"":"expandButton")}>
             <Icons.ArrowDownIcon className={`text-[16px] relative top-[1px] transition-transform ease-in-out
-               ${isExpandButtonActive?"rotate-180":''} `}/>
+               ${buttonActive==="expandButton"?"rotate-180":''} `}/>
           </ButtonVariant4>
         </div>
       </div>
