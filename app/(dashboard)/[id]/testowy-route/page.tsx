@@ -25,6 +25,7 @@ const UserHomePage: React.FC<UserHomeProps> = ({ params }) => {
   const [userId, setUserId] = useState<string | null>(null);
   const [selectedWorkspace, setSelectedWorkspace] = useState<any | null>(null);
   const [newProjectName, setNewProjectName] = useState<string>('');
+  const [isPrivate, setisPrivate] = useState<boolean>(false);
 
   useInitializeWorkspace();
 
@@ -45,7 +46,12 @@ const UserHomePage: React.FC<UserHomeProps> = ({ params }) => {
     if (!userId || !selectedWorkspace) return;
 
     try {
-      await addProject(userId, selectedWorkspace.id, newProjectName || 'List');
+      await addProject(
+        userId,
+        selectedWorkspace,
+        newProjectName || 'List',
+        isPrivate
+      );
       alert(
         `Dodano projekt "${
           newProjectName || 'List'
@@ -81,6 +87,10 @@ const UserHomePage: React.FC<UserHomeProps> = ({ params }) => {
             value={newProjectName}
             onChange={(e) => setNewProjectName(e.target.value)}
           />
+          <label htmlFor="">
+            Czy jest prywatny?{' '}
+            <input type="checkbox" onClick={() => setisPrivate(!isPrivate)} />
+          </label>
           <button onClick={handleAddProject}>Dodaj Projekt</button>
         </div>
       )}
