@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '@/db/firebase/lib/firebase';
@@ -12,10 +12,9 @@ import PageIndicator from '../../ui/PageIndicator';
 import { Icons } from '@/icons/icons';
 import useFetchWorkspaces from '../../_hooks/useFetchWorspaces';
 import AddWorkspace from '../../_components/AddWorkspace';
-import useHandleAddProject from '../../_hooks/useHandleAddProject';
-
 import WorkspacesList from '../../_components/WorkspaceList/WorkspaceList';
-import AddProjectForm from '../../_components/AddProject';
+
+import { addProject } from '@/app/server-actions/project/addNewProject';
 
 interface UserHomeProps {
   params: { id: string };
@@ -24,6 +23,8 @@ interface UserHomeProps {
 const UserHomePage: React.FC<UserHomeProps> = ({ params }) => {
   const router = useRouter();
   const [userId, setUserId] = useState<string | null>(null);
+  const [selectedWorkspace, setSelectedWorkspace] = useState<any | null>(null);
+  const [newProjectName, setNewProjectName] = useState<string>('');
 
   useInitializeWorkspace();
 
@@ -40,21 +41,21 @@ const UserHomePage: React.FC<UserHomeProps> = ({ params }) => {
 
   const { workspaces } = useFetchWorkspaces();
 
-  const {
-    handleAddProject,
-    selectedWorkspace,
-    setSelectedWorkspace,
-    newProjectName,
-    setNewProjectName,
-    isPrivate,
-    setIsPrivate,
-  } = useHandleAddProject();
+  const handleAddProject = async () => {
+    if (!userId || !selectedWorkspace) return;
 
-  const handleInputChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) =>
-      setNewProjectName(e.target.value),
-    [setNewProjectName]
-  );
+    try {
+      await addProject(userId, selectedWorkspace.id, newProjectName || 'List');
+      alert(
+        `Dodano projekt "${
+          newProjectName || 'List'
+        }" do workspace ${selectedWorkspace}`
+      );
+      setNewProjectName('');
+    } catch (error) {
+      console.error('Błąd podczas dodawania projektu:', error);
+    }
+  };
 
   return (
     <div>
@@ -72,15 +73,16 @@ const UserHomePage: React.FC<UserHomeProps> = ({ params }) => {
         <AddWorkspace />
       </div>
       {selectedWorkspace && (
-        <AddProjectForm
-          selectedWorkspace={selectedWorkspace}
-          handleAddProject={handleAddProject}
-          newProjectName={newProjectName}
-          handleInputChange={handleInputChange}
-          isPrivate={isPrivate}
-          setIsPrivate={setIsPrivate}
-          onCancel={() => setSelectedWorkspace(null)}
-        />
+        <div className="add-project-form">
+          <h3>Dodaj projekt do: {selectedWorkspace}</h3>
+          <input
+            type="text"
+            placeholder="Nazwa projektu"
+            value={newProjectName}
+            onChange={(e) => setNewProjectName(e.target.value)}
+          />
+          <button onClick={handleAddProject}>Dodaj Projekt</button>
+        </div>
       )}
     </div>
   );
