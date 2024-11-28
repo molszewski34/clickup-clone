@@ -16,7 +16,7 @@ export default function SortMenuModal() {
       </Button>
 
       {/* Button for docs with a document icon */}
-      <Button icon={<IconDoc fill="gray-600" stroke="gray-600" size={12} />}>
+      <Button icon={<IconDoc fill="gray-600" stroke="gray-600" size="12" />}>
         Docs
       </Button>
 
