@@ -8,7 +8,8 @@ export default function IconClose({
   return (
     <>
       <AiOutlineClose
-        className={`w-[${size}px] h-[${size}px] text-${color} ${classN}`}
+        style={{ width: `${size}px`, height: `${size}px` }}
+        className={`fill-${color} stroke-${color} ${classN}`}
       />
     </>
   );

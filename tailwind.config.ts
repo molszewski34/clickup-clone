@@ -27,7 +27,8 @@ export default {
         iconDarkMode: "#999b9e",
       },
       boxShadow: {
-        custom: "0px 16px 48px 0px rgba(0, 0, 0, 0.24), 0px 24px 96px 0px rgba(0, 0, 0, 0.24)",
+        custom:
+          "0px 16px 48px 0px rgba(0, 0, 0, 0.24), 0px 24px 96px 0px rgba(0, 0, 0, 0.24)",
       },
       fontFamily: {
         sans: [
@@ -53,7 +54,8 @@ export default {
   },
   safelist: [
     {
-      pattern: /^(fill|stroke)-(white|gray)-(100|200|300|400|500|600|700|800|900)$/,
+      pattern:
+        /^(fill|stroke)-(white|gray|blue)-(100|200|300|400|500|600|700|800|900)$/,
     },
   ],
   plugins: [],

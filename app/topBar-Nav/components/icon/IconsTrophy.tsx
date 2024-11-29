@@ -1,6 +1,6 @@
-import { HiOutlineChartSquareBar } from "react-icons/hi";
+import { CiTrophy } from "react-icons/ci";
 
-export default function IconDashboard({
+export default function IconsTrophy({
   color = "gray-700",
   size = "20",
 }: {
@@ -9,10 +9,10 @@ export default function IconDashboard({
 }) {
   return (
     <>
-      <HiOutlineChartSquareBar
+      <CiTrophy
         style={{ width: `${size}px`, height: `${size}px` }}
         className={`text-${color} `}
-        strokeWidth="1.5"
+        strokeWidth="0.25"
       />
     </>
   );
