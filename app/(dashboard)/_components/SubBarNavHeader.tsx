@@ -5,13 +5,16 @@ import React, { useState } from 'react'
 
 type Props = {
     spaceName:string
+    subBarNavHeaderActive:boolean;
 }
 
-const SubBarNavHeader:React.FC<Props> = ({spaceName}) => {
+const SubBarNavHeader:React.FC<Props> = ({spaceName,subBarNavHeaderActive=false,}) => {
   const [activeButton, setActiveButton]=useState<string|null>(null);  
-  
+  console.log(subBarNavHeaderActive)
   return (
-    <div className='font-sans flex transition-all ease-in-out items-center text-white_100 dark:bg-grayv4 max-h-[112px] px-12 pt-6 pb-4'>
+    //ToDo: check if its working, shows subbarHeader and hide when clik expand button in subBarNavTop
+    <div className={`font-sans flex  transition-all duration-500 ease-in-out items-center text-white_100 dark:bg-darkGray_600
+      ${!subBarNavHeaderActive?" invisible max-h-0 opacity-0":"visible max-h-[112px] px-12 pt-6 pb-4 "} `}>
       <div className='flex mr-auto'>
         <h1 className='text-2xl mr-[6px] font-semibold'>{spaceName}</h1>
         <ButtonVariant2 isActive={activeButton==='dots'} onClick={()=>setActiveButton((prev)=>prev==='dots'?"":'dots')}>

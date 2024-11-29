@@ -55,7 +55,7 @@ const ViewBarNavTop:React.FC<Props> = ({activeButton,setSubBarNavHeaderActive}) 
             </ButtonVariant3>
           </div>
         }
-          <ButtonVariant4  onClick={()=>setButtonActive((prev)=>prev==="expandButton"?"":"expandButton")}>
+          <ButtonVariant4  onClick={()=>expandButtonHandler()}>
             <Icons.ArrowDownIcon className={`text-[16px] relative top-[1px] transition-transform ease-in-out
                ${buttonActive==="expandButton"?"rotate-180":''} `}/>
           </ButtonVariant4>

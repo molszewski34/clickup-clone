@@ -36,7 +36,7 @@ const UserHomePage: React.FC<UserHomeProps> = ({ params }) => {
   return (
     <div >
       <TopbarNav />
-      <SubBarNavHeader spaceName='Team space'/>
+      <SubBarNavHeader spaceName='Team space' subBarNavHeaderActive={subBarNavHeaderActive} />
       <SubBarNavTop  setSubBarNavHeaderActive={setSubBarNavHeaderActive}/>
       <PageNavbar>
         <PageIndicator icon={<Icons.HomePageIndicatorIcon />} name="Home" />
