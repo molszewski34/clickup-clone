@@ -15,6 +15,11 @@ import AddWorkspace from '../../_components/AddWorkspace';
 import WorkspacesList from '../../_components/WorkspaceList/WorkspaceList';
 
 import { addProject } from '@/app/server-actions/project/addNewProject';
+import { getProjects } from '@/app/server-actions/project/getProjects';
+import { getTasks } from '@/app/server-actions/task/getTasks';
+import { addTask } from '@/app/server-actions/task/addNewTask';
+import { addSubTask } from '@/app/server-actions/subtasks/addNewSubTask';
+import { getSubTasks } from '@/app/server-actions/subtasks/getSubtasks';
 
 interface UserHomeProps {
   params: { id: string };
@@ -26,6 +31,31 @@ const UserHomePage: React.FC<UserHomeProps> = ({ params }) => {
   const [selectedWorkspace, setSelectedWorkspace] = useState<any | null>(null);
   const [newProjectName, setNewProjectName] = useState<string>('');
   const [isPrivate, setisPrivate] = useState<boolean>(false);
+  const [projects, setProjects] = useState<any[]>([]); // Stan dla projektów
+
+  const [selectedProject, setSelectedProject] = useState<string>('');
+  const [newTaskName, setNewTaskName] = useState<string>('');
+  const [taskStatus, setTaskStatus] = useState('');
+  const [taskDueDate, setTaskDueDate] = useState(null);
+  const [taskAssignees, setTaskAssignees] = useState('');
+  const [taskTimeEstimate, setTaskTimeEstimate] = useState('');
+  const [taskPriority, setTaskPriority] = useState('');
+  const [taskDetails, setTaskDetails] = useState('');
+  const [selectedTask, setSelectedTask] = useState('');
+  const [tasks, setTasks] = useState<any[]>([]);
+  const [newSubTaskName, setNewSubTaskName] = useState('');
+  const [subTaskStatus, setSubTaskStatus] = useState('');
+  const [subTaskDueDate, setSubTaskDueDate] = useState(null);
+  const [subTaskAssignees, setSubTaskAssignees] = useState('');
+  const [subTaskTimeEstimate, setSubTaskTimeEstimate] = useState('');
+  const [subTaskPriority, setSubTaskPriority] = useState('');
+  const [subTaskDetails, setSubTaskDetails] = useState('');
+  const [subTasks, setSubTasks] = useState<any[]>([]);
+  console.log('projects', projects);
+  console.log('tasks', tasks);
+  console.log('subtasks', subTasks);
+  console.log('selectedtask', selectedTask);
+  console.log('new subtask name', newSubTaskName);
 
   useInitializeWorkspace();
 
@@ -42,6 +72,52 @@ const UserHomePage: React.FC<UserHomeProps> = ({ params }) => {
 
   const { workspaces } = useFetchWorkspaces();
 
+  const fetchProjects = async () => {
+    if (!userId || !selectedWorkspace) return;
+    const fetchedProjects = await getProjects(userId, selectedWorkspace);
+    setProjects(fetchedProjects);
+  };
+
+  useEffect(() => {
+    if (selectedWorkspace) {
+      fetchProjects();
+    }
+  }, [selectedWorkspace]);
+
+  const fetchTasks = async () => {
+    if (!userId || !selectedWorkspace || !selectedProject) return;
+    const fetchedTasks = await getTasks(
+      userId,
+      selectedWorkspace,
+      selectedProject
+    );
+    setTasks(fetchedTasks);
+  };
+
+  useEffect(() => {
+    if (selectedWorkspace) {
+      fetchTasks();
+    }
+  }, [selectedProject]);
+
+  const fetchSubTasks = async () => {
+    if (!userId || !selectedWorkspace || !selectedProject || !selectedTask)
+      return;
+    const fetchedSubTasks = await getSubTasks(
+      userId,
+      selectedWorkspace,
+      selectedProject,
+      selectedTask
+    );
+    setSubTasks(fetchedSubTasks);
+  };
+
+  useEffect(() => {
+    if (selectedTask) {
+      fetchSubTasks();
+    }
+  }, [selectedTask]);
+
   const handleAddProject = async () => {
     if (!userId || !selectedWorkspace) return;
 
@@ -53,11 +129,63 @@ const UserHomePage: React.FC<UserHomeProps> = ({ params }) => {
         isPrivate
       );
       alert(
-        `Dodano projekt "${
-          newProjectName || 'List'
-        }" do workspace ${selectedWorkspace}`
+        `Dtask "${newProjectName || 'List'}" do workspace ${selectedWorkspace}`
       );
       setNewProjectName('');
+    } catch (error) {
+      console.error('Błąd podczas dodawania projektu:', error);
+    }
+  };
+
+  const handleAddTask = async () => {
+    if (!userId || !selectedWorkspace || !selectedProject) return;
+
+    try {
+      await addTask(
+        userId,
+        selectedWorkspace,
+        selectedProject,
+        newSubTaskName,
+        taskStatus,
+        taskDueDate,
+        taskAssignees,
+        taskTimeEstimate,
+        taskPriority,
+        taskDetails
+      );
+      alert(
+        `Dodano task "${
+          newProjectName || 'List'
+        }" do projektu ${selectedProject}`
+      );
+      setNewTaskName('');
+    } catch (error) {
+      console.error('Błąd podczas dodawania projektu:', error);
+    }
+  };
+
+  const handleAddSubTask = async () => {
+    if (!userId || !selectedWorkspace || !selectedProject || !selectedTask)
+      return;
+
+    try {
+      await addSubTask(
+        userId,
+        selectedWorkspace,
+        selectedProject,
+        selectedTask,
+        newSubTaskName,
+        subTaskStatus,
+        subTaskDueDate,
+        subTaskAssignees,
+        subTaskTimeEstimate,
+        subTaskPriority,
+        subTaskDetails
+      );
+      alert(
+        `Dodano sub task "${newSubTaskName || 'List'}" do tasku ${selectedTask}`
+      );
+      setNewSubTaskName('');
     } catch (error) {
       console.error('Błąd podczas dodawania projektu:', error);
     }
@@ -80,7 +208,9 @@ const UserHomePage: React.FC<UserHomeProps> = ({ params }) => {
       </div>
       {selectedWorkspace && (
         <div className="add-project-form">
-          <h3>Dodaj projekt do: {selectedWorkspace}</h3>
+          <h3>
+            Dodaj projekt do: <b>{selectedWorkspace}</b>
+          </h3>
           <input
             type="text"
             placeholder="Nazwa projektu"
@@ -94,6 +224,61 @@ const UserHomePage: React.FC<UserHomeProps> = ({ params }) => {
           <button onClick={handleAddProject}>Dodaj Projekt</button>
         </div>
       )}
+      <ul>
+        {projects.map((project) => (
+          <li key={project.id} onClick={() => setSelectedProject(project.id)}>
+            <strong>{project.name}</strong> - {project.desc || 'No description'}
+          </li>
+        ))}
+      </ul>
+      <div className="">
+        {selectedProject && (
+          <div className="add-project-form">
+            <h3>
+              Dodaj task do projektu o uuid: <b>{selectedProject}</b>{' '}
+            </h3>
+            <input
+              type="text"
+              placeholder="Nazwa tasku"
+              value={newTaskName}
+              onChange={(e) => setNewTaskName(e.target.value)}
+            />
+
+            <button onClick={handleAddTask}>Dodaj task</button>
+          </div>
+        )}
+      </div>
+      <ul>
+        {tasks.map((task: any) => (
+          <li key={task.id} onClick={() => setSelectedTask(task.id)}>
+            <strong>{task.name}</strong> - {task.desc || 'No description'}
+          </li>
+        ))}
+      </ul>
+      <div className="">
+        {selectedTask && (
+          <div className="add-project-form">
+            <h3>
+              Dodaj sub task do projektu o uuid: <b>{selectedTask}</b>
+            </h3>
+            <input
+              type="text"
+              placeholder="Nazwa sub tasku"
+              value={newSubTaskName}
+              onChange={(e) => setNewSubTaskName(e.target.value)}
+            />
+
+            <button onClick={handleAddSubTask}>Dodaj sub task</button>
+          </div>
+        )}
+      </div>
+      <ul>
+        {subTasks.map((subtask: any) => (
+          <li key={subtask.id}>
+            <strong>{subtask.name}</strong> - {subtask.desc || 'No description'}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
