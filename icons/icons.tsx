@@ -1,12 +1,12 @@
-import { SvgIcons } from './svgIcons';
-import { FaListUl, FaPlus } from 'react-icons/fa6';
-import { RiDashboardHorizontalLine } from 'react-icons/ri';
-import { HiOutlineCalendar } from 'react-icons/hi2';
-import { IoIosArrowDown } from 'react-icons/io';
-import { FiSearch } from 'react-icons/fi';
-import { LuSettings } from 'react-icons/lu';
-import { BsLayoutTextSidebar } from 'react-icons/bs';
-import { FiHome } from 'react-icons/fi';
+import { SvgIcons } from "./svgIcons";
+import { FaListUl, FaPlus } from "react-icons/fa6";
+import { RiDashboardHorizontalLine } from "react-icons/ri";
+import { HiOutlineCalendar } from "react-icons/hi2";
+import { IoIosArrowDown } from "react-icons/io";
+import { FiSearch, FiLayers } from "react-icons/fi";
+import { LuSettings } from "react-icons/lu";
+import { BsLayoutTextSidebar } from "react-icons/bs";
+import { FiHome } from "react-icons/fi";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 
 export const Icons = {
@@ -23,5 +23,7 @@ export const Icons = {
   SettingsIcon: LuSettings,
   SidebarExpandIcon: BsLayoutTextSidebar,
   HomePageIndicatorIcon: FiHome,
-  DotsIcon:HiOutlineDotsHorizontal,
+  DotsIcon: HiOutlineDotsHorizontal,
+  LayersIcon: FiLayers,
+  CollapseIcon: SvgIcons.TwoDotsWithArc,
 };
