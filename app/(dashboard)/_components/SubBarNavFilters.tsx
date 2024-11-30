@@ -1,11 +1,17 @@
-import React from 'react'
+import React from "react";
 
-type Props = {}
+type Props = {
+  subBarNavHeaderActive: boolean;
+};
 
-const SubBarNavFilters = (props: Props) => {
+const SubBarNavFilters = ({ subBarNavHeaderActive }: Props) => {
   return (
-    <div>SubBarNavFilters</div>
-  )
-}
+    <div className="flex h-10 gap-1 items-center">
+      <div className="flex items-center gap-1"></div>
+      {/* secend half */}
+      <div></div>
+    </div>
+  );
+};
 
-export default SubBarNavFilters
+export default SubBarNavFilters;
