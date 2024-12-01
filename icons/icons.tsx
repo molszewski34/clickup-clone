@@ -4,10 +4,14 @@ import { RiDashboardHorizontalLine } from "react-icons/ri";
 import { HiOutlineCalendar } from "react-icons/hi2";
 import { IoIosArrowDown } from "react-icons/io";
 import { FiSearch, FiLayers } from "react-icons/fi";
-import { LuSettings } from "react-icons/lu";
+import { LuSettings, LuListFilter, LuUsers2 } from "react-icons/lu";
 import { BsLayoutTextSidebar } from "react-icons/bs";
 import { FiHome } from "react-icons/fi";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
+import { CiViewColumn } from "react-icons/ci";
+import { GoPerson } from "react-icons/go";
+import { FaRegCheckCircle } from "react-icons/fa";
+import { CgClose } from "react-icons/cg";
 
 export const Icons = {
   ListUlicon: FaListUl,
@@ -26,4 +30,10 @@ export const Icons = {
   DotsIcon: HiOutlineDotsHorizontal,
   LayersIcon: FiLayers,
   CollapseIcon: SvgIcons.TwoDotsWithArc,
+  ColumnIcon: CiViewColumn,
+  FilterIcon: LuListFilter,
+  PersonIcon: GoPerson,
+  UsersIcon: LuUsers2,
+  CheckIcon: FaRegCheckCircle,
+  CloseIcon: CgClose,
 };
