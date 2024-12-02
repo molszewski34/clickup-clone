@@ -18,7 +18,7 @@ const ButtonVariant1: React.FC<Props> = ({
     >
       <button
         onClick={onClick}
-        className="capitalize flex gap-1 px-2 py-1 rounded-md hover:bg-darGray_400 hover:text-white_100 transition-colors ease-in-out active:bg-darGray_300 active:text-white_100 cursor-pointer"
+        className="capitalize flex gap-1 px-2 py-1 rounded-md hover:bg-darkGray_400 hover:text-white_100 transition-colors ease-in-out active:bg-darkGray_300 active:text-white_100 cursor-pointer"
       >
         {children}
       </button>

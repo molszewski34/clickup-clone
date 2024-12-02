@@ -12,8 +12,15 @@ const SubBarNavFilters = ({ subBarNavHeaderActive }: Props) => {
     null
   );
   const [closeButtonActive, setCloseButtonActive] = useState(false);
+  const closeButtonHandler = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    setCloseButtonActive(false);
+  };
   return (
-    <div className="flex h-10 gap-1 items-center bg-darkGray_600">
+    <div
+      className={` flex h-10 gap-1 items-center bg-darkGray_600
+    ${subBarNavHeaderActive ? "px-12" : "px-4"}`}
+    >
       <div className="flex items-center gap-1">
         <FilterButton
           isActive={activeFilterButton === "statusFilter"}
@@ -77,14 +84,20 @@ const SubBarNavFilters = ({ subBarNavHeaderActive }: Props) => {
         >
           <Icons.CheckIcon />
           Closed
-          <ButtonVariant4
-            width="w-[22px]"
-            height="h-[22px]"
-            minWidth="min-h-[22px]"
-            onClick={() => setCloseButtonActive(false)}
-          >
-            <Icons.CloseIcon style={{ strokeWidth: "0.5px" }} />
-          </ButtonVariant4>
+          {closeButtonActive && (
+            <ButtonVariant4
+              width="w-[22px]"
+              height="h-[22px]"
+              minWidth="min-h-[22px]"
+              position="absolute"
+              right="right-0"
+              hoverBackGround=""
+              color="text-blue_550"
+              onClick={closeButtonHandler}
+            >
+              <Icons.CloseIcon style={{ strokeWidth: "0.5px" }} />
+            </ButtonVariant4>
+          )}
         </FilterButton>
       </div>
       {/* secend half */}

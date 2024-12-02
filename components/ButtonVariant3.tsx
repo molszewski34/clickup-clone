@@ -27,7 +27,7 @@ const ButtonVariant3: React.FC<Props> = ({
     <div className="h-full flex items-center min-w-max normal-case">
       <button
         onClick={onClick}
-        className={`flex text-xs  items-center bg-bluev1 hover:bg-blue_400 text-whitev1 hover:text-whitev1 
+        className={`flex text-xs  items-center bg-blue_600 hover:bg-blue_400 text-whitev1 hover:text-whitev1 
           ${doubleClass} ${padding} ${height}
           `}
       >
