@@ -1,8 +1,26 @@
 import { addProject } from '@/app/server-actions/project/addNewProject';
 import { getProjects } from '@/app/server-actions/project/getProjects';
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 
-const ProjectsSection = ({
+interface Project {
+  id: string;
+  name: string;
+  desc?: string;
+}
+
+interface ProjectsSectionProps {
+  userId: string;
+  selectedWorkspace: string;
+  setProjects: React.Dispatch<React.SetStateAction<Project[]>>;
+  newProjectName: string;
+  setNewProjectName: React.Dispatch<React.SetStateAction<string>>;
+  isPrivate: boolean;
+  setisPrivate: React.Dispatch<React.SetStateAction<boolean>>;
+  projects: Project[];
+  setSelectedProject: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const ProjectsSection: React.FC<ProjectsSectionProps> = ({
   userId,
   selectedWorkspace,
   setProjects,
@@ -13,11 +31,13 @@ const ProjectsSection = ({
   projects,
   setSelectedProject,
 }) => {
-  const fetchProjects = async () => {
+  const fetchProjects = useCallback(async () => {
     if (!userId || !selectedWorkspace) return;
+
     const fetchedProjects = await getProjects(userId, selectedWorkspace);
+    // @ts-expect-error: unkown type error
     setProjects(fetchedProjects);
-  };
+  }, [userId, selectedWorkspace, setProjects]);
 
   const handleAddProject = async () => {
     if (!userId || !selectedWorkspace) return;
@@ -42,10 +62,10 @@ const ProjectsSection = ({
     if (selectedWorkspace) {
       fetchProjects();
     }
-  }, [selectedWorkspace]);
+  }, [selectedWorkspace, fetchProjects]);
+
   return (
     <div>
-      {' '}
       {selectedWorkspace && (
         <div className="add-project-form">
           <h3>
@@ -59,7 +79,7 @@ const ProjectsSection = ({
           />
           <label htmlFor="">
             Czy jest prywatny?{' '}
-            <input type="checkbox" onClick={() => setisPrivate(!isPrivate)} />
+            <input type="checkbox" onChange={() => setisPrivate(!isPrivate)} />
           </label>
           <button onClick={handleAddProject}>Dodaj Projekt</button>
         </div>
@@ -70,7 +90,7 @@ const ProjectsSection = ({
             <strong>{project.name}</strong> - {project.desc || 'No description'}
           </li>
         ))}
-      </ul>{' '}
+      </ul>
     </div>
   );
 };

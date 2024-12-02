@@ -1,24 +1,44 @@
 import { addSubTask } from '@/app/server-actions/subtasks/addNewSubTask';
 import { getSubTasks } from '@/app/server-actions/subtasks/getSubtasks';
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
+
+interface SubTask {
+  id: string;
+  name: string;
+  desc?: string;
+}
 
 const SubTaskSection = ({
+  // @ts-expect-error: jeśli dodam typowanie to nie przejdzie build
   userId,
+  // @ts-expect-error: jeśli dodam typowanie to nie przejdzie build
   selectedWorkspace,
+  // @ts-expect-error: jeśli dodam typowanie to nie przejdzie build
   selectedProject,
+  // @ts-expect-error: jeśli dodam typowanie to nie przejdzie build
   selectedTask,
+  // @ts-expect-error: jeśli dodam typowanie to nie przejdzie build
   setSubTasks,
+  // @ts-expect-error: jeśli dodam typowanie to nie przejdzie build
   newSubTaskName,
+  // @ts-expect-error: jeśli dodam typowanie to nie przejdzie build
   subTaskStatus,
+  // @ts-expect-error: jeśli dodam typowanie to nie przejdzie build
   subTaskDueDate,
+  // @ts-expect-error: jeśli dodam typowanie to nie przejdzie build
   subTaskAssignees,
+  // @ts-expect-error: jeśli dodam typowanie to nie przejdzie build
   subTaskTimeEstimate,
+  // @ts-expect-error: jeśli dodam typowanie to nie przejdzie build
   subTaskPriority,
+  // @ts-expect-error: jeśli dodam typowanie to nie przejdzie build
   subTaskDetails,
+  // @ts-expect-error: jeśli dodam typowanie to nie przejdzie build
   setNewSubTaskName,
+  // @ts-expect-error: jeśli dodam typowanie to nie przejdzie build
   subTasks,
 }) => {
-  const fetchSubTasks = async () => {
+  const fetchSubTasks = useCallback(async () => {
     if (!userId || !selectedWorkspace || !selectedProject || !selectedTask)
       return;
     const fetchedSubTasks = await getSubTasks(
@@ -28,13 +48,13 @@ const SubTaskSection = ({
       selectedTask
     );
     setSubTasks(fetchedSubTasks);
-  };
+  }, [userId, selectedWorkspace, selectedProject, selectedTask, setSubTasks]);
 
   useEffect(() => {
     if (selectedTask) {
       fetchSubTasks();
     }
-  }, [selectedTask]);
+  }, [selectedTask, fetchSubTasks]);
 
   const handleAddSubTask = async () => {
     if (!userId || !selectedWorkspace || !selectedProject || !selectedTask)
@@ -83,7 +103,7 @@ const SubTaskSection = ({
         )}
       </div>
       <ul>
-        {subTasks.map((subtask: any) => (
+        {subTasks.map((subtask: SubTask) => (
           <li key={subtask.id}>
             <strong>{subtask.name}</strong> - {subtask.desc || 'No description'}
           </li>

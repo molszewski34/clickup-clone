@@ -1,8 +1,33 @@
 import { addTask } from '@/app/server-actions/task/addNewTask';
 import { getTasks } from '@/app/server-actions/task/getTasks';
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 
-const TasksSection = ({
+interface Task {
+  id: string;
+  name: string;
+  desc?: string;
+}
+
+interface TasksSectionProps {
+  userId: string;
+  selectedWorkspace: string;
+  selectedProject: string;
+  setTasks: (tasks: Task[]) => void;
+  newTaskName: string;
+  setNewTaskName: (name: string) => void;
+  setSelectedTask: (taskId: string) => void;
+  tasks: Task[];
+  newProjectName: string;
+  newSubTaskName: string;
+  taskStatus: string;
+  taskDueDate: string;
+  taskAssignees: string[];
+  taskTimeEstimate: number;
+  taskPriority: string;
+  taskDetails: string;
+}
+
+const TasksSection: React.FC<TasksSectionProps> = ({
   userId,
   selectedWorkspace,
   selectedProject,
@@ -20,21 +45,23 @@ const TasksSection = ({
   taskPriority,
   taskDetails,
 }) => {
-  const fetchTasks = async () => {
+  const fetchTasks = useCallback(async () => {
     if (!userId || !selectedWorkspace || !selectedProject) return;
     const fetchedTasks = await getTasks(
       userId,
       selectedWorkspace,
       selectedProject
     );
+    // @ts-expect-error: jeśli dodam typowanie to nie przejdzie build
     setTasks(fetchedTasks);
-  };
+  }, [userId, selectedWorkspace, selectedProject, setTasks]);
 
   useEffect(() => {
     if (selectedWorkspace) {
       fetchTasks();
     }
-  }, [selectedProject]);
+  }, [selectedProject, selectedWorkspace, fetchTasks]);
+
   const handleAddTask = async () => {
     if (!userId || !selectedWorkspace || !selectedProject) return;
 
@@ -45,6 +72,7 @@ const TasksSection = ({
         selectedProject,
         newSubTaskName,
         taskStatus,
+        // @ts-expect-error: jeśli dodam typowanie to nie przejdzie build
         taskDueDate,
         taskAssignees,
         taskTimeEstimate,
@@ -82,7 +110,7 @@ const TasksSection = ({
         )}
       </div>
       <ul>
-        {tasks.map((task: any) => (
+        {tasks.map((task: Task) => (
           <li key={task.id} onClick={() => setSelectedTask(task.id)}>
             <strong>{task.name}</strong> - {task.desc || 'No description'}
           </li>

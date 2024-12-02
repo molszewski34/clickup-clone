@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '@/db/firebase/lib/firebase';
@@ -11,25 +11,29 @@ import PageNavbar from '../../ui/PageNavbar';
 import PageIndicator from '../../ui/PageIndicator';
 import { Icons } from '@/icons/icons';
 
-interface UserHomeProps {
-  params: { id: string };
-}
-
-const UserHomePage: React.FC<UserHomeProps> = ({ params }) => {
+const UserHomePage = ({ params }: { params: Promise<{ id: string }> }) => {
   const router = useRouter();
-  const [userId, setUserId] = useState<string | null>(null);
+  const [, setUserId] = useState<string | null>(null);
 
   useInitializeWorkspace();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (!user || user.uid !== params.id) {
-        router.push('/login');
-      }
-    });
+    const fetchParams = async () => {
+      const resolvedParams = await params;
+      const userId = resolvedParams.id;
 
-    setUserId(params.id);
-    return () => unsubscribe();
+      const unsubscribe = onAuthStateChanged(auth, (user) => {
+        if (!user || user.uid !== userId) {
+          router.push('/login');
+        }
+      });
+
+      setUserId(userId);
+
+      return () => unsubscribe();
+    };
+
+    fetchParams();
   }, [params, router]);
 
   return (
