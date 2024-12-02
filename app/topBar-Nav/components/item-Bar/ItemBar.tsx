@@ -1,7 +1,7 @@
-"use client";
-import React, { useState } from "react";
-import NewItemModal from "./components-ItemBar/ItemModal";
-import IconPlusCircle from "../icon/IconPlusCircle";
+'use client';
+import React, { useState } from 'react';
+import NewItemModal from './components-ItemBar/ItemModal';
+import IconPlusCircle from '../icon/IconPlusCircle';
 
 export default function ItemBar() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -9,7 +9,7 @@ export default function ItemBar() {
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  const defaultTab = "Task";
+  const defaultTab = 'Task';
 
   return (
     <>
@@ -17,7 +17,7 @@ export default function ItemBar() {
         className="flex justify-center items-center hover:bg-white bg-opacity-10 hover:bg-opacity-20 rounded-md h-8 px-[11px] mx-1"
         onClick={openModal}
       >
-        <IconPlusCircle size="16" color="white" ml="1" />
+        <IconPlusCircle size={16} color="white" ml="1" />
         <span className="h-4 w-8 ml-1 text-sm/[16px] text-center font-semibold text-white font-sans">
           New
         </span>

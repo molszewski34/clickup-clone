@@ -1,9 +1,11 @@
 export default function IconDoc({
-  color = "gray-700",
-  size = "20",
+  color = 'gray-700',
+  size = '20',
 }: {
   color?: string;
   size?: string;
+  fill?: string;
+  stroke?: string;
 }) {
   return (
     <svg

@@ -1,5 +1,5 @@
 import { db } from '@/db/firebase/lib/firebase';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 import { Workspace } from '@/app/server-actions/types';
 
 export const getWorkspaces = async (userId: string): Promise<Workspace[]> => {
