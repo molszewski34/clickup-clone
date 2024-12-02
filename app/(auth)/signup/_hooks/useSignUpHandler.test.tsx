@@ -15,7 +15,6 @@ const TestComponent = () => {
     signUpPassword,
     setSignUpPassword,
     signUpError,
-    setSignUpError,
     handleRegister,
   } = useSignUpHandler();
 
