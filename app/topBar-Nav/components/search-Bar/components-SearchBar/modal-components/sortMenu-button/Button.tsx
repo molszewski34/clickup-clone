@@ -20,7 +20,9 @@ function Button({
     : `rounded-2xl px-[7px] py-[3px]`; // Default rounded rectangle shape
 
   // Border classes based on whether the border is dashed
-  const borderClasses = dashed ? "border-dashed" : "border-gray-200";
+  const borderClasses = dashed
+    ? "border-dashed border-gray-200 hover:border-gray-400"
+    : "border-gray-200";
 
   // Content alignment classes based on the icon position (left or right)
   const contentClasses =

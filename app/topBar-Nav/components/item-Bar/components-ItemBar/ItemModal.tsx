@@ -8,7 +8,7 @@ import Chat from "./modal-components/Chat";
 import Dashboard from "./modal-components/Dashboard";
 import Whiteboard from "./modal-components/Whiteboard";
 import { ModalTabName, NewModalProps } from "../../type";
-import IconClose from "../../icon/IconClose";
+import { Icons } from "@/icons/icons";
 
 export default function ItemModal({ onClose, defaultTab }: NewModalProps) {
   const [activeTab, setActiveTab] = useState<ModalTabName>(defaultTab); // State to track active tab
@@ -52,7 +52,7 @@ export default function ItemModal({ onClose, defaultTab }: NewModalProps) {
           onClick={onClose} // Calls the function to close the modal
         >
           {/* Close icon */}
-          <IconClose size="16" color="gray-300" />
+          <Icons.CloseIcon className="text-[16px] text-gray-300" />
         </button>
       </div>
       <div className="w-full h-px bg-gray-200" />

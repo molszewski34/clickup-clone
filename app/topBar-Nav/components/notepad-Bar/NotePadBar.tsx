@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import NotePadModal from "./components-NotePadBar/NotePadModal";
-import IconNotePad from "../icon/IconNotePad";
+import { Icons } from "@/icons/icons";
 
 export default function NotePadBar() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -16,7 +16,7 @@ export default function NotePadBar() {
         className="flex justify-center items-center hover:bg-white bg-opacity-10 hover:bg-opacity-20 rounded-md h-8 w-8 mr-1"
         onClick={openModal}
       >
-        <IconNotePad fill="white" size={14} />
+        <Icons.NotePadIcon className="text-[14px] text-white" />
       </button>
 
       {/* Modal */}

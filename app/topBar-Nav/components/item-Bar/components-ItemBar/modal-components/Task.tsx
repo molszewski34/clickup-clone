@@ -4,7 +4,7 @@ import ButtonDescrition from "./task-components/ButtonDescription";
 import FirstLineButtons from "./task-components/FirstLineButtons";
 import SecondLineButtons from "./task-components/SecondLineButtons";
 import LastLineButtons from "./task-components/LastLineButtons";
-import { FaPlus } from "react-icons/fa6";
+import { Icons } from "@/icons/icons";
 
 export default function Task() {
   // State to store the input query for the task's name or command
@@ -50,7 +50,7 @@ export default function Task() {
           {/* Button to create a new custom field */}
           <button className="flex gap-1 h-6 items-center justify-center rounded-md bg-gray-100 hover:bg-gray-200 px-[7px] mt-4 ">
             {/* Icon for adding a new custom field */}
-            <FaPlus className="w-3 h-3 text-gray-600" />
+            <Icons.PlusIcon className="text-[16px] text-gray-600" />
             <div className="flex items-center text-xs font-sans font-medium text-gray-600">
               Create new field
             </div>

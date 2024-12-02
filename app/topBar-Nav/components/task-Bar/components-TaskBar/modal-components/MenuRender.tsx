@@ -1,12 +1,10 @@
 "use client";
 
 import { useState } from "react";
-// Importing components that will be rendered based on the active tab
 import Activity from "./menu-render-components/Activity";
 import MyWork from "./menu-render-components/MyWork";
 import Assig from "./menu-render-components/Assig";
 import Calendar from "./menu-render-components/Calendar";
-// Importing type definitions for tab names and components
 import { TaskTabName, TaskTabComponents } from "../../../type";
 
 export default function MenuRender() {

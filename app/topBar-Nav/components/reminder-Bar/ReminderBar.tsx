@@ -2,7 +2,8 @@
 
 import React, { useState } from "react";
 import NewItemModal from "../item-Bar/components-ItemBar/ItemModal";
-import IconAlarm from "../icon/IconAlarm";
+import Icon from "@/app/(dashboard)/ui/Icon";
+import { Icons } from "@/icons/icons";
 
 export default function ReminderBar() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -18,7 +19,7 @@ export default function ReminderBar() {
         className="flex justify-center items-center hover:bg-white bg-opacity-10 hover:bg-opacity-20 rounded-md h-8 w-8 mr-1"
         onClick={openModal}
       >
-        <IconAlarm size="14" color="white" />
+        <Icon className="text-[14px] text-white" icon={<Icons.AlarmIcon />} />
       </button>
 
       {/* Modal */}

@@ -1,7 +1,4 @@
-import IconAI from "@/app/topBar-Nav/components/icon/IconAI";
-import IconColumn from "@/app/topBar-Nav/components/icon/IconColumn";
-import IconEmptyDoc from "@/app/topBar-Nav/components/icon/IconEmptyDoc";
-import IconTable from "@/app/topBar-Nav/components/icon/IconTable";
+import { Icons } from "@/icons/icons";
 
 interface ButtonProps {
   label: string;
@@ -20,64 +17,44 @@ const Button = ({ label, icon }: ButtonProps) => (
 );
 
 export default function ButtonWriting() {
-  // Button list without 'iconClass', as it is no longer used
-  const buttons = [
-    {
-      label: "Start writing",
-      icon: (
-        <IconEmptyDoc
-          size="16"
-          color="gray-400"
-          classN="group-hover:text-gray-600"
-        />
-      ),
-    },
-    {
-      label: "Write with AI",
-      icon: (
-        <IconAI
-          width="14"
-          className="fill-[url(#custom-gradient)] opacity-50 group-hover:opacity-100"
-        />
-      ),
-    },
-    {
-      label: "Table",
-      icon: (
-        <IconTable
-          size="14"
-          color="gray-400"
-          classN="group-hover:text-gray-600"
-        />
-      ),
-    },
-    {
-      label: "Column",
-      icon: (
-        <IconColumn
-          size="14"
-          color="gray-400"
-          classN="group-hover:text-gray-600"
-        />
-      ),
-    },
+  const buttons: Array<{ label: string; iconKey: keyof typeof Icons }> = [
+    { label: "Start writing", iconKey: "EmptyDocIcon" },
+    { label: "Write with AI", iconKey: "AiIcon" },
+    { label: "Table", iconKey: "TableIcon" },
+    { label: "Column", iconKey: "ColumnIcon" },
   ];
 
   return (
     <div className="flex-row items-center w-auto mx-6 mb-4">
-      {/* First two buttons */}
-      <Button {...buttons[0]} />
-      <Button {...buttons[1]} />
+      {buttons.slice(0, 2).map(({ label, iconKey }, index) => {
+        const IconComponent = Icons[iconKey];
+        return (
+          <Button
+            key={index}
+            label={label}
+            icon={
+              <IconComponent className="text-[16px] text-gray-400 group-hover:text-gray-600" />
+            }
+          />
+        );
+      })}
 
-      {/* "Add new" label */}
       <div className="pl-1 py-2 pr-3 text-[11px] font-sans text-gray-400 font-semibold cursor-default">
         Add new
       </div>
 
-      {/* Remaining buttons */}
-      {buttons.slice(2).map((button, index) => (
-        <Button key={index} {...button} />
-      ))}
+      {buttons.slice(2).map(({ label, iconKey }, index) => {
+        const IconComponent = Icons[iconKey];
+        return (
+          <Button
+            key={index + 2}
+            label={label}
+            icon={
+              <IconComponent className="text-[16px] text-gray-400 group-hover:text-gray-600" />
+            }
+          />
+        );
+      })}
     </div>
   );
 }

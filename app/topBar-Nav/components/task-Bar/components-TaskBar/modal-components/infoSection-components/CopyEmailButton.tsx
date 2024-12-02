@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import IconArrowDownStatic from "@/app/topBar-Nav/components/icon/IconArrowDownStatic";
 import { CopyEmailButtonProps } from "@/app/topBar-Nav/components/type";
+import { Icons } from "@/icons/icons";
 
 // CopyEmailButton component for displaying email and copying it to the clipboard
 export const CopyEmailButton: React.FC<CopyEmailButtonProps> = ({
@@ -42,12 +42,7 @@ export const CopyEmailButton: React.FC<CopyEmailButtonProps> = ({
         )}
       </div>
       <button onClick={handleCopyEmail}>
-        {/* Icon to trigger the copy email function */}
-        <IconArrowDownStatic
-          size="10"
-          color="gray-400"
-          classN="opacity-0 group-hover:opacity-100"
-        />
+        <Icons.ArrowDownIcon className="text-[10px] text-gray-400 opacity-0 group-hover:opacity-100" />
       </button>
     </div>
   );

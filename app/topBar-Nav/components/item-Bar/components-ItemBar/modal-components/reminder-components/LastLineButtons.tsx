@@ -1,4 +1,4 @@
-import IconAttachment from "@/app/topBar-Nav/components/icon/IconAttachment";
+import { Icons } from "@/icons/icons";
 
 export default function LastLineButtons() {
   return (
@@ -7,7 +7,7 @@ export default function LastLineButtons() {
       <div className="flex justify-end gap-2 w-full p-4 pl-6">
         {/* Button with an SVG icon */}
         <button className="flex justify-center items-center hover:bg-gray-200 rounded-md h-8 w-8">
-          <IconAttachment size="18" color="gray-500" classN="-scale-x-100" />
+          <Icons.AttachmentIcon className="text-[18px] text-gray-500 -scale-x-100" />
         </button>
 
         {/* Container for the "Create Reminder" button */}
