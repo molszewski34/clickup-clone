@@ -16,7 +16,6 @@ jest.mock('next/navigation', () => ({
 const TestComponent = () => {
   const {
     loginError,
-    setLoginError,
     loginEmail,
     setLoginEmail,
     loginPassword,
