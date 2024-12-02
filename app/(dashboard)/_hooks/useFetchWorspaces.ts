@@ -1,13 +1,13 @@
 import { Workspace } from '@/app/server-actions/types';
 import { getWorkspaces } from '@/app/server-actions/workspace/getWorkspaces';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useAuth } from './useAuth';
 
 function useFetchWorkspaces() {
   const [workspaces, setWorkspaces] = useState<Workspace[]>([]);
   const { user } = useAuth();
 
-  const fetchWorkspaces = async () => {
+  const fetchWorkspaces = useCallback(async () => {
     if (!user) {
       console.error('Użytkownik niezalogowany');
       return;
@@ -19,11 +19,11 @@ function useFetchWorkspaces() {
     } catch (error) {
       console.error('Błąd podczas pobierania workspaces:', error);
     }
-  };
+  }, [user]);
 
   useEffect(() => {
     fetchWorkspaces();
-  }, [user]);
+  }, [fetchWorkspaces]);
 
   return { fetchWorkspaces, workspaces, setWorkspaces };
 }
