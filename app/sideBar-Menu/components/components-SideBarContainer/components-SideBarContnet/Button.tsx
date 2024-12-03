@@ -1,5 +1,4 @@
-import IconPlus from "@/app/topBar-Nav/components/icon/IconPlus";
-import IconThreeDots from "@/app/topBar-Nav/components/icon/IconThreeDots";
+import { Icons } from "@/icons/icons";
 import React from "react";
 
 interface ButtonProps {
@@ -33,7 +32,7 @@ const Button: React.FC<ButtonProps> = ({
       <div className="flex w-full justify-between items-center">
         <div className="flex justify-center items-center h-8 w-6">
           {React.cloneElement(icon, {
-            color: active ? "blue-700" : "gray-700",
+            className: active ? "blue-700" : "gray-700",
           })}
         </div>
 
@@ -53,15 +52,24 @@ const Button: React.FC<ButtonProps> = ({
           <div className="flex justify-center items-center opacity-0 group-hover/button:opacity-100 mr-1">
             {extraIcons >= 1 && (
               <div className="flex justify-center items-center h-6 w-6">
-                <IconThreeDots
-                  color={active ? "blue-700" : "gray-700"}
-                  size="14"
+                <Icons.ThreeDotsIcon
+                  className={
+                    active
+                      ? "text-[14px] text-blue-700"
+                      : "text-[14px] text-gray-700"
+                  }
                 />
               </div>
             )}
             {extraIcons === 2 && (
               <div className="flex justify-center items-center h-6 w-6">
-                <IconPlus color={active ? "blue-700" : "gray-700"} size="14" />
+                <Icons.PlusIcon
+                  className={
+                    active
+                      ? "text-[14px] text-blue-700"
+                      : "text-[14px] text-gray-700"
+                  }
+                />
               </div>
             )}
           </div>
