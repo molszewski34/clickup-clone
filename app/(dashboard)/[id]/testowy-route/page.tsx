@@ -1,20 +1,21 @@
-'use client';
+"use client";
 
-import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '@/db/firebase/lib/firebase';
-import { useInitializeWorkspace } from '../../_hooks/useInitializeWorkspace';
-import TopbarNav from '@/app/topBar-Nav/components/TopbarNav';
-import PageNavbar from '../../ui/PageNavbar';
-import PageIndicator from '../../ui/PageIndicator';
-import { Icons } from '@/icons/icons';
-import useFetchWorkspaces from '../../_hooks/useFetchWorspaces';
-import AddWorkspace from '../../_components/AddWorkspace';
-import WorkspacesList from '../../_components/WorkspaceList/WorkspaceList';
-import ProjectsSection from './components/ProjectsSection';
-import TasksSection from './components/TasksSection';
-import SubTaskSection from './components/SubTaskSection';
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "@/db/firebase/lib/firebase";
+import { useInitializeWorkspace } from "../../_hooks/useInitializeWorkspace";
+import TopbarNav from "@/app/topBar-Nav/components/TopbarNav";
+import PageNavbar from "../../ui/PageNavbar";
+import PageIndicator from "../../ui/PageIndicator";
+import { Icons } from "@/icons/icons";
+import useFetchWorkspaces from "../../_hooks/useFetchWorspaces";
+import AddWorkspace from "../../_components/AddWorkspace";
+import WorkspacesList from "../../_components/WorkspaceList/WorkspaceList";
+import ProjectsSection from "./components/ProjectsSection";
+import TasksSection from "./components/TasksSection";
+import SubTaskSection from "./components/SubTaskSection";
+import SideBarContainer from "@/app/sideBar-Menu/components/SideBarContainer";
 
 interface Project {
   id: string;
@@ -45,28 +46,28 @@ const UserHomePage: React.FC<UserHomeProps> = ({ params }) => {
   const [selectedWorkspace, setSelectedWorkspace] = useState<string | null>(
     null
   );
-  const [newProjectName, setNewProjectName] = useState<string>('');
+  const [newProjectName, setNewProjectName] = useState<string>("");
   const [isPrivate, setIsPrivate] = useState<boolean>(false);
   const [projects, setProjects] = useState<Project[]>([]); // Typowanie stanu projects
 
-  const [selectedProject, setSelectedProject] = useState<string>('');
-  const [newTaskName, setNewTaskName] = useState<string>('');
-  const [taskStatus] = useState<string>(''); // Typowanie taskStatus
+  const [selectedProject, setSelectedProject] = useState<string>("");
+  const [newTaskName, setNewTaskName] = useState<string>("");
+  const [taskStatus] = useState<string>(""); // Typowanie taskStatus
   const [taskDueDate] = useState<Date | null>(null); // Typowanie taskDueDate
-  const [taskAssignees] = useState<string>('');
-  const [taskTimeEstimate] = useState<string>('');
-  const [taskPriority] = useState<string>('');
-  const [taskDetails] = useState<string>('');
-  const [selectedTask, setSelectedTask] = useState<string>('');
+  const [taskAssignees] = useState<string>("");
+  const [taskTimeEstimate] = useState<string>("");
+  const [taskPriority] = useState<string>("");
+  const [taskDetails] = useState<string>("");
+  const [selectedTask, setSelectedTask] = useState<string>("");
   const [tasks, setTasks] = useState<Task[]>([]); // Typowanie stanu tasks
 
-  const [newSubTaskName, setNewSubTaskName] = useState<string>('');
-  const [subTaskStatus] = useState<string>(''); // Typowanie subTaskStatus
+  const [newSubTaskName, setNewSubTaskName] = useState<string>("");
+  const [subTaskStatus] = useState<string>(""); // Typowanie subTaskStatus
   const [subTaskDueDate] = useState<Date | null>(null); // Typowanie subTaskDueDate
-  const [subTaskAssignees] = useState<string>('');
-  const [subTaskTimeEstimate] = useState<string>('');
-  const [subTaskPriority] = useState<string>('');
-  const [subTaskDetails] = useState<string>('');
+  const [subTaskAssignees] = useState<string>("");
+  const [subTaskTimeEstimate] = useState<string>("");
+  const [subTaskPriority] = useState<string>("");
+  const [subTaskDetails] = useState<string>("");
   const [subTasks, setSubTasks] = useState<SubTask[]>([]); // Typowanie stanu subTasks
 
   useInitializeWorkspace();
@@ -75,7 +76,7 @@ const UserHomePage: React.FC<UserHomeProps> = ({ params }) => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       // @ts-expect-error: jeśli dodam typowanie to nie przejdzie build
       if (!user || user.uid !== params.id) {
-        router.push('/login');
+        router.push("/login");
       }
     });
     // @ts-expect-error: jeśli dodam typowanie to nie przejdzie build
@@ -92,13 +93,16 @@ const UserHomePage: React.FC<UserHomeProps> = ({ params }) => {
         <PageIndicator icon={<Icons.HomePageIndicatorIcon />} name="Home" />
       </PageNavbar>
       <div>
-        <h2>Workspace List</h2>
-        <WorkspacesList
-          workspaces={workspaces}
-          setSelectedWorkspace={setSelectedWorkspace}
-        />
-        <hr />
-        <AddWorkspace />
+        <SideBarContainer />
+        <div>
+          <h2>Workspace List</h2>
+          <WorkspacesList
+            workspaces={workspaces}
+            setSelectedWorkspace={setSelectedWorkspace}
+          />
+          <hr />
+          <AddWorkspace />
+        </div>
       </div>
       <ProjectsSection
         // @ts-expect-error: jeśli dodam typowanie to nie przejdzie build
