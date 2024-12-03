@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+input[type="search"]::-webkit-search-cancel-button {
+  cursor: pointer; /* Setting the cursor to the pointer */
+}
+
+.custom-scrollbar {
+  overflow-y: auto; /* Umożliwia przewijanie w pionie */
+  overflow-x: hidden; /* Ukrywa pasek przewijania w poziomie */
+  scrollbar-width: thin; /* Ustawia szerokość paska przewijania na cienką (Firefox) */
+}
