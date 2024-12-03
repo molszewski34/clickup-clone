@@ -18,7 +18,7 @@ const SubBarNavFilters = ({ subBarNavHeaderActive }: Props) => {
   };
   return (
     <div
-      className={` flex h-10 gap-1 items-center bg-darkGray_600
+      className={` flex h-10 gap-1 items-center bg-darkGray_600 transition-all duration-500 ease-in-out
     ${subBarNavHeaderActive ? "px-12" : "px-4"}`}
     >
       <div className="flex items-center gap-1">
@@ -76,29 +76,33 @@ const SubBarNavFilters = ({ subBarNavHeaderActive }: Props) => {
           <Icons.UsersIcon className="text-[14px]" />
           Assignee
         </FilterButton>
-        <FilterButton
-          isActive={closeButtonActive}
-          onClick={() => {
-            setCloseButtonActive(true);
-          }}
-        >
-          <Icons.CheckIcon />
-          Closed
+        <div className="relative items-center flex group">
+          <FilterButton
+            isActive={closeButtonActive}
+            onClick={() => {
+              setCloseButtonActive(true);
+            }}
+          >
+            <Icons.CheckIcon />
+            Closed
+          </FilterButton>
           {closeButtonActive && (
             <ButtonVariant4
               width="w-[22px]"
               height="h-[22px]"
               minWidth="min-h-[22px]"
               position="absolute"
-              right="right-0"
+              right="right-[0.5px]"
               hoverBackGround=""
+              hoverColor="hover:text-blue_400"
               color="text-blue_550"
+              opacity="opacity-0 group-hover:opacity-100"
               onClick={closeButtonHandler}
             >
               <Icons.CloseIcon style={{ strokeWidth: "0.5px" }} />
             </ButtonVariant4>
           )}
-        </FilterButton>
+        </div>
       </div>
       {/* secend half */}
       <div></div>

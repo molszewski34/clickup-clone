@@ -13,6 +13,7 @@ type Props = {
   hoverColor?: string;
   activeBackGround?: string;
   color?: string;
+  opacity?: string;
 };
 
 const ButtonVariant4 = ({
@@ -23,18 +24,19 @@ const ButtonVariant4 = ({
   minWidth = "min-w-[26px]",
   backGround = "bg-darkGray_400",
   hoverBackGround = "hover:bg-darkGray_300",
-  hoverColor = "hover:text-blue_400",
+  hoverColor = "",
   activeBackGround = "active:bg-gray_600",
   color = "",
   position = "",
   right = "",
+  opacity = "",
 }: Props) => {
   return (
     <div className="h-full flex items-center">
       <button
         onClick={onClick}
-        className={`flex rounded-[13px] z-10 items-center justify-center transition-colors ease-in-out  cursor-pointer
-          ${width} ${height} ${minWidth} ${backGround} ${position} ${right} ${hoverBackGround} ${hoverColor} ${activeBackGround} ${color}`}
+        className={`flex cursor-pointer z-20 items-center justify-center transition-colors ease-in-out rounded-[13px]
+          ${width} ${height} ${minWidth} ${backGround} ${position} ${right} ${hoverBackGround} ${hoverColor} ${activeBackGround} ${color} ${opacity}`}
       >
         {children}
       </button>

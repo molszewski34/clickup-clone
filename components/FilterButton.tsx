@@ -28,7 +28,7 @@ const FilterButton: React.FC<Props> = ({
   return (
     <button
       onClick={onClick}
-      className={`text-xs font-semibold  relative flex items-center gap-1 rounded-xl border  
+      className={`relative flex items-center gap-1 z-10 text-xs font-semibold rounded-xl border  
         ${padding} ${height}
         ${isActive ? "bg-nav " : bgColor} 
         ${isActive ? "text-blue_400" : textColor}
