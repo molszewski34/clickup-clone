@@ -15,7 +15,6 @@ import WorkspacesList from "../../_components/WorkspaceList/WorkspaceList";
 import ProjectsSection from "./components/ProjectsSection";
 import TasksSection from "./components/TasksSection";
 import SubTaskSection from "./components/SubTaskSection";
-import SideBarContainer from "@/app/sideBar-Menu/components/SideBarContainer";
 
 interface Project {
   id: string;
@@ -93,16 +92,13 @@ const UserHomePage: React.FC<UserHomeProps> = ({ params }) => {
         <PageIndicator icon={<Icons.HomePageIndicatorIcon />} name="Home" />
       </PageNavbar>
       <div>
-        <SideBarContainer />
-        <div>
-          <h2>Workspace List</h2>
-          <WorkspacesList
-            workspaces={workspaces}
-            setSelectedWorkspace={setSelectedWorkspace}
-          />
-          <hr />
-          <AddWorkspace />
-        </div>
+        <h2>Workspace List</h2>
+        <WorkspacesList
+          workspaces={workspaces}
+          setSelectedWorkspace={setSelectedWorkspace}
+        />
+        <hr />
+        <AddWorkspace />
       </div>
       <ProjectsSection
         // @ts-expect-error: jeśli dodam typowanie to nie przejdzie build

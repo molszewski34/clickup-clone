@@ -1,8 +1,8 @@
 import { SvgIcons } from "./svgIcons";
-import { FaListUl, FaPlus } from "react-icons/fa6";
+import { FaListUl, FaPlus, FaRegCircleDot } from "react-icons/fa6";
 import { RiAttachmentLine, RiDashboardHorizontalLine } from "react-icons/ri";
 import { HiMiniSignal, HiOutlineCalendar } from "react-icons/hi2";
-import { IoIosArrowDown } from "react-icons/io";
+import { IoIosArrowDown, IoIosMore, IoMdClose } from "react-icons/io";
 import { FiColumns, FiPlusCircle, FiSearch } from "react-icons/fi";
 import { LuCircleSlash, LuSettings, LuTableProperties } from "react-icons/lu";
 import { BsLayoutTextSidebar, BsThreeDots } from "react-icons/bs";
@@ -13,18 +13,24 @@ import {
   IoSearchOutline,
 } from "react-icons/io5";
 import {
+  PiArrowLineDownRight,
   PiCalendarCheck,
   PiListPlus,
   PiMagicWandLight,
+  PiStarBold,
   PiTagBold,
 } from "react-icons/pi";
-import { AiOutlineClose } from "react-icons/ai";
-import { HiOutlineChartSquareBar, HiOutlineDocument } from "react-icons/hi";
+import { AiOutlineClose, AiOutlineTeam } from "react-icons/ai";
+import {
+  HiOutlineChartSquareBar,
+  HiOutlineDocument,
+  HiOutlineLogout,
+} from "react-icons/hi";
 import { MdOutlineEmojiEmotions } from "react-icons/md";
 import { TbFlag3, TbGridDots, TbSquareArrowUp } from "react-icons/tb";
-import { VscHome } from "react-icons/vsc";
-import { GoMention } from "react-icons/go";
-import { CiTrophy } from "react-icons/ci";
+import { VscHome, VscLayoutCentered } from "react-icons/vsc";
+import { GoCodeSquare, GoMention } from "react-icons/go";
+import { CiImageOn, CiShare2, CiTrophy } from "react-icons/ci";
 import { FaRegCheckCircle } from "react-icons/fa";
 export const Icons = {
   ListUlicon: FaListUl,
@@ -40,6 +46,17 @@ export const Icons = {
   SettingsIcon: LuSettings,
   SidebarExpandIcon: BsLayoutTextSidebar,
   HomePageIndicatorIcon: FiHome,
+  TeamIcon: AiOutlineTeam,
+  Logout: HiOutlineLogout,
+  IoIosMore: IoIosMore,
+  Star: PiStarBold,
+  LayoutCentered: VscLayoutCentered,
+  Close: IoMdClose,
+  CodeSquare: GoCodeSquare,
+  PiArrowLineDownRight: PiArrowLineDownRight,
+  FaRegCircleDot: FaRegCircleDot,
+  CiImageOn: CiImageOn,
+  CiShare2: CiShare2,
 
   // added new Icons
   AttachmentIcon: RiAttachmentLine,
