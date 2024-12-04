@@ -1,6 +1,7 @@
 "use client";
 
-import IconApps from "../../../icon/IconApps";
+import { Icons } from "@/icons/icons";
+import Icon from "@/app/(dashboard)/ui/Icon";
 
 export default function NavInModal() {
   return (
@@ -12,10 +13,13 @@ export default function NavInModal() {
             All
           </div>
         </button>
-        <button className="flex items-center w-auto p-1 pt-2 pb-[7px] h-[39px] group border-b-2 border-transparent  ">
+        <button className="flex items-center w-auto p-1 pt-2 pb-[7px] h-[39px] group border-b-2 border-transparent group">
           <div className=" flex items-center gap-1 rounded-md p-1 hover:bg-gray-100">
-            <IconApps size="14" color="gray-400" hover="gray-700" />
-            <div className="text-xs font-sans font-medium text-gray-500">
+            <Icon
+              className="text-[14px] text-gray-400 group-hover:text-gray-700"
+              icon={<Icons.AppsIcon />}
+            />
+            <div className="text-xs font-sans font-medium text-gray-400 group-hover:text-gray-700">
               Apps
             </div>
           </div>

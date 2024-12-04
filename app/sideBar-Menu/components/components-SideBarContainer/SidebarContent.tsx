@@ -4,10 +4,8 @@ import React, { useState } from "react";
 import UserProfile from "./components-SideBarContnet/UserProfile";
 import Button from "./components-SideBarContnet/Button";
 import ButtonFavourites from "./components-SideBarContnet/ButtonFavourites";
-import IconThreeDots from "@/app/topBar-Nav/components/icon/IconThreeDots";
-import IconSearch from "@/app/topBar-Nav/components/icon/IconSearch";
-import IconPlus from "@/app/topBar-Nav/components/icon/IconPlus";
 import buttons from "./components-SideBarContnet/buttons";
+import { Icons } from "@/icons/icons";
 
 interface SidebarContentProps {
   userName: string;
@@ -63,16 +61,16 @@ export default function SidebarContent({
           </div>
           <div className="flex gap-[2px]">
             <button className="flex justify-center items-center w-6 h-6 rounded-md hover:bg-gray-200">
-              <IconThreeDots size="16" color="gray-500" />
+              <Icons.ThreeDotsIcon className="text-[16px] text-gray-500" />
             </button>
             <button className="flex justify-center items-center w-6 h-6 rounded-md hover:bg-gray-200">
-              <IconSearch size="16" color="gray-500" />
+              <Icons.SearchIcon className="text-[16px] text-gray-500" />
             </button>
             <button
               className="flex justify-center items-center w-6 h-6 rounded-md bg-blue-500 hover:bg-blue-700"
               onClick={openModal}
             >
-              <IconPlus size="14" color="white" />
+              <Icons.PlusIcon className="text-[14px] text-white" />
             </button>
           </div>
         </div>

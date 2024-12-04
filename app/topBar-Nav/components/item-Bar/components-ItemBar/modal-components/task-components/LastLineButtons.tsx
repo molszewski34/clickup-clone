@@ -1,7 +1,5 @@
-import IconArrowDownStatic from "@/app/topBar-Nav/components/icon/IconArrowDownStatic";
-import IconAttachment from "@/app/topBar-Nav/components/icon/IconAttachment";
-import IconMagicWand from "@/app/topBar-Nav/components/icon/IconMagicWand";
-import IconRinging from "@/app/topBar-Nav/components/icon/IconRinging";
+import Icon from "@/app/(dashboard)/ui/Icon";
+import { Icons } from "@/icons/icons";
 
 export default function LastLineButtons() {
   return (
@@ -12,7 +10,7 @@ export default function LastLineButtons() {
         <div className="flex w-full justify-between">
           {/* Templates button with an icon */}
           <button className="flex items-center bg-white border border-gray-200 gap-1 hover:bg-gray-200 px-3 rounded-md flow-hidden h-[32px] ">
-            <IconMagicWand size="12" color="gray-600" classN="" />
+            <Icons.MagicWandIcon className="text-[12px] text-gray-600 rotate-90 -scale-x-100" />
             <div className="w-auto text-gray-600 font-semibold text-sm/[16px] text-left font-sans">
               Templates
             </div>
@@ -21,16 +19,15 @@ export default function LastLineButtons() {
           {/* Attached button */}
           <div className="flex">
             <button className="flex justify-center items-center hover:bg-gray-200 rounded-md h-8 w-8">
-              <IconAttachment
-                size="18"
-                color="gray-500"
-                classN="-scale-x-100"
-              />
+              <Icons.AttachmentIcon className="text-[18px] text-gray-500 -scale-x-100" />
             </button>
 
             {/* Notification with count */}
             <button className="flex justify-center items-center hover:bg-gray-200 rounded-md h-8 w-[45px] p-[7px] gap-1">
-              <IconRinging fill="gray-500" size={18} />
+              <Icon
+                className="text-[18px] text-gray-500"
+                icon={<Icons.RingingIcon />}
+              />
               <div className="min-w-[9px] text-gray-500 font-semibold text-sm/[16px] text-left font-sans">
                 1
               </div>
@@ -50,7 +47,7 @@ export default function LastLineButtons() {
 
           {/* Button with arrow icon */}
           <button className="flex justify-center items-center w-8 h-8 bg-blue-600 hover:bg-blue-700 rounded-r-md">
-            <IconArrowDownStatic size="12" color="white" />
+            <Icons.ArrowDownIcon className="text-[12px] text-white" />
           </button>
         </div>
       </div>

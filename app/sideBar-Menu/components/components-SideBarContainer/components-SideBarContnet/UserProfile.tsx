@@ -2,8 +2,8 @@
 // components/UserProfile.tsx
 
 import React from "react";
-import IconArrowDownStatic from "../../../../topBar-Nav/components/icon/IconArrowDownStatic";
-import IconCreateDoc from "@/app/topBar-Nav/components/icon/IconCreateDoc";
+import { Icons } from "@/icons/icons";
+import Icon from "@/app/(dashboard)/ui/Icon";
 
 interface UserProfileProps {
   userName: string;
@@ -39,14 +39,17 @@ const UserProfile: React.FC<UserProfileProps> = ({
 
         {width >= 200 && (
           <div className="flex justify-center items-center h-1 w-5 ml-auto">
-            <IconArrowDownStatic size="10" color="gray-600" />
+            <Icons.ArrowDownIcon className="text-[16px] text-gray-600 " />
           </div>
         )}
       </button>
       {width >= 200 && (
         <div className="flex-shrink-0 opacity-0 group-hover:opacity-100">
           <button className="flex justify-center items-center hover:bg-white bg-opacity-10 hover:bg-opacity-20 rounded-md h-8 w-8">
-            <IconCreateDoc />
+            <Icon
+              className="text-[20px] text-gray-700"
+              icon={<Icons.CreateDocIcon />}
+            />
           </button>
         </div>
       )}

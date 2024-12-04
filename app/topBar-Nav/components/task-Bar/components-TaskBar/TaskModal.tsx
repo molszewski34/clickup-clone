@@ -4,7 +4,7 @@ import InfoSection from "./modal-components/InfoSection";
 import ButtonAiResults from "./modal-components/ButtonAiResults";
 import MenuRender from "./modal-components/MenuRender";
 import { TaskModalProps } from "../../type"; //Import typeScript
-import IconArrowDownStatic from "../../icon/IconArrowDownStatic";
+import { Icons } from "@/icons/icons";
 
 export default function TaskModal({ onClose }: TaskModalProps) {
   const [userInitial, setUserInitial] = useState("?"); // State for the initials
@@ -60,7 +60,7 @@ export default function TaskModal({ onClose }: TaskModalProps) {
                 <div className="flex items-center text-lg font-sans font-medium text-gray-950 mr-1">
                   {loading ? "Loading..." : fullName}
                 </div>
-                <IconArrowDownStatic size="10" color="gray-900" />
+                <Icons.ArrowDownIcon className="text-[10px] fill-gray-900" />
               </button>
               <div className="flex items-center bg-green-200 bg-opacity-50 rounded text-green-700 px-2 py-[5px] mt-1 ml-2 text-xs font-sans">
                 Online

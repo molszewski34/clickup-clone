@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
-import TopbarNav from "@/app/topBar-Nav/components/TopbarNav";
 import ResizeHandle from "./components-SideBarContainer/ResizeHandle";
 import SidebarContent from "./components-SideBarContainer/SidebarContent";
 import SidebarModal from "./components-SideBarContainer/SidebarModal";
@@ -74,7 +73,6 @@ export default function SideBarContainer() {
 
   return (
     <>
-      <TopbarNav />
       <div className="relative flex items-center h-full">
         <div
           style={{

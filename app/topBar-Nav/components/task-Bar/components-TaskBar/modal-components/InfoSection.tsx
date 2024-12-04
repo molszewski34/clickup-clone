@@ -1,5 +1,4 @@
 import React from "react";
-import IconArrowDownStatic from "../../../icon/IconArrowDownStatic";
 
 // Custom hooks for fetching user data and local time
 import { UseUserData } from "./infoSection-hook/UseUserData";
@@ -8,6 +7,7 @@ import { UseLocalTime } from "./infoSection-hook/UseLocalTime";
 // Components for displaying information rows and copy email functionality
 import { InfoRow } from "./infoSection-components/InfoRow";
 import { CopyEmailButton } from "./infoSection-components/CopyEmailButton";
+import { Icons } from "@/icons/icons";
 
 export default function InfoSection() {
   // Fetching user email and loading state from the custom hook
@@ -23,11 +23,7 @@ export default function InfoSection() {
           <div className="flex items-center text-xs font-sans text-gray-400 mr-1">
             Add description...
           </div>
-          <IconArrowDownStatic
-            size="10"
-            color="gray-400"
-            classN="opacity-0 group-hover:opacity-100"
-          />
+          <Icons.ArrowDownIcon className="text-[10px] text-gray-400 opacity-0 group-hover:opacity-100" />
         </button>
       </InfoRow>
 

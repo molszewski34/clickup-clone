@@ -2,7 +2,7 @@
 import { useState } from "react";
 import SearchModal from "./components-SearchBar/SearchModal";
 import ButtonAiMenu from "./components-SearchBar/modal-components/button/ButtonAiMenu";
-import IconSearch from "../icon/IconSearch";
+import { Icons } from "@/icons/icons";
 
 export default function SearchBar() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,7 +17,7 @@ export default function SearchBar() {
           className="flex items-center bg-white bg-opacity-10 opacity-90 hover:bg-opacity-20 px-3 rounded-bl-md rounded-tl-md  flow-hidden h-7 w-full mx-auto "
           onClick={openModal}
         >
-          <IconSearch size="16" color="white" classN="mr-2" />
+          <Icons.SearchIcon className="text-[16px] text-white mr-2" />
 
           <div className="w-full bg-transparent outline-none text-white opacity-90 hover:bg-opacity-20 text-sm/[16px] text-left my-auto font-sans">
             Search...

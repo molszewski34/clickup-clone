@@ -1,4 +1,4 @@
-import IconArrowDownStatic from "@/app/topBar-Nav/components/icon/IconArrowDownStatic";
+import { Icons } from "@/icons/icons";
 import { useState } from "react";
 
 const ButtonFavourites = () => {
@@ -18,10 +18,8 @@ const ButtonFavourites = () => {
           <div className="flex items-center text-xs font-sans font-medium text-gray-500">
             Favorites
           </div>
-          <IconArrowDownStatic
-            size="10"
-            color="gray-400"
-            classN={`transform transition-all duration-100 ${
+          <Icons.ArrowDownIcon
+            className={`text-[12px] text-gray-400 transform transition-all duration-100 ${
               isClicked ? "rotate-0 " : "-rotate-90"
             }`}
           />

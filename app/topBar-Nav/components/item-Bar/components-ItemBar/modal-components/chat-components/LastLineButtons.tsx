@@ -1,4 +1,5 @@
-import IconRinging from "@/app/topBar-Nav/components/icon/IconRinging";
+import Icon from "@/app/(dashboard)/ui/Icon";
+import { Icons } from "@/icons/icons";
 
 export default function LastLineButtons() {
   return (
@@ -18,7 +19,10 @@ export default function LastLineButtons() {
         {/* Icon button and Create Reminder Button */}
         <div className="flex justify-end gap-2 w-full p-4 pl-6">
           <button className="flex justify-center items-center hover:bg-gray-200 rounded-md h-8 w-8">
-            <IconRinging fill="gray-500" size={18} />
+            <Icon
+              className="text-[18px] text-gray-500"
+              icon={<Icons.RingingIcon />}
+            />
           </button>
 
           {/* Create Reminder Button */}

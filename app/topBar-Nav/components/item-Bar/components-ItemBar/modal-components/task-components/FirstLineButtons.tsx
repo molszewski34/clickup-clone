@@ -1,6 +1,5 @@
 "use client";
-import IconArrowDownStatic from "@/app/topBar-Nav/components/icon/IconArrowDownStatic";
-import IconDot from "@/app/topBar-Nav/components/icon/IconDot";
+import { Icons } from "@/icons/icons";
 import React, { useState, useEffect } from "react";
 
 export default function FirstLineButtons() {
@@ -36,16 +35,16 @@ export default function FirstLineButtons() {
           <div className="flex items-center text-xs font-sans font-medium text-gray-600">
             Personal List
           </div>
-          <IconArrowDownStatic size="12" color="gray-500" />
+          <Icons.ArrowDownIcon className="text-[12px] text-gray-500" />
         </button>
         <button className="flex gap-1 items-center justify-center rounded-md border border-gray-200 hover:bg-gray-100 px-[7px] py-[3px]">
-          <IconDot fill="gray-500" size={12} />
+          <Icons.DotIcon className="text-[12px] text-gray-500" />
 
           <div className="flex items-center text-xs font-sans font-medium text-gray-600">
             Task
           </div>
 
-          <IconArrowDownStatic size="12" color="gray-500" />
+          <Icons.ArrowDownIcon className="text-[12px] text-gray-500" />
         </button>
       </div>
     </>

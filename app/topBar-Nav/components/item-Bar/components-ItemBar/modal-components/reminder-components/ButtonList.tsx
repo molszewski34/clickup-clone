@@ -1,6 +1,6 @@
 "use client";
-import IconCalendarChacked from "@/app/topBar-Nav/components/icon/IconCalendarChacked";
-import IconRinging from "@/app/topBar-Nav/components/icon/IconRinging";
+import Icon from "@/app/(dashboard)/ui/Icon";
+import { Icons } from "@/icons/icons";
 import React, { useState, useEffect } from "react";
 
 export default function ButtonList() {
@@ -32,7 +32,7 @@ export default function ButtonList() {
       <div className="flex items-center px-6 gap-2 mb-3">
         {/* Button with an icon */}
         <button className="flex gap-1 items-center justify-center rounded-[4px] border border-gray-200 hover:bg-gray-100 px-[6px] py-[3px]">
-          <IconCalendarChacked size="12" color="gray-500" />
+          <Icons.CalendarChackedIcon className="text-[12px] text-gray-500" />
           <div className="flex items-center text-xs font-sans font-medium text-gray-600">
             Today
           </div>
@@ -51,7 +51,10 @@ export default function ButtonList() {
 
         {/* Another button with a similar structure */}
         <button className="flex gap-1 items-center justify-center rounded-[4px] border border-gray-200 hover:bg-gray-100 px-[6px] py-[3px]">
-          <IconRinging fill="gray-500" size={12} />
+          <Icon
+            className="text-[12px] text-gray-500"
+            icon={<Icons.RingingIcon />}
+          />
           <div className="flex items-center text-xs font-sans font-medium text-gray-600">
             Notify me
           </div>
