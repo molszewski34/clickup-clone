@@ -9,9 +9,6 @@ type Props = {
   backGround?: string;
   position?: string;
   right?: string;
-  hoverBackGround?: string;
-  hoverColor?: string;
-  activeBackGround?: string;
   color?: string;
   opacity?: string;
 };
@@ -22,10 +19,7 @@ const ButtonVariant4 = ({
   width = "w-[26px]",
   height = "h-[26px]",
   minWidth = "min-w-[26px]",
-  backGround = "bg-darkGray_400",
-  hoverBackGround = "hover:bg-darkGray_300",
-  hoverColor = "",
-  activeBackGround = "active:bg-gray_600",
+  backGround = "bg-darkGray_400 hover:bg-darkGray_300 active:bg-gray_600",
   color = "",
   position = "",
   right = "",
@@ -36,7 +30,7 @@ const ButtonVariant4 = ({
       <button
         onClick={onClick}
         className={`flex cursor-pointer z-20 items-center justify-center transition-colors ease-in-out rounded-[13px]
-          ${width} ${height} ${minWidth} ${backGround} ${position} ${right} ${hoverBackGround} ${hoverColor} ${activeBackGround} ${color} ${opacity}`}
+          ${width} ${height} ${minWidth} ${backGround} ${position} ${right} ${color} ${opacity}`}
       >
         {children}
       </button>
