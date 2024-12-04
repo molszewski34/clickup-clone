@@ -19,7 +19,6 @@ const IconAndNamePicker: React.FC<IconAndNamePickerProps> = ({
   selectedIcon,
   setSelectedIcon,
 }) => {
-  const modalRef = useRef<HTMLDivElement | null>(null);
   const bodyRef = useRef<HTMLDivElement | null>(null);
 
   const handleOutsideClick = (event: MouseEvent) => {
