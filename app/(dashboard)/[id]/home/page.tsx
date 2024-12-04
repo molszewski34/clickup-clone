@@ -40,10 +40,12 @@ const UserHomePage = ({ params }: { params: Promise<{ id: string }> }) => {
   return (
     <div>
       <TopbarNav />
-      <PageNavbar>
-        <PageIndicator icon={<Icons.HomePageIndicatorIcon />} name="Home" />
-      </PageNavbar>
-      <SideBarContainer />
+      <div className="flex items-start">
+        <SideBarContainer />
+        <PageNavbar>
+          <PageIndicator icon={<Icons.HomePageIndicatorIcon />} name="Home" />
+        </PageNavbar>
+      </div>
     </div>
   );
 };
