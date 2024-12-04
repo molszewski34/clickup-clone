@@ -2,7 +2,12 @@ import { SvgIcons } from "./svgIcons";
 import { FaListUl, FaPlus, FaRegCircleDot } from "react-icons/fa6";
 import { RiAttachmentLine, RiDashboardHorizontalLine } from "react-icons/ri";
 import { HiMiniSignal, HiOutlineCalendar } from "react-icons/hi2";
-import { IoIosArrowDown, IoIosMore, IoMdClose } from "react-icons/io";
+import {
+  IoIosArrowDown,
+  IoIosArrowUp,
+  IoIosMore,
+  IoMdClose,
+} from "react-icons/io";
 import { FiColumns, FiPlusCircle, FiSearch } from "react-icons/fi";
 import { LuCircleSlash, LuSettings, LuTableProperties } from "react-icons/lu";
 import { BsLayoutTextSidebar, BsThreeDots } from "react-icons/bs";
@@ -42,6 +47,7 @@ export const Icons = {
   PlusIco: FaPlus,
   SliderHorizontal: SvgIcons.SlidersHorizontal,
   ArrowDownIcon: IoIosArrowDown,
+  ArrowUpIcon: IoIosArrowUp,
   SearchIcon: FiSearch,
   SettingsIcon: LuSettings,
   SidebarExpandIcon: BsLayoutTextSidebar,

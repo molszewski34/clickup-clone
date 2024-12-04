@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
+    "@tanstack/react-query": "^5.62.2",
     "@types/jest": "^29.5.14",
     "firebase": "^11.0.2",
     "next": "15.0.3",
