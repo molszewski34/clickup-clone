@@ -30,6 +30,7 @@ function useLoginHandler() {
       const userId = userCredential.user.uid;
 
       router.push(`/${userId}/home`);
+      localStorage.setItem('userId', userId);
       setUserId(userId);
     } catch (err: unknown) {
       if (err instanceof Error) {
