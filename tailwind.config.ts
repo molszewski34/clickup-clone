@@ -61,7 +61,8 @@ export default {
   },
   safelist: [
     {
-      pattern: /^(fill|stroke)-(white|gray)-(100|200|300|400|500|600|700|800|900)$/,
+      pattern:
+        /^(fill|stroke|border|bg)-(white|gray|blue|indigo|sky|teal|emerald|amber|orange|red|pink|purple|stone|black)(-(100|200|300|400|500|600|700|800|900))?$/,
     },
   ],
   plugins: [],

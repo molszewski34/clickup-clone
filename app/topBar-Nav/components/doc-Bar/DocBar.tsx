@@ -2,7 +2,8 @@
 
 import React, { useState } from "react"; // Import React and useState hook
 import NewItemModal from "../item-Bar/components-ItemBar/ItemModal"; // Import the modal component
-import IconDocMenu from "../icon/IconDocMenu";
+import Icon from "@/app/(dashboard)/ui/Icon";
+import { Icons } from "@/icons/icons";
 
 export default function DocBar() {
   // State to manage the visibility of the modal
@@ -24,8 +25,7 @@ export default function DocBar() {
         className="flex justify-center items-center hover:bg-white bg-opacity-10 hover:bg-opacity-20 rounded-md h-8 w-8 mr-1"
         onClick={openModal} // Trigger the openModal function when clicked
       >
-        {/* SVG icon inside the button */}
-        <IconDocMenu />
+        <Icon className="text-[14px] text-white" icon={<Icons.DocMenuIcon />} />
       </button>
 
       {/* Modal rendering */}

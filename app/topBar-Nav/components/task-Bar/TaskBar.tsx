@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-import { FaRegCheckCircle } from "react-icons/fa";
 import TaskModal from "./components-TaskBar/TaskModal";
+import { Icons } from "@/icons/icons";
 
 export default function TaskBar() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -16,7 +16,7 @@ export default function TaskBar() {
         className="flex justify-center items-center hover:bg-white bg-opacity-10 hover:bg-opacity-20 rounded-md h-8 w-8 mx-1"
         onClick={openModal}
       >
-        <FaRegCheckCircle className="w-[14px] h-[14px] text-white" />
+        <Icons.CheckCircleIcon className="text-[16px] text-white" />
       </button>
 
       {/* Modal */}

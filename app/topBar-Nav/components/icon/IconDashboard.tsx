@@ -1,10 +1,18 @@
 import { HiOutlineChartSquareBar } from "react-icons/hi";
 
-export default function IconDashboard({ size4 = 5, color = "gray-700" }) {
+export default function IconDashboard({
+  color = "gray-700",
+  size = "20",
+}: {
+  color?: string;
+  size?: string;
+}) {
   return (
     <>
       <HiOutlineChartSquareBar
-        className={`w-${size4} h-${size4} text-${color}`}
+        style={{ width: `${size}px`, height: `${size}px` }}
+        className={`text-${color} `}
+        strokeWidth="1.5"
       />
     </>
   );

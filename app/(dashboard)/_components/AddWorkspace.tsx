@@ -6,8 +6,8 @@ import { Workspace } from '@/app/server-actions/types'; // Typ Workspace
 const AddWorkspace: React.FC = () => {
   const [workspaceName, setWorkspaceName] = useState('');
   const [workspaceDescription, setWorkspaceDescription] = useState('');
-  const [isPrivate, setIsPrivate] = useState(false);
-  const [icon, setIcon] = useState('');
+  const [isPrivate] = useState(false);
+  const [icon] = useState('');
   const [loading, setLoading] = useState(false);
   const { user } = useAuth();
   const handleAddWorkspace = async () => {

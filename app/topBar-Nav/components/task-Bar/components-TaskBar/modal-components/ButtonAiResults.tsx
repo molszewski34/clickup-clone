@@ -1,5 +1,4 @@
 "use client";
-
 import IconAI from "../../../icon/IconAI"; // Importing the IconAI component, likely an SVG icon
 
 export default function ButtonAiResults() {
@@ -9,7 +8,6 @@ export default function ButtonAiResults() {
         {/* IconAI component displayed inside the button with a specific width and custom gradient fill */}
         <IconAI width="16" className="fill-[url(#custom-gradient)]" />
 
-        {/* Text inside the button */}
         <div className="w-auto outline-none text-white font-semibold text-sm ml-1 font-sans">
           Write StandUp {/* Button label text */}
         </div>

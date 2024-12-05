@@ -1,5 +1,5 @@
 import IconAI from "@/app/topBar-Nav/components/icon/IconAI";
-import IconEmptyDoc from "@/app/topBar-Nav/components/icon/IconEmptyDoc";
+import { Icons } from "@/icons/icons";
 
 export default function ButtonDescrition() {
   return (
@@ -7,11 +7,7 @@ export default function ButtonDescrition() {
       <div className=" flex-row items-center w-auto mx-6 mb-4">
         <button className=" flex items-center h-8 w-full px-2 hover:bg-gray-100 rounded-md group">
           <div className="flex justify-center items-center w-4 h-4 mr-[10px]">
-            <IconEmptyDoc
-              size="16"
-              color="gray-400"
-              classN="group-hover:text-gray-600"
-            />
+            <Icons.EmptyDocIcon className=" text-[16px] text-gray-400 group-hover:text-gray-600" />
           </div>
 
           <div className="font-sans text-sm text-gray-400 group-hover:text-gray-600">

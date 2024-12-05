@@ -43,7 +43,7 @@ const SubBarNavFilters = ({ subBarNavHeaderActive }: Props) => {
             setActiveFilterButton("columnsFilter");
           }}
         >
-          <Icons.ColumnIcon style={{ strokeWidth: "1px" }} />
+          <Icons.ColumnsIcon style={{ strokeWidth: "1px" }} />
           Columns
         </FilterButton>
         <div className="flex-1"></div>
@@ -71,7 +71,7 @@ const SubBarNavFilters = ({ subBarNavHeaderActive }: Props) => {
               className={`w-[22px] h-[22px] min-h-[22px] absolute right-[0.5px] text-blue_550 hover:text-blue_400 opacity-0 group-hover:opacity-100`}
               onClick={() => setMeModeButtonActive(false)}
             >
-              <Icons.CloseIcon style={{ strokeWidth: "0.5px" }} />
+              <Icons.CloseXIcon style={{ strokeWidth: "0.5px" }} />
             </ButtonVariant4>
           )}
         </div>
@@ -99,7 +99,7 @@ const SubBarNavFilters = ({ subBarNavHeaderActive }: Props) => {
               className="w-[22px] h-[22px] min-h-[22px] absolute right-[0.5px] text-blue_550 hover:text-blue_400 opacity-0 group-hover:opacity-100"
               onClick={() => setCloseButtonActive(false)}
             >
-              <Icons.CloseIcon style={{ strokeWidth: "0.5px" }} />
+              <Icons.CloseXIcon style={{ strokeWidth: "0.5px" }} />
             </ButtonVariant4>
           )}
         </div>
@@ -118,7 +118,7 @@ const SubBarNavFilters = ({ subBarNavHeaderActive }: Props) => {
             variant={inputText !== "" ? "secendary" : "primary"}
             className="absolute right-6 w-5 h-5 pl-0 pr-0 pt-0 pb-0 gap-0 flex items-center justify-center "
           >
-            <Icons.CloseIcon
+            <Icons.CloseXIcon
               className="text-[14px]"
               style={{ strokeWidth: "0.5px" }}
             />
