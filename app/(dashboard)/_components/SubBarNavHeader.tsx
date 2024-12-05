@@ -10,11 +10,10 @@ type Props = {
 
 const SubBarNavHeader: React.FC<Props> = ({
   spaceName,
-  subBarNavHeaderActive = false,
+  subBarNavHeaderActive,
 }) => {
   const [activeButton, setActiveButton] = useState<string | null>(null);
   return (
-    //ToDo: check if its working, shows subbarHeader and hide when clik expand button in subBarNavTop
     <div
       className={`font-sans flex items-center text-white_100 dark:bg-darkGray_600 transition-all duration-500 ease-in-out overflow-hidden
       ${

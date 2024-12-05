@@ -5,12 +5,14 @@ import ButtonVariant4 from "../../../components/ButtonVariant4";
 import { Icons } from "../../../icons/icons";
 type Props = {
   activeButton: string | null;
+  subBarNavHeaderActive: boolean;
   setSubBarNavHeaderActive: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const ViewBarNavTop: React.FC<Props> = ({
   activeButton,
   setSubBarNavHeaderActive,
+  subBarNavHeaderActive,
 }) => {
   const [buttonActive, setButtonActive] = useState<string | null>(null);
   const expandButtonHandler = () => {
@@ -19,7 +21,7 @@ const ViewBarNavTop: React.FC<Props> = ({
   };
   return (
     <div className="flex items-center h-12 text-sm capitalize">
-      <div className="flex items-center pl-2 h-12 gap-2">
+      <div className="flex items-center pl-2 h-12 gap-2 transition-all duration-500 ease-in-out">
         {activeButton === "overview" ? (
           <ButtonVariant2
             onClick={() =>
@@ -59,36 +61,33 @@ const ViewBarNavTop: React.FC<Props> = ({
           </>
         )}
         <div className="w-[1px] h-4 mx-[2px] bg-darkGray_400"></div>
-        {activeButton === "overview" ? (
-          <ButtonVariant3>Add card</ButtonVariant3>
-        ) : (
-          <div className="flex">
-            <ButtonVariant3 doubleButtonLeft={true}>Add Task</ButtonVariant3>
-            <ButtonVariant3
-              doubleButtonRight={true}
-              onClick={() =>
-                setButtonActive((prev) =>
-                  prev === "AddTaskDoubleRightButton"
-                    ? ""
-                    : "AddTaskDoubleRightButton"
-                )
-              }
-            >
-              <Icons.ArrowDownIcon
-                className={`text-[12px] relative top-[1px] transition-transform ease-in-out
-                ${
-                  buttonActive === "AddTaskDoubleRightButton"
-                    ? "rotate-180"
-                    : ""
-                }`}
-              />
-            </ButtonVariant3>
-          </div>
-        )}
+        {!subBarNavHeaderActive &&
+          (activeButton === "overview" ? (
+            <ButtonVariant3>Add card</ButtonVariant3>
+          ) : (
+            <div className="flex">
+              <ButtonVariant3 doubleButtonLeft={true}>Add Task</ButtonVariant3>
+              <ButtonVariant3
+                doubleButtonRight={true}
+                onClick={() =>
+                  setButtonActive((prev) =>
+                    prev === "AddTaskDoubleRightButton"
+                      ? ""
+                      : "AddTaskDoubleRightButton"
+                  )
+                }
+              >
+                <Icons.ArrowDownIcon
+                  className={`text-[12px] relative top-[1px] transition-transform ease-in-out
+                ${buttonActive === "AddTaskDoubleRightButton" && "rotate-180"}`}
+                />
+              </ButtonVariant3>
+            </div>
+          ))}
         <ButtonVariant4 onClick={() => expandButtonHandler()}>
           <Icons.ArrowDownIcon
             className={`text-[16px] relative top-[1px] transition-transform ease-in-out
-               ${buttonActive === "expandButton" ? "rotate-180" : ""} `}
+               ${buttonActive === "expandButton" && "rotate-180"} `}
           />
         </ButtonVariant4>
       </div>

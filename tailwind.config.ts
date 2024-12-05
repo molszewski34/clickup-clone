@@ -33,8 +33,9 @@ export default {
       },
       boxShadow: {
         custom: "0px 16px 48px 0px rgba(0, 0, 0, 0.24), 0px 24px 96px 0px rgba(0, 0, 0, 0.24)",
-        customBlueShadow_600: '0 0 0 1px #7F77F1, 0 0 0 4px #7f77f129',
-        customGrayShadow_400:"0 0 0 1px #3c414a"
+        customDoubleBlueShadow_600: '0 0 0 1px #7F77F1, 0 0 0 4px #7f77f129',
+        customGrayShadow_400:"0 0 0 1px #3c414a",
+        customBlueShadow_600: '0 0 0 1px #43418d',
       },
       fontFamily: {
         sans: [

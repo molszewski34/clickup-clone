@@ -74,6 +74,7 @@ const SubBarNavTop = ({
       <ViewBarNavTop
         activeButton={activeButton}
         setSubBarNavHeaderActive={setSubBarNavHeaderActive}
+        subBarNavHeaderActive={subBarNavHeaderActive}
       />
     </nav>
   );

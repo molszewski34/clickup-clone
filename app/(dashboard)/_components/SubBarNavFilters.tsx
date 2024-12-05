@@ -68,13 +68,7 @@ const SubBarNavFilters = ({ subBarNavHeaderActive }: Props) => {
           </FilterButton>
           {meModeButtonActive && (
             <ButtonVariant4
-              width="w-[22px]"
-              height="h-[22px]"
-              minWidth="min-h-[22px]"
-              position="absolute"
-              right="right-[0.5px]"
-              color="text-blue_550 hover:text-blue_400"
-              opacity="opacity-0 group-hover:opacity-100"
+              className={`w-[22px] h-[22px] min-h-[22px] absolute right-[0.5px] text-blue_550 hover:text-blue_400 opacity-0 group-hover:opacity-100`}
               onClick={() => setMeModeButtonActive(false)}
             >
               <Icons.CloseIcon style={{ strokeWidth: "0.5px" }} />
@@ -102,13 +96,7 @@ const SubBarNavFilters = ({ subBarNavHeaderActive }: Props) => {
           </FilterButton>
           {closeButtonActive && (
             <ButtonVariant4
-              width="w-[22px]"
-              height="h-[22px]"
-              minWidth="min-h-[22px]"
-              position="absolute"
-              right="right-[0.5px]"
-              color="text-blue_550 hover:text-blue_400"
-              opacity="opacity-0 group-hover:opacity-100"
+              className="w-[22px] h-[22px] min-h-[22px] absolute right-[0.5px] text-blue_550 hover:text-blue_400 opacity-0 group-hover:opacity-100"
               onClick={() => setCloseButtonActive(false)}
             >
               <Icons.CloseIcon style={{ strokeWidth: "0.5px" }} />
@@ -117,21 +105,35 @@ const SubBarNavFilters = ({ subBarNavHeaderActive }: Props) => {
         </div>
       </div>
       <div className="w-[1px] h-4 mx-2  bg-darkGray_400"></div>
-      <div className="relative flex items-center h-6 group w-36">
+      <div className="relative flex items-center group w-36">
         <FilterInput
           isActive={inputText !== ""}
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
         />
 
+        {inputText !== "" && (
+          <ButtonVariant2
+            onClick={() => setInputText("")}
+            variant={inputText !== "" ? "secendary" : "primary"}
+            className="absolute right-6 w-5 h-5 pl-0 pr-0 pt-0 pb-0 gap-0 flex items-center justify-center "
+          >
+            <Icons.CloseIcon
+              className="text-[14px]"
+              style={{ strokeWidth: "0.5px" }}
+            />
+          </ButtonVariant2>
+        )}
         <ButtonVariant2
           isActive={activeFilterButton === "dots"}
+          variant={inputText !== "" ? "secendary" : "primary"}
           onClick={() =>
             setActiveFilterButton((prev) => (prev === "dots" ? "" : "dots"))
           }
-          className="absolute right-[2px] w-5 h-5 px-0 py-0 gap-0 flex items-center justify-center"
+          className={`absolute right-[2px] w-5 h-5 pl-0 pr-0 pt-0 pb-0 gap-0 flex items-center justify-center 
+          `}
         >
-          <Icons.DotsIcon className="text-gray_400" />
+          <Icons.DotsIcon className="" />
         </ButtonVariant2>
       </div>
     </div>
