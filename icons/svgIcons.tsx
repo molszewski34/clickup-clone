@@ -708,4 +708,23 @@ export const SvgIcons = {
       </g>
     </svg>
   ),
+  TwoDotsWithArc: ({ className }: React.SVGProps<SVGAElement>) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="30 25 35 60"
+      width="1em"
+      height="1em"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="6"
+      className={className}
+    >
+      {/* left dot */}
+      <circle cx="33" cy="40" r="8" />
+      {/* rightr dot */}
+      <circle cx="61" cy="71" r="8" />
+      {/* Line */}
+      <path d="M33 45 C30 65, 35 75, 55 70" />
+    </svg>
+  ),
 };

@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/db/firebase/lib/firebase";
 import { useInitializeWorkspace } from "../../_hooks/useInitializeWorkspace";
-
+import ViewsBarContainer from "../../_components/ViewsBarContainer";
 import TopbarNav from "@/app/topBar-Nav/components/TopbarNav";
 import PageNavbar from "../../ui/PageNavbar";
 import PageIndicator from "../../ui/PageIndicator";
@@ -40,6 +40,7 @@ const UserHomePage = ({ params }: { params: Promise<{ id: string }> }) => {
   return (
     <div>
       <TopbarNav />
+      <ViewsBarContainer />
       <PageNavbar>
         <PageIndicator icon={<Icons.HomePageIndicatorIcon />} name="Home" />
       </PageNavbar>
