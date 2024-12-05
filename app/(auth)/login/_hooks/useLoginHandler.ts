@@ -8,14 +8,12 @@ import {
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 import { LoginInputs } from '../page';
-import { useData } from '@/context/DataProvider/DataProvider';
 function useLoginHandler() {
   const [loginError, setLoginError] = useState('');
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const router = useRouter();
-  const { setUserId } = useData();
 
   const handleLogin = async (data: LoginInputs) => {
     setLoginError('');
@@ -31,7 +29,6 @@ function useLoginHandler() {
 
       router.push(`/${userId}/home`);
       localStorage.setItem('userId', userId);
-      setUserId(userId);
     } catch (err: unknown) {
       if (err instanceof Error) {
         setLoginError(err.message);

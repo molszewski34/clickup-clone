@@ -1,6 +1,8 @@
 'use client';
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '@/db/firebase/lib/firebase';
 
 interface UserContextProps {
   userId: string | null;
@@ -15,10 +17,13 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
-    const storedUserId = localStorage.getItem('userId');
-    if (storedUserId) {
-      setUserId(storedUserId);
-    }
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUserId(user.uid);
+      }
+    });
+
+    return () => unsubscribe();
   }, []);
 
   return (
