@@ -1,6 +1,6 @@
-import React, { useRef, useEffect } from "react";
-import { AddIcons } from "../AddIcons"; // Import AddIcons
-import IconAndColorPicker from "../IconAndColorPicker";
+import React, { useRef, useEffect } from 'react';
+import { AddIcons } from '../AddIcons'; // Import AddIcons
+import IconAndColorPicker from '../IconAndColorPicker';
 
 interface IconAndNamePickerProps {
   isModalVisible: boolean;
@@ -29,15 +29,15 @@ const IconAndNamePicker: React.FC<IconAndNamePickerProps> = ({
 
   useEffect(() => {
     if (isModalVisible) {
-      document.addEventListener("mousedown", handleOutsideClick);
+      document.addEventListener('mousedown', handleOutsideClick);
     } else {
-      document.removeEventListener("mousedown", handleOutsideClick);
+      document.removeEventListener('mousedown', handleOutsideClick);
     }
 
     return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
+      document.removeEventListener('mousedown', handleOutsideClick);
     };
-  }, [isModalVisible]);
+  }, [isModalVisible, handleOutsideClick]);
 
   const buttonColorClass = `bg-${selectedColor} text-white`;
 
@@ -56,7 +56,7 @@ const IconAndNamePicker: React.FC<IconAndNamePickerProps> = ({
           {SelectedIconComponent ? (
             <SelectedIconComponent className="text-white" />
           ) : (
-            "M"
+            'M'
           )}
         </button>
         {isModalVisible && (
