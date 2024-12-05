@@ -32,7 +32,6 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({
   const [projectId, setProjectId] = useState('');
   const [taskId, setTaskId] = useState('');
 
-  console.log('userId', userId);
   return (
     <DataContext.Provider
       value={{
