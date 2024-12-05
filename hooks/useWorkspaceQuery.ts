@@ -1,18 +1,16 @@
-'use client';
-
-import { useQuery } from '@tanstack/react-query';
-import { useData } from '@/context/DataProvider/DataProvider';
 import { getWorkspaces } from '@/app/server-actions/workspace/getWorkspaces';
+import { useUser } from '@/context/DataProvider/UserDataProvider';
+import { useQuery } from '@tanstack/react-query';
 
 export const useWorkspaceQuery = () => {
-  const { userId } = useData();
+  const { userId } = useUser();
 
   if (!userId) {
     return { data: [], error: 'User ID is not available' };
   }
 
   return useQuery({
-    queryKey: ['projects', userId],
+    queryKey: ['workspaces', userId],
     queryFn: () => getWorkspaces(userId),
   });
 };
