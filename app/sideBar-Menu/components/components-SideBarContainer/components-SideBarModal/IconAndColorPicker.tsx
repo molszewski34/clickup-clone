@@ -1,28 +1,32 @@
-"use client";
+"use client"; // Komponent jest renderowany po stronie klienta w Next.js
 
-import React, { useState } from "react";
-import ColorChoice from "./ColorChoice";
-import SelectIcon from "./SelectIcon";
+import React, { useState } from "react"; // Importujemy React i useState
+import ColorChoice from "./ColorChoice"; // Import komponentu ColorChoice do wyboru koloru
+import SelectIcon from "./SelectIcon"; // Import komponentu SelectIcon do wyboru ikony
 
+// Interfejs dla propsów komponentu
 interface IconAndColorPickerProps {
-  onColorChange: (color: string) => void;
-  onIconSelect: (icon: string) => void;
+  onColorChange: (color: string) => void; // Funkcja wywoływana przy zmianie koloru
+  onIconSelect: (icon: string) => void; // Funkcja wywoływana przy wyborze ikony
 }
 
 const IconAndColorPicker: React.FC<IconAndColorPickerProps> = ({
   onColorChange,
   onIconSelect,
 }) => {
-  const [activeColor, setActiveColor] = useState("indigo-500");
+  const [activeColor, setActiveColor] = useState("indigo-500"); // Stan do przechowywania aktualnie wybranego koloru
 
+  // Funkcja obsługująca zmianę koloru
   const handleColorChange = (color: string) => {
-    setActiveColor(color);
-    onColorChange(color);
+    setActiveColor(color); // Ustawiamy wybrany kolor w stanie
+    onColorChange(color); // Wywołujemy funkcję przekazaną z propsów, aby poinformować rodzica o zmianie koloru
   };
 
   return (
     <div>
+      {/* Komponent do wyboru koloru, przekazujemy funkcję obsługi zmiany koloru */}
       <ColorChoice onColorChange={handleColorChange} />
+      {/* Komponent do wyboru ikony, przekazujemy aktualny kolor oraz funkcję obsługi wyboru ikony */}
       <SelectIcon activeColor={activeColor} onIconSelect={onIconSelect} />
     </div>
   );

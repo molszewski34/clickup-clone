@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import UserProfile from './components-SideBarContnet/UserProfile';
-import Button from './components-SideBarContnet/Button';
-import ButtonFavourites from './components-SideBarContnet/ButtonFavourites';
-import buttons from './components-SideBarContnet/buttons';
-import { Icons } from '@/icons/icons';
-import WorkspacesList from './WorkspacesList';
+import React, { useState } from "react";
+import UserProfile from "./components-SideBarContnet/UserProfile";
+import Button from "./components-SideBarContnet/Button";
+import ButtonFavourites from "./components-SideBarContnet/ButtonFavourites";
+import buttons from "./components-SideBarContnet/buttons";
+import { Icons } from "@/icons/icons";
+import WorkspaceButtons from "./WorkspaceButtons";
 
 interface SidebarContentProps {
   userName: string;
@@ -75,7 +75,9 @@ export default function SidebarContent({
             </button>
           </div>
         </div>
-        <WorkspacesList />
+        <div className="flex-row rounded-lg w-auto h-auto my-2 ml-3 mr-2">
+          <WorkspaceButtons width={width} />
+        </div>
       </div>
     </div>
   );

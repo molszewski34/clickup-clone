@@ -1,14 +1,14 @@
-import React, { useRef, useEffect } from 'react';
-import { AddIcons } from '../AddIcons'; // Import AddIcons
-import IconAndColorPicker from '../IconAndColorPicker';
+import React, { useRef, useEffect } from "react";
+import { AddIcons } from "../../AddIcons"; // Importowanie komponentów ikon z AddIcons
+import IconAndColorPicker from "../../IconAndColorPicker"; // Importowanie komponentu wyboru koloru i ikony
 
 interface IconAndNamePickerProps {
-  isModalVisible: boolean;
-  setModalVisible: (visible: boolean) => void;
-  selectedColor: string;
-  setSelectedColor: (color: string) => void;
-  selectedIcon: keyof typeof AddIcons; // Ensure this is a valid key of AddIcons
-  setSelectedIcon: (icon: keyof typeof AddIcons) => void; // Ensure this accepts valid keys of AddIcons
+  isModalVisible: boolean; // Stan widoczności modala
+  setModalVisible: (visible: boolean) => void; // Funkcja do ustawiania widoczności modala
+  selectedColor: string; // Wybrany kolor
+  setSelectedColor: (color: string) => void; // Funkcja do ustawiania wybranego koloru
+  selectedIcon: keyof typeof AddIcons; // Wybrana ikona (klucz z AddIcons)
+  setSelectedIcon: (icon: keyof typeof AddIcons) => void; // Funkcja do ustawiania wybranej ikony
 }
 
 const IconAndNamePicker: React.FC<IconAndNamePickerProps> = ({
@@ -19,29 +19,31 @@ const IconAndNamePicker: React.FC<IconAndNamePickerProps> = ({
   selectedIcon,
   setSelectedIcon,
 }) => {
-  const bodyRef = useRef<HTMLDivElement | null>(null);
+  const bodyRef = useRef<HTMLDivElement | null>(null); // Ref dla zewnętrznej części modala
 
+  // Funkcja obsługująca kliknięcie poza modalem, aby go zamknąć
   const handleOutsideClick = (event: MouseEvent) => {
     if (bodyRef.current && !bodyRef.current.contains(event.target as Node)) {
       setModalVisible(false);
     }
   };
 
+  // Użycie hooka useEffect do dodania i usunięcia event listenera dla kliknięć poza modalem
   useEffect(() => {
     if (isModalVisible) {
-      document.addEventListener('mousedown', handleOutsideClick);
+      document.addEventListener("mousedown", handleOutsideClick);
     } else {
-      document.removeEventListener('mousedown', handleOutsideClick);
+      document.removeEventListener("mousedown", handleOutsideClick);
     }
 
     return () => {
-      document.removeEventListener('mousedown', handleOutsideClick);
+      document.removeEventListener("mousedown", handleOutsideClick); // Czyszczenie po unmount
     };
   }, [isModalVisible, handleOutsideClick]);
 
-  const buttonColorClass = `bg-${selectedColor} text-white`;
+  const buttonColorClass = `bg-${selectedColor} text-white`; // Dynamically set background color based on selectedColor
 
-  const SelectedIconComponent = selectedIcon ? AddIcons[selectedIcon] : null;
+  const SelectedIconComponent = selectedIcon ? AddIcons[selectedIcon] : null; // Wybieramy komponent ikony na podstawie selectedIcon
 
   return (
     <div className="mt-5">
@@ -49,25 +51,28 @@ const IconAndNamePicker: React.FC<IconAndNamePickerProps> = ({
         Icon & name
       </h3>
       <div className="relative flex items-center w-full gap-3 mt-2">
+        {/* Przycisk, który otwiera modal */}
         <button
           onClick={() => setModalVisible(!isModalVisible)}
           className={`flex min-w-[34px] min-h-[34px] items-center justify-center rounded-lg border border-gray-200 font-sans text-sm font-semibold ${buttonColorClass}`}
         >
+          {/* Jeśli wybrano ikonę, renderujemy ją, w przeciwnym razie "M" */}
           {SelectedIconComponent ? (
             <SelectedIconComponent className="text-white" />
           ) : (
-            'M'
+            "M"
           )}
         </button>
         {isModalVisible && (
           <div
-            ref={bodyRef}
+            ref={bodyRef} // Ref dla modal
             className="absolute top-[55px] left-0 z-50 w-[276px] bg-white shadow-custom rounded-lg"
           >
             <div className="relative pb-4">
               <p className="text-gray-400 font-sans font-semibold text-[11px] mt-2 mb-1 px-4 py-2 ">
                 Space color
               </p>
+              {/* Komponent wybierający kolor i ikonę */}
               <IconAndColorPicker
                 onColorChange={setSelectedColor}
                 onIconSelect={setSelectedIcon}
@@ -75,6 +80,7 @@ const IconAndNamePicker: React.FC<IconAndNamePickerProps> = ({
             </div>
           </div>
         )}
+        {/* Pole tekstowe do wpisania nazwy */}
         <input
           type="text"
           placeholder="e.g. Marketing, Engineering, HR"
