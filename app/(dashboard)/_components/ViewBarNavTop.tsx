@@ -7,17 +7,23 @@ type Props = {
   activeButton: string | null;
   subBarNavHeaderActive: boolean;
   setSubBarNavHeaderActive: React.Dispatch<React.SetStateAction<boolean>>;
+  setSubBarNavFilterActive: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const ViewBarNavTop: React.FC<Props> = ({
   activeButton,
   setSubBarNavHeaderActive,
   subBarNavHeaderActive,
+  setSubBarNavFilterActive,
 }) => {
   const [buttonActive, setButtonActive] = useState<string | null>(null);
   const expandButtonHandler = () => {
     setButtonActive((prev) => (prev === "expandButton" ? "" : "expandButton"));
     setSubBarNavHeaderActive((prev) => !prev);
+  };
+  const filterButtonHandler = () => {
+    setButtonActive((prev) => (prev === "filterHide" ? "" : "filterHide"));
+    setSubBarNavFilterActive((prev)=>!prev);
   };
   return (
     <div className="flex items-center h-12 text-sm capitalize">
@@ -37,13 +43,7 @@ const ViewBarNavTop: React.FC<Props> = ({
               <Icons.SearchIcon className="text-[16px] relative top-[2px]" />
               search
             </ButtonVariant2>
-            <ButtonVariant2
-              onClick={() =>
-                setButtonActive((prev) =>
-                  prev === "filterHide" ? "" : "filterHide"
-                )
-              }
-            >
+            <ButtonVariant2 onClick={() => filterButtonHandler()}>
               <Icons.SliderHorizontal className="text-[14px] relative top-[4px]" />
               {buttonActive === "filterHide" ? "hide" : "filter"}
             </ButtonVariant2>

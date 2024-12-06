@@ -7,10 +7,12 @@ import ViewBarNavTop from "./ViewBarNavTop";
 interface Props {
   setSubBarNavHeaderActive: React.Dispatch<React.SetStateAction<boolean>>;
   subBarNavHeaderActive: boolean;
+  setSubBarNavFilterActive: React.Dispatch<React.SetStateAction<boolean>>;
 }
 const SubBarNavTop = ({
   setSubBarNavHeaderActive,
   subBarNavHeaderActive,
+  setSubBarNavFilterActive,
 }: Props) => {
   const [activeButton, setActiveButton] = useState<string | null>(null);
   return (
@@ -75,6 +77,7 @@ const SubBarNavTop = ({
         activeButton={activeButton}
         setSubBarNavHeaderActive={setSubBarNavHeaderActive}
         subBarNavHeaderActive={subBarNavHeaderActive}
+        setSubBarNavFilterActive={setSubBarNavFilterActive}
       />
     </nav>
   );
