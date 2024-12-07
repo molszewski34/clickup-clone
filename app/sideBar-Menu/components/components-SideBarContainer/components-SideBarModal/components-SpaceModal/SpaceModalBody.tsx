@@ -1,10 +1,10 @@
-import React from 'react';
-import IconAndNamePicker from './components-SpaceModalBody/IconAndNamePicker'; // Import komponentu wyboru ikony i koloru
-import DescriptionInput from './components-SpaceModalBody/DescriptionInput'; // Import komponentu do wprowadzania opisu
-import PrivacyToggle from './components-SpaceModalBody/PrivacyToggle'; // Import komponentu do ustawienia prywatności
-import { AddIcons } from '../AddIcons'; // Import ikon
-import { useWorkspaceFormContext } from '@/context/DataProvider/FormProviders/WorkspaceFormProvider';
-import { Workspace } from '@/app/server-actions/types';
+import React from "react";
+import IconAndNamePicker from "./components-SpaceModalBody/IconAndNamePicker"; // Import komponentu wyboru ikony i koloru
+import DescriptionInput from "./components-SpaceModalBody/DescriptionInput"; // Import komponentu do wprowadzania opisu
+import PrivacyToggle from "./components-SpaceModalBody/PrivacyToggle"; // Import komponentu do ustawienia prywatności
+import { AddIcons } from "../AddIcons"; // Import ikon
+import { useWorkspaceFormContext } from "@/context/DataProvider/FormProviders/WorkspaceFormProvider";
+import { Workspace } from "@/app/server-actions/types";
 
 interface SpaceModalBodyProps {
   isModalVisible: boolean; // Stan widoczności modala
@@ -24,8 +24,6 @@ const SpaceModalBody: React.FC<SpaceModalBodyProps> = ({
   setSelectedIcon,
 }) => {
   const { setFormData } = useWorkspaceFormContext();
-  // Dodanie logów do przekazywanych wartości po sprawdzeniu można usunąć
-  console.log('Selected Color:', selectedColor, 'Selected Icon:', selectedIcon); // Logowanie koloru
   return (
     <div className="p-6">
       {/* Komponent wyboru ikony i koloru */}
@@ -36,7 +34,6 @@ const SpaceModalBody: React.FC<SpaceModalBodyProps> = ({
         selectedIcon={selectedIcon}
         setSelectedColor={(color: string) => {
           setSelectedColor(color); // Zmiana koloru
-          console.log('Color selected:', color); // Logowanie w consoli wybranego koloru
         }}
         setSelectedIcon={(icon: keyof typeof AddIcons) => {
           setSelectedIcon(icon); // Zmiana ikony

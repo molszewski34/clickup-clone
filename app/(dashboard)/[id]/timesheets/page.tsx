@@ -5,11 +5,12 @@ import { useRouter } from "next/navigation";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/db/firebase/lib/firebase";
 import { useInitializeWorkspace } from "../../_hooks/useInitializeWorkspace";
-import PageNavbar from "../../ui/PageNavbar";
-import PageIndicator from "../../ui/PageIndicator";
-import { Icons } from "@/icons/icons";
 
-const UserHomePage = ({ params }: { params: Promise<{ id: string }> }) => {
+const UserTimesheetsPage = ({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) => {
   const router = useRouter();
   const [, setUserId] = useState<string | null>(null);
 
@@ -35,12 +36,13 @@ const UserHomePage = ({ params }: { params: Promise<{ id: string }> }) => {
   }, [params, router]);
 
   return (
-    <div>
-      <PageNavbar>
-        <PageIndicator icon={<Icons.HomePageIndicatorIcon />} name="Home" />
-      </PageNavbar>
+    <div
+      className="flex justify-center items-center w-full font-sans text-4xl"
+      style={{ height: "calc(100vh - 40px)" }}
+    >
+      Page Timesheets in progress
     </div>
   );
 };
 
-export default UserHomePage;
+export default UserTimesheetsPage;

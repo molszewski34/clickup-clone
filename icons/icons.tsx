@@ -1,6 +1,10 @@
 import { SvgIcons } from "./svgIcons";
 import { FaListUl, FaPlus, FaRegCircleDot } from "react-icons/fa6";
-import { RiAttachmentLine, RiDashboardHorizontalLine } from "react-icons/ri";
+import {
+  RiAttachmentLine,
+  RiDashboardHorizontalLine,
+  RiEmojiStickerLine,
+} from "react-icons/ri";
 import { HiMiniSignal, HiOutlineCalendar } from "react-icons/hi2";
 import {
   IoIosArrowDown,
@@ -107,6 +111,7 @@ export const Icons = {
   ThreeDotsIcon: BsThreeDots,
   GridDotsIcon: TbGridDots,
   CheckCircleIcon: FaRegCheckCircle,
+  Emoji: RiEmojiStickerLine,
 
   // New icons SVG
   AiIcon: SvgIcons.Ai,

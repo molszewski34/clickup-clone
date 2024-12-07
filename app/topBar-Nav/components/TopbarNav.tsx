@@ -8,6 +8,7 @@ import ReminderBar from "./reminder-Bar/ReminderBar";
 import DocBar from "./doc-Bar/DocBar";
 import TaskBar from "./task-Bar/TaskBar";
 import { Icons } from "@/icons/icons";
+import UserProfilBar from "./userProfil-bar/UserProfilBar";
 
 export default function TopbarNav() {
   return (
@@ -42,15 +43,7 @@ export default function TopbarNav() {
               <Icons.GridDotsIcon className="text-[16px] text-white" />
             </button>
             {/* div to "My Profile" */}
-            <button className="relative flex justify-start items-center bg-white bg-opacity-10 rounded-full border border-transparent hover:border hover:border-gray-400 h-8 w-11 mr-1 pl-1">
-              <div className=" relative flex justify-center items-center h-5 w-5 bg-sky-500 rounded-full font-medium  text-white text-xs font-sans">
-                J
-              </div>
-              <div className=" absolute h-2 w-2 bottom-1 right-4 bg-green-500 rounded-full border border-black"></div>
-              <div className=" relative flex justify-center items-center h-2 w-4 text-white text-xs">
-                <Icons.ArrowDownIcon className="text-[10px] text-white" />
-              </div>
-            </button>
+            <UserProfilBar />
           </div>
         </div>
       </nav>
