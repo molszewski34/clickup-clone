@@ -1,16 +1,18 @@
-import React from "react";
-import IconAndNamePicker from "./IconAndNamePicker";
-import DescriptionInput from "./DescriptionInput";
-import PrivacyToggle from "./PrivacyToggle";
-import { AddIcons } from "../AddIcons";
+import React from 'react';
+import IconAndNamePicker from './components-SpaceModalBody/IconAndNamePicker'; // Import komponentu wyboru ikony i koloru
+import DescriptionInput from './components-SpaceModalBody/DescriptionInput'; // Import komponentu do wprowadzania opisu
+import PrivacyToggle from './components-SpaceModalBody/PrivacyToggle'; // Import komponentu do ustawienia prywatności
+import { AddIcons } from '../AddIcons'; // Import ikon
+import { useWorkspaceFormContext } from '@/context/DataProvider/FormProviders/WorkspaceFormProvider';
+import { Workspace } from '@/app/server-actions/types';
 
 interface SpaceModalBodyProps {
-  isModalVisible: boolean;
-  setModalVisible: (visible: boolean) => void;
-  selectedColor: string;
-  setSelectedColor: (color: string) => void;
-  selectedIcon: keyof typeof AddIcons; // Zmieniamy typ na klucz z AddIcons
-  setSelectedIcon: (icon: keyof typeof AddIcons) => void; // Zmieniamy typ na funkcję przyjmującą klucz z AddIcons
+  isModalVisible: boolean; // Stan widoczności modala
+  setModalVisible: (visible: boolean) => void; // Funkcja do ustawiania widoczności modala
+  selectedColor: string; // Wybrany kolor
+  setSelectedColor: (color: string) => void; // Funkcja do ustawiania wybranego koloru
+  selectedIcon: keyof typeof AddIcons; // Wybrany klucz ikony z obiektu AddIcons
+  setSelectedIcon: (icon: keyof typeof AddIcons) => void; // Funkcja do ustawiania wybranej ikony
 }
 
 const SpaceModalBody: React.FC<SpaceModalBodyProps> = ({
@@ -21,17 +23,32 @@ const SpaceModalBody: React.FC<SpaceModalBodyProps> = ({
   selectedIcon,
   setSelectedIcon,
 }) => {
+  const { setFormData } = useWorkspaceFormContext();
+  // Dodanie logów do przekazywanych wartości po sprawdzeniu można usunąć
+  console.log('Selected Color:', selectedColor, 'Selected Icon:', selectedIcon); // Logowanie koloru
   return (
     <div className="p-6">
+      {/* Komponent wyboru ikony i koloru */}
       <IconAndNamePicker
         isModalVisible={isModalVisible}
         setModalVisible={setModalVisible}
         selectedColor={selectedColor}
-        setSelectedColor={setSelectedColor}
         selectedIcon={selectedIcon}
-        setSelectedIcon={setSelectedIcon}
+        setSelectedColor={(color: string) => {
+          setSelectedColor(color); // Zmiana koloru
+          console.log('Color selected:', color); // Logowanie w consoli wybranego koloru
+        }}
+        setSelectedIcon={(icon: keyof typeof AddIcons) => {
+          setSelectedIcon(icon); // Zmiana ikony
+          setFormData((prevState: Workspace) => ({
+            ...prevState,
+            icon: [...prevState.icon, { selectedIconName: icon }],
+          }));
+        }}
       />
+      {/* Komponent do wprowadzenia opisu */}
       <DescriptionInput />
+      {/* Komponent do ustawienia prywatności */}
       <PrivacyToggle />
     </div>
   );

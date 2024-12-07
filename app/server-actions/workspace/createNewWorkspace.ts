@@ -5,27 +5,24 @@ import { Workspace } from '@/app/server-actions/types';
 //* *Funkcja tworzy nowy workspace i dodaje domyślny nowy projekt o nazwie List.
 
 export const createNewWorkspace = async (
-  newWorkspace: Workspace,
+  formData: Workspace, //data passed from useCreateWorkspace
   userId: string
 ) => {
   try {
-    const workspaceRef = doc(
-      db,
-      `users/${userId}/workspaces/${newWorkspace.id}`
-    );
+    const workspaceRef = doc(db, `users/${userId}/workspaces/${formData.id}`);
     await setDoc(workspaceRef, {
-      name: newWorkspace.name,
-      createdAt: newWorkspace.createdAt,
+      name: formData.name,
+      createdAt: formData.createdAt,
       userId: userId,
-      desc: newWorkspace.desc,
-      icon: newWorkspace.icon,
-      isPrivate: newWorkspace.isPrivate,
+      desc: formData.desc,
+      icon: formData.icon,
+      isPrivate: formData.isPrivate,
     });
     console.log('Workspace added successfully');
 
     const projectRef = doc(
       db,
-      `users/${userId}/workspaces/${newWorkspace.id}/projects/list`
+      `users/${userId}/workspaces/${formData.id}/projects/list`
     );
     await setDoc(projectRef, {
       id: crypto.randomUUID(),
