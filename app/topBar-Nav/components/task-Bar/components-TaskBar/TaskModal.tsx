@@ -44,7 +44,7 @@ export default function TaskModal({ onClose }: TaskModalProps) {
       >
         ✕
       </button>
-      <div className="   flex-row w-full px-8 pt-6">
+      <div className="flex-row w-full px-8 pt-6">
         <div className="flex w-full gap-2 mb-8">
           {/* Initials Avatar */}
           <div className="static">
