@@ -31,8 +31,13 @@ export interface Workspace {
   id: string;
   name: string;
   createdAt: string;
-  userId: string;
   desc: string;
-  icon: string;
+  icon: string | Icon[];
   isPrivate: boolean;
+  userId: string;
 }
+
+export type Icon = {
+  activeColor: string;
+  selectedIconName: string;
+};

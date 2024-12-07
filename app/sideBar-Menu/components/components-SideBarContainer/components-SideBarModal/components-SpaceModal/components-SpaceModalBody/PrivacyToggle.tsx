@@ -1,6 +1,9 @@
-import React from "react";
+import { Workspace } from '@/app/server-actions/types';
+import { useWorkspaceFormContext } from '@/context/DataProvider/FormProviders/WorkspaceFormProvider';
+import React from 'react';
 
 const PrivacyToggle: React.FC = () => {
+  const { formData, setFormData } = useWorkspaceFormContext();
   return (
     <div className="flex justify-between mt-8 mb-2">
       <div className="flex-row">
@@ -13,7 +16,17 @@ const PrivacyToggle: React.FC = () => {
       </div>
       <div className="flex items-center">
         <label className="inline-flex items-center cursor-pointer group">
-          <input type="checkbox" value="" className="sr-only peer" />
+          <input
+            type="checkbox"
+            value=""
+            className="sr-only peer"
+            onChange={() =>
+              setFormData((prevState: Workspace) => ({
+                ...prevState,
+                isPrivate: !formData.isPrivate,
+              }))
+            }
+          />
           <div className="relative w-[36px] h-[22px] bg-gray-400 rounded-full peer-checked:bg-blue-600 after:content-[''] after:absolute after:top-[3px] after:left-[2px] after:w-[16px] after:h-[16px] after:bg-white after:rounded-full after:transition-all peer-checked:after:translate-x-[16px]" />
         </label>
       </div>

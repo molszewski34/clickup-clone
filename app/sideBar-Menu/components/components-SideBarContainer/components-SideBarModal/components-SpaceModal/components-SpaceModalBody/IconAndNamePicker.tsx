@@ -1,6 +1,8 @@
-import React, { useRef, useEffect } from "react";
-import { AddIcons } from "../../AddIcons"; // Importowanie komponentów ikon z AddIcons
-import IconAndColorPicker from "../../IconAndColorPicker"; // Importowanie komponentu wyboru koloru i ikony
+import React, { useRef, useEffect, useCallback } from 'react';
+import { AddIcons } from '../../AddIcons'; // Importowanie komponentów ikon z AddIcons
+import IconAndColorPicker from '../../IconAndColorPicker'; // Importowanie komponentu wyboru koloru i ikony
+import { useWorkspaceFormContext } from '@/context/DataProvider/FormProviders/WorkspaceFormProvider';
+import { Workspace } from '@/app/server-actions/types';
 
 interface IconAndNamePickerProps {
   isModalVisible: boolean; // Stan widoczności modala
@@ -21,29 +23,43 @@ const IconAndNamePicker: React.FC<IconAndNamePickerProps> = ({
 }) => {
   const bodyRef = useRef<HTMLDivElement | null>(null); // Ref dla zewnętrznej części modala
 
+  const { formData, setFormData } = useWorkspaceFormContext();
+
+  console.log('formData w IconAndNamePicker', formData);
+
   // Funkcja obsługująca kliknięcie poza modalem, aby go zamknąć
-  const handleOutsideClick = (event: MouseEvent) => {
-    if (bodyRef.current && !bodyRef.current.contains(event.target as Node)) {
-      setModalVisible(false);
-    }
-  };
+  const handleOutsideClick = useCallback(
+    (event: MouseEvent) => {
+      if (bodyRef.current && !bodyRef.current.contains(event.target as Node)) {
+        setModalVisible(false);
+      }
+    },
+    [setModalVisible]
+  );
 
   // Użycie hooka useEffect do dodania i usunięcia event listenera dla kliknięć poza modalem
   useEffect(() => {
     if (isModalVisible) {
-      document.addEventListener("mousedown", handleOutsideClick);
+      document.addEventListener('mousedown', handleOutsideClick);
     } else {
-      document.removeEventListener("mousedown", handleOutsideClick);
+      document.removeEventListener('mousedown', handleOutsideClick);
     }
 
     return () => {
-      document.removeEventListener("mousedown", handleOutsideClick); // Czyszczenie po unmount
+      document.removeEventListener('mousedown', handleOutsideClick); // Czyszczenie po unmount
     };
   }, [isModalVisible, handleOutsideClick]);
 
   const buttonColorClass = `bg-${selectedColor} text-white`; // Dynamically set background color based on selectedColor
 
   const SelectedIconComponent = selectedIcon ? AddIcons[selectedIcon] : null; // Wybieramy komponent ikony na podstawie selectedIcon
+
+  const handleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((prevState: Workspace) => ({
+      ...prevState,
+      name: e.target.value,
+    }));
+  };
 
   return (
     <div className="mt-5">
@@ -60,7 +76,7 @@ const IconAndNamePicker: React.FC<IconAndNamePickerProps> = ({
           {SelectedIconComponent ? (
             <SelectedIconComponent className="text-white" />
           ) : (
-            "M"
+            'M'
           )}
         </button>
         {isModalVisible && (
@@ -85,6 +101,7 @@ const IconAndNamePicker: React.FC<IconAndNamePickerProps> = ({
           type="text"
           placeholder="e.g. Marketing, Engineering, HR"
           className="w-full border border-gray-200 px-[10px] py-3 text-sm/[14px] font-sans rounded-lg"
+          onChange={handleDescriptionChange}
         />
       </div>
     </div>
