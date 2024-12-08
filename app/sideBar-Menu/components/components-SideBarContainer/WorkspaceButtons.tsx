@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { useWorkspaceQuery } from "@/hooks/useWorkspaceQuery";
-import { useProjectQuery } from "@/hooks/useProjectQuery";
-import { Icons } from "@/icons/icons";
-import AddWorkspaceElement from "../AddWorkspaceElement";
-import { useData } from "@/context/DataProvider/DataProvider";
+import React, { useState } from 'react';
+import { useWorkspaceQuery } from '@/hooks/useWorkspaceQuery';
+import { useProjectQuery } from '@/hooks/useProjectQuery';
+import { Icons } from '@/icons/icons';
+import AddWorkspaceElement from '../AddWorkspaceElement';
+import { useData } from '@/context/DataProvider/DataProvider';
 
 const WorkspaceButtons = ({ width }: { width: number }) => {
   const workspaceQueryResult = useWorkspaceQuery();
@@ -38,6 +38,10 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
     setHoverStates((prevState) => ({ ...prevState, [id]: false }));
   };
 
+  const handleSetWorkspace = (id: string) => {
+    setWorkspaceId(id);
+  };
+
   return (
     <div className="flex flex-col">
       {workspaces.length > 0 ? (
@@ -56,7 +60,10 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
               active={activeWorkspace === workspace.id}
               onClick={() => handleWorkspaceClick(workspace.id)}
               width={width}
-              onMouseEnter={() => handleMouseEnter(workspace.id)}
+              onMouseEnter={() => {
+                handleMouseEnter(workspace.id);
+                handleSetWorkspace(workspace.id);
+              }}
               onMouseLeave={() => handleMouseLeave(workspace.id)}
             />
             {activeWorkspace === workspace.id && (
