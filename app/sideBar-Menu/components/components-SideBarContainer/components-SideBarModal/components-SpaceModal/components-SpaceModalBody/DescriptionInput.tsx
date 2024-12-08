@@ -1,5 +1,5 @@
 import { Workspace } from '@/app/server-actions/types';
-import { useWorkspaceFormContext } from '@/context/DataProvider/FormProviders/WorkspaceFormProvider';
+import { useWorkspaceFormContext } from '@/context/FormProviders/WorkspaceFormProvider';
 import React from 'react';
 
 const DescriptionInput: React.FC = () => {

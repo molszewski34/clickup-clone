@@ -5,7 +5,8 @@ import queryClient from './lib/react-query';
 import { DataProvider } from '@/context/DataProvider/DataProvider';
 import { UserProvider } from '@/context/DataProvider/UserDataProvider';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { WorkspaceFormProvider } from '@/context/DataProvider/FormProviders/WorkspaceFormProvider';
+import { WorkspaceFormProvider } from '@/context/FormProviders/WorkspaceFormProvider';
+import { TaskFormProvider } from '@/context/FormProviders/TaskFormProvider';
 
 export default function RootLayout({
   children,
@@ -18,7 +19,9 @@ export default function RootLayout({
         <QueryClientProvider client={queryClient}>
           <UserProvider>
             <WorkspaceFormProvider>
-              <DataProvider>{children}</DataProvider>
+              <TaskFormProvider>
+                <DataProvider>{children}</DataProvider>
+              </TaskFormProvider>
             </WorkspaceFormProvider>
           </UserProvider>
           <ReactQueryDevtools initialIsOpen={false} />

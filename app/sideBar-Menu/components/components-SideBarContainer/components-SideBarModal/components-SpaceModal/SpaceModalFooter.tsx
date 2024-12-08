@@ -1,8 +1,8 @@
-import { useWorkspaceFormContext } from "@/context/DataProvider/FormProviders/WorkspaceFormProvider";
-import { useUser } from "@/context/DataProvider/UserDataProvider";
-import { useCreateWorkspace } from "@/hooks/useCreateWorkspace";
+import { useWorkspaceFormContext } from '@/context/FormProviders/WorkspaceFormProvider';
+import { useUser } from '@/context/DataProvider/UserDataProvider';
+import { useCreateWorkspace } from '@/hooks/useCreateWorkspace';
 
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 const SpaceModalFooter: React.FC = () => {
   const { formData } = useWorkspaceFormContext();
@@ -14,7 +14,7 @@ const SpaceModalFooter: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!userId) {
-      console.error("User ID is required but is null.");
+      console.error('User ID is required but is null.');
       return;
     }
     createWorkspaceMutation.mutate({ formData, userId });
