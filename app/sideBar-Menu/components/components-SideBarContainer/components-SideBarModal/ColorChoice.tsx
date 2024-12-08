@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'; // Importujemy React i useState
 import { ColorChoiceProps } from './types'; // Importujemy typy z pliku types
-import { useWorkspaceFormContext } from '@/context/DataProvider/FormProviders/WorkspaceFormProvider';
+import { useWorkspaceFormContext } from '@/context/FormProviders/WorkspaceFormProvider';
 import { Workspace } from '@/app/server-actions/types';
 
 // Komponent ColorChoice przyjmuje onColorChange jako prop
