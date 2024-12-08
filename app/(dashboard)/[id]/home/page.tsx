@@ -8,6 +8,8 @@ import { useInitializeWorkspace } from "../../_hooks/useInitializeWorkspace";
 import PageNavbar from "../../ui/PageNavbar";
 import PageIndicator from "../../ui/PageIndicator";
 import { Icons } from "@/icons/icons";
+import WidgetHeader from "../../_components/WidgetHeader";
+import ViewsBarContainer from "../../_components/ViewsBarContainer";
 
 const UserHomePage = ({ params }: { params: Promise<{ id: string }> }) => {
   const router = useRouter();
@@ -35,7 +37,12 @@ const UserHomePage = ({ params }: { params: Promise<{ id: string }> }) => {
   }, [params, router]);
 
   return (
-    <div>
+    <div className="w-full">
+      <WidgetHeader>
+        <Icons.HomeIcon />
+        Home
+      </WidgetHeader>
+      <ViewsBarContainer />
       <PageNavbar>
         <PageIndicator icon={<Icons.HomePageIndicatorIcon />} name="Home" />
       </PageNavbar>
