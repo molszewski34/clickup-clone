@@ -41,7 +41,7 @@ const TaskList = ({ projectId }: { projectId: string }) => {
   return (
     <ul>
       {tasks.length > 0 ? (
-        // @ts-expect-error
+        // @ts-expect-error nie wiem jak rozwiązać ten problem typowania
         tasks.map((task: Task) => <li key={task.id}>{task.name}</li>)
       ) : (
         <li>No tasks found for this project</li>

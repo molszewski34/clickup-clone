@@ -5,7 +5,6 @@ import { useProjectQuery } from '@/hooks/useProjectQuery';
 import { Icons } from '@/icons/icons';
 import AddWorkspaceElement from '../AddWorkspaceElement';
 import { useData } from '@/context/DataProvider/DataProvider';
-import { useAuth } from '@/app/(dashboard)/_hooks/useAuth';
 import { useUser } from '@/context/DataProvider/UserDataProvider';
 
 const WorkspaceButtons = ({ width }: { width: number }) => {
