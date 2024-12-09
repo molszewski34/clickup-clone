@@ -5,8 +5,8 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '@/db/firebase/lib/firebase';
 
 interface UserContextProps {
-  userId: string | null;
-  setUserId: (id: string | null) => void;
+  userId: string;
+  setUserId: (id: string) => void;
 }
 
 const UserContext = createContext<UserContextProps | undefined>(undefined);
@@ -14,7 +14,7 @@ const UserContext = createContext<UserContextProps | undefined>(undefined);
 export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [userId, setUserId] = useState<string | null>(null);
+  const [userId, setUserId] = useState<string>('');
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
