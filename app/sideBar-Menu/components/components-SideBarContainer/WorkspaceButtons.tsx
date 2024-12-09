@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useWorkspaceQuery } from '@/hooks/useWorkspaceQuery';
 import { useProjectQuery } from '@/hooks/useProjectQuery';
 import { Icons } from '@/icons/icons';
 import AddWorkspaceElement from '../AddWorkspaceElement';
 import { useData } from '@/context/DataProvider/DataProvider';
+import { useUser } from '@/context/DataProvider/UserDataProvider';
 
 const WorkspaceButtons = ({ width }: { width: number }) => {
+  const router = useRouter();
   const workspaceQueryResult = useWorkspaceQuery();
   const workspaces = workspaceQueryResult.data || [];
   const { setWorkspaceId } = useData();
@@ -14,7 +17,7 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
     {}
   );
 
-  // Używamy query hook, aby pobrać projekty
+  const { userId } = useUser();
   const {
     data: projects,
     isLoading: loadingProjects,
@@ -38,8 +41,8 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
     setHoverStates((prevState) => ({ ...prevState, [id]: false }));
   };
 
-  const handleSetWorkspace = (id: string) => {
-    setWorkspaceId(id);
+  const handleProjectClick = (projectId: string) => {
+    router.push(`/${userId}/l/${projectId}`);
   };
 
   return (
@@ -60,10 +63,7 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
               active={activeWorkspace === workspace.id}
               onClick={() => handleWorkspaceClick(workspace.id)}
               width={width}
-              onMouseEnter={() => {
-                handleMouseEnter(workspace.id);
-                handleSetWorkspace(workspace.id);
-              }}
+              onMouseEnter={() => handleMouseEnter(workspace.id)}
               onMouseLeave={() => handleMouseLeave(workspace.id)}
             />
             {activeWorkspace === workspace.id && (
@@ -88,7 +88,7 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
                       }
                       extraIcons={2}
                       active={false}
-                      onClick={() => {}}
+                      onClick={() => handleProjectClick(project.id)}
                       width={width}
                       onMouseEnter={() => handleMouseEnter(project.id)}
                       onMouseLeave={() => handleMouseLeave(project.id)}

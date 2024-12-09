@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useCallback } from 'react';
 import { AddIcons } from '../../AddIcons'; // Importowanie komponentów ikon z AddIcons
 import IconAndColorPicker from '../../IconAndColorPicker'; // Importowanie komponentu wyboru koloru i ikony
-import { useWorkspaceFormContext } from '@/context/DataProvider/FormProviders/WorkspaceFormProvider';
+import { useWorkspaceFormContext } from '@/context/FormProviders/WorkspaceFormProvider';
 import { Workspace } from '@/app/server-actions/types';
 
 interface IconAndNamePickerProps {

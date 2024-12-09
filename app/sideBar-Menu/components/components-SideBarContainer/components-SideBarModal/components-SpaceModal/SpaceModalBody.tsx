@@ -1,10 +1,10 @@
-import React from "react";
-import IconAndNamePicker from "./components-SpaceModalBody/IconAndNamePicker"; // Import komponentu wyboru ikony i koloru
-import DescriptionInput from "./components-SpaceModalBody/DescriptionInput"; // Import komponentu do wprowadzania opisu
-import PrivacyToggle from "./components-SpaceModalBody/PrivacyToggle"; // Import komponentu do ustawienia prywatności
-import { AddIcons } from "../AddIcons"; // Import ikon
-import { useWorkspaceFormContext } from "@/context/DataProvider/FormProviders/WorkspaceFormProvider";
-import { Workspace } from "@/app/server-actions/types";
+import React from 'react';
+import IconAndNamePicker from './components-SpaceModalBody/IconAndNamePicker'; // Import komponentu wyboru ikony i koloru
+import DescriptionInput from './components-SpaceModalBody/DescriptionInput'; // Import komponentu do wprowadzania opisu
+import PrivacyToggle from './components-SpaceModalBody/PrivacyToggle'; // Import komponentu do ustawienia prywatności
+import { AddIcons } from '../AddIcons'; // Import ikon
+import { useWorkspaceFormContext } from '@/context/FormProviders/WorkspaceFormProvider';
+import { Workspace } from '@/app/server-actions/types';
 
 interface SpaceModalBodyProps {
   isModalVisible: boolean; // Stan widoczności modala
