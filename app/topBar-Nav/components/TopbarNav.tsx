@@ -1,14 +1,15 @@
-"use client";
-import Image from "next/image";
-import Logo from "../../img/logo.svg";
-import SearchBar from "./search-Bar/SearchBar";
-import NewItemBar from "./item-Bar/ItemBar";
-import NotePadBar from "./notepad-Bar/NotePadBar";
-import ReminderBar from "./reminder-Bar/ReminderBar";
-import DocBar from "./doc-Bar/DocBar";
-import TaskBar from "./task-Bar/TaskBar";
-import { Icons } from "@/icons/icons";
-import UserProfilBar from "./userProfil-bar/UserProfilBar";
+'use client';
+import Image from 'next/image';
+import Logo from '../../img/logo.svg';
+import SearchBar from './search-Bar/SearchBar';
+import NewItemBar from './item-Bar/ItemBar';
+import NotePadBar from './notepad-Bar/NotePadBar';
+import ReminderBar from './reminder-Bar/ReminderBar';
+import DocBar from './doc-Bar/DocBar';
+import TaskBar from './task-Bar/TaskBar';
+import { Icons } from '@/icons/icons';
+import UserProfilBar from './userProfil-bar/UserProfilBar';
+import Link from 'next/link';
 
 export default function TopbarNav() {
   return (
@@ -18,9 +19,9 @@ export default function TopbarNav() {
           {/* div with logo  */}
           <div className=" flex w-4/12 h-8 py-1 ">
             <div className="flex justify-center items-center w-6 ml-3 ">
-              <a href="/ ">
+              <Link href={'/ '}>
                 <Image src={Logo} alt="Clickup Logo" height={16} />
-              </a>
+              </Link>
             </div>
           </div>
           {/* div with search bar  */}
