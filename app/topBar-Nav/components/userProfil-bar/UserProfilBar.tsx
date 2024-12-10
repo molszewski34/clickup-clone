@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-import NotePadModal from "./components-NotePadBar/NotePadModal";
 import { Icons } from "@/icons/icons";
+import UserProfilModal from "./components-NotePadBar/UserProfilModal";
 
 export default function UserProfilBar() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -35,7 +35,7 @@ export default function UserProfilBar() {
             className="bg-white rounded-lg w-[280px] h-[509px] mt-12 shadow-[0_20px_54px_#0000001a] border m-2 overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
-            <NotePadModal />
+            <UserProfilModal />
           </div>
         </div>
       )}
