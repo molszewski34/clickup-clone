@@ -1,5 +1,5 @@
 import { SvgIcons } from "./svgIcons";
-import { FaListUl, FaPlus, FaRegCircleDot } from "react-icons/fa6";
+import { FaCheck, FaListUl, FaPlus, FaRegCircleDot } from "react-icons/fa6";
 import {
   RiAttachmentLine,
   RiDashboardHorizontalLine,
@@ -112,6 +112,7 @@ export const Icons = {
   GridDotsIcon: TbGridDots,
   CheckCircleIcon: FaRegCheckCircle,
   Emoji: RiEmojiStickerLine,
+  Check: FaCheck,
 
   // New icons SVG
   AiIcon: SvgIcons.Ai,

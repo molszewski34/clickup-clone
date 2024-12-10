@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import buttonsProfilBar from "./buttonsProfilBar";
 import ButtonProfil from "./ButtonProfil";
+import { useUser } from "@/context/DataProvider/UserDataProvider"; // Import kontekstu użytkownika
 
 export default function ButtonRender() {
   const [activeButton, setActiveButton] = useState<number | null>(null);
+  const { userId } = useUser(); // Pobranie userId z kontekstu
 
   // Podział przycisków na grupy
   const buttonGroups = [
@@ -12,6 +14,15 @@ export default function ButtonRender() {
     buttonsProfilBar.slice(6, 10), // Kolejne 4 przyciski
     buttonsProfilBar.slice(10, 12), // Ostatnie 2 przyciski
   ];
+
+  // Funkcja obsługi kliknięcia
+  const handleButtonClick = (index: number, label: string) => {
+    setActiveButton(index);
+    if (label === "Settings" && userId) {
+      // Przekierowanie do lokalizacji z dynamicznym userId
+      window.location.href = `/${userId}/setting/profile`; // Zmiana lokalizacji
+    }
+  };
 
   return (
     <>
@@ -25,9 +36,9 @@ export default function ButtonRender() {
                 label={button.label}
                 icon={button.icon}
                 active={activeButton === groupIndex * 10 + index}
-                onClick={() => {
-                  setActiveButton(groupIndex * 10 + index);
-                }}
+                onClick={() =>
+                  handleButtonClick(groupIndex * 10 + index, button.label)
+                }
               />
             ))}
             {/* Separator między grupami, z pominięciem ostatniej grupy */}

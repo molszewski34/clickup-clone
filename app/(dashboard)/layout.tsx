@@ -15,10 +15,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <TopbarNav />
-        <div className="flex items-start">
-          <SideBarContainer />
-          {children}
+        <div>
+          <TopbarNav />
+          <div className="flex items-start ">
+            <SideBarContainer />
+            {children}
+          </div>
         </div>
       </body>
     </html>

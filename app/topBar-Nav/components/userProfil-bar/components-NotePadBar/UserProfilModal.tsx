@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ButtonRender from "./modal-components/ButtonRender";
 
-export default function NotePadModal() {
+export default function UserProfilModal() {
   const [userInitial, setUserInitial] = useState("?"); // State for the initials
   const [fullName, setFullName] = useState(""); // State for the full name
   const [loading, setLoading] = useState(true); // State for loading data
