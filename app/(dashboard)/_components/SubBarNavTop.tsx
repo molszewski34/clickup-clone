@@ -1,27 +1,38 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Icons } from "../../../icons/icons";
 import ButtonVariant1 from "../../../components/ButtonVariant1";
 import ButtonVariant2 from "../../../components/ButtonVariant2";
 import ViewBarNavTop from "./ViewBarNavTop";
+
 interface Props {
   setSubBarNavHeaderActive: React.Dispatch<React.SetStateAction<boolean>>;
   subBarNavHeaderActive: boolean;
   setSubBarNavFilterActive: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
 const SubBarNavTop = ({
   setSubBarNavHeaderActive,
   subBarNavHeaderActive,
   setSubBarNavFilterActive,
 }: Props) => {
   const [activeButton, setActiveButton] = useState<string | null>(null);
+  const [hiddenButtons, setHiddenButtons] = useState<string[]>([]);
+  const buttonsContainerRef = useRef<HTMLDivElement | null>(null);
+
   return (
     <nav
       className={`text-gray_400 bg-nav border-gray_100 border-b dark:bg-darkGray_600 font-sans font-medium flex transition-all duration-500 ease-in-out
         ${subBarNavHeaderActive ? "px-12" : "px-4"}`}
     >
-      <div className="w-full flex items-center h-12 text-sm capitalize ">
-        <div className="flex mr-2 h-12 gap-2">
+      <div
+        className="w-full flex items-center h-12 text-sm capitalize flex-grow"
+        style={{ container: `view/inline-size ` }}
+      >
+        <div
+          ref={buttonsContainerRef}
+          className="flex mr-2 h-12 gap-2 overflow-hidden"
+        >
           <ButtonVariant1
             onClick={() => setActiveButton("overview")}
             isActive={activeButton === "overview"}
@@ -48,7 +59,7 @@ const SubBarNavTop = ({
             isActive={activeButton === "calendar"}
           >
             <Icons.CalendarIcon
-              className="text-[14px] relative top-[4px] "
+              className="text-[14px] relative top-[4px]"
               style={{ strokeWidth: "2.4px" }}
             />
             calendar
@@ -70,7 +81,7 @@ const SubBarNavTop = ({
         </div>
         <ButtonVariant2 isLineBefore={true}>
           <Icons.PlusIco className="text-[14px] relative top-[4px]" />
-          view
+          View
         </ButtonVariant2>
       </div>
       <ViewBarNavTop
@@ -82,4 +93,5 @@ const SubBarNavTop = ({
     </nav>
   );
 };
+
 export default SubBarNavTop;

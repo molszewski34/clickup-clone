@@ -20,11 +20,13 @@ const SubBarNavFilters = ({
   const [closeButtonActive, setCloseButtonActive] = useState(false);
   const [meModeButtonActive, setMeModeButtonActive] = useState(false);
   const [inputText, setInputText] = useState("");
+  console.log(subBarNavFilterActive);
   return (
     <div
-      className={` flex h-10 gap-1 items-center bg-darkGray_600 transition-all duration-500 ease-in-out overflow-hidden
-    ${subBarNavHeaderActive ? "px-12" : "px-4"}
-     ${subBarNavFilterActive ? " h-10 " : "h-0 "}
+      className={` flex gap-1 items-center bg-darkGray_600 transition-all duration-500 ease-in-out overflow-hidden
+    ${subBarNavHeaderActive ? "px-12" : "px-4"} ${
+        subBarNavFilterActive ? " h-10 " : "h-0 "
+      }
       `}
     >
       <div className="flex w-full items-center gap-1">

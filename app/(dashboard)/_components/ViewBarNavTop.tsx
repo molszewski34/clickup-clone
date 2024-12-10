@@ -23,29 +23,25 @@ const ViewBarNavTop: React.FC<Props> = ({
   };
   const filterButtonHandler = () => {
     setButtonActive((prev) => (prev === "filterHide" ? "" : "filterHide"));
-    setSubBarNavFilterActive((prev)=>!prev);
+    setSubBarNavFilterActive((prev) => !prev);
   };
   return (
     <div className="flex items-center h-12 text-sm capitalize">
       <div className="flex items-center pl-2 h-12 gap-2 transition-all duration-500 ease-in-out">
         {activeButton === "overview" ? (
-          <ButtonVariant2
-            onClick={() =>
-              setButtonActive((prev) => (prev === "showHide" ? "" : "showHide"))
-            }
-          >
+          <ButtonVariant2 onClick={() => filterButtonHandler()}>
             <Icons.SliderHorizontal className="text-[14px] relative top-[4px]" />
-            {buttonActive === "showHide" ? "show" : "hide"}
+            {buttonActive === "filterHide" ? "show" : "hide"}
           </ButtonVariant2>
         ) : (
           <>
-            <ButtonVariant2>
+            <ButtonVariant2 onClick={() => filterButtonHandler()}>
               <Icons.SearchIcon className="text-[16px] relative top-[2px]" />
               search
             </ButtonVariant2>
             <ButtonVariant2 onClick={() => filterButtonHandler()}>
               <Icons.SliderHorizontal className="text-[14px] relative top-[4px]" />
-              {buttonActive === "filterHide" ? "hide" : "filter"}
+              {buttonActive === "filterHide" ? "filter" : "hide"}
             </ButtonVariant2>
             <ButtonVariant2
               isActive={buttonActive === "customize"}

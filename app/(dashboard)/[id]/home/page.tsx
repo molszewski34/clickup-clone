@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -24,7 +24,7 @@ const UserHomePage = ({ params }: { params: Promise<{ id: string }> }) => {
 
       const unsubscribe = onAuthStateChanged(auth, (user) => {
         if (!user || user.uid !== userId) {
-          router.push('/login');
+          router.push("/login");
         }
       });
 
@@ -53,10 +53,10 @@ const UserHomePage = ({ params }: { params: Promise<{ id: string }> }) => {
           </ButtonVariant2>
         </div>
       </WidgetHeader>
-      {/* <ViewsBarContainer /> */}
+      <ViewsBarContainer />
       <div
         className="flex justify-center items-center w-full font-sans text-4xl font-bold"
-        style={{ height: 'calc(100vh - 40px)' }}
+        style={{ height: "calc(100vh - 40px)" }}
       >
         Home Page in progress
       </div>
