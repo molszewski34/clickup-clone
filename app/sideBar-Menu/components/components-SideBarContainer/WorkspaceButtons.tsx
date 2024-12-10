@@ -1,11 +1,14 @@
-import React, { useState } from "react";
-import { useWorkspaceQuery } from "@/hooks/useWorkspaceQuery";
-import { useProjectQuery } from "@/hooks/useProjectQuery";
-import { Icons } from "@/icons/icons";
-import AddWorkspaceElement from "../AddWorkspaceElement";
-import { useData } from "@/context/DataProvider/DataProvider";
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useWorkspaceQuery } from '@/hooks/useWorkspaceQuery';
+import { useProjectQuery } from '@/hooks/useProjectQuery';
+import { Icons } from '@/icons/icons';
+import AddWorkspaceElement from '../AddWorkspaceElement';
+import { useData } from '@/context/DataProvider/DataProvider';
+import { useUser } from '@/context/DataProvider/UserDataProvider';
 
 const WorkspaceButtons = ({ width }: { width: number }) => {
+  const router = useRouter();
   const workspaceQueryResult = useWorkspaceQuery();
   const workspaces = workspaceQueryResult.data || [];
   const { setWorkspaceId } = useData();
@@ -14,7 +17,7 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
     {}
   );
 
-  // Używamy query hook, aby pobrać projekty
+  const { userId } = useUser();
   const {
     data: projects,
     isLoading: loadingProjects,
@@ -36,6 +39,10 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
 
   const handleMouseLeave = (id: string) => {
     setHoverStates((prevState) => ({ ...prevState, [id]: false }));
+  };
+
+  const handleProjectClick = (projectId: string) => {
+    router.push(`/${userId}/l/${projectId}`);
   };
 
   return (
@@ -81,7 +88,7 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
                       }
                       extraIcons={2}
                       active={false}
-                      onClick={() => {}}
+                      onClick={() => handleProjectClick(project.id)}
                       width={width}
                       onMouseEnter={() => handleMouseEnter(project.id)}
                       onMouseLeave={() => handleMouseLeave(project.id)}
