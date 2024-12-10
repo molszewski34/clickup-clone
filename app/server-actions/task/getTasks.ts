@@ -9,7 +9,7 @@ export const getTasks = async (
   try {
     const projectsRef = collection(
       db,
-      `users/${userId}/workspaces/${workspaceId}/projects/${projectId}/tasks/`
+      `users/${userId}/workspaces/${workspaceId}/projects/${projectId}/tasks`
     );
     const querySnapshot = await getDocs(projectsRef);
 

@@ -1,3 +1,5 @@
+import { redirect } from 'next/navigation';
+
 export default function Home() {
-  return <>No siema. Co tam?</>;
+  redirect('/login');
 }
