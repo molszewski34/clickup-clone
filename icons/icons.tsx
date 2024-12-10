@@ -31,6 +31,7 @@ import {
 } from "react-icons/pi";
 import { AiOutlineClose, AiOutlineTeam } from "react-icons/ai";
 import {
+  HiOutlineArrowLeft,
   HiOutlineChartSquareBar,
   HiOutlineDocument,
   HiOutlineLogout,
@@ -113,6 +114,7 @@ export const Icons = {
   CheckCircleIcon: FaRegCheckCircle,
   Emoji: RiEmojiStickerLine,
   Check: FaCheck,
+  ArrowLeft: HiOutlineArrowLeft,
 
   // New icons SVG
   AiIcon: SvgIcons.Ai,

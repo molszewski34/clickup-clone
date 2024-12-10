@@ -93,6 +93,11 @@ export default function Setting() {
     setActiveColor(color); // Ustawiamy wybrany kolor jako aktywny
   };
 
+  // Funkcja obsługująca wylogowanie
+  const handleLogout = () => {
+    // Przekierowanie na stronę logowania
+    window.location.href = "/login"; // Przekierowanie na stronę /login
+  };
   return (
     <>
       <div className="sticky flex flex-col w-full h-full pt-6 px-12 pb-0 overflow-y-auto overflow-x-hidden bg-white">
@@ -588,7 +593,10 @@ export default function Setting() {
                 other browsers
               </div>
               <div className="flex flex-col items-end">
-                <button className="px-[11px] w-auto border h-8 mb-3 rounded-md border-gray-200 font-sans text-sm/snug font-medium text-gray-700">
+                <button
+                  className="px-[11px] w-auto border h-8 mb-3 rounded-md border-gray-200 font-sans text-sm/snug font-medium text-gray-700"
+                  onClick={handleLogout} // Wywołanie funkcji wylogowania po kliknięciu
+                >
                   Log out of all sessions
                 </button>
                 <button className="px-[11px] max-w-fit border h-8 rounded-md bg-red-600 font-sans text-sm/snug font-medium text-white">

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import buttonsProfilBar from "./buttonsProfilBar";
+import buttonsProfilBar from "./buttonsSettingMenu";
 import ButtonProfil from "./ButtonProfil";
 import { useUser } from "@/context/DataProvider/UserDataProvider"; // Import kontekstu użytkownika
 
@@ -9,21 +9,16 @@ export default function ButtonRender() {
 
   // Podział przycisków na grupy
   const buttonGroups = [
-    buttonsProfilBar.slice(0, 2), // Pierwsze 2 przyciski
-    buttonsProfilBar.slice(2, 6), // Następne 4 przyciski
-    buttonsProfilBar.slice(6, 10), // Kolejne 4 przyciski
-    buttonsProfilBar.slice(10, 12), // Ostatnie 2 przyciski
+    buttonsProfilBar.slice(0, 4), // Pierwsze 4 przyciski
+    buttonsProfilBar.slice(4, 9), // Następne 6 przyciski
   ];
 
   // Funkcja obsługi kliknięcia
   const handleButtonClick = (index: number, label: string) => {
     setActiveButton(index);
-    if (label === "Settings" && userId) {
+    if (label === "My Settings" && userId) {
       // Przekierowanie do lokalizacji z dynamicznym userId
       window.location.href = `/${userId}/setting/profile`; // Zmiana lokalizacji
-    } else if (label === "Log out") {
-      // Przekierowanie do strony logowania
-      window.location.href = "/login";
     }
   };
 
@@ -46,7 +41,11 @@ export default function ButtonRender() {
             ))}
             {/* Separator między grupami, z pominięciem ostatniej grupy */}
             {groupIndex < buttonGroups.length - 1 && (
-              <div className="w-full h-[1px] bg-gray-200 my-2" />
+              <div className="mx-2 w-fit border-t border-gray-200">
+                <div className="p-2 pt-4 font-sans text-[11px] uppercase font-medium text-gray-500">
+                  Jakub King
+                </div>
+              </div>
             )}
           </React.Fragment>
         ))}
