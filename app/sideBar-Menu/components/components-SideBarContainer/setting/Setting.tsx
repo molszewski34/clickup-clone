@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import dark from "../../../../img/dark.png";
 import light from "../../../../img/light.png";
 import Image from "next/image";
+import useLogoutHandler from "@/app/(auth)/login/_hooks/useLogoutHandler";
 
 export default function Setting() {
   const [FullName, setFullName] = useState("Jakub King");
@@ -16,6 +17,8 @@ export default function Setting() {
 
   const [selectedMode, setSelectedMode] = useState("light"); // 'light' lub 'dark'
   const [activeColor, setActiveColor] = useState<string>("indigo-500"); // Stan do przechowywania aktywnego koloru
+
+  const { handleLogout } = useLogoutHandler(); // Korzystanie z hooka
 
   type Option = {
     id: string;
@@ -93,11 +96,6 @@ export default function Setting() {
     setActiveColor(color); // Ustawiamy wybrany kolor jako aktywny
   };
 
-  // Funkcja obsługująca wylogowanie
-  const handleLogout = () => {
-    // Przekierowanie na stronę logowania
-    window.location.href = "/login"; // Przekierowanie na stronę /login
-  };
   return (
     <>
       <div className="sticky flex flex-col w-full h-full pt-6 px-12 pb-0 overflow-y-auto overflow-x-hidden bg-white">

@@ -1,12 +1,18 @@
 import { Icons } from "@/icons/icons";
 import ButtonRender from "./componentsSettingMenu/ButtonRender";
+import { useUser } from "@/context/DataProvider/UserDataProvider"; // Import kontekstu użytkownika
+import useLogoutHandler from "@/app/(auth)/login/_hooks/useLogoutHandler";
 
 export default function SettingMenu() {
+  const { userId } = useUser(); // Pobranie userId z kontekstu
+  const { handleLogout } = useLogoutHandler(); // Korzystanie z hooka
+
   // Funkcja obsługująca wylogowanie
-  const handleLogout = () => {
+  const handleBackWorkspace = () => {
     // Przekierowanie na stronę logowania
-    window.location.href = "/login"; // Przekierowanie na stronę /login
+    window.location.href = `/${userId}/home`; // Przekierowanie na stronę /login
   };
+
   return (
     <>
       <div
@@ -14,7 +20,10 @@ export default function SettingMenu() {
         style={{ height: "calc(100vh - 40px)" }}
       >
         <div className=" flex justify-center items-center w-full h-[47px] px-2 border-b border-gray-200">
-          <button className="flex w-full gap-[9px] h-8 items-center rounded-md hover:bg-gray-200 px-[11px] font-sans font-normal text-sm">
+          <button
+            className="flex w-full gap-[9px] h-8 items-center rounded-md hover:bg-gray-200 px-[11px] font-sans font-normal text-sm"
+            onClick={handleBackWorkspace} // Wywołanie funkcji wylogowania po kliknięciu
+          >
             <Icons.ArrowLeft className="text-[16px] text-gray-500 stroke-2" />
             Back to Workspace
           </button>

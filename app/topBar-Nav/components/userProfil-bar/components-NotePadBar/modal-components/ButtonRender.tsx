@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import buttonsProfilBar from "./buttonsProfilBar";
 import ButtonProfil from "./ButtonProfil";
 import { useUser } from "@/context/DataProvider/UserDataProvider"; // Import kontekstu użytkownika
+import useLogoutHandler from "@/app/(auth)/login/_hooks/useLogoutHandler";
 
 export default function ButtonRender() {
   const [activeButton, setActiveButton] = useState<number | null>(null);
   const { userId } = useUser(); // Pobranie userId z kontekstu
+  const { handleLogout } = useLogoutHandler(); // Korzystanie z hooka
 
   // Podział przycisków na grupy
   const buttonGroups = [
@@ -22,8 +24,7 @@ export default function ButtonRender() {
       // Przekierowanie do lokalizacji z dynamicznym userId
       window.location.href = `/${userId}/setting/profile`; // Zmiana lokalizacji
     } else if (label === "Log out") {
-      // Przekierowanie do strony logowania
-      window.location.href = "/login";
+      handleLogout(); // wylogujemy użytkownika
     }
   };
 
