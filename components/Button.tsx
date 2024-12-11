@@ -23,10 +23,13 @@ export const Button = ({
   return (
     <button
       onClick={onClick}
-      className={`flex flex-row items-center justify-center gap-3 bg-indigo-500 hover:bg-indigo-600 rounded-lg px-2 py-1 text-white 
+      className={`${
+        className?.includes("hover:") ? "" : "hover-indigo-600"
+      } flex flex-row items-center justify-center gap-3 bg-indigo-500 rounded-lg px-2 py-1 text-white 
         ${shadow ? "shadow-xl shadow-indigo-300" : ""}
-        ${disabled ? "cursor-not-allowed bg-indigo-300 hover:bg-indigo-300" : ""} 
-        ${className}`}
+        ${disabled ? "cursor-not-allowed bg-opacity-50 hover:bg-opacity-50" : ""}
+        ${className}
+        `}
       type={type}
       disabled={disabled}>
       {children}
