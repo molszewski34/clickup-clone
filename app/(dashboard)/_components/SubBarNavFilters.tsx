@@ -28,8 +28,9 @@ const SubBarNavFilters = ({
         subBarNavFilterActive ? " h-10 " : "h-0 "
       }
       `}
+      style={{ container: `filters/inline-size` }}
     >
-      <div className="flex w-full items-center gap-1">
+      <div className="flex w-full items-center gap-1  @lg:flex-col">
         <FilterButton
           onClick={() => {
             setActiveFilterButton("statusFilter");
