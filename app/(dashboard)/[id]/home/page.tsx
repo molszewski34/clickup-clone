@@ -1,16 +1,10 @@
-"use client";
+'use client';
 
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "@/db/firebase/lib/firebase";
-import { useInitializeWorkspace } from "../../_hooks/useInitializeWorkspace";
-
-import TopbarNav from "@/app/topBar-Nav/components/TopbarNav";
-import PageNavbar from "../../ui/PageNavbar";
-import PageIndicator from "../../ui/PageIndicator";
-import { Icons } from "@/icons/icons";
-import SideBarContainer from "@/app/sideBar-Menu/components/SideBarContainer";
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '@/db/firebase/lib/firebase';
+import { useInitializeWorkspace } from '../../_hooks/useInitializeWorkspace';
 
 const UserHomePage = ({ params }: { params: Promise<{ id: string }> }) => {
   const router = useRouter();
@@ -25,7 +19,7 @@ const UserHomePage = ({ params }: { params: Promise<{ id: string }> }) => {
 
       const unsubscribe = onAuthStateChanged(auth, (user) => {
         if (!user || user.uid !== userId) {
-          router.push("/login");
+          router.push('/login');
         }
       });
 
@@ -38,12 +32,13 @@ const UserHomePage = ({ params }: { params: Promise<{ id: string }> }) => {
   }, [params, router]);
 
   return (
-    <div>
-      <TopbarNav />
-      <PageNavbar>
-        <PageIndicator icon={<Icons.HomePageIndicatorIcon />} name="Home" />
-      </PageNavbar>
-      <SideBarContainer />
+    <div className="w-full">
+      <div
+        className="flex justify-center items-center w-full font-sans text-4xl font-bold"
+        style={{ height: 'calc(100vh - 40px)' }}
+      >
+        Home Page in progress
+      </div>
     </div>
   );
 };

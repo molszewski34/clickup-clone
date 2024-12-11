@@ -1,18 +1,27 @@
-import React from 'react'
+import React from "react";
 
 type Props = {
-    children:React.ReactNode,
-    onClick?:()=>void,
-}
+  children: React.ReactNode;
+  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  className?: string;
+};
 
-const ButtonVariant4:React.FC<Props> = ({children,onClick}) => {
+const ButtonVariant4 = ({
+  children,
+  onClick,
+  className = "w-[26px] h-[26px] min-w-[26px] bg-darkGray_400 hover:bg-darkGray_300 active:bg-gray_600",
+}: Props) => {
   return (
-    <div className='h-full flex items-center'>
-        <button onClick={onClick} className='flex w-[26px] h-[26px] min-w-[26px] rounded-[13px] items-center justify-center bg-grayv3 hover:bg-grayv2 transition-colors ease-in-out active:bg-grayv1 cursor-pointer'>
-            {children}
-        </button>
+    <div className="h-full flex items-center">
+      <button
+        onClick={onClick}
+        className={`flex cursor-pointer z-20 items-center justify-center transition-colors ease-in-out rounded-[13px]
+          ${className}`}
+      >
+        {children}
+      </button>
     </div>
-  )
-}
+  );
+};
 
-export default ButtonVariant4
+export default ButtonVariant4;

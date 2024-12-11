@@ -1,11 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter, usePathname } from "next/navigation"; // Import usePathname
 import UserProfile from "./components-SideBarContnet/UserProfile";
 import Button from "./components-SideBarContnet/Button";
 import ButtonFavourites from "./components-SideBarContnet/ButtonFavourites";
 import buttons from "./components-SideBarContnet/buttons";
 import { Icons } from "@/icons/icons";
+import WorkspaceButtons from "./WorkspaceButtons";
 
 interface SidebarContentProps {
   userName: string;
@@ -23,6 +25,26 @@ export default function SidebarContent({
   openModal,
 }: SidebarContentProps) {
   const [activeButton, setActiveButton] = useState<number | null>(null);
+  const router = useRouter(); // Hook for navigation
+  const pathname = usePathname(); // Get the current path
+
+  const handleNavigation = (index: number) => {
+    const paths = [
+      "home",
+      "inbox",
+      "docs",
+      "dashboards",
+      "whiteboards",
+      "pulse",
+      "goals",
+      "timesheets",
+    ];
+    const userId = pathname.split("/")[1]; // Extract userId from URL
+
+    if (paths[index] && userId) {
+      router.push(`/${userId}/${paths[index]}`); // Preserve userId in the path
+    }
+  };
 
   return (
     <div>
@@ -43,7 +65,10 @@ export default function SidebarContent({
             icon={button.icon}
             extraIcons={button.extraIcons}
             active={activeButton === index}
-            onClick={() => setActiveButton(index)}
+            onClick={() => {
+              setActiveButton(index);
+              handleNavigation(index); // Navigate on click
+            }}
             width={width}
           />
         ))}
@@ -53,7 +78,6 @@ export default function SidebarContent({
 
       <ButtonFavourites />
 
-      {/* At this point, a modal for Adding a Workspace is triggered. */}
       <div className="flex-row ">
         <div className="flex items-center h-8 pl-4 pr-2 justify-between ">
           <div className="flex items-center text-xs font-sans font-medium text-gray-500">
@@ -73,6 +97,9 @@ export default function SidebarContent({
               <Icons.PlusIcon className="text-[14px] text-white" />
             </button>
           </div>
+        </div>
+        <div className="flex-row rounded-lg w-auto h-auto my-2 ml-3 mr-2">
+          <WorkspaceButtons width={width} />
         </div>
       </div>
     </div>

@@ -1,6 +1,10 @@
 import { SvgIcons } from "./svgIcons";
-import { FaListUl, FaPlus, FaRegCircleDot } from "react-icons/fa6";
-import { RiAttachmentLine, RiDashboardHorizontalLine } from "react-icons/ri";
+import { FaCheck, FaListUl, FaPlus, FaRegCircleDot } from "react-icons/fa6";
+import {
+  RiAttachmentLine,
+  RiDashboardHorizontalLine,
+  RiEmojiStickerLine,
+} from "react-icons/ri";
 import { HiMiniSignal, HiOutlineCalendar } from "react-icons/hi2";
 import {
   IoIosArrowDown,
@@ -27,6 +31,7 @@ import {
 } from "react-icons/pi";
 import { AiOutlineClose, AiOutlineTeam } from "react-icons/ai";
 import {
+  HiOutlineArrowLeft,
   HiOutlineChartSquareBar,
   HiOutlineDocument,
   HiOutlineLogout,
@@ -37,6 +42,13 @@ import { VscHome, VscLayoutCentered } from "react-icons/vsc";
 import { GoCodeSquare, GoMention } from "react-icons/go";
 import { CiImageOn, CiShare2, CiTrophy } from "react-icons/ci";
 import { FaRegCheckCircle } from "react-icons/fa";
+import { FiLayers } from "react-icons/fi";
+import { LuListFilter, LuUsers2 } from "react-icons/lu";
+import { HiOutlineDotsHorizontal } from "react-icons/hi";
+import { CiViewColumn } from "react-icons/ci";
+import { GoPerson } from "react-icons/go";
+import { CgClose } from "react-icons/cg";
+
 export const Icons = {
   ListUlicon: FaListUl,
   CalendarIcon: HiOutlineCalendar,
@@ -52,6 +64,15 @@ export const Icons = {
   SettingsIcon: LuSettings,
   SidebarExpandIcon: BsLayoutTextSidebar,
   HomePageIndicatorIcon: FiHome,
+  DotsIcon: HiOutlineDotsHorizontal,
+  LayersIcon: FiLayers,
+  CollapseIcon: SvgIcons.TwoDotsWithArc,
+  ColumnsIcon: CiViewColumn,
+  FilterIcon: LuListFilter,
+  PersonIcon: GoPerson,
+  UsersIcon: LuUsers2,
+  CheckIcon: FaRegCheckCircle,
+  CloseXIcon: CgClose,
   TeamIcon: AiOutlineTeam,
   Logout: HiOutlineLogout,
   IoIosMore: IoIosMore,
@@ -91,6 +112,9 @@ export const Icons = {
   ThreeDotsIcon: BsThreeDots,
   GridDotsIcon: TbGridDots,
   CheckCircleIcon: FaRegCheckCircle,
+  Emoji: RiEmojiStickerLine,
+  Check: FaCheck,
+  ArrowLeft: HiOutlineArrowLeft,
 
   // New icons SVG
   AiIcon: SvgIcons.Ai,

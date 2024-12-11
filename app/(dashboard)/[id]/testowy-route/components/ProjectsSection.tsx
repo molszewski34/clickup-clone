@@ -35,7 +35,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
     if (!userId || !selectedWorkspace) return;
 
     const fetchedProjects = await getProjects(userId, selectedWorkspace);
-    // @ts-expect-error: unkown type error
+
     setProjects(fetchedProjects);
   }, [userId, selectedWorkspace, setProjects]);
 

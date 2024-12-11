@@ -1,7 +1,17 @@
-import { collection, getDocs } from 'firebase/firestore';
-import { db } from '@/db/firebase/lib/firebase';
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "@/db/firebase/lib/firebase";
 
-export const getProjects = async (userId: string, workspaceId: string) => {
+// Zdefiniuj typ dla projektu
+interface Project {
+  id: string;
+  name: string;
+  // Możesz dodać inne pola, które zwraca Firestore, jeśli są istotne
+}
+
+export const getProjects = async (
+  userId: string,
+  workspaceId: string
+): Promise<Project[]> => {
   try {
     const projectsRef = collection(
       db,
@@ -9,15 +19,17 @@ export const getProjects = async (userId: string, workspaceId: string) => {
     );
     const querySnapshot = await getDocs(projectsRef);
 
+    // Zwracamy projekty z odpowiednimi typami
     const projects = querySnapshot.docs.map((doc) => ({
       id: doc.id,
+      name: doc.data().name,
       ...doc.data(),
     }));
 
-    console.log('Pobrano projekty:', projects);
+    console.log("Pobrano projekty:", projects);
     return projects;
   } catch (error) {
-    console.error('Błąd podczas pobierania projektów', error);
+    console.error("Błąd podczas pobierania projektów", error);
     return [];
   }
 };
