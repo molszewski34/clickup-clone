@@ -13,8 +13,6 @@ export const getWorkspaces = async (userId: string): Promise<Workspace[]> => {
       ...(doc.data() as Omit<Workspace, 'id'>),
     }));
 
-    console.log('Pobrano workspaces:', workspaces);
-
     return workspaces;
   } catch (error) {
     console.error('Błąd podczas pobierania workspaces:', error);
