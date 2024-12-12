@@ -1,33 +1,21 @@
-'use client';
-import React, { ReactNode, useMemo, useState } from 'react';
-import {
-  ColumnDef,
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
-} from '@tanstack/react-table';
-import { MOCK_TASKS } from '../../data';
-import { TaskTableRow } from './TaskTableRow';
-import { Icons } from '@/icons/icons';
-import { FlatTaskElement, TaskStatus } from '../../types';
-import { flattenTableData } from '../../_helpers/flattenTableData';
-import AddTaskToTableDownside from './AddTaskToTableDownside/AddTaskToTableDownside';
+"use client";
+import React, { ReactNode, useMemo, useState } from "react";
+import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
+import { TaskTableRow } from "./TaskTableRow";
+import { Icons } from "@/icons/icons";
+import { FlatTaskElement, TaskElement, TaskStatus } from "../../types";
+import { flattenTableData } from "../../_helpers/flattenTableData";
+import AddTaskToTableDownside from "./AddTaskToTableDownside/AddTaskToTableDownside";
 
-export const Table = ({
-  tasks,
-  status,
-}: {
-  tasks: FlatTaskElement[];
-  status: string;
-}) => {
+export const Table = ({ tasks, status }: { tasks: TaskElement[]; status: TaskStatus }) => {
   const [expandedTasks, setExpandedTasks] = useState<string[]>([]);
   const columns: ColumnDef<FlatTaskElement, ReactNode>[] = [
     {
-      accessorKey: 'title',
+      accessorKey: "title",
       header: () => <div className="text-left">Name</div>,
     },
     {
-      accessorKey: 'assignees',
+      accessorKey: "assignees",
       header: () => <div className="text-left w-[76px]">Assignee</div>,
       cell: (props) => (
         <div className="flex text-left items-center max-w-24 h-full hover:outline hover:outline-1 hover:outline-gray-400 hover:rounded hover:outline-offset-1 hover:cursor-pointer">
@@ -36,7 +24,7 @@ export const Table = ({
       ),
     },
     {
-      accessorKey: 'dueDate',
+      accessorKey: "dueDate",
       header: () => <div className="text-left w-[90px]">Due date</div>,
       cell: () => (
         <div className="flex text-left items-center max-w-24 h-full hover:outline hover:outline-1 hover:outline-gray-400 hover:rounded hover:outline-offset-1 hover:cursor-pointer">
@@ -45,7 +33,7 @@ export const Table = ({
       ),
     },
     {
-      accessorKey: 'priority',
+      accessorKey: "priority",
       header: () => <div className="text-left w-[76px]">Priority</div>,
       cell: (props) => (
         <div className="flex text-left text-sm items-center max-w-24 h-full hover:outline hover:outline-1 hover:outline-gray-400 hover:rounded hover:outline-offset-1 hover:cursor-pointer">
@@ -55,7 +43,7 @@ export const Table = ({
       ),
     },
     {
-      accessorKey: 'status',
+      accessorKey: "status",
       header: () => <div className="text-left w-[100px]">Status</div>,
       cell: (props) => (
         <div className="flex text-left text-sm items-center max-w-24 h-full hover:outline hover:outline-1 hover:outline-gray-400 hover:rounded hover:outline-offset-1 hover:cursor-pointer">
@@ -64,7 +52,7 @@ export const Table = ({
       ),
     },
     {
-      accessorKey: 'comments',
+      accessorKey: "comments",
       header: () => <div className="text-left w-[76px]">Comments</div>,
       cell: () => (
         <div className="flex items-center max-w-24 h-full hover:outline hover:outline-1 hover:outline-gray-400 hover:rounded hover:outline-offset-1 hover:cursor-pointer">
@@ -73,7 +61,7 @@ export const Table = ({
       ),
     },
     {
-      accessorKey: 'addField',
+      accessorKey: "addField",
       header: () => <div className="text-left w-[76px]">Add field</div>,
       cell: () => (
         <div className="flex items-center max-w-24 h-full hover:outline hover:outline-1 hover:outline-gray-400 hover:rounded hover:outline-offset-1 hover:cursor-pointer">
@@ -102,12 +90,8 @@ export const Table = ({
               <th
                 key={header.id}
                 colSpan={header.colSpan}
-                className="font-normal text-gray-500 hover:bg-gray-200 hover:cursor-pointer border-b p-1"
-              >
-                {flexRender(
-                  header.column.columnDef.header,
-                  header.getContext()
-                )}
+                className="font-normal text-gray-500 hover:bg-gray-200 hover:cursor-pointer border-b p-1">
+                {flexRender(header.column.columnDef.header, header.getContext())}
               </th>
             ))}
           </tr>
@@ -116,7 +100,7 @@ export const Table = ({
       <tbody className="">
         {table.getRowModel().rows.map((singleRow) => {
           if (singleRow.original.level !== 0) {
-            if (expandedTasks.includes(singleRow.original.parentId || '')) {
+            if (expandedTasks.includes(singleRow.original.parentId || "")) {
               return (
                 <TaskTableRow
                   key={singleRow.id}
