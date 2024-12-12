@@ -23,9 +23,9 @@ export default async function Page({
   return (
     <div className="flex flex-col gap-4">
       {/* Example for using the Table with filtered tasks */}
-      <Table tasks={tasksCompleted} />
-      <Table tasks={tasksInProgress} />
-      <Table tasks={tasksTodo} />
+      <Table tasks={tasksCompleted} status="completed" />
+      <Table tasks={tasksInProgress} status="in progress" />
+      <Table tasks={tasksTodo} status="to do" />
     </div>
   );
 }

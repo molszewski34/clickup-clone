@@ -11,8 +11,15 @@ import { TaskTableRow } from './TaskTableRow';
 import { Icons } from '@/icons/icons';
 import { FlatTaskElement, TaskStatus } from '../../types';
 import { flattenTableData } from '../../_helpers/flattenTableData';
+import AddTaskToTableDownside from './AddTaskToTableDownside/AddTaskToTableDownside';
 
-export const Table = ({ tasks }: { tasks: FlatTaskElement[] }) => {
+export const Table = ({
+  tasks,
+  status,
+}: {
+  tasks: FlatTaskElement[];
+  status: string;
+}) => {
   const [expandedTasks, setExpandedTasks] = useState<string[]>([]);
   const columns: ColumnDef<FlatTaskElement, ReactNode>[] = [
     {
@@ -131,7 +138,8 @@ export const Table = ({ tasks }: { tasks: FlatTaskElement[] }) => {
               </>
             );
         })}
-        No siema
+
+        <AddTaskToTableDownside status={status} />
       </tbody>
     </table>
   );
