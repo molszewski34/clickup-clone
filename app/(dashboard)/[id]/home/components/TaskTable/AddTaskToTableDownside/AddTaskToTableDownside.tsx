@@ -1,15 +1,35 @@
 import { usetaskFormContext } from '@/context/FormProviders/TaskFormProvider';
 import React, { useEffect, useState } from 'react';
 import AddAssignee from './AddAssignee';
+import { useUser } from '@/context/DataProvider/UserDataProvider';
+import { useData } from '@/context/DataProvider/DataProvider';
+import { useCreateTask } from '@/hooks/useCreateTask';
 
 const AddTaskToTableDownside = ({ status }: { status: any }) => {
   const { formData, setFormData } = usetaskFormContext();
+  const { userId } = useUser();
+  const { projectId, workspaceId } = useData();
+
   const [isOpen, setIsOpen] = useState(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setFormData({
       ...formData,
       priority: event.target.value,
+    });
+  };
+  const createTaskMutation = useCreateTask();
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!userId) {
+      console.error('User ID is required but is null.');
+      return;
+    }
+    createTaskMutation.mutate({
+      formData,
+      userId,
+      workspaceId,
+      projectId,
     });
   };
 
@@ -56,6 +76,7 @@ const AddTaskToTableDownside = ({ status }: { status: any }) => {
             </select>
           </div>
           <AddAssignee />
+          <button onClick={handleSubmit}>Save</button>
         </div>
       )}
     </>
