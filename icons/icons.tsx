@@ -72,6 +72,12 @@ import { VscHome, VscLayoutCentered } from "react-icons/vsc";
 import { GoCodeSquare, GoDotFill, GoMention, GoStop } from "react-icons/go";
 import { CiImageOn, CiShare2, CiTrophy } from "react-icons/ci";
 import { FaRegCheckCircle } from "react-icons/fa";
+import { IoMdArrowDropdown, IoMdArrowDropright } from "react-icons/io";
+import { RiDraggable } from "react-icons/ri";
+import { LuCalendarPlus } from "react-icons/lu";
+import { CgFlagAlt } from "react-icons/cg";
+import { MdOutlineModeComment } from "react-icons/md";
+import { PiDotsThreeBold } from "react-icons/pi";
 import { FiLayers } from "react-icons/fi";
 import { LuListFilter, LuUsers2 } from "react-icons/lu";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
@@ -116,6 +122,13 @@ export const Icons = {
   FaRegCircleDot: FaRegCircleDot,
   CiImageOn: CiImageOn,
   CiShare2: CiShare2,
+  IoMdArrowDropdown: IoMdArrowDropdown,
+  IoMdArrowDropright: IoMdArrowDropright,
+  RiDraggable: RiDraggable,
+  LuCalendarPlus: LuCalendarPlus,
+  CgFlagAlt: CgFlagAlt,
+  MdOutlineModeComment: MdOutlineModeComment,
+  PiDotsThreeBold: PiDotsThreeBold,
 
   // added new Icons
   AttachmentIcon: RiAttachmentLine,
