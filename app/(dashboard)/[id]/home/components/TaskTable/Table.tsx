@@ -102,18 +102,16 @@ export const Table = () => {
       </thead>
       <tbody className="">
         {table.getRowModel().rows.map((singleRow) => {
-          if (singleRow.original.level !== 0) {
-            if (expandedTasks.includes(singleRow.original.parentId || "")) {
-              return (
-                <TaskTableRow
-                  key={singleRow.id}
-                  row={singleRow}
-                  expandedTasks={expandedTasks}
-                  setExpandedTasks={setExpandedTasks}
-                />
-              );
+          const isVisible = (row: FlatTaskElement): boolean => {
+            if (row.level === 0) return true;
+            if (!expandedTasks.includes(row.parentId || "")) return false;
+            const parentRow = table.getRowModel().rows.find((r) => r.original.id === row.parentId);
+            if (parentRow) {
+              return isVisible(parentRow.original);
             }
-          } else
+            return true;
+          };
+          if (isVisible(singleRow.original)) {
             return (
               <TaskTableRow
                 key={singleRow.id}
@@ -122,6 +120,7 @@ export const Table = () => {
                 setExpandedTasks={setExpandedTasks}
               />
             );
+          }
         })}
       </tbody>
     </table>

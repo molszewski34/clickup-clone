@@ -1,9 +1,10 @@
 "use client";
 import { flexRender, Row } from "@tanstack/react-table";
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { FlatTaskElement } from "../../types";
 import { Icons } from "@/icons/icons";
 import ButtonIcon from "@/app/(dashboard)/ui/ButtonIcon";
+import { NewSubtask } from "./NewSubtask";
 
 type TaskTableRowProps = {
   row: Row<FlatTaskElement>;
@@ -12,6 +13,7 @@ type TaskTableRowProps = {
 };
 
 export const TaskTableRow = ({ row, expandedTasks, setExpandedTasks }: TaskTableRowProps) => {
+  const [isCreateSubtaskVisible, setIsCreateSubtaskVisible] = useState(false);
   const hasSubtasks = row.original.numberOfSubtasks > 0;
   const isExpanded = expandedTasks.includes(row.original.id);
 
@@ -65,6 +67,7 @@ export const TaskTableRow = ({ row, expandedTasks, setExpandedTasks }: TaskTable
           ) : (
             <ButtonIcon
               icon={<Icons.IoMdArrowDropright />}
+              onClick={() => setIsCreateSubtaskVisible(true)}
               className="flex items-center justify-center w-5 h-5 opacity-0 hover:bg-gray-200 group-hover:opacity-100 text-gray-400 rounded"></ButtonIcon>
           )}
           {row.original.title}
@@ -78,6 +81,15 @@ export const TaskTableRow = ({ row, expandedTasks, setExpandedTasks }: TaskTable
           );
         })}
       </tr>
+
+      {isCreateSubtaskVisible && (
+        <NewSubtask
+          indent={String(28 * (row.original.level + 2))}
+          isCreateSubtaskVisible={isCreateSubtaskVisible}
+          setIsCreateSubtaskVisible={setIsCreateSubtaskVisible}
+          row={row}
+        />
+      )}
     </>
   );
 };
