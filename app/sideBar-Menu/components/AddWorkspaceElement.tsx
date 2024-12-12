@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Icons } from '@/icons/icons';
 import ButtonRender from './addWorkspaceElement-Component/ButtonRender';
 import ListModal from './list-Components/ListModal';
@@ -32,14 +32,17 @@ const AddWorkspaceElement: React.FC<ButtonProps> = ({
     setModalState(modalState === modal ? 'none' : modal);
   };
 
-  const handleOutsideClick = (e: MouseEvent) => {
-    if (modalState !== 'none') {
-      const modal = document.getElementById(modalState);
-      if (modal && !modal.contains(e.target as Node)) {
-        setModalState('none');
+  const handleOutsideClick = useCallback(
+    (e: MouseEvent) => {
+      if (modalState !== 'none') {
+        const modal = document.getElementById(modalState);
+        if (modal && !modal.contains(e.target as Node)) {
+          setModalState('none');
+        }
       }
-    }
-  };
+    },
+    [modalState]
+  );
 
   React.useEffect(() => {
     if (modalState !== 'none') {

@@ -10,6 +10,7 @@ import WidgetHeader from "../../_components/WidgetHeader";
 import ViewsBarContainer from "../../_components/ViewsBarContainer";
 import ButtonVariant3 from "@/components/ButtonVariant3";
 import ButtonVariant2 from "@/components/ButtonVariant2";
+import { Table } from "./components/TaskTable/Table";
 
 const UserHomePage = ({ params }: { params: Promise<{ id: string }> }) => {
   const router = useRouter();
@@ -59,6 +60,7 @@ const UserHomePage = ({ params }: { params: Promise<{ id: string }> }) => {
         style={{ height: "calc(100vh - 40px)" }}
       >
         Home Page in progress
+        <Table />
       </div>
     </div>
   );

@@ -1,26 +1,13 @@
 import { SvgIcons } from "./svgIcons";
-import { FaListUl, FaPlus, FaRegCircleDot } from "react-icons/fa6";
-import {
-  RiAttachmentLine,
-  RiDashboardHorizontalLine,
-  RiEmojiStickerLine,
-} from "react-icons/ri";
+import { FaCheck, FaListUl, FaPlus, FaRegCircleDot } from "react-icons/fa6";
+import { RiAttachmentLine, RiDashboardHorizontalLine, RiEmojiStickerLine } from "react-icons/ri";
 import { HiMiniSignal, HiOutlineCalendar } from "react-icons/hi2";
-import {
-  IoIosArrowDown,
-  IoIosArrowUp,
-  IoIosMore,
-  IoMdClose,
-} from "react-icons/io";
+import { IoIosArrowDown, IoIosArrowUp, IoIosMore, IoMdClose } from "react-icons/io";
 import { FiColumns, FiPlusCircle, FiSearch } from "react-icons/fi";
 import { LuCircleSlash, LuSettings, LuTableProperties } from "react-icons/lu";
 import { BsLayoutTextSidebar, BsThreeDots } from "react-icons/bs";
 import { FiHome } from "react-icons/fi";
-import {
-  IoCalendarClearOutline,
-  IoPeopleOutline,
-  IoSearchOutline,
-} from "react-icons/io5";
+import { IoCalendarClearOutline, IoPeopleOutline, IoSearchOutline } from "react-icons/io5";
 import {
   PiArrowLineDownRight,
   PiCalendarCheck,
@@ -31,6 +18,7 @@ import {
 } from "react-icons/pi";
 import { AiOutlineClose, AiOutlineTeam } from "react-icons/ai";
 import {
+  HiOutlineArrowLeft,
   HiOutlineChartSquareBar,
   HiOutlineDocument,
   HiOutlineLogout,
@@ -41,6 +29,12 @@ import { VscHome, VscLayoutCentered } from "react-icons/vsc";
 import { GoCodeSquare, GoMention } from "react-icons/go";
 import { CiImageOn, CiShare2, CiTrophy } from "react-icons/ci";
 import { FaRegCheckCircle } from "react-icons/fa";
+import { IoMdArrowDropdown, IoMdArrowDropright } from "react-icons/io";
+import { RiDraggable } from "react-icons/ri";
+import { LuCalendarPlus } from "react-icons/lu";
+import { CgFlagAlt } from "react-icons/cg";
+import { MdOutlineModeComment } from "react-icons/md";
+import { PiDotsThreeBold } from "react-icons/pi";
 import { FiLayers } from "react-icons/fi";
 import { LuListFilter, LuUsers2 } from "react-icons/lu";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
@@ -83,6 +77,13 @@ export const Icons = {
   FaRegCircleDot: FaRegCircleDot,
   CiImageOn: CiImageOn,
   CiShare2: CiShare2,
+  IoMdArrowDropdown: IoMdArrowDropdown,
+  IoMdArrowDropright: IoMdArrowDropright,
+  RiDraggable: RiDraggable,
+  LuCalendarPlus: LuCalendarPlus,
+  CgFlagAlt: CgFlagAlt,
+  MdOutlineModeComment: MdOutlineModeComment,
+  PiDotsThreeBold: PiDotsThreeBold,
 
   // added new Icons
   AttachmentIcon: RiAttachmentLine,
@@ -112,6 +113,8 @@ export const Icons = {
   GridDotsIcon: TbGridDots,
   CheckCircleIcon: FaRegCheckCircle,
   Emoji: RiEmojiStickerLine,
+  Check: FaCheck,
+  ArrowLeft: HiOutlineArrowLeft,
 
   // New icons SVG
   AiIcon: SvgIcons.Ai,
