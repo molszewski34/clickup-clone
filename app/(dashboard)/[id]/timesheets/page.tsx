@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/db/firebase/lib/firebase";
 import { useInitializeWorkspace } from "../../_hooks/useInitializeWorkspace";
+import AddTaskModal from "@/app/addTaskModal/AddTaskModal";
 
 const UserTimesheetsPage = ({
   params,
@@ -40,7 +41,7 @@ const UserTimesheetsPage = ({
       className="flex justify-center items-center w-full font-sans text-4xl"
       style={{ height: "calc(100vh - 40px)" }}
     >
-      Page Timesheets in progress
+      <AddTaskModal />
     </div>
   );
 };
