@@ -20,7 +20,7 @@ const ListHeader: React.FC = () => {
                         <Icons.ThreeDotsIcon className="text-[16px] text-gray-500"/>
                     </Button>
                 </div>
-                <div className=" m-1.75 text-gray-500">
+                <div className="m-1.75 text-gray-500">
                     10
                 </div>
                 <div>
@@ -28,7 +28,6 @@ const ListHeader: React.FC = () => {
                         <Icons.PlusIcon className="text-[16px] pl-0 text-gray-500"/>
                         <span className="text-gray-500 -ml-1 text-sm font-semibold">Add Task</span>
                     </Button>
-
                 </div>
             </div>
         </div>
