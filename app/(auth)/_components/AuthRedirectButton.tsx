@@ -21,7 +21,8 @@ export const AuthRedirectButton = ({ redirectTo }: AuthRedirectButtonProps) => {
         onClick={() =>
           router.push(`/${Object.keys(RedirectTo)[Object.values(RedirectTo).indexOf(redirectTo)]}`)
         }
-        className="text-sm font-bold rounded-lg h-10 px-5">
+        className="text-sm font-bold rounded-lg h-10 px-5"
+        color="indigo">
         {redirectTo}
       </Button>
     </div>

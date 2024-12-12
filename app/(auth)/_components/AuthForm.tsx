@@ -53,7 +53,8 @@ const AuthForm = ({
         className="flex justify-end w-full h-12 mt-4 mb-6 font-bold"
         type="submit"
         disabled={isSubmitting}
-        key={type}>
+        key={type}
+        color="indigo">
         <div className="w-8 -ml-11">{isSubmitting && <Loader />}</div>
         {buttonLabel}
       </Button>
