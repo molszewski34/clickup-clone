@@ -1,8 +1,6 @@
 "use client";
 
 import { Icons } from "@/icons/icons";
-import IconAI from "../topBar-Nav/components/icon/IconAI";
-import { useState } from "react";
 import MenuRightTask from "./MenuRightTask";
 import MainContentTask from "./MainContentTask";
 
