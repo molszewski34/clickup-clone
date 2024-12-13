@@ -11,7 +11,7 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
   const router = useRouter();
   const workspaceQueryResult = useWorkspaceQuery();
   const workspaces = workspaceQueryResult.data || [];
-  const { setWorkspaceId } = useData();
+  const { setWorkspaceId, setProjectId } = useData();
   const [activeWorkspace, setActiveWorkspace] = useState<string | null>(null);
   const [hoverStates, setHoverStates] = useState<{ [key: string]: boolean }>(
     {}
@@ -88,7 +88,10 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
                       }
                       extraIcons={2}
                       active={false}
-                      onClick={() => handleProjectClick(project.id)}
+                      onClick={() => {
+                        handleProjectClick(project.id);
+                        setProjectId(project.id);
+                      }}
                       width={width}
                       onMouseEnter={() => handleMouseEnter(project.id)}
                       onMouseLeave={() => handleMouseLeave(project.id)}

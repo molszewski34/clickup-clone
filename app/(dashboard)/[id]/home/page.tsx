@@ -6,6 +6,8 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/db/firebase/lib/firebase";
 import { useInitializeWorkspace } from "../../_hooks/useInitializeWorkspace";
 import { Table } from "./components/TaskTable/Table";
+import { MOCK_TASKS } from "./data";
+import { TaskStatus } from "./types";
 
 const UserHomePage = ({ params }: { params: Promise<{ id: string }> }) => {
   const router = useRouter();
@@ -32,11 +34,21 @@ const UserHomePage = ({ params }: { params: Promise<{ id: string }> }) => {
     fetchParams();
   }, [params, router]);
 
+  const completedTasks = MOCK_TASKS.filter(
+    (singleMockTask) => singleMockTask.status === TaskStatus.completed
+  );
+  const inProgressTasks = MOCK_TASKS.filter(
+    (singleMockTask) => singleMockTask.status === TaskStatus.inProgress
+  );
+  const toDoTasks = MOCK_TASKS.filter(
+    (singleMockTask) => singleMockTask.status === TaskStatus.todo
+  );
+
   return (
     <div className="w-full">
-      <div className="py-10">
-        <Table />
-      </div>
+      <Table tasks={completedTasks} status={TaskStatus.completed} />
+      <Table tasks={inProgressTasks} status={TaskStatus.inProgress} />
+      <Table tasks={toDoTasks} status={TaskStatus.todo} />
     </div>
   );
 };
