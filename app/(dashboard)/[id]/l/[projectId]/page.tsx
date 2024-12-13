@@ -8,7 +8,7 @@ export default async function Page({
 }: {
   params: Promise<{ projectId: string }>;
 }) {
-  const projectId = (await params).projectId;
+  await params;
 
   const tasksInProgress = MOCK_TASKS.filter(
     (task) => task.status === TaskStatus.inProgress
@@ -23,9 +23,9 @@ export default async function Page({
   return (
     <div className="flex flex-col gap-4">
       {/* Example for using the Table with filtered tasks */}
-      <Table tasks={tasksCompleted} status="completed" />
-      <Table tasks={tasksInProgress} status="in progress" />
-      <Table tasks={tasksTodo} status="to do" />
+      <Table tasks={tasksCompleted} status={TaskStatus.completed} />
+      <Table tasks={tasksInProgress} status={TaskStatus.inProgress} />
+      <Table tasks={tasksTodo} status={TaskStatus.todo} />
     </div>
   );
 }

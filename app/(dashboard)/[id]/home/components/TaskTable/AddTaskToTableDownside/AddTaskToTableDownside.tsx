@@ -1,11 +1,12 @@
 import { usetaskFormContext } from '@/context/FormProviders/TaskFormProvider';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import AddAssignee from './AddAssignee';
 import { useUser } from '@/context/DataProvider/UserDataProvider';
 import { useData } from '@/context/DataProvider/DataProvider';
 import { useCreateTask } from '@/hooks/useCreateTask';
+import { Task } from '@/app/server-actions/types';
 
-const AddTaskToTableDownside = ({ status }: { status: any }) => {
+const AddTaskToTableDownside = ({ status }: { status: string }) => {
   const { formData, setFormData } = usetaskFormContext();
   const { userId } = useUser();
   const { projectId, workspaceId } = useData();
@@ -39,7 +40,7 @@ const AddTaskToTableDownside = ({ status }: { status: any }) => {
         <button
           onClick={() => {
             setIsOpen(true);
-            setFormData((prevState: any) => ({
+            setFormData((prevState: Task) => ({
               ...prevState,
               status,
             }));
@@ -53,7 +54,7 @@ const AddTaskToTableDownside = ({ status }: { status: any }) => {
             type="text"
             value={formData.taskName}
             onChange={(e) =>
-              setFormData((prevState: any) => ({
+              setFormData((prevState: Task) => ({
                 ...prevState,
                 taskName: e.target.value,
               }))
