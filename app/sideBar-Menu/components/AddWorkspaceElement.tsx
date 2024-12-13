@@ -1,7 +1,9 @@
-import React, { useCallback, useState } from 'react';
-import { Icons } from '@/icons/icons';
-import ButtonRender from './addWorkspaceElement-Component/ButtonRender';
-import ListModal from './list-Components/ListModal';
+import React, { useCallback, useState } from "react";
+import { Icons } from "@/icons/icons";
+import ButtonRender from "./addWorkspaceElement-Component/ButtonRender";
+import ListModal from "./list-Components/ListModal";
+import MenuFileChanger from "./componentsMenuFileChanger/MenuFileChanger";
+import MenuListChanger from "./componentsMenuListChanger/MenuListChanger";
 
 interface ButtonProps {
   label: string;
@@ -12,6 +14,7 @@ interface ButtonProps {
   width: number;
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
+  isWorkspace: boolean;
 }
 
 const AddWorkspaceElement: React.FC<ButtonProps> = ({
@@ -23,21 +26,33 @@ const AddWorkspaceElement: React.FC<ButtonProps> = ({
   width,
   onMouseEnter,
   onMouseLeave,
+  isWorkspace,
 }) => {
-  const [modalState, setModalState] = useState<'none' | 'modal1' | 'modal2'>(
-    'none'
-  );
+  const [modalState, setModalState] = useState<
+    | "none"
+    | "menuWorkspaceList"
+    | "createList"
+    | "menuFileChanger"
+    | "menuListChanger"
+  >("none");
 
-  const toggleModal = (modal: 'none' | 'modal1' | 'modal2') => {
-    setModalState(modalState === modal ? 'none' : modal);
+  const toggleModal = (
+    modal:
+      | "none"
+      | "menuWorkspaceList"
+      | "createList"
+      | "menuFileChanger"
+      | "menuListChanger"
+  ) => {
+    setModalState(modalState === modal ? "none" : modal);
   };
 
   const handleOutsideClick = useCallback(
     (e: MouseEvent) => {
-      if (modalState !== 'none') {
+      if (modalState !== "none") {
         const modal = document.getElementById(modalState);
         if (modal && !modal.contains(e.target as Node)) {
-          setModalState('none');
+          setModalState("none");
         }
       }
     },
@@ -45,13 +60,13 @@ const AddWorkspaceElement: React.FC<ButtonProps> = ({
   );
 
   React.useEffect(() => {
-    if (modalState !== 'none') {
-      document.addEventListener('click', handleOutsideClick);
+    if (modalState !== "none") {
+      document.addEventListener("click", handleOutsideClick);
     } else {
-      document.removeEventListener('click', handleOutsideClick);
+      document.removeEventListener("click", handleOutsideClick);
     }
     return () => {
-      document.removeEventListener('click', handleOutsideClick);
+      document.removeEventListener("click", handleOutsideClick);
     };
   }, [modalState, handleOutsideClick]);
 
@@ -62,26 +77,46 @@ const AddWorkspaceElement: React.FC<ButtonProps> = ({
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
         className={`group/button flex items-center rounded-md h-8 w-full mr-1 pl-1 mb-px flex-grow min-w-0 ${
-          width < 200 ? 'justify-center' : ''
+          width < 200 ? "justify-center" : ""
         } ${
-          modalState === 'modal1' && !active
-            ? 'bg-gray-200'
+          modalState === "menuWorkspaceList" && !active
+            ? "bg-gray-200"
             : active
-            ? 'bg-blue-200 text-blue-700'
-            : 'hover:bg-gray-200 hover:text-gray-700'
+            ? "bg-blue-200 text-blue-700"
+            : "hover:bg-gray-200 hover:text-gray-700"
         }`}
       >
         <div className="flex w-full justify-between items-center">
           <div className="flex justify-center items-center h-8 w-6">
-            {React.cloneElement(icon, {
-              className: active ? 'text-blue-700' : 'text-gray-700',
-            })}
+            {isWorkspace ? (
+              <div
+                className={`flex justify-center items-center w-5 h-5 rounded ${
+                  active ? "bg-blue-400" : "bg-violet-400"
+                }`}
+              >
+                {React.cloneElement(icon, {
+                  className: `${
+                    active
+                      ? "transition-transform duration-300  group-hover/button:rotate-90 text-blue-700"
+                      : "text-gray-700"
+                  }`,
+                })}
+              </div>
+            ) : (
+              React.cloneElement(icon, {
+                className: `${
+                  active
+                    ? "transition-transform duration-300  group-hover/button:rotate-90 text-blue-700"
+                    : "text-gray-700"
+                }`,
+              })
+            )}
           </div>
           {width >= 200 && (
             <div className="flex justify-start items-center flex-grow min-w-0 ml-1">
               <span
                 className={`block text-sm font-sans truncate ${
-                  active ? 'text-blue-700' : 'text-gray-600'
+                  active ? "text-blue-700" : "text-gray-700"
                 }`}
               >
                 {label}
@@ -91,32 +126,63 @@ const AddWorkspaceElement: React.FC<ButtonProps> = ({
           {width >= 200 && extraIcons > 0 && (
             <div
               className={`flex justify-center items-center mr-1 opacity-0 group-hover/button:opacity-100 ${
-                modalState !== 'none' || active ? 'opacity-100' : ''
+                modalState !== "none" || active ? "opacity-100" : ""
               }`}
             >
-              <div className="flex justify-center items-center h-6 w-12">
-                {extraIcons >= 1 && (
-                  <Icons.ThreeDotsIcon
-                    className={
-                      active
-                        ? 'text-[14px] text-blue-700'
-                        : 'text-[14px] text-gray-700'
-                    }
-                  />
+              <div className="flex justify-center items-center h-6 w-12 ">
+                {extraIcons == 1 && (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleModal("menuListChanger");
+                    }}
+                    className={`flex justify-center items-center h-6 w-6 rounded-md ${
+                      active ? "hover:bg-blue-300" : "hover:bg-gray-300"
+                    }`}
+                  >
+                    <Icons.ThreeDotsIcon
+                      className={
+                        active
+                          ? "text-[14px] text-blue-700"
+                          : "text-[14px] text-gray-700"
+                      }
+                    />
+                  </button>
+                )}
+                {extraIcons > 1 && (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleModal("menuFileChanger");
+                    }}
+                    className={`flex justify-center items-center h-6 w-6 rounded-md ${
+                      active ? "hover:bg-blue-300" : "hover:bg-gray-300"
+                    }`}
+                  >
+                    <Icons.ThreeDotsIcon
+                      className={
+                        active
+                          ? "text-[14px] text-blue-700"
+                          : "text-[14px] text-gray-700"
+                      }
+                    />
+                  </button>
                 )}
                 {extraIcons >= 2 && (
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      toggleModal('modal1');
+                      toggleModal("menuWorkspaceList");
                     }}
-                    className="flex justify-center items-center h-6 w-6"
+                    className={`flex justify-center items-center h-6 w-6 rounded-md ${
+                      active ? "hover:bg-blue-300" : "hover:bg-gray-300"
+                    }`}
                   >
                     <Icons.PlusIcon
                       className={
                         active
-                          ? 'text-[14px] text-blue-700'
-                          : 'text-[14px] text-gray-700'
+                          ? "text-[14px] text-blue-700"
+                          : "text-[14px] text-gray-700"
                       }
                     />
                   </button>
@@ -126,21 +192,39 @@ const AddWorkspaceElement: React.FC<ButtonProps> = ({
           )}
         </div>
       </button>
-
-      {modalState === 'modal1' && (
+      {modalState === "menuListChanger" && (
         <div
-          id="modal1"
-          className="fixed z-50 bg-white border border-gray-300 shadow-lg rounded py-2"
+          id="menuListChanger"
+          className="fixed z-50 bg-white border border-gray-300 shadow-lg rounded-lg py-2"
+          style={{ left: `${width - 20}px`, bottom: "10px" }}
+        >
+          <MenuListChanger />
+        </div>
+      )}
+      {modalState === "menuFileChanger" && (
+        <div
+          id="menuFileChanger"
+          className="fixed z-50 bg-white border border-gray-300 shadow-lg rounded-lg py-2"
+          style={{ left: `${width - 20}px`, bottom: "10px" }}
+        >
+          <MenuFileChanger />
+        </div>
+      )}
+
+      {modalState === "menuWorkspaceList" && (
+        <div
+          id="menuWorkspaceList"
+          className="fixed z-50 bg-white border border-gray-300 shadow-lg rounded-lg py-2"
           style={{ left: `${width - 20}px` }}
         >
           <ButtonRender toggleModal={toggleModal} />
         </div>
       )}
 
-      {modalState === 'modal2' && (
+      {modalState === "createList" && (
         <div
-          className="fixed inset-0 flex justify-center  bg-gray-950 bg-opacity-50 z-50"
-          onClick={() => toggleModal('none')}
+          className="fixed inset-0 flex justify-center bg-gray-950 bg-opacity-50 z-50"
+          onClick={() => toggleModal("none")}
         >
           <div
             className="bg-white rounded-xl w-[540px] h-[326px] mt-[128px] shadow-lg  border border-gray-20 overflow-hidden"

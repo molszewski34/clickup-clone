@@ -1,3 +1,4 @@
+import { Icons } from "@/icons/icons";
 import React from "react";
 
 interface ButtonProps {
@@ -5,13 +6,16 @@ interface ButtonProps {
   icon: React.ReactElement;
   active: boolean;
   onClick: () => void;
+  extraIcon?: React.ReactElement | null; // Add the extraIcon prop
+  groupIndex: number; // Add groupIndex to determine which group the button belongs to
 }
 
-const ButtonProfil: React.FC<ButtonProps> = ({
+const ButtonFileChanger: React.FC<ButtonProps> = ({
   label,
   icon,
   active,
   onClick,
+  groupIndex,
 }) => {
   return (
     <button
@@ -37,8 +41,17 @@ const ButtonProfil: React.FC<ButtonProps> = ({
             {label}
           </span>
         </div>
+        {groupIndex === 1 && (
+          <div className="flex justify-center items-center mr-2">
+            <Icons.ArrowForward
+              className={`text-[14px] ${
+                active ? "text-blue-700" : "text-gray-500"
+              }`}
+            />
+          </div>
+        )}
       </div>
     </button>
   );
 };
-export default ButtonProfil;
+export default ButtonFileChanger;
