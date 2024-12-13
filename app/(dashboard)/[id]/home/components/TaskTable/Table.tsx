@@ -1,13 +1,13 @@
 "use client";
-import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import React, { ReactNode, useMemo, useState } from "react";
-import { MOCK_TASKS } from "../../data";
+import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { TaskTableRow } from "./TaskTableRow";
 import { Icons } from "@/icons/icons";
-import { FlatTaskElement } from "../../types";
+import { FlatTaskElement, TaskElement, TaskStatus } from "../../types";
 import { flattenTableData } from "../../_helpers/flattenTableData";
+import AddTaskToTableDownside from "./AddTaskToTableDownside/AddTaskToTableDownside";
 
-export const Table = () => {
+export const Table = ({ tasks, status }: { tasks: TaskElement[]; status: TaskStatus }) => {
   const [expandedTasks, setExpandedTasks] = useState<string[]>([]);
   const columns: ColumnDef<FlatTaskElement, ReactNode>[] = [
     {
@@ -71,9 +71,10 @@ export const Table = () => {
     },
   ];
 
-  const flatTasks = useMemo(() => flattenTableData(MOCK_TASKS, null, 0), []);
+  // const flatTasks = useMemo(() => flattenTableData(tasks, null, 0), [tasks]);
+
   const table = useReactTable({
-    data: flatTasks,
+    data: tasks,
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
@@ -81,24 +82,20 @@ export const Table = () => {
   return (
     <table className="w-full">
       <thead className="w-full h-8">
-        {table.getHeaderGroups().map((headerGroup) => {
-          return (
-            <tr key={headerGroup.id} className="w-full text-xs h-8 ">
-              <th></th>
-              <th></th>
-              {headerGroup.headers.map((header) => {
-                return (
-                  <th
-                    key={header.id}
-                    colSpan={header.colSpan}
-                    className="font-normal text-gray-500 hover:bg-gray-200 hover:cursor-pointer border-b p-1">
-                    {flexRender(header.column.columnDef.header, header.getContext())}
-                  </th>
-                );
-              })}
-            </tr>
-          );
-        })}
+        {table.getHeaderGroups().map((headerGroup) => (
+          <tr key={headerGroup.id} className="w-full text-xs h-8 ">
+            <th></th>
+            <th></th>
+            {headerGroup.headers.map((header) => (
+              <th
+                key={header.id}
+                colSpan={header.colSpan}
+                className="font-normal text-gray-500 hover:bg-gray-200 hover:cursor-pointer border-b p-1">
+                {flexRender(header.column.columnDef.header, header.getContext())}
+              </th>
+            ))}
+          </tr>
+        ))}
       </thead>
       <tbody className="">
         {table.getRowModel().rows.map((singleRow) => {
@@ -113,15 +110,19 @@ export const Table = () => {
           };
           if (isVisible(singleRow.original)) {
             return (
-              <TaskTableRow
-                key={singleRow.id}
-                row={singleRow}
-                expandedTasks={expandedTasks}
-                setExpandedTasks={setExpandedTasks}
-              />
+              <>
+                <TaskTableRow
+                  key={singleRow.id}
+                  row={singleRow}
+                  expandedTasks={expandedTasks}
+                  setExpandedTasks={setExpandedTasks}
+                />
+              </>
             );
           }
         })}
+
+        <AddTaskToTableDownside status={status} />
       </tbody>
     </table>
   );

@@ -8,16 +8,15 @@ export const TaskFormProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [formData, setFormData] = useState({
+    id: '',
     taskName: '',
-    taskStatus: '',
-    dueDate: new Date(),
+
+    dueDate: '',
     assignees: [],
     timeEstimate: '',
     priority: '',
     details: '',
   });
-
-  console.log('formData w TaskFormContext', formData);
 
   return (
     <TaskFormContext.Provider value={{ formData, setFormData }}>

@@ -1,19 +1,19 @@
 import React from 'react';
+import { Table } from '../../home/components/TaskTable/Table';
+import { MOCK_TASKS } from '../../home/data';
+import { TaskStatus } from '../../home/types';
 import TaskList from './components/TasksList';
-import UsersList from './components/UsersList';
 
 export default async function Page({
   params,
 }: {
   params: Promise<{ projectId: string }>;
 }) {
-  const projectId = (await params).projectId;
+  await params;
 
   return (
-    <div>
-      <p>Project ID: {projectId}</p>
-      <TaskList projectId={projectId} />
-      <UsersList />
+    <div className="flex flex-col gap-4">
+      <TaskList />
     </div>
   );
 }
