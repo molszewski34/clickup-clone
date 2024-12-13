@@ -6,16 +6,10 @@ import { Button } from "@/components/Button";
 type NewSubtaskProps = {
   indent: string;
   row: Row<FlatTaskElement>;
-  isCreateSubtaskVisible: boolean;
   setIsCreateSubtaskVisible: (arg: boolean) => void;
 };
 
-export const NewSubtask = ({
-  indent,
-  row,
-  //   isCreateSubtaskVisible,
-  setIsCreateSubtaskVisible,
-}: NewSubtaskProps) => {
+export const NewSubtask = ({ indent, row, setIsCreateSubtaskVisible }: NewSubtaskProps) => {
   const [taskName, setTaskName] = useState<string>("");
 
   const remainingColumns = row.getVisibleCells().length;
