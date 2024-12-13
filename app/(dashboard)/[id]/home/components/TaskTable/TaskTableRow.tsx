@@ -1,9 +1,9 @@
-"use client";
-import { flexRender, Row } from "@tanstack/react-table";
-import React, { useCallback } from "react";
-import { FlatTaskElement } from "../../types";
-import { Icons } from "@/icons/icons";
-import ButtonIcon from "@/app/(dashboard)/ui/ButtonIcon";
+'use client';
+import { flexRender, Row } from '@tanstack/react-table';
+import React, { useCallback } from 'react';
+import { FlatTaskElement } from '../../types';
+import { Icons } from '@/icons/icons';
+import ButtonIcon from '@/app/(dashboard)/ui/ButtonIcon';
 
 type TaskTableRowProps = {
   row: Row<FlatTaskElement>;
@@ -11,7 +11,11 @@ type TaskTableRowProps = {
   setExpandedTasks: (arg: string[]) => void;
 };
 
-export const TaskTableRow = ({ row, expandedTasks, setExpandedTasks }: TaskTableRowProps) => {
+export const TaskTableRow = ({
+  row,
+  expandedTasks,
+  setExpandedTasks,
+}: TaskTableRowProps) => {
   const hasSubtasks = row.original.numberOfSubtasks > 0;
   const isExpanded = expandedTasks.includes(row.original.id);
 
@@ -26,7 +30,9 @@ export const TaskTableRow = ({ row, expandedTasks, setExpandedTasks }: TaskTable
   const hideSubtasks = useCallback(
     (row: Row<FlatTaskElement>) => {
       if (!expandedTasks.includes(row.original.id)) return;
-      const newExpandedTasks = expandedTasks.filter((singleTask) => singleTask !== row.original.id);
+      const newExpandedTasks = expandedTasks.filter(
+        (singleTask) => singleTask !== row.original.id
+      );
       setExpandedTasks(newExpandedTasks);
     },
     [setExpandedTasks, expandedTasks]
@@ -56,24 +62,36 @@ export const TaskTableRow = ({ row, expandedTasks, setExpandedTasks }: TaskTable
         </td>
         <td
           className="flex flex-row gap-2 h-8 text-sm items-center min-w-56 text-nowrap text-gray-700 font-semibold border-b"
-          style={{ paddingLeft: `${levelPadding}px` }}>
+          style={{ paddingLeft: `${levelPadding}px` }}
+        >
           {hasSubtasks ? (
             <ButtonIcon
-              icon={isExpanded ? <Icons.IoMdArrowDropdown /> : <Icons.IoMdArrowDropright />}
+              icon={
+                isExpanded ? (
+                  <Icons.IoMdArrowDropdown />
+                ) : (
+                  <Icons.IoMdArrowDropright />
+                )
+              }
               onClick={() => handleToggleSubtasks(row)}
-              className="flex items-center justify-center w-5 h-5 hover:bg-gray-200 rounded"></ButtonIcon>
+              className="flex items-center justify-center w-5 h-5 hover:bg-gray-200 rounded"
+            ></ButtonIcon>
           ) : (
             <ButtonIcon
               icon={<Icons.IoMdArrowDropright />}
-              className="flex items-center justify-center w-5 h-5 opacity-0 hover:bg-gray-200 group-hover:opacity-100 text-gray-400 rounded"></ButtonIcon>
+              className="flex items-center justify-center w-5 h-5 opacity-0 hover:bg-gray-200 group-hover:opacity-100 text-gray-400 rounded"
+            ></ButtonIcon>
           )}
           {row.original.title}
         </td>
         {row.getVisibleCells().map((singleCell) => {
-          if (singleCell.column.id === "title") return null;
+          if (singleCell.column.id === 'title') return null;
           return (
             <td key={singleCell.id} className="h-8 border-b">
-              {flexRender(singleCell.column.columnDef.cell, singleCell.getContext())}
+              {flexRender(
+                singleCell.column.columnDef.cell,
+                singleCell.getContext()
+              )}
             </td>
           );
         })}

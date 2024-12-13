@@ -16,8 +16,6 @@ export const WorkspaceFormProvider: React.FC<{ children: React.ReactNode }> = ({
     icon: { activeColor: 'indigo-500', selectedIconName: '' },
   });
 
-  console.log('formData w WorkspaceFormContext', formData);
-
   return (
     <WorkspaceFormContext.Provider value={{ formData, setFormData }}>
       {children}
