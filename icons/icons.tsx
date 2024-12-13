@@ -1,18 +1,54 @@
 import { SvgIcons } from "./svgIcons";
-import { FaCheck, FaListUl, FaPlus, FaRegCircleDot } from "react-icons/fa6";
-import { RiAttachmentLine, RiDashboardHorizontalLine, RiEmojiStickerLine } from "react-icons/ri";
+import {
+  FaCheck,
+  FaListUl,
+  FaPlus,
+  FaRegCircleDot,
+  FaRegHourglass,
+} from "react-icons/fa6";
+import {
+  RiAttachmentLine,
+  RiDashboardHorizontalLine,
+  RiEmojiStickerLine,
+} from "react-icons/ri";
 import { HiMiniSignal, HiOutlineCalendar } from "react-icons/hi2";
-import { IoIosArrowDown, IoIosArrowUp, IoIosMore, IoMdClose } from "react-icons/io";
-import { FiColumns, FiPlusCircle, FiSearch } from "react-icons/fi";
-import { LuCircleSlash, LuSettings, LuTableProperties } from "react-icons/lu";
-import { BsLayoutTextSidebar, BsThreeDots } from "react-icons/bs";
+import {
+  IoIosArrowDown,
+  IoIosArrowForward,
+  IoIosArrowUp,
+  IoIosMore,
+  IoIosPlay,
+  IoMdClose,
+} from "react-icons/io";
+import {
+  FiCheckSquare,
+  FiColumns,
+  FiPlusCircle,
+  FiSearch,
+} from "react-icons/fi";
+import {
+  LuCircleSlash,
+  LuImage,
+  LuSettings,
+  LuTableProperties,
+} from "react-icons/lu";
+import {
+  BsFillPeopleFill,
+  BsLayoutTextSidebar,
+  BsThreeDots,
+} from "react-icons/bs";
 import { FiHome } from "react-icons/fi";
-import { IoCalendarClearOutline, IoPeopleOutline, IoSearchOutline } from "react-icons/io5";
+import {
+  IoCalendarClearOutline,
+  IoPeopleOutline,
+  IoSearchOutline,
+} from "react-icons/io5";
 import {
   PiArrowLineDownRight,
   PiCalendarCheck,
   PiListPlus,
   PiMagicWandLight,
+  PiSquaresFour,
   PiStarBold,
   PiTagBold,
 } from "react-icons/pi";
@@ -22,11 +58,18 @@ import {
   HiOutlineChartSquareBar,
   HiOutlineDocument,
   HiOutlineLogout,
+  HiOutlineMinusCircle,
 } from "react-icons/hi";
-import { MdOutlineEmojiEmotions } from "react-icons/md";
-import { TbFlag3, TbGridDots, TbSquareArrowUp } from "react-icons/tb";
+import { MdOutlineEmojiEmotions, MdOutlineStars } from "react-icons/md";
+import {
+  TbArrowsDoubleNeSw,
+  TbFlag3,
+  TbGridDots,
+  TbSquareArrowUp,
+  TbSwitch,
+} from "react-icons/tb";
 import { VscHome, VscLayoutCentered } from "react-icons/vsc";
-import { GoCodeSquare, GoMention } from "react-icons/go";
+import { GoCodeSquare, GoDotFill, GoMention, GoStop } from "react-icons/go";
 import { CiImageOn, CiShare2, CiTrophy } from "react-icons/ci";
 import { FaRegCheckCircle } from "react-icons/fa";
 import { IoMdArrowDropdown, IoMdArrowDropright } from "react-icons/io";
@@ -41,6 +84,8 @@ import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { CiViewColumn } from "react-icons/ci";
 import { GoPerson } from "react-icons/go";
 import { CgClose } from "react-icons/cg";
+import { ImArrowDownRight2 } from "react-icons/im";
+import { GrEmptyCircle } from "react-icons/gr";
 
 export const Icons = {
   ListUlicon: FaListUl,
@@ -115,6 +160,21 @@ export const Icons = {
   Emoji: RiEmojiStickerLine,
   Check: FaCheck,
   ArrowLeft: HiOutlineArrowLeft,
+  People: BsFillPeopleFill,
+  ArrowHorizontal: ImArrowDownRight2,
+  Switch: TbSwitch,
+  ImageImg: LuImage,
+  EmptyCircle: GrEmptyCircle,
+  Play: IoIosPlay,
+  Hourglass: FaRegHourglass,
+  Relationship: TbArrowsDoubleNeSw,
+  CircleStar: MdOutlineStars,
+  ArrowForward: IoIosArrowForward,
+  DotFill: GoDotFill,
+  SquaresFour: PiSquaresFour,
+  CheckboxOutline: FiCheckSquare,
+  Blocked: HiOutlineMinusCircle,
+  Stop: GoStop,
 
   // New icons SVG
   AiIcon: SvgIcons.Ai,
