@@ -1,30 +1,41 @@
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
-import { useWorkspaceQuery } from "@/hooks/useWorkspaceQuery";
-import { useProjectQuery } from "@/hooks/useProjectQuery";
-import { Icons } from "@/icons/icons";
-import AddWorkspaceElement from "../AddWorkspaceElement";
-import { useData } from "@/context/DataProvider/DataProvider";
-import { useUser } from "@/context/DataProvider/UserDataProvider";
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useWorkspaceQuery } from '@/hooks/useWorkspaceQuery';
+import { useProjectQuery } from '@/hooks/useProjectQuery';
+import { Icons } from '@/icons/icons';
+import AddWorkspaceElement from '../AddWorkspaceElement';
+import { useData } from '@/context/DataProvider/DataProvider';
+import { useUser } from '@/context/DataProvider/UserDataProvider';
+import { useQuery } from '@tanstack/react-query';
+import { getTasks } from '@/app/server-actions/task/getTasks';
 
 const WorkspaceButtons = ({ width }: { width: number }) => {
   const router = useRouter();
   const workspaceQueryResult = useWorkspaceQuery();
   const workspaces = workspaceQueryResult.data || [];
-  const { setWorkspaceId, setProjectId } = useData();
+  const { setWorkspaceId, setProjectId, setProjectName } = useData();
   const [activeWorkspace, setActiveWorkspace] = useState<string | null>(null);
   const [activeProject, setActiveProject] = useState<string | null>(null);
+
+  const { projectId, workspaceId, setTasksLength } = useData();
+
+  const { userId } = useUser();
 
   const [hoverStates, setHoverStates] = useState<{ [key: string]: boolean }>(
     {}
   );
 
-  const { userId } = useUser();
   const {
     data: projects,
     isLoading: loadingProjects,
     error: projectsError,
   } = useProjectQuery();
+
+  const { data: tasks } = useQuery({
+    queryKey: ['tasks', projectId],
+    queryFn: () => getTasks(userId, workspaceId, projectId),
+    enabled: !!projectId,
+  });
 
   const handleWorkspaceClick = (workspaceId: string) => {
     if (activeWorkspace === workspaceId) {
@@ -39,6 +50,7 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
   const handleProjectClick = (projectId: string) => {
     setActiveProject((prev) => (prev === projectId ? null : projectId));
     setProjectId(projectId);
+
     router.push(`/${userId}/l/${projectId}`);
   };
 
@@ -93,6 +105,8 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
                       onClick={() => {
                         handleProjectClick(project.id);
                         setProjectId(project.id);
+                        setProjectName(project.name);
+                        setTasksLength(tasks?.length ?? 0);
                       }}
                       width={width}
                       onMouseEnter={() => handleMouseEnter(project.id)}
