@@ -1,5 +1,7 @@
-import { Icons } from "@/icons/icons";
-import React, { useState } from "react";
+import { Icons } from '@/icons/icons';
+import React, { useState } from 'react';
+import DeleteWorkspaceButton from './DeleteWorkspaceButton';
+import { useData } from '@/context/DataProvider/DataProvider';
 
 interface ButtonProps {
   label: string;
@@ -20,8 +22,8 @@ const ButtonFileChanger: React.FC<ButtonProps> = ({
   NumberIndex,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false); // Dodano stan
-  const [NameWorkspace] = useState("Front-end"); // Dodano stan
-
+  const { workspaceName } = useData();
+  const [inputValue, setInputValue] = useState<string>('');
   const isFourthGroupAndIndex3 = groupIndex === 3 && NumberIndex === 2;
 
   const handleButtonClick = () => {
@@ -38,28 +40,28 @@ const ButtonFileChanger: React.FC<ButtonProps> = ({
         onClick={handleButtonClick}
         className={`group/button flex items-center rounded-md h-8 mx-2  w-auto flex-grow min-w-0 justify-center" ${
           active
-            ? "bg-blue-200 text-blue-700"
-            : "hover:bg-gray-200 hover:text-gray-500"
+            ? 'bg-blue-200 text-blue-700'
+            : 'hover:bg-gray-200 hover:text-gray-500'
         }`}
       >
         <div className="flex w-full justify-between items-center">
           <div className="flex justify-center items-center h-8 w-6">
             {React.cloneElement(icon, {
               className: active
-                ? "text-blue-700"
+                ? 'text-blue-700'
                 : isFourthGroupAndIndex3
-                ? "text-red-500"
-                : "text-gray-500",
+                ? 'text-red-500'
+                : 'text-gray-500',
             })}
           </div>
           <div className="flex justify-start items-center flex-grow min-w-0 ml-1">
             <span
               className={`block text-sm font-sans truncate ${
                 active
-                  ? "text-blue-700"
+                  ? 'text-blue-700'
                   : isFourthGroupAndIndex3
-                  ? "text-red-500"
-                  : "text-gray-500"
+                  ? 'text-red-500'
+                  : 'text-gray-500'
               }`}
             >
               {label}
@@ -69,7 +71,7 @@ const ButtonFileChanger: React.FC<ButtonProps> = ({
             <div className="flex justify-center items-center mr-2">
               <Icons.ArrowForward
                 className={`text-[14px] ${
-                  active ? "text-blue-700" : "text-gray-500"
+                  active ? 'text-blue-700' : 'text-gray-500'
                 }`}
               />
             </div>
@@ -92,7 +94,7 @@ const ButtonFileChanger: React.FC<ButtonProps> = ({
                 <Icons.Trash className="text-[18px] text-red-800 " />
               </div>
               <div className="flex items-center text-lg  mt-4 font-sans font-medium text-gray-950">
-                Dalete: <span className=" ml-2">{NameWorkspace}</span>
+                Dalete: <span className=" ml-2">{workspaceName}</span>
               </div>
               <div className="flex mt-1 text-sm font-sans text-gray-950">
                 <span>
@@ -112,9 +114,10 @@ const ButtonFileChanger: React.FC<ButtonProps> = ({
                     type="text"
                     name=""
                     id=""
-                    value=""
-                    placeholder={NameWorkspace}
+                    value={inputValue} // Powiązanie z wartością stanu
+                    placeholder={workspaceName}
                     className="border-none mr-auto focus:outline-none py-[7px] text-sm w-full font-sans text-gray-800"
+                    onChange={(e) => setInputValue(e.target.value)} // Aktualizacja stanu
                   />
                 </div>
               </label>
@@ -126,12 +129,10 @@ const ButtonFileChanger: React.FC<ButtonProps> = ({
               >
                 Cancel
               </button>
-              <button
-                className=" flex-1 px-4 w- py-2 bg-red-600 font-sans text-sm font-medium text-white rounded-lg hover:bg-red-800"
-                onClick={() => ""}
-              >
-                Dalete
-              </button>
+              <DeleteWorkspaceButton
+                workspaceName={workspaceName}
+                inputValue={inputValue}
+              />
             </div>
           </div>
         </div>
