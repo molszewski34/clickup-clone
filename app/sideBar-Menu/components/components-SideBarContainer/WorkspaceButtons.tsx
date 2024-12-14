@@ -104,18 +104,22 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
                       active={activeProject === project.id}
                       onClick={() => {
                         handleProjectClick(project.id);
-                        setProjectId(project.id);
-                        setProjectName(project.name);
-                        setTasksLength(tasks?.length ?? 0);
                       }}
                       width={width}
-                      onMouseEnter={() => handleMouseEnter(project.id)}
+                      onMouseEnter={() => {
+                        handleMouseEnter(project.id);
+                        setProjectName(project.name);
+                        setProjectId(project.id);
+                        setTasksLength(tasks?.length ?? 0);
+                      }}
                       onMouseLeave={() => handleMouseLeave(project.id)}
                       isWorkspace={false}
                     />
                   ))
                 ) : (
-                  <p>Brak projektów w tym workspace.</p>
+                  <p className="text-sm">
+                    Create a <u>Folder</u>, <u>List</u> or <u>Doc</u>
+                  </p>
                 )}
               </div>
             )}
