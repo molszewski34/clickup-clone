@@ -11,6 +11,8 @@ import ViewsBarContainer from "../../_components/ViewsBarContainer";
 import ButtonVariant3 from "@/components/ButtonVariant3";
 import ButtonVariant2 from "@/components/ButtonVariant2";
 import { Table } from "./components/TaskTable/Table";
+import { MOCK_TASKS } from "./data";
+import { TaskStatus } from "./types";
 
 const UserHomePage = ({ params }: { params: Promise<{ id: string }> }) => {
   const router = useRouter();
@@ -37,6 +39,16 @@ const UserHomePage = ({ params }: { params: Promise<{ id: string }> }) => {
     fetchParams();
   }, [params, router]);
 
+  const completedTasks = MOCK_TASKS.filter(
+    (singleMockTask) => singleMockTask.status === TaskStatus.completed
+  );
+  const inProgressTasks = MOCK_TASKS.filter(
+    (singleMockTask) => singleMockTask.status === TaskStatus.inProgress
+  );
+  const toDoTasks = MOCK_TASKS.filter(
+    (singleMockTask) => singleMockTask.status === TaskStatus.todo
+  );
+
   return (
     <div className="w-full">
       <WidgetHeader className="justify-between">
@@ -55,13 +67,9 @@ const UserHomePage = ({ params }: { params: Promise<{ id: string }> }) => {
         </div>
       </WidgetHeader>
       <ViewsBarContainer />
-      <div
-        className="flex justify-center items-center w-full font-sans text-4xl font-bold"
-        style={{ height: "calc(100vh - 40px)" }}
-      >
-        Home Page in progress
-        <Table />
-      </div>
+      <Table tasks={completedTasks} status={TaskStatus.completed} />
+      <Table tasks={inProgressTasks} status={TaskStatus.inProgress} />
+      <Table tasks={toDoTasks} status={TaskStatus.todo} />
     </div>
   );
 };

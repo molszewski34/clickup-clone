@@ -1,19 +1,31 @@
 import React from 'react';
-import TaskList from './components/TasksList';
-import UsersList from './components/UsersList';
+import { Table } from '../../home/components/TaskTable/Table';
+import { MOCK_TASKS } from '../../home/data';
+import { TaskStatus } from '../../home/types';
 
 export default async function Page({
   params,
 }: {
   params: Promise<{ projectId: string }>;
 }) {
-  const projectId = (await params).projectId;
+  await params;
+
+  const tasksInProgress = MOCK_TASKS.filter(
+    (task) => task.status === TaskStatus.inProgress
+  );
+  const tasksTodo = MOCK_TASKS.filter(
+    (task) => task.status === TaskStatus.todo
+  );
+  const tasksCompleted = MOCK_TASKS.filter(
+    (task) => task.status === TaskStatus.completed
+  );
 
   return (
-    <div>
-      <p>Project ID: {projectId}</p>
-      <TaskList projectId={projectId} />
-      <UsersList />
+    <div className="flex flex-col gap-4">
+      {/* Example for using the Table with filtered tasks */}
+      <Table tasks={tasksCompleted} status={TaskStatus.completed} />
+      <Table tasks={tasksInProgress} status={TaskStatus.inProgress} />
+      <Table tasks={tasksTodo} status={TaskStatus.todo} />
     </div>
   );
 }

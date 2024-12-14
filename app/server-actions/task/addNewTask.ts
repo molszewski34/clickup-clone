@@ -1,39 +1,29 @@
 import { doc, setDoc } from 'firebase/firestore';
 import { db } from '@/db/firebase/lib/firebase';
+import { Task } from '../types';
 
-export const addTask = async (
+export const addNewTask = async (
+  formData: Task,
   userId: string,
   workspaceId: string,
-  projectId: string,
-  taskName: string,
-  taskStatus: string,
-  dueDate: Date | null,
-  assignees: string,
-  timeEstimate: string,
-  priority: string,
-  details: string
+  projectId: string
 ) => {
   try {
-    const taskUUID = crypto.randomUUID();
+    const taskUUID = formData.id || crypto.randomUUID();
     const taskRef = doc(
       db,
       `users/${userId}/workspaces/${workspaceId}/projects/${projectId}/tasks/${taskUUID}`
     );
 
     await setDoc(taskRef, {
+      ...formData,
+      userId,
       id: taskUUID,
       workspaceId,
       projectId,
-      name: taskName,
-      taskStatus,
-      dueDate,
-      assignees,
-      timeEstimate,
-      priority,
-      details,
     });
 
-    console.log(`Dodano task "${taskName}" do projektu ${projectId}`);
+    console.log(`Dodano task "${formData.taskName}" do projektu ${projectId}`);
   } catch (error) {
     console.error('Błąd podczas dodawania taska', error);
   }

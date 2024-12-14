@@ -1,34 +1,103 @@
 import { SvgIcons } from "./svgIcons";
-import { FaCheck, FaListUl, FaPlus, FaRegCircleDot } from "react-icons/fa6";
-import { RiAttachmentLine, RiDashboardHorizontalLine, RiEmojiStickerLine } from "react-icons/ri";
-import { HiMiniSignal, HiOutlineCalendar } from "react-icons/hi2";
-import { IoIosArrowDown, IoIosArrowUp, IoIosMore, IoMdClose } from "react-icons/io";
-import { FiColumns, FiPlusCircle, FiSearch } from "react-icons/fi";
-import { LuCircleSlash, LuSettings, LuTableProperties } from "react-icons/lu";
-import { BsLayoutTextSidebar, BsThreeDots } from "react-icons/bs";
+import { LuClipboardList } from "react-icons/lu";
+import {
+  FaCheck,
+  FaListUl,
+  FaPlus,
+  FaRegCircleDot,
+  FaRegHourglass,
+} from "react-icons/fa6";
+import {
+  RiAttachmentLine,
+  RiDashboardHorizontalLine,
+  RiEmojiStickerLine,
+} from "react-icons/ri";
+import {
+  HiMiniSignal,
+  HiOutlineCalendar,
+  HiOutlineEnvelope,
+} from "react-icons/hi2";
+import {
+  IoIosArrowDown,
+  IoIosArrowForward,
+  IoIosArrowUp,
+  IoIosMore,
+  IoIosPlay,
+  IoMdClose,
+} from "react-icons/io";
+import {
+  FiCheckSquare,
+  FiColumns,
+  FiCopy,
+  FiPlusCircle,
+  FiSearch,
+} from "react-icons/fi";
+import {
+  LuArchive,
+  LuBox,
+  LuCircleSlash,
+  LuImage,
+  LuSettings,
+  LuTableProperties,
+} from "react-icons/lu";
+import {
+  BsFillPeopleFill,
+  BsInfoCircle,
+  BsLayoutTextSidebar,
+  BsThreeDots,
+} from "react-icons/bs";
 import { FiHome } from "react-icons/fi";
-import { IoCalendarClearOutline, IoPeopleOutline, IoSearchOutline } from "react-icons/io5";
+import {
+  IoCalendarClearOutline,
+  IoListOutline,
+  IoPeopleOutline,
+  IoSearchOutline,
+} from "react-icons/io5";
 import {
   PiArrowLineDownRight,
   PiCalendarCheck,
   PiListPlus,
   PiMagicWandLight,
+  PiSquaresFour,
   PiStarBold,
   PiTagBold,
+  PiWind,
 } from "react-icons/pi";
 import { AiOutlineClose, AiOutlineTeam } from "react-icons/ai";
 import {
   HiOutlineArrowLeft,
   HiOutlineChartSquareBar,
   HiOutlineDocument,
+  HiOutlineDocumentAdd,
   HiOutlineLogout,
+  HiOutlineMinusCircle,
+  HiOutlinePlus,
+  HiOutlineStar,
 } from "react-icons/hi";
-import { MdOutlineEmojiEmotions } from "react-icons/md";
-import { TbFlag3, TbGridDots, TbSquareArrowUp } from "react-icons/tb";
+import {
+  MdOutlineEmojiEmotions,
+  MdOutlineStars,
+  MdOutlineWaterDrop,
+} from "react-icons/md";
+import {
+  TbArrowsDoubleNeSw,
+  TbFlag3,
+  TbFolderPlus,
+  TbFolderShare,
+  TbGridDots,
+  TbSquareArrowUp,
+  TbSwitch,
+} from "react-icons/tb";
 import { VscHome, VscLayoutCentered } from "react-icons/vsc";
-import { GoCodeSquare, GoMention } from "react-icons/go";
+import {
+  GoCodeSquare,
+  GoDotFill,
+  GoMention,
+  GoPencil,
+  GoStop,
+} from "react-icons/go";
 import { CiImageOn, CiShare2, CiTrophy } from "react-icons/ci";
-import { FaRegCheckCircle } from "react-icons/fa";
+import { FaRegCheckCircle, FaRegTrashAlt } from "react-icons/fa";
 import { IoMdArrowDropdown, IoMdArrowDropright } from "react-icons/io";
 import { RiDraggable } from "react-icons/ri";
 import { LuCalendarPlus } from "react-icons/lu";
@@ -41,6 +110,10 @@ import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { CiViewColumn } from "react-icons/ci";
 import { GoPerson } from "react-icons/go";
 import { CgClose } from "react-icons/cg";
+import { ImArrowDownRight2 } from "react-icons/im";
+import { GrEmptyCircle } from "react-icons/gr";
+import { TiMediaPlay } from "react-icons/ti";
+import { BiHide, BiImport } from "react-icons/bi";
 
 export const Icons = {
   ListUlicon: FaListUl,
@@ -115,6 +188,40 @@ export const Icons = {
   Emoji: RiEmojiStickerLine,
   Check: FaCheck,
   ArrowLeft: HiOutlineArrowLeft,
+  People: BsFillPeopleFill,
+  ArrowHorizontal: ImArrowDownRight2,
+  Switch: TbSwitch,
+  ImageImg: LuImage,
+  EmptyCircle: GrEmptyCircle,
+  Play: IoIosPlay,
+  Hourglass: FaRegHourglass,
+  Relationship: TbArrowsDoubleNeSw,
+  CircleStar: MdOutlineStars,
+  ArrowForward: IoIosArrowForward,
+  DotFill: GoDotFill,
+  SquaresFour: PiSquaresFour,
+  CheckboxOutline: FiCheckSquare,
+  Blocked: HiOutlineMinusCircle,
+  Stop: GoStop,
+  ListOutline: IoListOutline,
+  PlayWorkspace: TiMediaPlay,
+  Pencil: GoPencil,
+  Drop: MdOutlineWaterDrop,
+  PlusNew: HiOutlinePlus,
+  StarNew: HiOutlineStar,
+  Hide: BiHide,
+  Copy: FiCopy,
+  WindArrow: PiWind,
+  Info: BsInfoCircle,
+  Box: LuBox,
+  Envelope: HiOutlineEnvelope,
+  Archive: LuArchive,
+  Trash: FaRegTrashAlt,
+  DocAdd: HiOutlineDocumentAdd,
+  From: LuClipboardList,
+  FolderPlus: TbFolderPlus,
+  FolderShare: TbFolderShare,
+  Import: BiImport,
 
   // New icons SVG
   AiIcon: SvgIcons.Ai,

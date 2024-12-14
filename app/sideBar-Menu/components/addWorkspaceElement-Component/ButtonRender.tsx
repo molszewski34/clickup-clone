@@ -3,14 +3,14 @@ import ButtonProfil from "./ButtonProfil";
 import buttonsWorkSpaceModal from "./buttonsWorkSpaceModal";
 
 interface ButtonRenderProps {
-  toggleModal: (modal: "modal1" | "modal2") => void; // Function to toggle modals
+  toggleModal: (modal: "menuWorkspaceList" | "createList") => void; // Function to toggle modals
 }
 
 const ButtonRender: React.FC<ButtonRenderProps> = ({ toggleModal }) => {
   const [activeButton, setActiveButton] = useState<number | null>(null);
 
   const handleFirstButtonClick = () => {
-    toggleModal("modal2"); // Open second modal
+    toggleModal("createList"); // Open second modal
   };
 
   // Split buttons into groups

@@ -6,31 +6,52 @@ import { Icons } from '@/icons/icons';
 import AddWorkspaceElement from '../AddWorkspaceElement';
 import { useData } from '@/context/DataProvider/DataProvider';
 import { useUser } from '@/context/DataProvider/UserDataProvider';
+import { useQuery } from '@tanstack/react-query';
+import { getTasks } from '@/app/server-actions/task/getTasks';
 
 const WorkspaceButtons = ({ width }: { width: number }) => {
   const router = useRouter();
   const workspaceQueryResult = useWorkspaceQuery();
   const workspaces = workspaceQueryResult.data || [];
-  const { setWorkspaceId } = useData();
+  const { setWorkspaceId, setProjectId, setProjectName } = useData();
   const [activeWorkspace, setActiveWorkspace] = useState<string | null>(null);
+  const [activeProject, setActiveProject] = useState<string | null>(null);
+
+  const { projectId, workspaceId, setTasksLength } = useData();
+
+  const { userId } = useUser();
+
   const [hoverStates, setHoverStates] = useState<{ [key: string]: boolean }>(
     {}
   );
 
-  const { userId } = useUser();
   const {
     data: projects,
     isLoading: loadingProjects,
     error: projectsError,
   } = useProjectQuery();
 
+  const { data: tasks } = useQuery({
+    queryKey: ['tasks', projectId],
+    queryFn: () => getTasks(userId, workspaceId, projectId),
+    enabled: !!projectId,
+  });
+
   const handleWorkspaceClick = (workspaceId: string) => {
     if (activeWorkspace === workspaceId) {
       setActiveWorkspace(null);
+      setActiveProject(null); // Reset aktywnego projektu
     } else {
       setActiveWorkspace(workspaceId);
       setWorkspaceId(workspaceId);
     }
+  };
+
+  const handleProjectClick = (projectId: string) => {
+    setActiveProject((prev) => (prev === projectId ? null : projectId));
+    setProjectId(projectId);
+
+    router.push(`/${userId}/l/${projectId}`);
   };
 
   const handleMouseEnter = (id: string) => {
@@ -39,10 +60,6 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
 
   const handleMouseLeave = (id: string) => {
     setHoverStates((prevState) => ({ ...prevState, [id]: false }));
-  };
-
-  const handleProjectClick = (projectId: string) => {
-    router.push(`/${userId}/l/${projectId}`);
   };
 
   return (
@@ -54,9 +71,9 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
               label={workspace.name}
               icon={
                 hoverStates[workspace.id] ? (
-                  <Icons.ArrowDownIcon className="text-[20px] text-gray-700" />
+                  <Icons.PlayWorkspace className="text-[20px] text-gray-700" />
                 ) : (
-                  <Icons.CodeSquare className="text-[20px] text-gray-700" />
+                  <Icons.People className="text-[20px] text-gray-700" />
                 )
               }
               extraIcons={2}
@@ -65,6 +82,7 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
               width={width}
               onMouseEnter={() => handleMouseEnter(workspace.id)}
               onMouseLeave={() => handleMouseLeave(workspace.id)}
+              isWorkspace={true}
             />
             {activeWorkspace === workspace.id && (
               <div className="ml-4 mt-2">
@@ -80,18 +98,20 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
                       key={project.id}
                       label={project.name}
                       icon={
-                        hoverStates[project.id] ? (
-                          <Icons.ArrowDownIcon className="text-[20px] text-gray-700" />
-                        ) : (
-                          <Icons.NewTabIcon className="text-[20px] text-gray-700" />
-                        )
+                        <Icons.ListOutline className="text-[20px] text-gray-700" />
                       }
-                      extraIcons={2}
-                      active={false}
-                      onClick={() => handleProjectClick(project.id)}
+                      extraIcons={1}
+                      active={activeProject === project.id}
+                      onClick={() => {
+                        handleProjectClick(project.id);
+                        setProjectId(project.id);
+                        setProjectName(project.name);
+                        setTasksLength(tasks?.length ?? 0);
+                      }}
                       width={width}
                       onMouseEnter={() => handleMouseEnter(project.id)}
                       onMouseLeave={() => handleMouseLeave(project.id)}
+                      isWorkspace={false}
                     />
                   ))
                 ) : (
