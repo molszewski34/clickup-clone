@@ -19,11 +19,13 @@ export const createNewWorkspace = async (
       isPrivate: formData.isPrivate,
     });
     console.log('Workspace added successfully');
+    const projectUUID = crypto.randomUUID();
 
     const projectRef = doc(
       db,
-      `users/${userId}/workspaces/${formData.id}/projects/list`
+      `users/${userId}/workspaces/${formData.id}/projects/${projectUUID}`
     );
+
     await setDoc(projectRef, {
       id: crypto.randomUUID(),
       name: 'List',
