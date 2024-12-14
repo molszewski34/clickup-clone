@@ -7,7 +7,6 @@ import { auth } from "@/db/firebase/lib/firebase";
 import { useInitializeWorkspace } from "../../_hooks/useInitializeWorkspace";
 import { Icons } from "@/icons/icons";
 import WidgetHeader from "../../_components/WidgetHeader";
-import ViewsBarContainer from "../../_components/ViewsBarContainer";
 import ButtonVariant3 from "@/components/ButtonVariant3";
 import ButtonVariant2 from "@/components/ButtonVariant2";
 import { Table } from "./components/TaskTable/Table";
@@ -66,7 +65,6 @@ const UserHomePage = ({ params }: { params: Promise<{ id: string }> }) => {
           </ButtonVariant2>
         </div>
       </WidgetHeader>
-      <ViewsBarContainer />
       <Table tasks={completedTasks} status={TaskStatus.completed} />
       <Table tasks={inProgressTasks} status={TaskStatus.inProgress} />
       <Table tasks={toDoTasks} status={TaskStatus.todo} />

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { Icons } from "../../../icons/icons";
 import ButtonVariant1 from "../../../components/ButtonVariant1";
 import ButtonVariant2 from "../../../components/ButtonVariant2";
@@ -17,7 +17,6 @@ const SubBarNavTop = ({
   setSubBarNavFilterActive,
 }: Props) => {
   const [activeButton, setActiveButton] = useState<string | null>(null);
-  const [hiddenButtons, setHiddenButtons] = useState<string[]>([]);
   const buttonsContainerRef = useRef<HTMLDivElement | null>(null);
 
   return (

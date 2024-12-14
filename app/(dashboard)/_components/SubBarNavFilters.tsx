@@ -20,7 +20,6 @@ const SubBarNavFilters = ({
   const [closeButtonActive, setCloseButtonActive] = useState(false);
   const [meModeButtonActive, setMeModeButtonActive] = useState(false);
   const [inputText, setInputText] = useState("");
-  console.log(subBarNavFilterActive);
   return (
     <div
       className={` flex gap-1 items-center bg-darkGray_600 transition-all duration-500 ease-in-out overflow-hidden
