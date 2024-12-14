@@ -2,13 +2,17 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { addProject } from '@/app/server-actions/project/addNewProject';
 import { useData } from '@/context/DataProvider/DataProvider';
 
-export const useCreateProject = () => {
+interface UseCreateProjectProps {
+  toggleModal: (modal: 'none' | 'menuWorkspaceList' | 'createList') => void;
+}
+
+export const useCreateProject = ({ toggleModal }: UseCreateProjectProps) => {
   const { workspaceId } = useData();
   const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: async ({
       userId,
-
       projectName,
       isPrivate,
     }: {
@@ -16,11 +20,12 @@ export const useCreateProject = () => {
       isPrivate: boolean;
       userId: string;
     }) => {
-      await addProject(userId, workspaceId, projectName, isPrivate);
+      return await addProject(userId, workspaceId, projectName, isPrivate);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['projects'] });
       console.log('Project created successfully!');
+      toggleModal('none');
     },
     onError: (error: unknown) => {
       console.error('Error creating project:', error);
