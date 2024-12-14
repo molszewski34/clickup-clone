@@ -90,7 +90,7 @@ const ButtonListChanger: React.FC<ButtonProps> = ({
           onClick={() => setIsModalOpen(false)} // Zamknij modal po kliknięciu na tło
         >
           <div
-            className="bg-white rounded-xl w-[440px] h-[250px] mt-[128px] shadow-lg border border-gray-200 overflow-hidden"
+            className="bg-white rounded-xl w-[440px] h-fit mt-[128px] shadow-lg border border-gray-200 overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex flex-col p-6">

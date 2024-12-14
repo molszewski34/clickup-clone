@@ -40,5 +40,13 @@ const buttonsMenuFileChanger = [
     label: "Duplicate",
     icon: <Icons.Copy className="text-[14px] text-gray-500" />,
   },
+  {
+    label: "Archive",
+    icon: <Icons.Archive className="text-[14px] text-gray-500" />,
+  },
+  {
+    label: "Delete",
+    icon: <Icons.Trash className="text-[14px] text-red-500" />,
+  },
 ];
 export default buttonsMenuFileChanger;

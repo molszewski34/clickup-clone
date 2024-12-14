@@ -10,7 +10,7 @@ const MenuFileChanger: React.FC = () => {
     buttonsMenuFileChanger.slice(0, 2),
     buttonsMenuFileChanger.slice(2, 6),
     buttonsMenuFileChanger.slice(6, 8),
-    buttonsMenuFileChanger.slice(8, 10),
+    buttonsMenuFileChanger.slice(8, 12),
   ];
 
   return (
@@ -28,7 +28,8 @@ const MenuFileChanger: React.FC = () => {
                 // Simply set the active button without opening any modal
                 setActiveButton(groupIndex * 10 + index);
               }}
-              groupIndex={groupIndex} // Pass groupIndex
+              groupIndex={groupIndex}
+              NumberIndex={index}
             />
           ))}
           {groupIndex < buttonGroups.length - 1 && (
