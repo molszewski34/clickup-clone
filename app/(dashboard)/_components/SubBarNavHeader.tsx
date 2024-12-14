@@ -33,7 +33,7 @@ const SubBarNavHeader: React.FC<Props> = ({
           <Icons.DotsIcon className="my-1" />
         </ButtonVariant2>
       </div>
-      <ButtonVariant3 doubleButtonLeft={true} height="h-7">
+      <ButtonVariant3 doubleButtonLeft={true} className={`h-7`}>
         <span className="text-sm font-semibold">Add Task</span>
       </ButtonVariant3>
       <ButtonVariant3
@@ -43,8 +43,7 @@ const SubBarNavHeader: React.FC<Props> = ({
             prev === "addTaskRightButton" ? "" : "addTaskRightButton"
           )
         }
-        padding="px-[6px] py-1"
-        height="h-7"
+        className={`h-7 px-[6px] py-1`}
       >
         <Icons.ArrowDownIcon
           className={`text-[14px] relative top-[1px] transition-transform ease-in-out
