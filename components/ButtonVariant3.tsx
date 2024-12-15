@@ -4,8 +4,7 @@ type Props = {
   children: React.ReactNode;
   doubleButtonLeft?: boolean;
   doubleButtonRight?: boolean;
-  padding?: string;
-  height?: string;
+  className?: string;
   onClick?: () => void;
 };
 
@@ -14,8 +13,7 @@ const ButtonVariant3: React.FC<Props> = ({
   onClick,
   doubleButtonLeft = false,
   doubleButtonRight = false,
-  padding = "px-[7px]",
-  height = "h-6",
+  className,
 }) => {
   const doubleClass = doubleButtonLeft
     ? "rounded-l-[0.25rem]"
@@ -27,8 +25,9 @@ const ButtonVariant3: React.FC<Props> = ({
     <div className="h-full flex items-center min-w-max normal-case">
       <button
         onClick={onClick}
-        className={`flex text-xs  items-center bg-blue_600 hover:bg-blue_400 text-whitev1 hover:text-whitev1 
-          ${doubleClass} ${padding} ${height}
+        className={` flex text-xs items-center h-6 px-[7px]
+          bg-blue_600 hover:bg-blue_400 text-whitev1 hover:text-whitev1 
+          ${doubleClass} ${className} 
           `}
       >
         {children}

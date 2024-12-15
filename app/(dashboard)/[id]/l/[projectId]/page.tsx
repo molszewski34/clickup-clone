@@ -1,7 +1,8 @@
-import React from 'react';
-import { Table } from '../../home/components/TaskTable/Table';
-import { MOCK_TASKS } from '../../home/data';
-import { TaskStatus } from '../../home/types';
+import React from "react";
+import { Table } from "../../home/components/TaskTable/Table";
+import { MOCK_TASKS } from "../../home/data";
+import { TaskStatus } from "../../home/types";
+import ViewsBarContainer from "@/app/(dashboard)/_components/ViewsBarContainer";
 
 export default async function Page({
   params,
@@ -9,7 +10,6 @@ export default async function Page({
   params: Promise<{ projectId: string }>;
 }) {
   await params;
-
   const tasksInProgress = MOCK_TASKS.filter(
     (task) => task.status === TaskStatus.inProgress
   );
@@ -21,7 +21,8 @@ export default async function Page({
   );
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 w-full">
+      <ViewsBarContainer />
       {/* Example for using the Table with filtered tasks */}
       <Table tasks={tasksCompleted} status={TaskStatus.completed} />
       <Table tasks={tasksInProgress} status={TaskStatus.inProgress} />

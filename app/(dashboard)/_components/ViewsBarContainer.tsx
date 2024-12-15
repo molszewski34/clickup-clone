@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import SubBarNavTop from "./SubBarNavTop";
 import SubBarNavHeader from "./SubBarNavHeader";
@@ -5,7 +6,7 @@ import SubBarNavFilters from "./SubBarNavFilters";
 
 const ViewsBarContainer = () => {
   const [subBarNavHeaderActive, setSubBarNavHeaderActive] = useState(false);
-
+  const [subBarNavFilterActive, setSubBarNavFilterActive] = useState(false);
   return (
     <div>
       <SubBarNavHeader
@@ -15,8 +16,12 @@ const ViewsBarContainer = () => {
       <SubBarNavTop
         subBarNavHeaderActive={subBarNavHeaderActive}
         setSubBarNavHeaderActive={setSubBarNavHeaderActive}
+        setSubBarNavFilterActive={setSubBarNavFilterActive}
       />
-      <SubBarNavFilters subBarNavHeaderActive={subBarNavHeaderActive} />
+      <SubBarNavFilters
+        subBarNavFilterActive={subBarNavFilterActive}
+        subBarNavHeaderActive={subBarNavHeaderActive}
+      />
     </div>
   );
 };

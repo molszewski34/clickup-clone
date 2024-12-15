@@ -1,5 +1,7 @@
 import { Icons } from "@/icons/icons";
 import React, { useState } from "react";
+import DeleteWorkspaceButton from "./DeleteWorkspaceButton";
+import { useData } from "@/context/DataProvider/DataProvider";
 
 interface ButtonProps {
   label: string;
@@ -19,8 +21,9 @@ const ButtonFileChanger: React.FC<ButtonProps> = ({
   groupIndex,
   NumberIndex,
 }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [NameWorkspace] = useState("Front-end");
+  const [isModalOpen, setIsModalOpen] = useState(false); // Dodano stan
+  const { workspaceName } = useData();
+  const [inputValue, setInputValue] = useState<string>("");
   const isFourthGroupAndIndex3 = groupIndex === 3 && NumberIndex === 2;
 
   const handleButtonClick = () => {
@@ -88,7 +91,7 @@ const ButtonFileChanger: React.FC<ButtonProps> = ({
                 <Icons.Trash className="text-[18px] text-red-800 " />
               </div>
               <div className="flex items-center text-lg  mt-4 font-sans font-medium text-gray-950">
-                Dalete: <span className=" ml-2">{NameWorkspace}</span>
+                Dalete: <span className=" ml-2">{workspaceName}</span>
               </div>
               <div className="flex mt-1 text-sm font-sans text-gray-950">
                 <span>
@@ -108,9 +111,10 @@ const ButtonFileChanger: React.FC<ButtonProps> = ({
                     type="text"
                     name=""
                     id=""
-                    value=""
-                    placeholder={NameWorkspace}
+                    value={inputValue} // Powiązanie z wartością stanu
+                    placeholder={workspaceName}
                     className="border-none mr-auto focus:outline-none py-[7px] text-sm w-full font-sans text-gray-800"
+                    onChange={(e) => setInputValue(e.target.value)} // Aktualizacja stanu
                   />
                 </div>
               </label>
@@ -122,12 +126,10 @@ const ButtonFileChanger: React.FC<ButtonProps> = ({
               >
                 Cancel
               </button>
-              <button
-                className=" flex-1 px-4 w- py-2 bg-red-600 font-sans text-sm font-medium text-white rounded-lg hover:bg-red-800"
-                onClick={() => ""}
-              >
-                Dalete
-              </button>
+              <DeleteWorkspaceButton
+                workspaceName={workspaceName}
+                inputValue={inputValue}
+              />
             </div>
           </div>
         </div>
