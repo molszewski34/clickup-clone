@@ -6,8 +6,8 @@ interface ButtonProps {
   icon: React.ReactElement;
   active: boolean;
   onClick: () => void;
-  extraIcon?: React.ReactElement | null; // Add the extraIcon prop
-  groupIndex: number; // Add groupIndex to determine which group the button belongs to
+  extraIcon?: React.ReactElement | null;
+  groupIndex: number;
   NumberIndex: number;
 }
 
@@ -19,16 +19,15 @@ const ButtonFileChanger: React.FC<ButtonProps> = ({
   groupIndex,
   NumberIndex,
 }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false); // Dodano stan
-  const [NameWorkspace] = useState("Front-end"); // Dodano stan
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [NameWorkspace] = useState("Front-end");
   const isFourthGroupAndIndex3 = groupIndex === 3 && NumberIndex === 2;
 
   const handleButtonClick = () => {
     if (isFourthGroupAndIndex3) {
-      setIsModalOpen(!isModalOpen); // Otwórz/Zamknij modal
+      setIsModalOpen(!isModalOpen);
     } else {
-      onClick(); // Wykonaj domyślną akcję
+      onClick();
     }
   };
 
@@ -79,10 +78,7 @@ const ButtonFileChanger: React.FC<ButtonProps> = ({
 
       {/* Modal */}
       {isModalOpen && (
-        <div
-          className="fixed inset-0 flex justify-center bg-gray-950 bg-opacity-50 z-50"
-          onClick={() => setIsModalOpen(false)} // Zamknij modal po kliknięciu na tło
-        >
+        <div className="fixed inset-0 flex justify-center bg-gray-950 bg-opacity-50 z-50">
           <div
             className="bg-white rounded-xl w-[440px] h-fit mt-[128px] shadow-lg border border-gray-200 overflow-hidden"
             onClick={(e) => e.stopPropagation()}
