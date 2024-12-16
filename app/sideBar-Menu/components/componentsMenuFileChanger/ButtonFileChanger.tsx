@@ -26,6 +26,8 @@ const ButtonFileChanger: React.FC<ButtonProps> = ({
   const [inputValue, setInputValue] = useState<string>("");
   const isFourthGroupAndIndex3 = groupIndex === 3 && NumberIndex === 2;
 
+  const closeModal = () => setIsModalOpen(false);
+
   const handleButtonClick = () => {
     if (isFourthGroupAndIndex3) {
       setIsModalOpen(!isModalOpen);
@@ -129,6 +131,7 @@ const ButtonFileChanger: React.FC<ButtonProps> = ({
               <DeleteWorkspaceButton
                 workspaceName={workspaceName}
                 inputValue={inputValue}
+                closeModal={closeModal} // Przekazujemy funkcję zamykającą
               />
             </div>
           </div>
