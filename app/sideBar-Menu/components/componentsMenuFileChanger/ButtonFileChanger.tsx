@@ -1,15 +1,15 @@
-import { Icons } from '@/icons/icons';
-import React, { useState } from 'react';
-import DeleteWorkspaceButton from './DeleteWorkspaceButton';
-import { useData } from '@/context/DataProvider/DataProvider';
+import { Icons } from "@/icons/icons";
+import React, { useState } from "react";
+import DeleteWorkspaceButton from "./DeleteWorkspaceButton";
+import { useData } from "@/context/DataProvider/DataProvider";
 
 interface ButtonProps {
   label: string;
   icon: React.ReactElement;
   active: boolean;
   onClick: () => void;
-  extraIcon?: React.ReactElement | null; // Add the extraIcon prop
-  groupIndex: number; // Add groupIndex to determine which group the button belongs to
+  extraIcon?: React.ReactElement | null;
+  groupIndex: number;
   NumberIndex: number;
 }
 
@@ -23,14 +23,14 @@ const ButtonFileChanger: React.FC<ButtonProps> = ({
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false); // Dodano stan
   const { workspaceName } = useData();
-  const [inputValue, setInputValue] = useState<string>('');
+  const [inputValue, setInputValue] = useState<string>("");
   const isFourthGroupAndIndex3 = groupIndex === 3 && NumberIndex === 2;
 
   const handleButtonClick = () => {
     if (isFourthGroupAndIndex3) {
-      setIsModalOpen(!isModalOpen); // Otwórz/Zamknij modal
+      setIsModalOpen(!isModalOpen);
     } else {
-      onClick(); // Wykonaj domyślną akcję
+      onClick();
     }
   };
 
@@ -40,28 +40,28 @@ const ButtonFileChanger: React.FC<ButtonProps> = ({
         onClick={handleButtonClick}
         className={`group/button flex items-center rounded-md h-8 mx-2  w-auto flex-grow min-w-0 justify-center" ${
           active
-            ? 'bg-blue-200 text-blue-700'
-            : 'hover:bg-gray-200 hover:text-gray-500'
+            ? "bg-blue-200 text-blue-700"
+            : "hover:bg-gray-200 hover:text-gray-500"
         }`}
       >
         <div className="flex w-full justify-between items-center">
           <div className="flex justify-center items-center h-8 w-6">
             {React.cloneElement(icon, {
               className: active
-                ? 'text-blue-700'
+                ? "text-blue-700"
                 : isFourthGroupAndIndex3
-                ? 'text-red-500'
-                : 'text-gray-500',
+                ? "text-red-500"
+                : "text-gray-500",
             })}
           </div>
           <div className="flex justify-start items-center flex-grow min-w-0 ml-1">
             <span
               className={`block text-sm font-sans truncate ${
                 active
-                  ? 'text-blue-700'
+                  ? "text-blue-700"
                   : isFourthGroupAndIndex3
-                  ? 'text-red-500'
-                  : 'text-gray-500'
+                  ? "text-red-500"
+                  : "text-gray-500"
               }`}
             >
               {label}
@@ -71,7 +71,7 @@ const ButtonFileChanger: React.FC<ButtonProps> = ({
             <div className="flex justify-center items-center mr-2">
               <Icons.ArrowForward
                 className={`text-[14px] ${
-                  active ? 'text-blue-700' : 'text-gray-500'
+                  active ? "text-blue-700" : "text-gray-500"
                 }`}
               />
             </div>
@@ -81,10 +81,7 @@ const ButtonFileChanger: React.FC<ButtonProps> = ({
 
       {/* Modal */}
       {isModalOpen && (
-        <div
-          className="fixed inset-0 flex justify-center bg-gray-950 bg-opacity-50 z-50"
-          onClick={() => setIsModalOpen(false)} // Zamknij modal po kliknięciu na tło
-        >
+        <div className="fixed inset-0 flex justify-center bg-gray-950 bg-opacity-50 z-50">
           <div
             className="bg-white rounded-xl w-[440px] h-fit mt-[128px] shadow-lg border border-gray-200 overflow-hidden"
             onClick={(e) => e.stopPropagation()}
