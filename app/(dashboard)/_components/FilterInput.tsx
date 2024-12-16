@@ -8,13 +8,13 @@ type Props = {
 
 const FilterInput = ({ isActive = false, value, onChange }: Props) => {
   const variants = {
-    primary: `shadow-customGrayShadow_400 placeholder:text-gray_600 bg-transparent hover:bg-darkGray_500 focus-visible:outline-none
+    primary: `shadow-customGrayShadow_300 placeholder:text-gray_600 bg-transparent hover:bg-white_50 focus-visible:outline-none
       focus:text-blue_400 focus:border-blue_600 
     focus:shadow-customDoubleBlueShadow_600
       `,
     secendary: `
-    text-blue_400 bg-nav shadow-customBlueShadow_600
-    focus:text-blue_400 focus:border-blue_600 focus:bg-nav 
+    text-blue_300 bg-blue_50 shadow-customBlueShadow_500 hover:bg-blue_100
+    focus:text-blue_300 focus:border-blue_600 focus:bg-blue_50 
     focus:shadow-customDoubleBlueShadow_600 focus-visible:outline-none`,
   };
   return (

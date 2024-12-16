@@ -56,7 +56,7 @@ const ViewBarNavTop: React.FC<Props> = ({
             </ButtonVariant2>
           </>
         )}
-        <div className="w-[1px] h-4 mx-[2px] bg-darkGray_400"></div>
+        <div className="w-[1px] h-4 mx-[2px] bg-gray_50"></div>
         {!subBarNavHeaderActive &&
           (activeButton === "overview" ? (
             <ButtonVariant3>Add card</ButtonVariant3>

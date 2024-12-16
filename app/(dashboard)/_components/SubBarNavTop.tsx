@@ -21,7 +21,7 @@ const SubBarNavTop = ({
 
   return (
     <nav
-      className={`text-gray_400 bg-nav border-gray_100 border-b dark:bg-darkGray_600 font-sans font-medium flex transition-all duration-500 ease-in-out
+      className={`text-gray_600 bg-white border-gray_50 border-b font-sans font-medium flex transition-all duration-500 ease-in-out
         ${subBarNavHeaderActive ? "px-12" : "px-4"}`}
     >
       <div
