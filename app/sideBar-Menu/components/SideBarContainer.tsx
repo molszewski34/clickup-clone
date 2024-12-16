@@ -4,6 +4,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import ResizeHandle from './components-SideBarContainer/ResizeHandle';
 import SidebarContent from './components-SideBarContainer/SidebarContent';
 import SidebarModal from './components-SideBarContainer/SidebarModal';
+import { useUserProfile } from '@/hooks/useUserProfile';
 
 export default function SideBarContainer() {
   const maxContainerWidth = 369;
@@ -17,11 +18,12 @@ export default function SideBarContainer() {
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+  const { userData } = useUserProfile();
 
   const fetchUserInitial = () => {
     setTimeout(() => {
-      const userName = 'Jakub King Workspace';
-      const firstLetter = userName.trim().charAt(0).toUpperCase();
+      const userName = userData?.signUpFullName || '';
+      const firstLetter = userName.trim().charAt(0).toUpperCase() || '';
       setUserInitial(firstLetter);
       setUserName(userName);
       setLoading(false);
@@ -29,8 +31,10 @@ export default function SideBarContainer() {
   };
 
   useEffect(() => {
-    fetchUserInitial();
-  }, []);
+    if (userData) {
+      fetchUserInitial();
+    }
+  }, [userData]);
 
   const handleMouseMove = useCallback(
     (e: MouseEvent) => {
@@ -84,7 +88,7 @@ export default function SideBarContainer() {
           className="border border-gray-200 bg-opacity-50 bg-gray-100 shadow-md overflow-hidden group"
         >
           <SidebarContent
-            userName={userName}
+            userName={`${userName} workspace`}
             userInitial={userInitial}
             loading={loading}
             width={width}
