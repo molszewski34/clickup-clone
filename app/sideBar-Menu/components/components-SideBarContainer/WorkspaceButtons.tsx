@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { useWorkspaceQuery } from '@/hooks/useWorkspaceQuery';
-import { useProjectQuery } from '@/hooks/useProjectQuery';
-import { Icons } from '@/icons/icons';
-import AddWorkspaceElement from '../AddWorkspaceElement';
-import { useData } from '@/context/DataProvider/DataProvider';
-import { useUser } from '@/context/DataProvider/UserDataProvider';
-import { useQuery } from '@tanstack/react-query';
-import { getTasks } from '@/app/server-actions/task/getTasks';
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useWorkspaceQuery } from "@/hooks/useWorkspaceQuery";
+import { useProjectQuery } from "@/hooks/useProjectQuery";
+import { Icons } from "@/icons/icons";
+import AddWorkspaceElement from "../AddWorkspaceElement";
+import { useData } from "@/context/DataProvider/DataProvider";
+import { useUser } from "@/context/DataProvider/UserDataProvider";
+import { useQuery } from "@tanstack/react-query";
+import { getTasks } from "@/app/server-actions/task/getTasks";
 
 const WorkspaceButtons = ({ width }: { width: number }) => {
   const router = useRouter();
@@ -26,11 +26,11 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
     setProjectName,
   } = useData();
 
-  const { userId } = useUser();
-
   const [hoverStates, setHoverStates] = useState<{ [key: string]: boolean }>(
     {}
   );
+
+  const { userId } = useUser();
 
   const {
     data: projects,
@@ -39,24 +39,26 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
   } = useProjectQuery();
 
   const { data: tasks } = useQuery({
-    queryKey: ['tasks', projectId],
+    queryKey: ["tasks", projectId],
     queryFn: () => getTasks(userId, workspaceId, projectId),
     enabled: !!projectId,
   });
 
-  const handleWorkspaceClick = (workspaceId: string) => {
+  const handleWorkspaceClick = (workspaceId: string, workspaceName: string) => {
     if (activeWorkspace === workspaceId) {
       setActiveWorkspace(null);
-      setActiveProject(null); // Reset aktywnego projektu
+      setActiveProject(null);
     } else {
       setActiveWorkspace(workspaceId);
       setWorkspaceId(workspaceId);
+      setWorkspaceName(workspaceName);
     }
   };
 
-  const handleProjectClick = (projectId: string) => {
+  const handleProjectClick = (projectId: string, projectName: string) => {
     setActiveProject((prev) => (prev === projectId ? null : projectId));
     setProjectId(projectId);
+    setProjectName(projectName);
 
     router.push(`/${userId}/l/${projectId}`);
   };
@@ -70,7 +72,7 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="flex w-full flex-col">
       {workspaces.length > 0 ? (
         workspaces.map((workspace) => (
           <div key={workspace.id}>
@@ -85,23 +87,19 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
               }
               extraIcons={2}
               active={activeWorkspace === workspace.id}
-              onClick={() => handleWorkspaceClick(workspace.id)}
+              onClick={() => handleWorkspaceClick(workspace.id, workspace.name)}
               width={width}
-              onMouseEnter={() => {
-                handleMouseEnter(workspace.id);
-                setWorkspaceName(workspace.name);
-                setWorkspaceId(workspace.id);
-              }}
+              onMouseEnter={() => handleMouseEnter(workspace.id)}
               onMouseLeave={() => handleMouseLeave(workspace.id)}
               isWorkspace={true}
             />
             {activeWorkspace === workspace.id && (
               <div className="ml-4 mt-2">
                 {loadingProjects ? (
-                  <p>Ładowanie projektów...</p>
+                  <p>Loading projects...</p>
                 ) : projectsError ? (
                   <p className="text-red-500">
-                    Błąd podczas pobierania projektów.
+                    Error while downloading projects.
                   </p>
                 ) : projects && projects.length > 0 ? (
                   projects.map((project) => (
@@ -114,7 +112,7 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
                       extraIcons={1}
                       active={activeProject === project.id}
                       onClick={() => {
-                        handleProjectClick(project.id);
+                        handleProjectClick(project.id, project.name);
                       }}
                       width={width}
                       onMouseEnter={() => {
@@ -128,8 +126,8 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
                     />
                   ))
                 ) : (
-                  <p className="text-sm">
-                    Create a <u>Folder</u>, <u>List</u> or <u>Doc</u>
+                  <p className="text-sm text-gray-500">
+                    No projects in this workspace.
                   </p>
                 )}
               </div>
@@ -137,7 +135,7 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
           </div>
         ))
       ) : (
-        <p className="text-gray-500">Brak workspace do wyświetlenia.</p>
+        <p className="text-gray-500">No workspace to display.</p>
       )}
     </div>
   );
