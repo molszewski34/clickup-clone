@@ -15,7 +15,7 @@ const SubBarNavHeader: React.FC<Props> = ({
   const [activeButton, setActiveButton] = useState<string | null>(null);
   return (
     <div
-      className={`font-sans flex items-center text-white_100 dark:bg-darkGray_600 transition-all duration-500 ease-in-out overflow-hidden
+      className={`font-sans flex items-center text-gray_600 bg-wgite transition-all duration-500 ease-in-out overflow-hidden
       ${
         subBarNavHeaderActive
           ? "max-h-[112px] px-12  pt-6 pb-4"
@@ -23,7 +23,9 @@ const SubBarNavHeader: React.FC<Props> = ({
       } `}
     >
       <div className="flex mr-auto overflow-hidden ">
-        <h1 className="text-2xl mr-[6px] font-semibold">{spaceName}</h1>
+        <h1 className="text-2xl mr-[6px] font-semibold text-darkGray_600">
+          {spaceName}
+        </h1>
         <ButtonVariant2
           isActive={activeButton === "dots"}
           onClick={() =>

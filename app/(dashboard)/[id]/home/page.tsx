@@ -59,7 +59,7 @@ const UserHomePage = ({ params }: { params: Promise<{ id: string }> }) => {
           <ButtonVariant3 className={` !text-sm h-8 font-semibold px-[11px]`}>
             Menage cards
           </ButtonVariant3>
-          <div className="w-[1px] h-4 mx-2  bg-darkGray_400"></div>
+          <div className="w-[1px] h-4 mx-2  bg-gray_50"></div>
           <ButtonVariant2 className={`items-center h-8`}>
             <Icons.SettingsIcon className="text-base" />
           </ButtonVariant2>

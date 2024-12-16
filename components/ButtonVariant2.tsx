@@ -1,5 +1,5 @@
 import React from "react";
-type VariantType = "primary" | "secendary";
+type VariantType = "primary" | "secendary" | "tertiary";
 type Props = {
   children: React.ReactNode;
   isLineBefore?: boolean | null;
@@ -19,13 +19,16 @@ const ButtonVariant2: React.FC<Props> = ({
 }) => {
   const Variants: Record<VariantType, string> = {
     primary: `${
-      isActive && "bg-darkGray_300"
-    } text-gray_400 active:bg-darkGray_300 hover:bg-darkGray_400`,
+      isActive && `bg-darkGray_50 text-darkGray_600`
+    } text-gray_600 active:bg-gray_50 hover:bg-white_100`,
     secendary: `${
       isActive && "bg-darkBlue_600"
     } text-blue_400  hover:bg-darkBlue_600 active:bg-darkBlue_600`,
+    tertiary: `${
+      isActive && "bg-blue_200"
+    } text-blue_300  hover:bg-blue_200 active:bg-blue_200`,
   };
-  const line = `ml-[14px] relative before:content-[""] before:absolute before:-left-[9px] before:font-thin before:bg-darkGray_400 before:w-[1px] before:h-4 before:flex-shrink-0`;
+  const line = `ml-[14px] relative before:content-[""] before:absolute before:-left-[9px] before:font-thin before:bg-darkGray_50 before:w-[1px] before:h-4 before:flex-shrink-0`;
   return (
     <div
       className={`h-full flex items-center
