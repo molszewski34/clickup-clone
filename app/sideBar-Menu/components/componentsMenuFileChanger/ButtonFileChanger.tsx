@@ -94,7 +94,7 @@ const ButtonFileChanger: React.FC<ButtonProps> = ({
                 <Icons.Trash className="text-[18px] text-red-800 " />
               </div>
               <div className="flex items-center text-lg  mt-4 font-sans font-medium text-gray-950">
-                Dalete: <span className=" ml-2">{workspaceName}</span>
+                Delete: <span className=" ml-2">{workspaceName}</span>
               </div>
               <div className="flex mt-1 text-sm font-sans text-gray-950">
                 <span>

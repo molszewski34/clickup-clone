@@ -35,7 +35,7 @@ const DeleteWorkspaceButton = ({
       onClick={() => mutation.mutate()}
       disabled={workspaceName != inputValue}
     >
-      Dalete
+      Delete
     </button>
   );
 };
