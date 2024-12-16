@@ -90,8 +90,24 @@ Na ten moment większość linków jest nie aktywna do czasu wprowadzenia przypi
 **Dolna część nawigacji - spaces**
 Ta część nawigacji bocznej jest odpowiedzialna za pokazywanie w formie folderów - workspaces i projects.
 
-**Elementy listy**
-Po kliknięciu któregoś z folderów użytkownik jest odsyłany do ścieżki strony składającej się z workspace `workspaceId/l/projectId`. Adres jest dynamicznie ustalana za pomocą providera `useData.tsx` i `useUser.tsx` które otrzymują id od elementów danej listy. Id jest przesyłane akcją onMouseEnter w WorkspaceButtons.tsx. W dynamicznym generowaniu stron kluczowy był `params` i `useRouter` w `SidebarContent.tsx`
+**Elementy dolnej nawigacji**
+
+**Lista**
+Po kliknięciu któregoś z folderów użytkownik jest odsyłany do ścieżki strony składającej się z workspace `workspaceId/l/projectId`. Adres jest dynamicznie ustalana za pomocą providera `useData.tsx` i `useUser.tsx` które otrzymują id od elementów danej listy. Id jest przesyłane akcją onMouseEnter w WorkspaceButtons.tsx. W dynamicznym generowaniu stron kluczowy był `params` i `useRouter` w `SidebarContent.tsx`.
+
+**Workspace**
+Workspace jest folderem przechowującym listy z taskami. Gdy dodawany jest workspace to wzraz z nim umieszczana jest pierwsza domyślna lista o nazwie "List".
+
+Dodawanie workspace:
+Workspace jest dodawany z modala
+![Imgur](https://imgur.com/zji5801)
+
+Usuwanie workspace:
+Menu pojawia się po nacisnieciu przycisku który pojawia się po najechaniu na element listy.
+![Imgur](https://imgur.com/rRGAx47)
+
+Po wybraniu opcji Delete pojawia się ten modal
+![Imgur](https://imgur.com/DREFBXG)
 
 **MIT License**
 
