@@ -96,7 +96,7 @@ import {
   GoPencil,
   GoStop,
 } from "react-icons/go";
-import { CiImageOn, CiShare2, CiTrophy } from "react-icons/ci";
+import { CiHome, CiImageOn, CiShare2, CiTrophy } from "react-icons/ci";
 import { FaRegCheckCircle, FaRegTrashAlt } from "react-icons/fa";
 import { IoMdArrowDropdown, IoMdArrowDropright } from "react-icons/io";
 import { RiDraggable } from "react-icons/ri";
@@ -222,6 +222,7 @@ export const Icons = {
   FolderPlus: TbFolderPlus,
   FolderShare: TbFolderShare,
   Import: BiImport,
+  House: CiHome,
 
   // New icons SVG
   AiIcon: SvgIcons.Ai,

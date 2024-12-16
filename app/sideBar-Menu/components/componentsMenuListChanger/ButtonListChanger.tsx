@@ -22,7 +22,6 @@ const ButtonListChanger: React.FC<ButtonProps> = ({
   NumberIndex,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  // const closeModal = () => setIsModalOpen(false);
 
   const [NumbersTemplates] = useState(0);
 

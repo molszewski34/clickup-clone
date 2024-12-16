@@ -22,7 +22,7 @@ const Button: React.FC<ButtonProps> = ({
     <button
       onClick={onClick}
       className={`group/button flex items-center rounded-md h-8 w-full mr-1 pl-1 mb-px flex-grow min-w-0 ${
-        width < 200 ? "justify-center" : ""
+        width < 200 ? "justify-center max-w-8" : ""
       } ${
         active
           ? "bg-blue-200 text-blue-700"
@@ -32,7 +32,9 @@ const Button: React.FC<ButtonProps> = ({
       <div className="flex w-full justify-between items-center">
         <div className="flex justify-center items-center h-8 w-6">
           {React.cloneElement(icon, {
-            className: active ? "blue-700" : "gray-700",
+            className: active
+              ? "text-[18px] text-blue-700"
+              : "text-[18px] text-gray-700",
           })}
         </div>
 
