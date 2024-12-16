@@ -41,8 +41,6 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({
   const [taskId, setTaskId] = useState('');
   const [tasksLength, setTasksLength] = useState(0);
 
-  console.log('workspaceName', workspaceName);
-
   return (
     <DataContext.Provider
       value={{

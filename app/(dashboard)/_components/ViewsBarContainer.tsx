@@ -10,7 +10,7 @@ const ViewsBarContainer = () => {
   return (
     <div>
       <SubBarNavHeader
-        spaceName="Team space"
+        spaceName="Everything"
         subBarNavHeaderActive={subBarNavHeaderActive}
       />
       <SubBarNavTop
