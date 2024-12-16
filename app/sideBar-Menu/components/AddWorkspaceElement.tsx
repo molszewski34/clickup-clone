@@ -214,6 +214,7 @@ const AddWorkspaceElement: React.FC<ButtonProps> = ({
             id="menuListChanger"
             className="fixed z-50 bg-white border border-gray-300 shadow-lg rounded-lg py-2"
             style={{ left: `${width - 20}px`, bottom: "10px" }}
+            onClick={(e) => e.stopPropagation()}
           >
             <MenuListChanger />
           </div>
@@ -228,6 +229,7 @@ const AddWorkspaceElement: React.FC<ButtonProps> = ({
             id="menuFileChanger"
             className="fixed z-50 bg-white border border-gray-300 shadow-lg rounded-lg py-2"
             style={{ left: `${width - 20}px`, bottom: "10px" }}
+            onClick={(e) => e.stopPropagation()}
           >
             <MenuFileChanger />
           </div>
@@ -243,6 +245,7 @@ const AddWorkspaceElement: React.FC<ButtonProps> = ({
             id="menuWorkspaceList"
             className="fixed z-50 top-2/4 bg-white border border-gray-300 shadow-lg rounded-lg py-2"
             style={{ left: `${width - 20}px`, top: `${offsetTopState}px` }}
+            onClick={(e) => e.stopPropagation()}
           >
             <ButtonRender toggleModal={toggleModal} />
           </div>
