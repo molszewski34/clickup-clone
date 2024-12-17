@@ -80,16 +80,13 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
             workspace.name?.charAt(0).toUpperCase() || "?";
 
           const selectedIcon = Array.isArray(workspace.icon)
-            ? [...workspace.icon]
-                .reverse()
-                .find((item) => item.selectedIconName)
+            ? workspace.icon.reverse().find((item) => item.selectedIconName)
             : null;
 
           const DynamicIcon = selectedIcon?.selectedIconName
             ? AddIcons[selectedIcon.selectedIconName as keyof typeof AddIcons]
             : null;
 
-          console.log(DynamicIcon, "Dynamic Icon");
           return (
             <div key={workspace.id}>
               <AddWorkspaceElement
@@ -109,8 +106,9 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
                   Array.isArray(workspace.icon)
                     ? [...workspace.icon]
                         .reverse()
-                        .find((item) => item.activeColor)?.activeColor
-                    : undefined
+                        .find((item) => item?.activeColor)?.activeColor ??
+                      "indigo-500"
+                    : "indigo-500"
                 }
                 extraIcons={2}
                 active={activeWorkspace === workspace.id}
