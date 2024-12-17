@@ -1,9 +1,9 @@
-import React, { useCallback, useRef, useState } from "react";
-import { Icons } from "@/icons/icons";
-import ButtonRender from "./addWorkspaceElement-Component/ButtonRender";
-import ListModal from "./list-Components/ListModal";
-import MenuFileChanger from "./componentsMenuFileChanger/MenuFileChanger";
-import MenuListChanger from "./componentsMenuListChanger/MenuListChanger";
+import React, { useCallback, useRef, useState } from 'react';
+import { Icons } from '@/icons/icons';
+import ButtonRender from './addWorkspaceElement-Component/ButtonRender';
+import ListModal from './list-Components/ListModal';
+import MenuFileChanger from './componentsMenuFileChanger/MenuFileChanger';
+import MenuListChanger from './componentsMenuListChanger/MenuListChanger';
 
 interface ButtonProps {
   label: string;
@@ -15,6 +15,7 @@ interface ButtonProps {
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
   isWorkspace: boolean;
+  color?: string;
 }
 
 const AddWorkspaceElement: React.FC<ButtonProps> = ({
@@ -27,6 +28,7 @@ const AddWorkspaceElement: React.FC<ButtonProps> = ({
   onMouseEnter,
   onMouseLeave,
   isWorkspace,
+  color,
 }) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const [offsetTopState, setOffsetTopState] = useState<number | null>(null);
@@ -41,30 +43,30 @@ const AddWorkspaceElement: React.FC<ButtonProps> = ({
   };
 
   const [modalState, setModalState] = useState<
-    | "none"
-    | "menuWorkspaceList"
-    | "createList"
-    | "menuFileChanger"
-    | "menuListChanger"
-  >("none");
+    | 'none'
+    | 'menuWorkspaceList'
+    | 'createList'
+    | 'menuFileChanger'
+    | 'menuListChanger'
+  >('none');
 
   const toggleModal = (
     modal:
-      | "none"
-      | "menuWorkspaceList"
-      | "createList"
-      | "menuFileChanger"
-      | "menuListChanger"
+      | 'none'
+      | 'menuWorkspaceList'
+      | 'createList'
+      | 'menuFileChanger'
+      | 'menuListChanger'
   ) => {
-    setModalState(modalState === modal ? "none" : modal);
+    setModalState(modalState === modal ? 'none' : modal);
   };
 
   const handleOutsideClick = useCallback(
     (e: MouseEvent) => {
-      if (modalState !== "none") {
+      if (modalState !== 'none') {
         const modal = document.getElementById(modalState);
         if (modal && !modal.contains(e.target as Node)) {
-          setModalState("none");
+          setModalState('none');
         }
       }
     },
@@ -72,13 +74,13 @@ const AddWorkspaceElement: React.FC<ButtonProps> = ({
   );
 
   React.useEffect(() => {
-    if (modalState !== "none") {
-      document.addEventListener("click", handleOutsideClick);
+    if (modalState !== 'none') {
+      document.addEventListener('click', handleOutsideClick);
     } else {
-      document.removeEventListener("click", handleOutsideClick);
+      document.removeEventListener('click', handleOutsideClick);
     }
     return () => {
-      document.removeEventListener("click", handleOutsideClick);
+      document.removeEventListener('click', handleOutsideClick);
     };
   }, [modalState, handleOutsideClick]);
 
@@ -90,13 +92,13 @@ const AddWorkspaceElement: React.FC<ButtonProps> = ({
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
         className={`group/button flex items-center rounded-md h-8 w-full mr-1 pl-1 mb-px flex-grow min-w-0 ${
-          width < 200 ? "justify-center" : ""
+          width < 200 ? 'justify-center' : ''
         } ${
-          modalState === "menuWorkspaceList" && !active
-            ? "bg-gray-200"
+          modalState === 'menuWorkspaceList' && !active
+            ? 'bg-gray-200'
             : active
-            ? "bg-blue-200 text-blue-700"
-            : "hover:bg-gray-200 hover:text-gray-700"
+            ? 'bg-blue-200 text-blue-700'
+            : 'hover:bg-gray-200 hover:text-gray-700'
         }`}
       >
         <div className="flex w-full justify-between items-center">
@@ -104,14 +106,14 @@ const AddWorkspaceElement: React.FC<ButtonProps> = ({
             {isWorkspace ? (
               <div
                 className={`flex justify-center items-center w-5 h-5 rounded ${
-                  active ? "bg-blue-400" : "bg-violet-400"
+                  active ? 'bg-gray-200' : `bg-${color}`
                 }`}
               >
                 {React.cloneElement(icon, {
                   className: `${
                     active
-                      ? "transition-transform duration-300  group-hover/button:rotate-90 text-blue-700"
-                      : "text-gray-700"
+                      ? 'transition-transform duration-300  group-hover/button:rotate-90 text-blue-700'
+                      : 'text-gray-700'
                   }`,
                 })}
               </div>
@@ -119,8 +121,8 @@ const AddWorkspaceElement: React.FC<ButtonProps> = ({
               React.cloneElement(icon, {
                 className: `${
                   active
-                    ? "transition-transform duration-300  group-hover/button:rotate-90 text-blue-700"
-                    : "text-gray-700"
+                    ? 'transition-transform duration-300  group-hover/button:rotate-90 text-blue-700'
+                    : 'text-gray-700'
                 }`,
               })
             )}
@@ -129,7 +131,7 @@ const AddWorkspaceElement: React.FC<ButtonProps> = ({
             <div className="flex justify-start items-center flex-grow min-w-0 ml-1">
               <span
                 className={`block text-sm font-sans truncate ${
-                  active ? "text-blue-700" : "text-gray-700"
+                  active ? 'text-blue-700' : 'text-gray-700'
                 }`}
               >
                 {label}
@@ -139,7 +141,7 @@ const AddWorkspaceElement: React.FC<ButtonProps> = ({
           {width >= 200 && extraIcons > 0 && (
             <div
               className={`flex justify-center items-center mr-1 opacity-0 group-hover/button:opacity-100 ${
-                modalState !== "none" || active ? "opacity-100" : ""
+                modalState !== 'none' || active ? 'opacity-100' : ''
               }`}
             >
               <div className="flex justify-center items-center h-6 w-12 ">
@@ -147,17 +149,17 @@ const AddWorkspaceElement: React.FC<ButtonProps> = ({
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      toggleModal("menuListChanger");
+                      toggleModal('menuListChanger');
                     }}
                     className={`flex justify-center items-center h-6 w-6 rounded-md ${
-                      active ? "hover:bg-blue-300" : "hover:bg-gray-300"
+                      active ? 'hover:bg-blue-300' : 'hover:bg-gray-300'
                     }`}
                   >
                     <Icons.ThreeDotsIcon
                       className={
                         active
-                          ? "text-[14px] text-blue-700"
-                          : "text-[14px] text-gray-700"
+                          ? 'text-[14px] text-blue-700'
+                          : 'text-[14px] text-gray-700'
                       }
                     />
                   </button>
@@ -166,17 +168,17 @@ const AddWorkspaceElement: React.FC<ButtonProps> = ({
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      toggleModal("menuFileChanger");
+                      toggleModal('menuFileChanger');
                     }}
                     className={`flex justify-center items-center h-6 w-6 rounded-md ${
-                      active ? "hover:bg-blue-300" : "hover:bg-gray-300"
+                      active ? 'hover:bg-blue-300' : 'hover:bg-gray-300'
                     }`}
                   >
                     <Icons.ThreeDotsIcon
                       className={
                         active
-                          ? "text-[14px] text-blue-700"
-                          : "text-[14px] text-gray-700"
+                          ? 'text-[14px] text-blue-700'
+                          : 'text-[14px] text-gray-700'
                       }
                     />
                   </button>
@@ -185,17 +187,17 @@ const AddWorkspaceElement: React.FC<ButtonProps> = ({
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      toggleModal("menuWorkspaceList");
+                      toggleModal('menuWorkspaceList');
                     }}
                     className={`flex justify-center items-center h-6 w-6 rounded-md ${
-                      active ? "hover:bg-blue-300" : "hover:bg-gray-300"
+                      active ? 'hover:bg-blue-300' : 'hover:bg-gray-300'
                     }`}
                   >
                     <Icons.PlusIcon
                       className={
                         active
-                          ? "text-[14px] text-blue-700"
-                          : "text-[14px] text-gray-700 "
+                          ? 'text-[14px] text-blue-700'
+                          : 'text-[14px] text-gray-700 '
                       }
                     />
                   </button>
@@ -205,30 +207,30 @@ const AddWorkspaceElement: React.FC<ButtonProps> = ({
           )}
         </div>
       </button>
-      {modalState === "menuListChanger" && (
+      {modalState === 'menuListChanger' && (
         <div
           className="fixed inset-0 flex justify-center bg-transparent bg-opacity-50 z-50"
-          onClick={() => toggleModal("none")}
+          onClick={() => toggleModal('none')}
         >
           <div
             id="menuListChanger"
             className="fixed z-50 bg-white border border-gray-300 shadow-lg rounded-lg py-2"
-            style={{ left: `${width - 20}px`, bottom: "10px" }}
+            style={{ left: `${width - 20}px`, bottom: '10px' }}
             onClick={(e) => e.stopPropagation()}
           >
             <MenuListChanger />
           </div>
         </div>
       )}
-      {modalState === "menuFileChanger" && (
+      {modalState === 'menuFileChanger' && (
         <div
           className="fixed inset-0 flex justify-center bg-transparent bg-opacity-50 z-50"
-          onClick={() => toggleModal("none")}
+          onClick={() => toggleModal('none')}
         >
           <div
             id="menuFileChanger"
             className="fixed z-50 bg-white border border-gray-300 shadow-lg rounded-lg py-2"
-            style={{ left: `${width - 20}px`, bottom: "10px" }}
+            style={{ left: `${width - 20}px`, bottom: '10px' }}
             onClick={(e) => e.stopPropagation()}
           >
             <MenuFileChanger />
@@ -236,10 +238,10 @@ const AddWorkspaceElement: React.FC<ButtonProps> = ({
         </div>
       )}
 
-      {modalState === "menuWorkspaceList" && (
+      {modalState === 'menuWorkspaceList' && (
         <div
           className="fixed inset-0 flex justify-center bg-transparent bg-opacity-50 z-50"
-          onClick={() => toggleModal("none")}
+          onClick={() => toggleModal('none')}
         >
           <div
             id="menuWorkspaceList"
@@ -252,10 +254,10 @@ const AddWorkspaceElement: React.FC<ButtonProps> = ({
         </div>
       )}
 
-      {modalState === "createList" && (
+      {modalState === 'createList' && (
         <div
           className="fixed inset-0 flex justify-center bg-gray-950 bg-opacity-50 z-50"
-          onClick={() => toggleModal("none")}
+          onClick={() => toggleModal('none')}
         >
           <div
             className="bg-white rounded-xl w-[540px] h-[326px] mt-[128px] shadow-lg  border border-gray-20 overflow-hidden"

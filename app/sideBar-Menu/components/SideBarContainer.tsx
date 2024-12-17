@@ -4,6 +4,8 @@ import React, { useState, useEffect, useCallback } from 'react';
 import ResizeHandle from './components-SideBarContainer/ResizeHandle';
 import SidebarContent from './components-SideBarContainer/SidebarContent';
 import SidebarModal from './components-SideBarContainer/SidebarModal';
+import ContainerModalWorkButtons from './componentsMenuContainerModals/ContainerModalWorkButtons';
+import ContainerModalFavouritesButton from './componentsMenuContainerModals/ContainerModalFavouritesButton';
 import { useUserProfile } from '@/hooks/useUserProfile';
 
 export default function SideBarContainer() {
@@ -39,6 +41,10 @@ export default function SideBarContainer() {
       fetchUserInitial();
     }
   }, [userData]);
+
+  const toggleModal = (modal: 'none' | 'menuFavorite' | 'menuSpace') => {
+    setModalState(modalState === modal ? 'none' : modal);
+  };
 
   const handleMouseMove = useCallback(
     (e: MouseEvent) => {
