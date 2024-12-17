@@ -7,7 +7,6 @@ import { deleteWorkspace } from '@/app/server-actions/workspace/deleteWorkspace'
 const DeleteWorkspaceButton = ({
   workspaceName,
   inputValue,
-  closeModal,
 }: {
   workspaceName: string;
   inputValue: string;

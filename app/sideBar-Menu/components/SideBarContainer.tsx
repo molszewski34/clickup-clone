@@ -40,7 +40,7 @@ export default function SideBarContainer() {
     if (userData) {
       fetchUserInitial();
     }
-  }, [userData]);
+  }, [userData, fetchUserInitial]);
 
   const toggleModal = (modal: 'none' | 'menuFavorite' | 'menuSpace') => {
     setModalState(modalState === modal ? 'none' : modal);

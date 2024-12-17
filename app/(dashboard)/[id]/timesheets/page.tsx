@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '@/db/firebase/lib/firebase';
 import { useInitializeWorkspace } from '../../_hooks/useInitializeWorkspace';
-import AddTaskModal from '@/app/addTaskModal/AddTaskModal';
 
 const UserTimesheetsPage = ({
   params,

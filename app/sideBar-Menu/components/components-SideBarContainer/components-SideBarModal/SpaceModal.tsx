@@ -31,7 +31,7 @@ export default function SpaceModal({ onClose }: ModalProps) {
     return () => {
       document.removeEventListener('mousedown', handleOutsideClick);
     };
-  }, [isModalVisible]);
+  }, [isModalVisible, handleOutsideClick]);
 
   return (
     <div ref={modalRef} className="relative bg-white rounded-lg shadow-custom">
