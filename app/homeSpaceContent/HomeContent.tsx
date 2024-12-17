@@ -1,6 +1,5 @@
 import { Icons } from "@/icons/icons";
 import { useState } from "react";
-import TaskList from "../(dashboard)/[id]/l/[projectId]/components/TasksList";
 
 export default function HomeContent() {
   const [userName] = useState("Jakub"); // Dodaj zarządzanie stanem dla menu
@@ -25,9 +24,7 @@ export default function HomeContent() {
                 </div>
               </div>
               <div className=" w-full h-[258px] pb-4 custom-scrollbar overflow-y-auto overflow-x-hidden">
-                <div className="h-[2000px]">
-                  <TaskList />
-                </div>
+                <div className="h-[2000px]"></div>
               </div>
             </div>
             <div className="h-[336px] border border-gray-200 rounded-xl hover:border-gray-400 overflow-hidden group">
