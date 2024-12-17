@@ -13,11 +13,15 @@ export const WorkspaceFormProvider: React.FC<{ children: React.ReactNode }> = ({
     createdAt: new Date().toISOString(),
     desc: '',
     isPrivate: false,
-    icon: { activeColor: 'indigo-500', selectedIconName: '' },
+    icon: [{ activeColor: 'indigo-500', selectedIconName: '' }],
   });
 
+  const [error, setError] = useState(false);
+
   return (
-    <WorkspaceFormContext.Provider value={{ formData, setFormData }}>
+    <WorkspaceFormContext.Provider
+      value={{ formData, setFormData, error, setError }}
+    >
       {children}
     </WorkspaceFormContext.Provider>
   );
