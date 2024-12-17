@@ -4,7 +4,7 @@ import { useUser } from '@/context/DataProvider/UserDataProvider';
 import { useCreateProject } from '@/hooks/useCreateProject';
 
 interface ListModalProps {
-  toggleModal: (modal: 'none' | 'modal1' | 'modal2') => void;
+  toggleModal: (modal: 'none' | 'menuWorkspaceList' | 'createList') => void;
 }
 
 interface FormValues {
@@ -14,7 +14,7 @@ interface FormValues {
 
 const ListModal: React.FC<ListModalProps> = ({ toggleModal }) => {
   const { userId } = useUser();
-  const createProjectMutation = useCreateProject();
+  const createProjectMutation = useCreateProject({ toggleModal });
 
   const {
     register,

@@ -14,10 +14,16 @@ type DataContextType = {
   setUserId: Dispatch<React.SetStateAction<string>>;
   workspaceId: string;
   setWorkspaceId: Dispatch<SetStateAction<string>>;
+  workspaceName: string;
+  setWorkspaceName: Dispatch<SetStateAction<string>>;
   projectId: string;
   setProjectId: Dispatch<SetStateAction<string>>;
+  projectName: string;
+  setProjectName: Dispatch<SetStateAction<string>>;
   taskId: string;
   setTaskId: Dispatch<SetStateAction<string>>;
+  tasksLength: number;
+  setTasksLength: Dispatch<SetStateAction<number>>;
 };
 
 export const DataContext = createContext<DataContextType | undefined>(
@@ -29,8 +35,11 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
   const [userId, setUserId] = useState('');
   const [workspaceId, setWorkspaceId] = useState('');
+  const [workspaceName, setWorkspaceName] = useState('');
   const [projectId, setProjectId] = useState('');
+  const [projectName, setProjectName] = useState('');
   const [taskId, setTaskId] = useState('');
+  const [tasksLength, setTasksLength] = useState(0);
 
   return (
     <DataContext.Provider
@@ -39,10 +48,16 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({
         setUserId,
         workspaceId,
         setWorkspaceId,
+        workspaceName,
+        setWorkspaceName,
         projectId,
         setProjectId,
+        projectName,
+        setProjectName,
         taskId,
         setTaskId,
+        tasksLength,
+        setTasksLength,
       }}
     >
       {children}

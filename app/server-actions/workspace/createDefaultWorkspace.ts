@@ -19,6 +19,11 @@ export const createDefaultWorkspace = async (userId: string) => {
     await setDoc(workspaceRef, {
       name: 'Workspace',
       id: cryptoUUID,
+      createdAt: new Date(),
+      userId,
+      desc: '',
+      icon: { activeColor: 'indigo-500', selectedIconName: '' },
+      isPrivate: false,
     });
 
     const projectUUID = crypto.randomUUID();
@@ -29,6 +34,7 @@ export const createDefaultWorkspace = async (userId: string) => {
     await setDoc(projectRef, {
       name: 'Project',
       id: projectUUID,
+      isPrivate: false,
     });
 
     const taskUUID = crypto.randomUUID();
@@ -37,8 +43,13 @@ export const createDefaultWorkspace = async (userId: string) => {
       `users/${userId}/workspaces/${cryptoUUID}/projects/${projectUUID}/tasks/${taskUUID}`
     );
     await setDoc(taskRef, {
-      name: 'Task 1',
       id: taskUUID,
+      taskName: 'Task',
+      dueDate: '',
+      assignees: [],
+      timeEstimate: '',
+      priority: '',
+      details: '',
     });
 
     console.log('Stworzono domyślny workspace');

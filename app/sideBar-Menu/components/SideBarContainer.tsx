@@ -4,8 +4,15 @@ import React, { useState, useEffect, useCallback } from 'react';
 import ResizeHandle from './components-SideBarContainer/ResizeHandle';
 import SidebarContent from './components-SideBarContainer/SidebarContent';
 import SidebarModal from './components-SideBarContainer/SidebarModal';
+import ContainerModalWorkButtons from './componentsMenuContainerModals/ContainerModalWorkButtons';
+import ContainerModalFavouritesButton from './componentsMenuContainerModals/ContainerModalFavouritesButton';
+import { useUserProfile } from '@/hooks/useUserProfile';
 
 export default function SideBarContainer() {
+  const [modalState, setModalState] = useState<
+    'none' | 'menuFavorite' | 'menuSpace'
+  >('none');
+
   const maxContainerWidth = 369;
   const minContainerWidth = 60;
   const [width, setWidth] = useState(maxContainerWidth);
@@ -17,11 +24,12 @@ export default function SideBarContainer() {
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+  const { userData } = useUserProfile();
 
   const fetchUserInitial = () => {
     setTimeout(() => {
-      const userName = 'Jakub King Workspace';
-      const firstLetter = userName.trim().charAt(0).toUpperCase();
+      const userName = userData?.signUpFullName || '';
+      const firstLetter = userName.trim().charAt(0).toUpperCase() || '';
       setUserInitial(firstLetter);
       setUserName(userName);
       setLoading(false);
@@ -29,8 +37,14 @@ export default function SideBarContainer() {
   };
 
   useEffect(() => {
-    fetchUserInitial();
-  }, []);
+    if (userData) {
+      fetchUserInitial();
+    }
+  }, [userData, fetchUserInitial]);
+
+  const toggleModal = (modal: 'none' | 'menuFavorite' | 'menuSpace') => {
+    setModalState(modalState === modal ? 'none' : modal);
+  };
 
   const handleMouseMove = useCallback(
     (e: MouseEvent) => {
@@ -81,19 +95,59 @@ export default function SideBarContainer() {
             height: 'calc(100vh - 40px)',
             position: 'relative',
           }}
-          className="border border-gray-200 bg-opacity-50 bg-gray-100 shadow-md overflow-hidden group"
+          className="border border-gray-200 bg-opacity-50 bg-gray-100 shadow-md  group custom-scrollbar overflow-x-hidden overflow-y-auto"
         >
           <SidebarContent
-            userName={userName}
+            userName={`${userName} workspace`}
             userInitial={userInitial}
             loading={loading}
             width={width}
             openModal={openModal}
+            toggleModal={toggleModal}
           />
         </div>
 
         <ResizeHandle width={width} onMouseDown={handleMouseDown} />
       </div>
+
+      {modalState === 'menuFavorite' && (
+        <div
+          className="fixed inset-0 flex justify-center bg-transparent bg-opacity-50 z-50"
+          style={{ left: `${minContainerWidth}px` }}
+          onClick={() => setModalState('none')}
+        >
+          <div
+            id="menuWorkspaceList"
+            className="fixed z-50 top-10 w-[255px] bg-gray-50 border-r border-gray-300  py-2"
+            style={{
+              left: `${minContainerWidth}px`,
+              height: `calc(100vh - 40px)`,
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <ContainerModalFavouritesButton />
+          </div>
+        </div>
+      )}
+      {modalState === 'menuSpace' && (
+        <div
+          className="fixed inset-0 flex justify-center bg-transparent bg-opacity-50 z-50"
+          style={{ left: `${minContainerWidth}px` }}
+          onClick={() => setModalState('none')}
+        >
+          <div
+            id="menuWorkspaceList"
+            className="fixed z-50 top-10 w-[255px] bg-gray-50 border-r border-gray-300  py-2"
+            style={{
+              left: `${minContainerWidth}px`,
+              height: `calc(100vh - 40px)`,
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <ContainerModalWorkButtons openModal={openModal} />
+          </div>
+        </div>
+      )}
 
       <SidebarModal isModalOpen={isModalOpen} closeModal={closeModal} />
     </>

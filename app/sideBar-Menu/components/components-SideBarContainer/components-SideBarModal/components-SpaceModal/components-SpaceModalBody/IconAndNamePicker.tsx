@@ -23,7 +23,7 @@ const IconAndNamePicker: React.FC<IconAndNamePickerProps> = ({
 }) => {
   const bodyRef = useRef<HTMLDivElement | null>(null); // Ref dla zewnętrznej części modala
 
-  const { formData, setFormData } = useWorkspaceFormContext();
+  const { formData, setFormData, error } = useWorkspaceFormContext();
 
   console.log('formData w IconAndNamePicker', formData);
 
@@ -97,13 +97,19 @@ const IconAndNamePicker: React.FC<IconAndNamePickerProps> = ({
           </div>
         )}
         {/* Pole tekstowe do wpisania nazwy */}
+
         <input
           type="text"
           placeholder="e.g. Marketing, Engineering, HR"
-          className="w-full border border-gray-200 px-[10px] py-3 text-sm/[14px] font-sans rounded-lg"
+          className={`w-full border ${
+            error ? 'border-red-500' : 'border-gray-200'
+          }  px-[10px] py-3 text-sm/[14px] font-sans rounded-lg`}
           onChange={handleDescriptionChange}
         />
       </div>
+      {error && (
+        <p className="text-xs text-red-500 ml-12">Space name is required</p>
+      )}
     </div>
   );
 };

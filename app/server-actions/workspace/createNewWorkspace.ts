@@ -1,11 +1,9 @@
 import { db } from '@/db/firebase/lib/firebase';
 import { doc, setDoc } from 'firebase/firestore';
-import { Workspace } from '@/app/server-actions/types';
-
-//* *Funkcja tworzy nowy workspace i dodaje domyślny nowy projekt o nazwie List.
+import { Workspace } from '../types';
 
 export const createNewWorkspace = async (
-  formData: Workspace, //data passed from useCreateWorkspace
+  formData: Workspace,
   userId: string
 ) => {
   try {
@@ -18,15 +16,16 @@ export const createNewWorkspace = async (
       icon: formData.icon,
       isPrivate: formData.isPrivate,
     });
-    console.log('Workspace added successfully');
 
+    const projectUUID = crypto.randomUUID();
     const projectRef = doc(
       db,
-      `users/${userId}/workspaces/${formData.id}/projects/list`
+      `users/${userId}/workspaces/${formData.id}/projects/${projectUUID}`
     );
+
     await setDoc(projectRef, {
-      id: crypto.randomUUID(),
       name: 'List',
+      id: projectUUID,
       isPrivate: false,
     });
     console.log('Default project "List" added successfully');

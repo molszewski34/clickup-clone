@@ -9,7 +9,7 @@ type Props = {
 const ButtonVariant4 = ({
   children,
   onClick,
-  className = "w-[26px] h-[26px] min-w-[26px] bg-darkGray_400 hover:bg-darkGray_300 active:bg-gray_600",
+  className = "w-[26px] h-[26px] min-w-[26px] bg-white_100 hover:bg-gray_50 active:bg-gray_50",
 }: Props) => {
   return (
     <div className="h-full flex items-center">

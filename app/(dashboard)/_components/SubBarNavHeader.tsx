@@ -15,7 +15,7 @@ const SubBarNavHeader: React.FC<Props> = ({
   const [activeButton, setActiveButton] = useState<string | null>(null);
   return (
     <div
-      className={`font-sans flex items-center text-white_100 dark:bg-darkGray_600 transition-all duration-500 ease-in-out overflow-hidden
+      className={`font-sans flex items-center text-gray_600 bg-wgite transition-all duration-500 ease-in-out overflow-hidden
       ${
         subBarNavHeaderActive
           ? "max-h-[112px] px-12  pt-6 pb-4"
@@ -23,7 +23,9 @@ const SubBarNavHeader: React.FC<Props> = ({
       } `}
     >
       <div className="flex mr-auto overflow-hidden ">
-        <h1 className="text-2xl mr-[6px] font-semibold">{spaceName}</h1>
+        <h1 className="text-2xl mr-[6px] font-semibold text-darkGray_600">
+          {spaceName}
+        </h1>
         <ButtonVariant2
           isActive={activeButton === "dots"}
           onClick={() =>
@@ -33,7 +35,7 @@ const SubBarNavHeader: React.FC<Props> = ({
           <Icons.DotsIcon className="my-1" />
         </ButtonVariant2>
       </div>
-      <ButtonVariant3 doubleButtonLeft={true} height="h-7">
+      <ButtonVariant3 doubleButtonLeft={true} className={`h-7`}>
         <span className="text-sm font-semibold">Add Task</span>
       </ButtonVariant3>
       <ButtonVariant3
@@ -43,8 +45,7 @@ const SubBarNavHeader: React.FC<Props> = ({
             prev === "addTaskRightButton" ? "" : "addTaskRightButton"
           )
         }
-        padding="px-[6px] py-1"
-        height="h-7"
+        className={`h-7 px-[6px] py-1`}
       >
         <Icons.ArrowDownIcon
           className={`text-[14px] relative top-[1px] transition-transform ease-in-out

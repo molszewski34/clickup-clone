@@ -7,9 +7,13 @@ import FilterInput from "./FilterInput";
 
 type Props = {
   subBarNavHeaderActive: boolean;
+  subBarNavFilterActive: boolean;
 };
 
-const SubBarNavFilters = ({ subBarNavHeaderActive }: Props) => {
+const SubBarNavFilters = ({
+  subBarNavHeaderActive,
+  subBarNavFilterActive,
+}: Props) => {
   const [activeFilterButton, setActiveFilterButton] = useState<string | null>(
     null
   );
@@ -18,10 +22,14 @@ const SubBarNavFilters = ({ subBarNavHeaderActive }: Props) => {
   const [inputText, setInputText] = useState("");
   return (
     <div
-      className={` flex h-10 gap-1 items-center bg-darkGray_600 transition-all duration-500 ease-in-out
-    ${subBarNavHeaderActive ? "px-12" : "px-4"}`}
+      className={` flex gap-1 items-center bg-white transition-all duration-500 ease-in-out overflow-hidden
+    ${subBarNavHeaderActive ? "px-12" : "px-4"} ${
+        subBarNavFilterActive ? " h-10 " : "h-0 "
+      }
+      `}
+      style={{ container: `filters/inline-size` }}
     >
-      <div className="flex w-full items-center gap-1">
+      <div className="flex w-full items-center gap-1  @lg:flex-col">
         <FilterButton
           onClick={() => {
             setActiveFilterButton("statusFilter");
@@ -68,7 +76,7 @@ const SubBarNavFilters = ({ subBarNavHeaderActive }: Props) => {
           </FilterButton>
           {meModeButtonActive && (
             <ButtonVariant4
-              className={`w-[22px] h-[22px] min-h-[22px] absolute right-[0.5px] text-blue_550 hover:text-blue_400 opacity-0 group-hover:opacity-100`}
+              className={`w-[22px] h-[22px] min-h-[22px] absolute right-[0.5px] bg-blue_150 hover:bg-blue_200 text-blue_300 z-30 opacity-0 group-hover:opacity-100`}
               onClick={() => setMeModeButtonActive(false)}
             >
               <Icons.CloseXIcon style={{ strokeWidth: "0.5px" }} />
@@ -78,7 +86,9 @@ const SubBarNavFilters = ({ subBarNavHeaderActive }: Props) => {
         <FilterButton
           isActive={activeFilterButton === "assigneeButton"}
           onClick={() => {
-            setActiveFilterButton("assigneeButton");
+            setActiveFilterButton((prev) =>
+              prev === "assigneeButton" ? "" : "assigneeButton"
+            );
           }}
         >
           <Icons.UsersIcon className="text-[14px]" />
@@ -88,23 +98,15 @@ const SubBarNavFilters = ({ subBarNavHeaderActive }: Props) => {
           <FilterButton
             isActive={closeButtonActive}
             onClick={() => {
-              setCloseButtonActive(true);
+              setCloseButtonActive((prev) => !prev);
             }}
           >
             <Icons.CheckIcon />
             Closed
           </FilterButton>
-          {closeButtonActive && (
-            <ButtonVariant4
-              className="w-[22px] h-[22px] min-h-[22px] absolute right-[0.5px] text-blue_550 hover:text-blue_400 opacity-0 group-hover:opacity-100"
-              onClick={() => setCloseButtonActive(false)}
-            >
-              <Icons.CloseXIcon style={{ strokeWidth: "0.5px" }} />
-            </ButtonVariant4>
-          )}
         </div>
       </div>
-      <div className="w-[1px] h-4 mx-2  bg-darkGray_400"></div>
+      <div className="w-[1px] h-4 mx-2  bg-gray_50"></div>
       <div className="relative flex items-center group w-36">
         <FilterInput
           isActive={inputText !== ""}
@@ -115,7 +117,7 @@ const SubBarNavFilters = ({ subBarNavHeaderActive }: Props) => {
         {inputText !== "" && (
           <ButtonVariant2
             onClick={() => setInputText("")}
-            variant={inputText !== "" ? "secendary" : "primary"}
+            variant={inputText !== "" ? "tertiary" : "primary"}
             className="absolute right-6 w-5 h-5 pl-0 pr-0 pt-0 pb-0 gap-0 flex items-center justify-center "
           >
             <Icons.CloseXIcon
@@ -126,7 +128,7 @@ const SubBarNavFilters = ({ subBarNavHeaderActive }: Props) => {
         )}
         <ButtonVariant2
           isActive={activeFilterButton === "dots"}
-          variant={inputText !== "" ? "secendary" : "primary"}
+          variant={inputText !== "" ? "tertiary" : "primary"}
           onClick={() =>
             setActiveFilterButton((prev) => (prev === "dots" ? "" : "dots"))
           }

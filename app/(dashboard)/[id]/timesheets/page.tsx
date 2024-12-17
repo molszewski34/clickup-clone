@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "@/db/firebase/lib/firebase";
-import { useInitializeWorkspace } from "../../_hooks/useInitializeWorkspace";
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '@/db/firebase/lib/firebase';
+import { useInitializeWorkspace } from '../../_hooks/useInitializeWorkspace';
 
 const UserTimesheetsPage = ({
   params,
@@ -23,7 +23,7 @@ const UserTimesheetsPage = ({
 
       const unsubscribe = onAuthStateChanged(auth, (user) => {
         if (!user || user.uid !== userId) {
-          router.push("/login");
+          router.push('/login');
         }
       });
 
@@ -38,7 +38,7 @@ const UserTimesheetsPage = ({
   return (
     <div
       className="flex justify-center items-center w-full font-sans text-4xl"
-      style={{ height: "calc(100vh - 40px)" }}
+      style={{ height: 'calc(100vh - 40px)' }}
     >
       Page Timesheets in progress
     </div>
