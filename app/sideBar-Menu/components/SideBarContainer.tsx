@@ -1,33 +1,35 @@
-"use client";
+'use client';
 
-import React, { useState, useEffect, useCallback } from "react";
-import ResizeHandle from "./components-SideBarContainer/ResizeHandle";
-import SidebarContent from "./components-SideBarContainer/SidebarContent";
-import SidebarModal from "./components-SideBarContainer/SidebarModal";
-import ContainerModalWorkButtons from "./componentsMenuContainerModals/ContainerModalWorkButtons";
-import ContainerModalFavouritesButton from "./componentsMenuContainerModals/ContainerModalFavouritesButton";
+import React, { useState, useEffect, useCallback } from 'react';
+import ResizeHandle from './components-SideBarContainer/ResizeHandle';
+import SidebarContent from './components-SideBarContainer/SidebarContent';
+import SidebarModal from './components-SideBarContainer/SidebarModal';
+import ContainerModalWorkButtons from './componentsMenuContainerModals/ContainerModalWorkButtons';
+import ContainerModalFavouritesButton from './componentsMenuContainerModals/ContainerModalFavouritesButton';
+import { useUserProfile } from '@/hooks/useUserProfile';
 
 export default function SideBarContainer() {
   const [modalState, setModalState] = useState<
-    "none" | "menuFavorite" | "menuSpace"
-  >("none");
+    'none' | 'menuFavorite' | 'menuSpace'
+  >('none');
 
   const maxContainerWidth = 369;
   const minContainerWidth = 60;
   const [width, setWidth] = useState(maxContainerWidth);
   const [isResizing, setIsResizing] = useState(false);
-  const [userName, setUserName] = useState("");
-  const [userInitial, setUserInitial] = useState("");
+  const [userName, setUserName] = useState('');
+  const [userInitial, setUserInitial] = useState('');
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+  const { userData } = useUserProfile();
 
   const fetchUserInitial = () => {
     setTimeout(() => {
-      const userName = "Jakub King Workspace";
-      const firstLetter = userName.trim().charAt(0).toUpperCase();
+      const userName = userData?.signUpFullName || '';
+      const firstLetter = userName.trim().charAt(0).toUpperCase() || '';
       setUserInitial(firstLetter);
       setUserName(userName);
       setLoading(false);
@@ -35,11 +37,13 @@ export default function SideBarContainer() {
   };
 
   useEffect(() => {
-    fetchUserInitial();
-  }, []);
+    if (userData) {
+      fetchUserInitial();
+    }
+  }, [userData, fetchUserInitial]);
 
-  const toggleModal = (modal: "none" | "menuFavorite" | "menuSpace") => {
-    setModalState(modalState === modal ? "none" : modal);
+  const toggleModal = (modal: 'none' | 'menuFavorite' | 'menuSpace') => {
+    setModalState(modalState === modal ? 'none' : modal);
   };
 
   const handleMouseMove = useCallback(
@@ -68,16 +72,16 @@ export default function SideBarContainer() {
 
   useEffect(() => {
     if (isResizing) {
-      window.addEventListener("mousemove", handleMouseMove);
-      window.addEventListener("mouseup", handleMouseUp);
+      window.addEventListener('mousemove', handleMouseMove);
+      window.addEventListener('mouseup', handleMouseUp);
     } else {
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mouseup", handleMouseUp);
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
     }
 
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mouseup", handleMouseUp);
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
     };
   }, [isResizing, handleMouseMove, handleMouseUp]);
 
@@ -88,13 +92,13 @@ export default function SideBarContainer() {
           style={{
             width: `${width}px`,
             maxWidth: `${maxContainerWidth}px`,
-            height: "calc(100vh - 40px)",
-            position: "relative",
+            height: 'calc(100vh - 40px)',
+            position: 'relative',
           }}
           className="border border-gray-200 bg-opacity-50 bg-gray-100 shadow-md  group custom-scrollbar overflow-x-hidden overflow-y-auto"
         >
           <SidebarContent
-            userName={userName}
+            userName={`${userName} workspace`}
             userInitial={userInitial}
             loading={loading}
             width={width}
@@ -106,11 +110,11 @@ export default function SideBarContainer() {
         <ResizeHandle width={width} onMouseDown={handleMouseDown} />
       </div>
 
-      {modalState === "menuFavorite" && (
+      {modalState === 'menuFavorite' && (
         <div
           className="fixed inset-0 flex justify-center bg-transparent bg-opacity-50 z-50"
           style={{ left: `${minContainerWidth}px` }}
-          onClick={() => setModalState("none")}
+          onClick={() => setModalState('none')}
         >
           <div
             id="menuWorkspaceList"
@@ -125,11 +129,11 @@ export default function SideBarContainer() {
           </div>
         </div>
       )}
-      {modalState === "menuSpace" && (
+      {modalState === 'menuSpace' && (
         <div
           className="fixed inset-0 flex justify-center bg-transparent bg-opacity-50 z-50"
           style={{ left: `${minContainerWidth}px` }}
-          onClick={() => setModalState("none")}
+          onClick={() => setModalState('none')}
         >
           <div
             id="menuWorkspaceList"

@@ -34,12 +34,12 @@ export interface Workspace {
   name: string;
   createdAt: string;
   desc: string;
-  icon: string | Icon[];
+  icon: Icon | string;
   isPrivate: boolean;
   userId: string;
 }
 
 export type Icon = {
   activeColor: string;
-  selectedIconName: string;
+  selectedIconName: string | null;
 };

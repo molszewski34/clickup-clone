@@ -5,7 +5,7 @@ import { useCreateWorkspace } from '@/hooks/useCreateWorkspace';
 import React, { useState } from 'react';
 
 const SpaceModalFooter: React.FC = () => {
-  const { formData } = useWorkspaceFormContext();
+  const { formData, setError } = useWorkspaceFormContext();
 
   const [isSubmitting] = useState(false);
   const { userId } = useUser();
@@ -13,12 +13,20 @@ const SpaceModalFooter: React.FC = () => {
   const createWorkspaceMutation = useCreateWorkspace();
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     if (!userId) {
       console.error('User ID is required but is null.');
       return;
     }
+
+    if (!formData.name.trim()) {
+      setError(true);
+      return;
+    }
+
     createWorkspaceMutation.mutate({ formData, userId });
   };
+
   return (
     <div className="flex justify-between p-4">
       <button className="rounded-md hover:bg-gray-200 px-[11px] h-8 text-gray-500 font-sans text-sm font-medium">
