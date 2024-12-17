@@ -20,6 +20,7 @@
     - [Jak korzystać](#jak-korzystać-1)
   - [Dashboard](#dashboard)
     - [Sidebar](#sidebar)
+    - [Subbar](#subbar)
 
 ## Wprowadzenie
 
@@ -108,6 +109,19 @@ Menu pojawia się po nacisnieciu przycisku który pojawia się po najechaniu na 
 
 Po wybraniu opcji Delete pojawia się ten modal
 ![Imgur](https://imgur.com/DREFBXG)
+
+#### Subbar
+
+![Imgur](https://imgur.com/J3RQfdi)
+
+**Odpowiedzialny za element** : Jakub Skrzeczowski
+Subbar występuje w dwóch głównych formach:
+
+1. **Prosty subbar** (subbar pod górną częścią nawigacji):  
+   - Zawiera linki, tekst lub buttony, w zależnośći który link z **Górna część nawigacji** jest aktywny. Większość obecnie jest nieaktywna i czeka na dostarcznie funkcjonalności im odpowiadającym
+
+2. **view subBar** (workspaceId/l/projectId):  
+   - Ten element zawiera przyciski do otwierania modali, otwierania dodatkowego navbaru bezpośredio nad view subBar, a także dodatkowy subbar zawierający filtry umożliwiające zarządzanie listami w workspace.
 
 **MIT License**
 
