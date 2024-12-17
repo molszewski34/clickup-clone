@@ -1,10 +1,10 @@
-import { usetaskFormContext } from '@/context/FormProviders/TaskFormProvider';
-import React, { useState } from 'react';
-import AddAssignee from './AddAssignee';
-import { useUser } from '@/context/DataProvider/UserDataProvider';
-import { useData } from '@/context/DataProvider/DataProvider';
-import { useCreateTask } from '@/hooks/useCreateTask';
-import { Task } from '@/app/server-actions/types';
+import { usetaskFormContext } from "@/context/FormProviders/TaskFormProvider";
+import React, { useState } from "react";
+import AddAssignee from "./AddAssignee";
+import { useUser } from "@/context/DataProvider/UserDataProvider";
+import { useData } from "@/context/DataProvider/DataProvider";
+import { useCreateTask } from "@/hooks/useCreateTask";
+import { Task } from "@/app/server-actions/types";
 
 const AddTaskToTableDownside = ({ status }: { status: string }) => {
   const { formData, setFormData } = usetaskFormContext();
@@ -23,7 +23,7 @@ const AddTaskToTableDownside = ({ status }: { status: string }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!userId) {
-      console.error('User ID is required but is null.');
+      console.error("User ID is required but is null.");
       return;
     }
     createTaskMutation.mutate({
@@ -35,7 +35,10 @@ const AddTaskToTableDownside = ({ status }: { status: string }) => {
   };
 
   return (
-    <>
+    <tr className="h-8 w-full table-row bg-green-400">
+      <td></td>
+      <td></td>
+      <td key="title" colSpan={7} className="h-8 text-nowrap text-gray-500 border-b"></td>
       {!isOpen ? (
         <button
           onClick={() => {
@@ -44,8 +47,7 @@ const AddTaskToTableDownside = ({ status }: { status: string }) => {
               ...prevState,
               status,
             }));
-          }}
-        >
+          }}>
           + Add Task
         </button>
       ) : (
@@ -59,16 +61,12 @@ const AddTaskToTableDownside = ({ status }: { status: string }) => {
                 taskName: e.target.value,
               }))
             }
-            placeholder=""
-            className="border  w-full"
+            placeholder="New subtask"
+            className="outline-none"
           />
           <div className="flex">
             <label htmlFor="priority-select">Priority:</label>
-            <select
-              id="priority-select"
-              value={formData.priority}
-              onChange={handleChange}
-            >
+            <select id="priority-select" value={formData.priority} onChange={handleChange}>
               <option value=""></option>
               <option value="urgent">Urgent</option>
               <option value="high">High</option>
@@ -76,11 +74,11 @@ const AddTaskToTableDownside = ({ status }: { status: string }) => {
               <option value="low">Low</option>
             </select>
           </div>
-          <AddAssignee />
+          {/* <AddAssignee /> */}
           <button onClick={handleSubmit}>Save</button>
         </div>
       )}
-    </>
+    </tr>
   );
 };
 

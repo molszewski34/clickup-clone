@@ -1,79 +1,37 @@
 "use client";
 import { flexRender, Row } from "@tanstack/react-table";
-import React, { useCallback } from "react";
-import { FlatTaskElement } from "../../types";
+import React from "react";
+import { Task } from "@/app/server-actions/types";
+import { UserInitials } from "./UserInitials";
 import { Icons } from "@/icons/icons";
-import ButtonIcon from "@/app/(dashboard)/ui/ButtonIcon";
-// import { NewSubtask } from "./NewSubtask"; TODO: Uncomment when implementing subtasks
 
 type TaskTableRowProps = {
-  row: Row<FlatTaskElement>;
-  expandedTasks: string[];
-  setExpandedTasks: (arg: string[]) => void;
+  row: Row<Task>;
 };
 
-export const TaskTableRow = ({ row, expandedTasks, setExpandedTasks }: TaskTableRowProps) => {
-  // const [isCreateSubtaskVisible, setIsCreateSubtaskVisible] = useState(false); TODO: Uncomment when implementing subtasks
-  const hasSubtasks = row.original.numberOfSubtasks > 0;
-  const isExpanded = expandedTasks.includes(row.original.id);
-
-  const showSubtasks = useCallback(
-    (row: Row<FlatTaskElement>) => {
-      if (expandedTasks.includes(row.original.id)) return;
-      return setExpandedTasks([row.original.id, ...expandedTasks]);
-    },
-    [setExpandedTasks, expandedTasks]
-  );
-
-  const hideSubtasks = useCallback(
-    (row: Row<FlatTaskElement>) => {
-      if (!expandedTasks.includes(row.original.id)) return;
-      const newExpandedTasks = expandedTasks.filter((singleTask) => singleTask !== row.original.id);
-      setExpandedTasks(newExpandedTasks);
-    },
-    [setExpandedTasks, expandedTasks]
-  );
-
-  const handleToggleSubtasks = useCallback(
-    (row: Row<FlatTaskElement>) => {
-      if (expandedTasks.includes(row.original.id)) {
-        hideSubtasks(row);
-      } else {
-        showSubtasks(row);
-      }
-    },
-    [hideSubtasks, showSubtasks, expandedTasks]
-  );
-
-  const levelPadding = String(28 * row.original.level);
-
+export const TaskTableRow = ({ row }: TaskTableRowProps) => {
   return (
     <>
-      <tr key={row.id} className="h-8 group hover:bg-gray-50">
-        <td className="opacity-0 group-hover:opacity-100 hover:cursor-move">
-          <Icons.RiDraggable color="gray" size={16} className="mx-1" />
-        </td>
-        <td className="opacity-0 group-hover:opacity-100 hover:cursor-pointer">
-          <input type="checkbox" className="hover:cursor-pointer"></input>
+      <tr key={row.id} className="h-8 group hover:bg-gray-50 table-row">
+        <td className="flex flex-row gap-2 h-8 text-sm items-center min-w-56 text-nowrap text-gray-700 font-semibold border-b">
+          {row.original.taskName}
         </td>
         <td
-          className="flex flex-row gap-2 h-8 text-sm items-center min-w-56 text-nowrap text-gray-700 font-semibold border-b"
-          style={{ paddingLeft: `${levelPadding}px` }}>
-          {hasSubtasks ? (
-            <ButtonIcon
-              icon={isExpanded ? <Icons.IoMdArrowDropdown /> : <Icons.IoMdArrowDropright />}
-              onClick={() => handleToggleSubtasks(row)}
-              className="flex items-center justify-center w-5 h-5 hover:bg-gray-200 rounded"></ButtonIcon>
-          ) : (
-            <ButtonIcon
-              icon={<Icons.IoMdArrowDropright />}
-              // onClick={() => setIsCreateSubtaskVisible(true)} TODO: Uncomment when implementing subtasks
-              className="flex items-center justify-center w-5 h-5 opacity-0 hover:bg-gray-200 group-hover:opacity-100 text-gray-400 rounded"></ButtonIcon>
-          )}
-          {row.original.title}
+          className="border-b hover:outline hover:outline-offset-0 hover:outline-1 hover:outline-gray-400 hover:rounded  hover:cursor-pointer"
+          key={`assignees-${row.original.id}`}>
+          <div className="flex flex-row" key={"a"}>
+            {row.original.assignees && row.original.assignees?.length > 0 ? (
+              row.original.assignees?.map((singleAssignee) => {
+                return <UserInitials key={singleAssignee.email} user={singleAssignee} />; // K:TODO: assignee powinien miec ten sam type co User
+              })
+            ) : (
+              <Icons.HiOutlineUserAdd color="gray" size={16}></Icons.HiOutlineUserAdd>
+            )}
+          </div>
         </td>
         {row.getVisibleCells().map((singleCell) => {
           if (singleCell.column.id === "title") return null;
+          if (singleCell.column.id === "assignees") return null;
           return (
             <td key={singleCell.id} className="h-8 border-b">
               {flexRender(singleCell.column.columnDef.cell, singleCell.getContext())}
@@ -81,15 +39,6 @@ export const TaskTableRow = ({ row, expandedTasks, setExpandedTasks }: TaskTable
           );
         })}
       </tr>
-
-      {/* {isCreateSubtaskVisible && (
-        <NewSubtask
-          indent={String(28 * (row.original.level + 2))}
-          isCreateSubtaskVisible={isCreateSubtaskVisible}
-          setIsCreateSubtaskVisible={setIsCreateSubtaskVisible}
-          row={row}
-        />
-      )}  TODO: Uncomment when implementing subtasks*/}
     </>
   );
 };
