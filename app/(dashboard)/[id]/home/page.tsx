@@ -1,17 +1,16 @@
-"use client";
+'use client';
 
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "@/db/firebase/lib/firebase";
-import { useInitializeWorkspace } from "../../_hooks/useInitializeWorkspace";
-import { Icons } from "@/icons/icons";
-import WidgetHeader from "../../_components/WidgetHeader";
-import ButtonVariant3 from "@/components/ButtonVariant3";
-import ButtonVariant2 from "@/components/ButtonVariant2";
-import { Table } from "./components/TaskTable/Table";
-import { MOCK_TASKS } from "./data";
-import { TaskStatus } from "./types";
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '@/db/firebase/lib/firebase';
+import { useInitializeWorkspace } from '../../_hooks/useInitializeWorkspace';
+import { Icons } from '@/icons/icons';
+import WidgetHeader from '../../_components/WidgetHeader';
+import ButtonVariant3 from '@/components/ButtonVariant3';
+import ButtonVariant2 from '@/components/ButtonVariant2';
+
+import HomeContent from '@/app/homeSpaceContent/HomeContent';
 
 const UserHomePage = ({ params }: { params: Promise<{ id: string }> }) => {
   const router = useRouter();
@@ -26,7 +25,7 @@ const UserHomePage = ({ params }: { params: Promise<{ id: string }> }) => {
 
       const unsubscribe = onAuthStateChanged(auth, (user) => {
         if (!user || user.uid !== userId) {
-          router.push("/login");
+          router.push('/login');
         }
       });
 
@@ -37,16 +36,6 @@ const UserHomePage = ({ params }: { params: Promise<{ id: string }> }) => {
 
     fetchParams();
   }, [params, router]);
-
-  const completedTasks = MOCK_TASKS.filter(
-    (singleMockTask) => singleMockTask.status === TaskStatus.completed
-  );
-  const inProgressTasks = MOCK_TASKS.filter(
-    (singleMockTask) => singleMockTask.status === TaskStatus.inProgress
-  );
-  const toDoTasks = MOCK_TASKS.filter(
-    (singleMockTask) => singleMockTask.status === TaskStatus.todo
-  );
 
   return (
     <div className="w-full">
@@ -65,9 +54,12 @@ const UserHomePage = ({ params }: { params: Promise<{ id: string }> }) => {
           </ButtonVariant2>
         </div>
       </WidgetHeader>
-      <Table tasks={completedTasks} status={TaskStatus.completed} />
-      <Table tasks={inProgressTasks} status={TaskStatus.inProgress} />
-      <Table tasks={toDoTasks} status={TaskStatus.todo} />
+      <div
+        className="w-full custom-scrollbar overflow-y-auto overflow-x-hidden"
+        style={{ height: 'calc(100vh - 90px)' }}
+      >
+        <HomeContent />
+      </div>
     </div>
   );
 };
