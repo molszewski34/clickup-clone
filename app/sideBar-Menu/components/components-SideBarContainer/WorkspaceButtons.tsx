@@ -10,6 +10,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getTasks } from "@/app/server-actions/task/getTasks";
 import { AddIcons } from "./components-SideBarModal/AddIcons";
 
+
 const WorkspaceButtons = ({ width }: { width: number }) => {
   const router = useRouter();
   const workspaceQueryResult = useWorkspaceQuery();
@@ -27,17 +28,11 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
     setProjectName,
   } = useData();
 
-  const [hoverStates, setHoverStates] = useState<{ [key: string]: boolean }>(
-    {}
-  );
+  const [hoverStates, setHoverStates] = useState<{ [key: string]: boolean }>({});
 
   const { userId } = useUser();
 
-  const {
-    data: projects,
-    isLoading: loadingProjects,
-    error: projectsError,
-  } = useProjectQuery();
+  const { data: projects, isLoading: loadingProjects, error: projectsError } = useProjectQuery();
 
   const { data: tasks } = useQuery({
     queryKey: ["tasks", projectId],
@@ -76,9 +71,8 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
     <div className="flex w-full flex-col">
       {workspaces.length > 0 ? (
         workspaces.map((workspace) => {
-          const firstLetterOfWorkspaceName =
-            workspace.name?.charAt(0).toUpperCase() || "?";
 
+          const firstLetterOfWorkspaceName = workspace.name?.charAt(0).toUpperCase() || "?";
           const selectedIcon = Array.isArray(workspace.icon)
             ? workspace.icon.reverse().find((item) => item.selectedIconName)
             : null;
@@ -86,6 +80,7 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
           const DynamicIcon = selectedIcon?.selectedIconName
             ? AddIcons[selectedIcon.selectedIconName as keyof typeof AddIcons]
             : null;
+
 
           return (
             <div key={workspace.id}>
@@ -102,6 +97,7 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
                     </span>
                   )
                 }
+
                 color={
                   Array.isArray(workspace.icon)
                     ? [...workspace.icon]
@@ -110,11 +106,10 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
                       "indigo-500"
                     : "indigo-500"
                 }
+
                 extraIcons={2}
                 active={activeWorkspace === workspace.id}
-                onClick={() =>
-                  handleWorkspaceClick(workspace.id, workspace.name)
-                }
+                onClick={() => handleWorkspaceClick(workspace.id, workspace.name)}
                 width={width}
                 onMouseEnter={() => handleMouseEnter(workspace.id)}
                 onMouseLeave={() => handleMouseLeave(workspace.id)}
@@ -125,17 +120,13 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
                   {loadingProjects ? (
                     <p>Loading projects...</p>
                   ) : projectsError ? (
-                    <p className="text-red-500">
-                      Error while downloading projects.
-                    </p>
+                    <p className="text-red-500">Error while downloading projects.</p>
                   ) : projects && projects.length > 0 ? (
                     projects.map((project) => (
                       <AddWorkspaceElement
                         key={project.id}
                         label={project.name}
-                        icon={
-                          <Icons.ListOutline className="text-[20px] text-gray-700" />
-                        }
+                        icon={<Icons.ListOutline className="text-[20px] text-gray-700" />}
                         extraIcons={1}
                         active={activeProject === project.id}
                         onClick={() => {
@@ -153,9 +144,7 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
                       />
                     ))
                   ) : (
-                    <p className="text-sm text-gray-500">
-                      No projects in this workspace.
-                    </p>
+                    <p className="text-sm text-gray-500">No projects in this workspace.</p>
                   )}
                 </div>
               )}
