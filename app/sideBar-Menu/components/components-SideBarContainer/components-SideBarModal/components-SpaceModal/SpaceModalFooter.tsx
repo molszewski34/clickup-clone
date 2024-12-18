@@ -1,21 +1,23 @@
-import { useWorkspaceFormContext } from '@/context/FormProviders/WorkspaceFormProvider';
-import { useUser } from '@/context/DataProvider/UserDataProvider';
-import { useCreateWorkspace } from '@/hooks/useCreateWorkspace';
+import { useWorkspaceFormContext } from "@/context/FormProviders/WorkspaceFormProvider";
+import { useUser } from "@/context/DataProvider/UserDataProvider";
+import { useCreateWorkspace } from "@/hooks/useCreateWorkspace";
+import React, { useState } from "react";
 
-import React, { useState } from 'react';
+interface SpaceModalFooterProps {
+  onClose: () => void;
+}
 
-const SpaceModalFooter: React.FC = () => {
+const SpaceModalFooter: React.FC<SpaceModalFooterProps> = ({ onClose }) => {
   const { formData, setError } = useWorkspaceFormContext();
-
-  const [isSubmitting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { userId } = useUser();
-
   const createWorkspaceMutation = useCreateWorkspace();
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!userId) {
-      console.error('User ID is required but is null.');
+      console.error("User ID is required but is null.");
       return;
     }
 
@@ -24,12 +26,29 @@ const SpaceModalFooter: React.FC = () => {
       return;
     }
 
-    createWorkspaceMutation.mutate({ formData, userId });
+    setIsSubmitting(true); // Start ładowania
+    createWorkspaceMutation.mutate(
+      { formData, userId },
+      {
+        onSuccess: () => {
+          setIsSubmitting(false); // Zakończ ładowanie
+          onClose(); // Zamknij modal
+          window.location.reload(); // Odśwież stronę
+        },
+        onError: (error) => {
+          console.error("Error creating workspace:", error);
+          setIsSubmitting(false); // Zakończ ładowanie w przypadku błędu
+        },
+      }
+    );
   };
 
   return (
     <div className="flex justify-between p-4">
-      <button className="rounded-md hover:bg-gray-200 px-[11px] h-8 text-gray-500 font-sans text-sm font-medium">
+      <button
+        className="rounded-md hover:bg-gray-200 px-[11px] h-8 text-gray-500 font-sans text-sm font-medium"
+        onClick={onClose}
+      >
         Use Templates
       </button>
       <button
@@ -37,7 +56,7 @@ const SpaceModalFooter: React.FC = () => {
         onClick={handleSubmit}
         disabled={isSubmitting}
       >
-        Continue
+        {isSubmitting ? "Loading..." : "Continue"}
       </button>
     </div>
   );
