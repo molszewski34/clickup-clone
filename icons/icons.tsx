@@ -41,6 +41,7 @@ import {
   LuTableProperties,
 } from "react-icons/lu";
 import {
+  BsArrowsAngleExpand,
   BsFillPeopleFill,
   BsInfoCircle,
   BsLayoutTextSidebar,
@@ -225,6 +226,7 @@ export const Icons = {
   FolderShare: TbFolderShare,
   Import: BiImport,
   House: CiHome,
+  FullScreen: BsArrowsAngleExpand,
 
   // New icons SVG
   AiIcon: SvgIcons.Ai,

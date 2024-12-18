@@ -8,6 +8,8 @@ import { useData } from "@/context/DataProvider/DataProvider";
 import { useUser } from "@/context/DataProvider/UserDataProvider";
 import { useQuery } from "@tanstack/react-query";
 import { getTasks } from "@/app/server-actions/task/getTasks";
+import { AddIcons } from "./components-SideBarModal/AddIcons";
+
 
 const WorkspaceButtons = ({ width }: { width: number }) => {
   const router = useRouter();
@@ -69,28 +71,42 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
     <div className="flex w-full flex-col">
       {workspaces.length > 0 ? (
         workspaces.map((workspace) => {
-          const firstLetterOfWorkspaceName = workspace.name?.charAt(0).toUpperCase() || "?";
 
-          const DynamicIcon =
-            typeof workspace.icon === "object" && "selectedIconName" in workspace.icon
-              ? Icons[workspace.icon.selectedIconName as keyof typeof Icons]
-              : null;
+          const firstLetterOfWorkspaceName = workspace.name?.charAt(0).toUpperCase() || "?";
+          const selectedIcon = Array.isArray(workspace.icon)
+            ? workspace.icon.reverse().find((item) => item.selectedIconName)
+            : null;
+
+          const DynamicIcon = selectedIcon?.selectedIconName
+            ? AddIcons[selectedIcon.selectedIconName as keyof typeof AddIcons]
+            : null;
+
+
           return (
             <div key={workspace.id}>
               <AddWorkspaceElement
                 label={workspace.name}
                 icon={
                   hoverStates[workspace.id] ? (
-                    <Icons.PlayWorkspace className="text-[20px] text-gray-700" />
+                    <Icons.PlayWorkspace className="text-[20px] text-white" />
                   ) : DynamicIcon ? (
-                    <DynamicIcon className="text-[20px] text-gray-700" />
+                    <DynamicIcon className="text-[20px] text-white" />
                   ) : (
-                    <span className="text-[20px] font-bold text-gray-700">
+                    <span className="flex justify-center items-center text-[16px] w-4 h-4 font-sans font-bold text-white">
                       {firstLetterOfWorkspaceName}
                     </span>
                   )
                 }
-                color={typeof workspace.icon !== "string" ? workspace.icon?.activeColor : undefined}
+
+                color={
+                  Array.isArray(workspace.icon)
+                    ? [...workspace.icon]
+                        .reverse()
+                        .find((item) => item?.activeColor)?.activeColor ??
+                      "indigo-500"
+                    : "indigo-500"
+                }
+
                 extraIcons={2}
                 active={activeWorkspace === workspace.id}
                 onClick={() => handleWorkspaceClick(workspace.id, workspace.name)}
