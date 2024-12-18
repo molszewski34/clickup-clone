@@ -12,9 +12,13 @@ const TasksList = () => {
   const { userId } = useUser();
   const { data: tasks = [] } = useTasksQuery(userId, workspaceId, projectId);
 
-  const tasksInProgress = tasks.filter((task) => task.status === TaskStatus.inProgress);
+  const tasksInProgress = tasks.filter(
+    (task) => task.status === TaskStatus.inProgress
+  );
   const tasksTodo = tasks.filter((task) => task.status === TaskStatus.todo);
-  const tasksCompleted = tasks.filter((task) => task.status === TaskStatus.completed);
+  const tasksCompleted = tasks.filter(
+    (task) => task.status === TaskStatus.completed
+  );
 
   return (
     <div className="flex flex-col gap-4 p-5">
