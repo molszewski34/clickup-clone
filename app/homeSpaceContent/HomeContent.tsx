@@ -1,5 +1,4 @@
 import { Icons } from "@/icons/icons";
-import { useState } from "react";
 import RecentsContent from "./RecentsContent";
 import AgendaContent from "./AgendaContent";
 import MyWorkContent from "./MyWorkContent";
@@ -8,6 +7,7 @@ import Image from "next/image";
 import PersonalListIMG from "../img/empty-my-list.svg";
 import AssignedCommentsIMG from "../img/no-assigned.svg";
 import LineUpIMG from "../img/empty-lineup.svg";
+import { useUserProfile } from "@/hooks/useUserProfile";
 
 export default function HomeContent() {
   const { userData } = useUserProfile();
