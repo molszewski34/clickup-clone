@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { getTasks } from '@/app/server-actions/task/getTasks';
-import { useData } from '@/context/DataProvider/DataProvider';
-import { useUser } from '@/context/DataProvider/UserDataProvider';
+import React from "react";
+import { useQuery } from "@tanstack/react-query";
+import { getTasks } from "@/app/server-actions/task/getTasks";
+import { useData } from "@/context/DataProvider/DataProvider";
+import { useUser } from "@/context/DataProvider/UserDataProvider";
 
 interface Task {
   id: string;
@@ -21,7 +21,7 @@ const TaskList = ({ projectId }: { projectId: string }) => {
     isLoading,
     error,
   } = useQuery({
-    queryKey: ['tasks', projectId],
+    queryKey: ["tasks", projectId],
     queryFn: () => getTasks(userId, workspaceId, projectId),
     enabled: !!projectId,
   });

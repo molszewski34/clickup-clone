@@ -95,6 +95,7 @@ import {
   GoDotFill,
   GoMention,
   GoPencil,
+  GoRepoForked,
   GoStop,
 } from "react-icons/go";
 import { CiHome, CiImageOn, CiShare2, CiTrophy } from "react-icons/ci";
@@ -225,6 +226,7 @@ export const Icons = {
   Import: BiImport,
   House: CiHome,
   FullScreen: BsArrowsAngleExpand,
+  Forked: GoRepoForked,
 
   // New icons SVG
   AiIcon: SvgIcons.Ai,
