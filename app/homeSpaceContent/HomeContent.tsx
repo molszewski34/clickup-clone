@@ -10,12 +10,14 @@ import AssignedCommentsIMG from "../img/no-assigned.svg";
 import LineUpIMG from "../img/empty-lineup.svg";
 
 export default function HomeContent() {
-  const [userName] = useState("Jakub"); // Dodaj zarządzanie stanem dla menu
+  const { userData } = useUserProfile();
+  const userName = userData?.signUpFullName || "";
+  const firstName = userName.split(" ")[0];
   return (
     <>
       <div className="mx-6 my-6">
         <h1 className="px-6 font-sans font-semibold text-2xl text-gray-950 ">
-          Good evening, {userName}
+          Good evening, {firstName}
         </h1>
         <div className=" flex flex-col mt-4 mb-[14px] gap-4 ">
           <div className="grid grid-flow-col grid-cols-2  gap-4">

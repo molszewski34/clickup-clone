@@ -1,53 +1,32 @@
 "use client";
 
 import React from "react";
-import { useQuery } from "@tanstack/react-query";
-import { getTasks } from "@/app/server-actions/task/getTasks";
+import { useTasksQuery } from "@/hooks/useTaskQuery";
 import { useData } from "@/context/DataProvider/DataProvider";
 import { useUser } from "@/context/DataProvider/UserDataProvider";
+import { Table } from "../../../home/components/TaskTable/Table";
+import { TaskStatus } from "../../../home/types";
 
-interface Task {
-  id: string;
-  name?: string;
-  userId: string;
-}
-
-const TaskList = ({ projectId }: { projectId: string }) => {
-  const { workspaceId } = useData();
+const TasksList = () => {
+  const { workspaceId, projectId } = useData();
   const { userId } = useUser();
+  const { data: tasks = [] } = useTasksQuery(userId, workspaceId, projectId);
 
-  const {
-    data: tasks,
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["tasks", projectId],
-    queryFn: () => getTasks(userId, workspaceId, projectId),
-    enabled: !!projectId,
-  });
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error loading tasks</div>;
-  }
-
-  if (!tasks) {
-    return <div>No tasks available.</div>;
-  }
+  const tasksInProgress = tasks.filter(
+    (task) => task.status === TaskStatus.inProgress
+  );
+  const tasksTodo = tasks.filter((task) => task.status === TaskStatus.todo);
+  const tasksCompleted = tasks.filter(
+    (task) => task.status === TaskStatus.completed
+  );
 
   return (
-    <ul>
-      {tasks.length > 0 ? (
-        // @ts-expect-error nie wiem jak rozwiązać ten problem typowania
-        tasks.map((task: Task) => <li key={task.id}>{task.name}</li>)
-      ) : (
-        <li>No tasks found for this project</li>
-      )}
-    </ul>
+    <div className="flex flex-col gap-4 p-5">
+      <Table tasks={tasksCompleted} status={TaskStatus.completed} />
+      <Table tasks={tasksInProgress} status={TaskStatus.inProgress} />
+      <Table tasks={tasksTodo} status={TaskStatus.todo} />
+    </div>
   );
 };
 
-export default TaskList;
+export default TasksList;

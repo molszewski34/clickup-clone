@@ -1,7 +1,7 @@
-import { useWorkspaceFormContext } from "@/context/FormProviders/WorkspaceFormProvider";
-import { useUser } from "@/context/DataProvider/UserDataProvider";
-import { useCreateWorkspace } from "@/hooks/useCreateWorkspace";
-import React, { useState } from "react";
+import { useWorkspaceFormContext } from '@/context/FormProviders/WorkspaceFormProvider';
+import { useUser } from '@/context/DataProvider/UserDataProvider';
+import { useCreateWorkspace } from '@/hooks/useCreateWorkspace';
+import React, { useState } from 'react';
 
 interface SpaceModalFooterProps {
   onClose: () => void;
@@ -17,7 +17,7 @@ const SpaceModalFooter: React.FC<SpaceModalFooterProps> = ({ onClose }) => {
     e.preventDefault();
 
     if (!userId) {
-      console.error("User ID is required but is null.");
+      console.error('User ID is required but is null.');
       return;
     }
 
@@ -26,18 +26,17 @@ const SpaceModalFooter: React.FC<SpaceModalFooterProps> = ({ onClose }) => {
       return;
     }
 
-    setIsSubmitting(true); // Start ładowania
+    setIsSubmitting(true);
     createWorkspaceMutation.mutate(
       { formData, userId },
       {
         onSuccess: () => {
-          setIsSubmitting(false); // Zakończ ładowanie
-          onClose(); // Zamknij modal
-          window.location.reload(); // Odśwież stronę
+          setIsSubmitting(false);
+          onClose();
         },
         onError: (error) => {
-          console.error("Error creating workspace:", error);
-          setIsSubmitting(false); // Zakończ ładowanie w przypadku błędu
+          console.error('Error creating workspace:', error);
+          setIsSubmitting(false);
         },
       }
     );
@@ -56,7 +55,7 @@ const SpaceModalFooter: React.FC<SpaceModalFooterProps> = ({ onClose }) => {
         onClick={handleSubmit}
         disabled={isSubmitting}
       >
-        {isSubmitting ? "Loading..." : "Continue"}
+        {isSubmitting ? 'Loading...' : 'Continue'}
       </button>
     </div>
   );

@@ -1,14 +1,14 @@
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
-import { useWorkspaceQuery } from "@/hooks/useWorkspaceQuery";
-import { useProjectQuery } from "@/hooks/useProjectQuery";
-import { Icons } from "@/icons/icons";
-import AddWorkspaceElement from "../AddWorkspaceElement";
-import { useData } from "@/context/DataProvider/DataProvider";
-import { useUser } from "@/context/DataProvider/UserDataProvider";
-import { useQuery } from "@tanstack/react-query";
-import { getTasks } from "@/app/server-actions/task/getTasks";
-import { AddIcons } from "./components-SideBarModal/AddIcons";
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useWorkspaceQuery } from '@/hooks/useWorkspaceQuery';
+import { useProjectQuery } from '@/hooks/useProjectQuery';
+import { Icons } from '@/icons/icons';
+import AddWorkspaceElement from '../AddWorkspaceElement';
+import { useData } from '@/context/DataProvider/DataProvider';
+import { useUser } from '@/context/DataProvider/UserDataProvider';
+import { useQuery } from '@tanstack/react-query';
+import { getTasks } from '@/app/server-actions/task/getTasks';
+import { AddIcons } from './components-SideBarModal/AddIcons';
 
 const WorkspaceButtons = ({ width }: { width: number }) => {
   const router = useRouter();
@@ -40,7 +40,7 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
   } = useProjectQuery();
 
   const { data: tasks } = useQuery({
-    queryKey: ["tasks", projectId],
+    queryKey: ['tasks', projectId],
     queryFn: () => getTasks(userId, workspaceId, projectId),
     enabled: !!projectId,
   });
@@ -77,7 +77,7 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
       {workspaces.length > 0 ? (
         workspaces.map((workspace) => {
           const firstLetterOfWorkspaceName =
-            workspace.name?.charAt(0).toUpperCase() || "?";
+            workspace.name?.charAt(0).toUpperCase() || '?';
 
           const selectedIcon = Array.isArray(workspace.icon)
             ? workspace.icon.reverse().find((item) => item.selectedIconName)
@@ -107,8 +107,8 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
                     ? [...workspace.icon]
                         .reverse()
                         .find((item) => item?.activeColor)?.activeColor ??
-                      "indigo-500"
-                    : "indigo-500"
+                      'indigo-500'
+                    : 'indigo-500'
                 }
                 extraIcons={2}
                 active={activeWorkspace === workspace.id}
@@ -116,7 +116,10 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
                   handleWorkspaceClick(workspace.id, workspace.name)
                 }
                 width={width}
-                onMouseEnter={() => handleMouseEnter(workspace.id)}
+                onMouseEnter={() => {
+                  handleMouseEnter(workspace.id);
+                  setWorkspaceName(workspace.name);
+                }}
                 onMouseLeave={() => handleMouseLeave(workspace.id)}
                 isWorkspace={true}
               />

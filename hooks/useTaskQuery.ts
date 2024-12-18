@@ -1,20 +1,20 @@
-"use client";
+import { useQuery } from '@tanstack/react-query';
+import { getTasks } from '@/app/server-actions/task/getTasks';
 
-import { useQuery } from "@tanstack/react-query";
-import { useData } from "@/context/DataProvider/DataProvider";
-import { getTasks } from "@/app/server-actions/task/getTasks";
+const tasksQueryKey = (
+  userId: string,
+  workspaceId: string,
+  projectId: string
+) => ['tasks', userId, workspaceId, projectId];
 
-export const useTaskQuery = () => {
-  const { userId, workspaceId, projectId } = useData();
-
+export const useTasksQuery = (
+  userId: string,
+  workspaceId: string,
+  projectId: string
+) => {
   return useQuery({
-    queryKey: ["tasks", userId, workspaceId, projectId],
-    queryFn: () => {
-      if (!userId || !workspaceId || !projectId) {
-        return Promise.resolve([]);
-      }
-      return getTasks(userId, workspaceId, projectId);
-    },
+    queryKey: tasksQueryKey(userId, workspaceId, projectId),
+    queryFn: () => getTasks(userId, workspaceId, projectId),
     enabled: !!userId && !!workspaceId && !!projectId,
   });
 };

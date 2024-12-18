@@ -1,27 +1,26 @@
 "use client";
-import React, { ReactNode, useMemo, useState } from "react";
+import React, { ReactNode } from "react";
 import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { TaskTableRow } from "./TaskTableRow";
 import { Icons } from "@/icons/icons";
-import { FlatTaskElement, TaskElement, TaskStatus } from "../../types";
-import { flattenTableData } from "../../_helpers/flattenTableData";
-import AddTaskToTableDownside from "./AddTaskToTableDownside/AddTaskToTableDownside";
+import { Task } from "@/app/server-actions/types";
+import { NewTask } from "./NewTask";
+import { TaskStatus } from "../../types";
 
-export const Table = ({ tasks, status }: { tasks: TaskElement[]; status: TaskStatus }) => {
-  const [expandedTasks, setExpandedTasks] = useState<string[]>([]);
-  const columns: ColumnDef<FlatTaskElement, ReactNode>[] = [
+type TableProps = {
+  tasks: Task[];
+  status?: TaskStatus;
+};
+
+export const Table = ({ tasks, status }: TableProps) => {
+  const columns: ColumnDef<Task, ReactNode>[] = [
     {
       accessorKey: "title",
       header: () => <div className="text-left">Name</div>,
     },
     {
       accessorKey: "assignees",
-      header: () => <div className="text-left w-[76px]">Assignee</div>,
-      cell: (props) => (
-        <div className="flex text-left items-center max-w-24 h-full hover:outline hover:outline-1 hover:outline-gray-400 hover:rounded hover:outline-offset-1 hover:cursor-pointer">
-          <p>{props.getValue()}</p>
-        </div>
-      ),
+      header: () => <div className="text-left w-[300px]">Assignee</div>,
     },
     {
       accessorKey: "dueDate",
@@ -71,10 +70,8 @@ export const Table = ({ tasks, status }: { tasks: TaskElement[]; status: TaskSta
     },
   ];
 
-  const flatTasks = useMemo(() => flattenTableData(tasks, null, 0), [tasks]);
-
   const table = useReactTable({
-    data: flatTasks,
+    data: tasks,
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
@@ -84,12 +81,9 @@ export const Table = ({ tasks, status }: { tasks: TaskElement[]; status: TaskSta
       <thead className="w-full h-8">
         {table.getHeaderGroups().map((headerGroup) => (
           <tr key={headerGroup.id} className="w-full text-xs h-8 ">
-            <th></th>
-            <th></th>
             {headerGroup.headers.map((header) => (
               <th
                 key={header.id}
-                colSpan={header.colSpan}
                 className="font-normal text-gray-500 hover:bg-gray-200 hover:cursor-pointer border-b p-1">
                 {flexRender(header.column.columnDef.header, header.getContext())}
               </th>
@@ -99,31 +93,9 @@ export const Table = ({ tasks, status }: { tasks: TaskElement[]; status: TaskSta
       </thead>
       <tbody className="">
         {table.getRowModel().rows.map((singleRow) => {
-          if (singleRow.original.level !== 0) {
-            if (expandedTasks.includes(singleRow.original.parentId || "")) {
-              return (
-                <TaskTableRow
-                  key={singleRow.id}
-                  row={singleRow}
-                  expandedTasks={expandedTasks}
-                  setExpandedTasks={setExpandedTasks}
-                />
-              );
-            }
-          } else
-            return (
-              <>
-                <TaskTableRow
-                  key={singleRow.id}
-                  row={singleRow}
-                  expandedTasks={expandedTasks}
-                  setExpandedTasks={setExpandedTasks}
-                />
-              </>
-            );
+          return <TaskTableRow key={singleRow.id} row={singleRow} />;
         })}
-
-        <AddTaskToTableDownside status={status} />
+        <NewTask status={status} />
       </tbody>
     </table>
   );

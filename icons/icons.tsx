@@ -64,6 +64,7 @@ import {
   PiTagBold,
   PiWind,
 } from "react-icons/pi";
+import { HiOutlineUserAdd } from "react-icons/hi";
 import { AiOutlineClose, AiOutlineTeam } from "react-icons/ai";
 import {
   HiOutlineArrowLeft,
@@ -159,6 +160,7 @@ export const Icons = {
   CgFlagAlt: CgFlagAlt,
   MdOutlineModeComment: MdOutlineModeComment,
   PiDotsThreeBold: PiDotsThreeBold,
+  HiOutlineUserAdd: HiOutlineUserAdd,
 
   // added new Icons
   AttachmentIcon: RiAttachmentLine,
