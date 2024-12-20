@@ -25,6 +25,7 @@ export const NewTask = ({ status }: NewTaskProps) => {
   const { userId } = useUser();
   const { projectId, workspaceId } = useData();
   const [isOpen, setIsOpen] = useState(false);
+  const [filter, setFilter] = useState("");
 
   const createTaskMutation = useCreateTask();
 
@@ -52,6 +53,24 @@ export const NewTask = ({ status }: NewTaskProps) => {
     setIsOpen(false);
   };
   const { register, handleSubmit } = useForm<NewTaskInput>();
+
+  const filteredTasks = tasks.filter((task) =>
+    task.taskName.toLowerCase().includes(filter.toLowerCase())
+  );
+
+  {/* Lista tasków */}
+  <table>
+  <tbody>
+    {filteredTasks.map((task, index) => (
+      <tr key={index}>
+        <td>{task.taskName}</td>
+        <td>{task.taskStatus}</td>
+        <td>{task.assignees.map((assignee) => assignee.name).join(", ")}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+
 
   return (
     <tr className="h-8 w-full table-row">
