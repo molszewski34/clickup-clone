@@ -8,11 +8,13 @@ import FilterInput from "./FilterInput";
 type Props = {
   subBarNavHeaderActive: boolean;
   subBarNavFilterActive: boolean;
+  setFilters:React.Dispatch<React.SetStateAction<object>>
 };
 
 const SubBarNavFilters = ({
   subBarNavHeaderActive,
   subBarNavFilterActive,
+  setFilters
 }: Props) => {
   const [activeFilterButton, setActiveFilterButton] = useState<string | null>(
     null
