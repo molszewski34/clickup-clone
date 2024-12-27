@@ -4,7 +4,13 @@ import SubBarNavTop from "./SubBarNavTop";
 import SubBarNavHeader from "./SubBarNavHeader";
 import SubBarNavFilters from "./SubBarNavFilters";
 
-const ViewsBarContainer = ({setFilters}:{setFilters:React.Dispatch<React.SetStateAction<object>>}) => {
+const ViewsBarContainer = ({
+  setFilters,
+  filters,
+}: {
+  setFilters: React.Dispatch<React.SetStateAction<{ taskName: string }>>;
+  filters:{taskName:string}
+}) => {
   const [subBarNavHeaderActive, setSubBarNavHeaderActive] = useState(false);
   const [subBarNavFilterActive, setSubBarNavFilterActive] = useState(false);
   return (
@@ -22,6 +28,7 @@ const ViewsBarContainer = ({setFilters}:{setFilters:React.Dispatch<React.SetStat
         subBarNavFilterActive={subBarNavFilterActive}
         subBarNavHeaderActive={subBarNavHeaderActive}
         setFilters={setFilters}
+        filters={filters}
       />
     </div>
   );

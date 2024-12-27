@@ -8,20 +8,24 @@ import FilterInput from "./FilterInput";
 type Props = {
   subBarNavHeaderActive: boolean;
   subBarNavFilterActive: boolean;
-  setFilters:React.Dispatch<React.SetStateAction<object>>
+  setFilters: React.Dispatch<React.SetStateAction<{ taskName: string }>>;
+  filters: { taskName: string };
 };
 
 const SubBarNavFilters = ({
   subBarNavHeaderActive,
   subBarNavFilterActive,
-  setFilters
+  setFilters,
+  filters,
 }: Props) => {
   const [activeFilterButton, setActiveFilterButton] = useState<string | null>(
     null
   );
   const [closeButtonActive, setCloseButtonActive] = useState(false);
   const [meModeButtonActive, setMeModeButtonActive] = useState(false);
-  const [inputText, setInputText] = useState("");
+  const handleTaskNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFilters((prev) => ({ ...prev, taskName: e.target.value }));
+  };
   return (
     <div
       className={` flex gap-1 items-center bg-white transition-all duration-500 ease-in-out overflow-hidden
@@ -111,15 +115,15 @@ const SubBarNavFilters = ({
       <div className="w-[1px] h-4 mx-2  bg-gray_50"></div>
       <div className="relative flex items-center group w-36">
         <FilterInput
-          isActive={inputText !== ""}
-          value={inputText}
-          onChange={(e) => setInputText(e.target.value)}
+          isActive={filters.taskName !== ""}
+          value={filters.taskName}
+          onChange={handleTaskNameChange}
         />
 
-        {inputText !== "" && (
+        {filters.taskName !== "" && (
           <ButtonVariant2
-            onClick={() => setInputText("")}
-            variant={inputText !== "" ? "tertiary" : "primary"}
+            onClick={() => setFilters((prev) => ({ ...prev, taskName: "" }))}
+            variant={filters.taskName !== "" ? "tertiary" : "primary"}
             className="absolute right-6 w-5 h-5 pl-0 pr-0 pt-0 pb-0 gap-0 flex items-center justify-center "
           >
             <Icons.CloseXIcon
@@ -130,7 +134,7 @@ const SubBarNavFilters = ({
         )}
         <ButtonVariant2
           isActive={activeFilterButton === "dots"}
-          variant={inputText !== "" ? "tertiary" : "primary"}
+          variant={filters.taskName !== "" ? "tertiary" : "primary"}
           onClick={() =>
             setActiveFilterButton((prev) => (prev === "dots" ? "" : "dots"))
           }
