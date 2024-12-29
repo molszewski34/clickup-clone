@@ -16,7 +16,7 @@ function UsersList() {
   const { setFormData } = usetaskFormContext();
 
   return (
-    <ul>
+    <ul className="max-h-[308px] overflow-y-scroll custom-scrollbar">
       {users?.map((user) => (
         <span
           className="cursor-pointer"
@@ -34,7 +34,12 @@ function UsersList() {
             }))
           }
         >
-          {getInitials(user.signUpFullName)} ({user.signUpEmail})
+          <div className=" flex items-center gap-2 py-2 px-1 rounded hover:bg-gray-100 ">
+            <span className="flex items-center justify-center rounded-full w-9 h-9  bg-violet-600 text-white text-xs">
+              {getInitials(user.signUpFullName)}
+            </span>
+            {user.signUpFullName}
+          </div>
         </span>
       ))}
     </ul>
