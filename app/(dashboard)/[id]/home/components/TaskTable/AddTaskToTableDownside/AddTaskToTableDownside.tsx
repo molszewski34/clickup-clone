@@ -1,6 +1,5 @@
 import { usetaskFormContext } from "@/context/FormProviders/TaskFormProvider";
 import React, { useState } from "react";
-import AddAssignee from "./AddAssignee";
 import { useUser } from "@/context/DataProvider/UserDataProvider";
 import { useData } from "@/context/DataProvider/DataProvider";
 import { useCreateTask } from "@/hooks/useCreateTask";
@@ -38,7 +37,11 @@ const AddTaskToTableDownside = ({ status }: { status: string }) => {
     <tr className="h-8 w-full table-row bg-green-400">
       <td></td>
       <td></td>
-      <td key="title" colSpan={7} className="h-8 text-nowrap text-gray-500 border-b"></td>
+      <td
+        key="title"
+        colSpan={7}
+        className="h-8 text-nowrap text-gray-500 border-b"
+      ></td>
       {!isOpen ? (
         <button
           onClick={() => {
@@ -47,7 +50,8 @@ const AddTaskToTableDownside = ({ status }: { status: string }) => {
               ...prevState,
               status,
             }));
-          }}>
+          }}
+        >
           + Add Task
         </button>
       ) : (
@@ -66,7 +70,11 @@ const AddTaskToTableDownside = ({ status }: { status: string }) => {
           />
           <div className="flex">
             <label htmlFor="priority-select">Priority:</label>
-            <select id="priority-select" value={formData.priority} onChange={handleChange}>
+            <select
+              id="priority-select"
+              value={formData.priority}
+              onChange={handleChange}
+            >
               <option value=""></option>
               <option value="urgent">Urgent</option>
               <option value="high">High</option>

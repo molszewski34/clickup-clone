@@ -15,14 +15,17 @@ export default function SpaceModal({ onClose }: ModalProps) {
   const modalRef = useRef<HTMLDivElement | null>(null);
   const { setError } = useWorkspaceFormContext();
 
-  const handleOutsideClick = (event: MouseEvent) => {
-    if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-      setModalVisible(false);
-      setError(false);
-    }
-  };
-
   useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
+        setModalVisible(false);
+        setError(false);
+      }
+    };
+
     if (isModalVisible) {
       document.addEventListener("mousedown", handleOutsideClick);
     } else {
@@ -31,7 +34,7 @@ export default function SpaceModal({ onClose }: ModalProps) {
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
-  }, [isModalVisible, handleOutsideClick]);
+  }, [isModalVisible, setError]);
 
   return (
     <div ref={modalRef} className="relative bg-white rounded-lg shadow-custom">

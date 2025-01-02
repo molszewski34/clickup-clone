@@ -10,6 +10,7 @@ import { getSubTasks } from "../server-actions/subtasks/getSubtasks";
 
 const RenderButtons = () => {
   const { userId } = useUser();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [data, setData] = useState<any[]>([]);
 
   useEffect(() => {
