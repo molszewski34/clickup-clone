@@ -1,29 +1,29 @@
-'use client';
-import { useEffect, useState } from 'react';
-import { Icons } from '@/icons/icons';
-import UserProfilModal from './components-NotePadBar/UserProfilModal';
-import { useUserProfile } from '@/hooks/useUserProfile';
+"use client";
+import { useCallback, useEffect, useState } from "react";
+import { Icons } from "@/icons/icons";
+import UserProfilModal from "./components-NotePadBar/UserProfilModal";
+import { useUserProfile } from "@/hooks/useUserProfile";
 
 export default function UserProfilBar() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [userInitial, setUserInitial] = useState('');
+  const [userInitial, setUserInitial] = useState("");
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
   const { userData } = useUserProfile();
 
-  const fetchUserInitial = () => {
+  const fetchUserInitial = useCallback(() => {
     setTimeout(() => {
-      const userName = userData?.signUpFullName || '';
-      const firstLetter = userName.trim().charAt(0).toUpperCase() || '';
+      const userName = userData?.signUpFullName || "";
+      const firstLetter = userName.trim().charAt(0).toUpperCase() || "";
       setUserInitial(firstLetter);
     }, 1000);
-  };
+  }, [userData]);
 
   useEffect(() => {
     if (userData) {
       fetchUserInitial();
     }
-  }, [userData]);
+  }, [userData, fetchUserInitial]);
 
   return (
     <>
