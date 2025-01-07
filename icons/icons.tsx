@@ -41,6 +41,7 @@ import {
   LuTableProperties,
 } from "react-icons/lu";
 import {
+  BsArrowsAngleExpand,
   BsFillPeopleFill,
   BsInfoCircle,
   BsLayoutTextSidebar,
@@ -63,6 +64,7 @@ import {
   PiTagBold,
   PiWind,
 } from "react-icons/pi";
+import { HiOutlineUserAdd } from "react-icons/hi";
 import { AiOutlineClose, AiOutlineTeam } from "react-icons/ai";
 import {
   HiOutlineArrowLeft,
@@ -94,9 +96,10 @@ import {
   GoDotFill,
   GoMention,
   GoPencil,
+  GoRepoForked,
   GoStop,
 } from "react-icons/go";
-import { CiImageOn, CiShare2, CiTrophy } from "react-icons/ci";
+import { CiHome, CiImageOn, CiShare2, CiTrophy } from "react-icons/ci";
 import { FaRegCheckCircle, FaRegTrashAlt } from "react-icons/fa";
 import { IoMdArrowDropdown, IoMdArrowDropright } from "react-icons/io";
 import { RiDraggable } from "react-icons/ri";
@@ -157,6 +160,7 @@ export const Icons = {
   CgFlagAlt: CgFlagAlt,
   MdOutlineModeComment: MdOutlineModeComment,
   PiDotsThreeBold: PiDotsThreeBold,
+  HiOutlineUserAdd: HiOutlineUserAdd,
 
   // added new Icons
   AttachmentIcon: RiAttachmentLine,
@@ -222,6 +226,9 @@ export const Icons = {
   FolderPlus: TbFolderPlus,
   FolderShare: TbFolderShare,
   Import: BiImport,
+  House: CiHome,
+  FullScreen: BsArrowsAngleExpand,
+  Forked: GoRepoForked,
 
   // New icons SVG
   AiIcon: SvgIcons.Ai,

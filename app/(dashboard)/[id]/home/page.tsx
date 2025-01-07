@@ -9,9 +9,8 @@ import { Icons } from "@/icons/icons";
 import WidgetHeader from "../../_components/WidgetHeader";
 import ButtonVariant3 from "@/components/ButtonVariant3";
 import ButtonVariant2 from "@/components/ButtonVariant2";
-import { Table } from "./components/TaskTable/Table";
-import { MOCK_TASKS } from "./data";
-import { TaskStatus } from "./types";
+
+import HomeContent from "@/app/homeSpaceContent/HomeContent";
 
 const UserHomePage = ({ params }: { params: Promise<{ id: string }> }) => {
   const router = useRouter();
@@ -38,16 +37,6 @@ const UserHomePage = ({ params }: { params: Promise<{ id: string }> }) => {
     fetchParams();
   }, [params, router]);
 
-  const completedTasks = MOCK_TASKS.filter(
-    (singleMockTask) => singleMockTask.status === TaskStatus.completed
-  );
-  const inProgressTasks = MOCK_TASKS.filter(
-    (singleMockTask) => singleMockTask.status === TaskStatus.inProgress
-  );
-  const toDoTasks = MOCK_TASKS.filter(
-    (singleMockTask) => singleMockTask.status === TaskStatus.todo
-  );
-
   return (
     <div className="w-full">
       <WidgetHeader className="justify-between">
@@ -59,15 +48,18 @@ const UserHomePage = ({ params }: { params: Promise<{ id: string }> }) => {
           <ButtonVariant3 className={` !text-sm h-8 font-semibold px-[11px]`}>
             Menage cards
           </ButtonVariant3>
-          <div className="w-[1px] h-4 mx-2  bg-darkGray_400"></div>
+          <div className="w-[1px] h-4 mx-2  bg-gray_50"></div>
           <ButtonVariant2 className={`items-center h-8`}>
             <Icons.SettingsIcon className="text-base" />
           </ButtonVariant2>
         </div>
       </WidgetHeader>
-      <Table tasks={completedTasks} status={TaskStatus.completed} />
-      <Table tasks={inProgressTasks} status={TaskStatus.inProgress} />
-      <Table tasks={toDoTasks} status={TaskStatus.todo} />
+      <div
+        className="w-full custom-scrollbar overflow-y-auto overflow-x-hidden"
+        style={{ height: "calc(100vh - 90px)" }}
+      >
+        <HomeContent />
+      </div>
     </div>
   );
 };

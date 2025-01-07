@@ -8,6 +8,7 @@ import { useData } from '@/context/DataProvider/DataProvider';
 import { useUser } from '@/context/DataProvider/UserDataProvider';
 import { useQuery } from '@tanstack/react-query';
 import { getTasks } from '@/app/server-actions/task/getTasks';
+import { AddIcons } from './components-SideBarModal/AddIcons';
 
 const WorkspaceButtons = ({ width }: { width: number }) => {
   const router = useRouter();
@@ -26,11 +27,11 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
     setProjectName,
   } = useData();
 
-  const { userId } = useUser();
-
   const [hoverStates, setHoverStates] = useState<{ [key: string]: boolean }>(
     {}
   );
+
+  const { userId } = useUser();
 
   const {
     data: projects,
@@ -44,19 +45,21 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
     enabled: !!projectId,
   });
 
-  const handleWorkspaceClick = (workspaceId: string) => {
+  const handleWorkspaceClick = (workspaceId: string, workspaceName: string) => {
     if (activeWorkspace === workspaceId) {
       setActiveWorkspace(null);
-      setActiveProject(null); // Reset aktywnego projektu
+      setActiveProject(null);
     } else {
       setActiveWorkspace(workspaceId);
       setWorkspaceId(workspaceId);
+      setWorkspaceName(workspaceName);
     }
   };
 
-  const handleProjectClick = (projectId: string) => {
+  const handleProjectClick = (projectId: string, projectName: string) => {
     setActiveProject((prev) => (prev === projectId ? null : projectId));
     setProjectId(projectId);
+    setProjectName(projectName);
 
     router.push(`/${userId}/l/${projectId}`);
   };
@@ -70,74 +73,100 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="flex w-full flex-col">
       {workspaces.length > 0 ? (
-        workspaces.map((workspace) => (
-          <div key={workspace.id}>
-            <AddWorkspaceElement
-              label={workspace.name}
-              icon={
-                hoverStates[workspace.id] ? (
-                  <Icons.PlayWorkspace className="text-[20px] text-gray-700" />
-                ) : (
-                  <Icons.People className="text-[20px] text-gray-700" />
-                )
-              }
-              extraIcons={2}
-              active={activeWorkspace === workspace.id}
-              onClick={() => handleWorkspaceClick(workspace.id)}
-              width={width}
-              onMouseEnter={() => {
-                handleMouseEnter(workspace.id);
-                setWorkspaceName(workspace.name);
-                setWorkspaceId(workspace.id);
-              }}
-              onMouseLeave={() => handleMouseLeave(workspace.id)}
-              isWorkspace={true}
-            />
-            {activeWorkspace === workspace.id && (
-              <div className="ml-4 mt-2">
-                {loadingProjects ? (
-                  <p>Ładowanie projektów...</p>
-                ) : projectsError ? (
-                  <p className="text-red-500">
-                    Błąd podczas pobierania projektów.
-                  </p>
-                ) : projects && projects.length > 0 ? (
-                  projects.map((project) => (
-                    <AddWorkspaceElement
-                      key={project.id}
-                      label={project.name}
-                      icon={
-                        <Icons.ListOutline className="text-[20px] text-gray-700" />
-                      }
-                      extraIcons={1}
-                      active={activeProject === project.id}
-                      onClick={() => {
-                        handleProjectClick(project.id);
-                      }}
-                      width={width}
-                      onMouseEnter={() => {
-                        handleMouseEnter(project.id);
-                        setProjectName(project.name);
-                        setProjectId(project.id);
-                        setTasksLength(tasks?.length ?? 0);
-                      }}
-                      onMouseLeave={() => handleMouseLeave(project.id)}
-                      isWorkspace={false}
-                    />
-                  ))
-                ) : (
-                  <p className="text-sm">
-                    Create a <u>Folder</u>, <u>List</u> or <u>Doc</u>
-                  </p>
-                )}
-              </div>
-            )}
-          </div>
-        ))
+        workspaces.map((workspace) => {
+          const firstLetterOfWorkspaceName =
+            workspace.name?.charAt(0).toUpperCase() || '?';
+
+          const selectedIcon = Array.isArray(workspace.icon)
+            ? workspace.icon.reverse().find((item) => item.selectedIconName)
+            : null;
+
+          const DynamicIcon = selectedIcon?.selectedIconName
+            ? AddIcons[selectedIcon.selectedIconName as keyof typeof AddIcons]
+            : null;
+
+          return (
+            <div key={workspace.id}>
+              <AddWorkspaceElement
+                label={workspace.name}
+                icon={
+                  hoverStates[workspace.id] ? (
+                    <Icons.PlayWorkspace className="text-[20px] text-white" />
+                  ) : DynamicIcon ? (
+                    <DynamicIcon className="text-[20px] text-white" />
+                  ) : (
+                    <span className="flex justify-center items-center text-[16px] w-4 h-4 font-sans font-bold text-white">
+                      {firstLetterOfWorkspaceName}
+                    </span>
+                  )
+                }
+                color={
+                  Array.isArray(workspace.icon)
+                    ? [...workspace.icon]
+                        .reverse()
+                        .find((item) => item?.activeColor)?.activeColor ??
+                      'indigo-500'
+                    : 'indigo-500'
+                }
+                extraIcons={2}
+                active={activeWorkspace === workspace.id}
+                onClick={() =>
+                  handleWorkspaceClick(workspace.id, workspace.name)
+                }
+                width={width}
+                onMouseEnter={() => {
+                  handleMouseEnter(workspace.id);
+                  setWorkspaceName(workspace.name);
+                }}
+                onMouseLeave={() => handleMouseLeave(workspace.id)}
+                isWorkspace={true}
+              />
+              {activeWorkspace === workspace.id && (
+                <div className="ml-4 mt-2">
+                  {loadingProjects ? (
+                    <p>Loading projects...</p>
+                  ) : projectsError ? (
+                    <p className="text-red-500">
+                      Error while downloading projects.
+                    </p>
+                  ) : projects && projects.length > 0 ? (
+                    projects.map((project) => (
+                      <AddWorkspaceElement
+                        key={project.id}
+                        label={project.name}
+                        icon={
+                          <Icons.ListOutline className="text-[20px] text-gray-700" />
+                        }
+                        extraIcons={1}
+                        active={activeProject === project.id}
+                        onClick={() => {
+                          handleProjectClick(project.id, project.name);
+                        }}
+                        width={width}
+                        onMouseEnter={() => {
+                          handleMouseEnter(project.id);
+                          setProjectName(project.name);
+                          setProjectId(project.id);
+                          setTasksLength(tasks?.length ?? 0);
+                        }}
+                        onMouseLeave={() => handleMouseLeave(project.id)}
+                        isWorkspace={false}
+                      />
+                    ))
+                  ) : (
+                    <p className="text-sm text-gray-500">
+                      No projects in this workspace.
+                    </p>
+                  )}
+                </div>
+              )}
+            </div>
+          );
+        })
       ) : (
-        <p className="text-gray-500">Brak workspace do wyświetlenia.</p>
+        <p className="text-gray-500">No workspace to display.</p>
       )}
     </div>
   );

@@ -1,11 +1,13 @@
-import React from "react";
-import { Icons } from "@/icons/icons";
+import React from 'react';
+import { Icons } from '@/icons/icons';
+import { useWorkspaceFormContext } from '@/context/FormProviders/WorkspaceFormProvider';
 
 interface SpaceModalHeaderProps {
   onClose: () => void;
 }
 
 const SpaceModalHeader: React.FC<SpaceModalHeaderProps> = ({ onClose }) => {
+  const { setError } = useWorkspaceFormContext();
   return (
     <div className="flex relative items-center justify-between p-6 pb-[13px]">
       <div className="flex-row">
@@ -19,7 +21,10 @@ const SpaceModalHeader: React.FC<SpaceModalHeaderProps> = ({ onClose }) => {
       </div>
       <button
         className="absolute flex justify-center items-center p-[6px] top-4 right-4 rounded-lg hover:bg-gray-100"
-        onClick={onClose}
+        onClick={() => {
+          onClose();
+          setError(false);
+        }}
       >
         <Icons.CloseIcon className="text-[16px] text-gray-400" />
       </button>

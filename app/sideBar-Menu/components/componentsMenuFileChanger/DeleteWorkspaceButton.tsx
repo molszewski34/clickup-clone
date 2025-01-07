@@ -10,6 +10,7 @@ const DeleteWorkspaceButton = ({
 }: {
   workspaceName: string;
   inputValue: string;
+  closeModal: () => void;
 }) => {
   const queryClient = useQueryClient();
 
@@ -19,9 +20,7 @@ const DeleteWorkspaceButton = ({
   const mutation = useMutation<void, Error>({
     mutationFn: () => deleteWorkspace(userId, workspaceId),
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ['workspaces', userId, workspaceId],
-      });
+      queryClient.invalidateQueries({ queryKey: ['workspaces'] });
     },
     onError: (error) => {
       console.error('Error deleting project:', error);

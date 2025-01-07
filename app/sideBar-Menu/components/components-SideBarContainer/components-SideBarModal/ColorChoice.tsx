@@ -27,15 +27,18 @@ const ColorChoice: React.FC<ColorChoiceProps> = ({ onColorChange }) => {
 
   const { setFormData } = useWorkspaceFormContext();
 
-  // Funkcja obsługująca zmianę koloru
   const handleColorChange = (color: string) => {
-    setActiveColor(color); // Ustawiamy wybrany kolor jako aktywny
+    setActiveColor(color);
 
     setFormData((prevState: Workspace) => ({
       ...prevState,
-      icon: [...prevState.icon, { activeColor: color }],
+      icon:
+        typeof prevState.icon === "string"
+          ? { activeColor: color, selectedIconName: null }
+          : { ...prevState.icon, activeColor: color },
     }));
-    if (onColorChange) onColorChange(color); // Jeśli istnieje funkcja onColorChange, wywołujemy ją z nowym kolorem
+
+    if (onColorChange) onColorChange(color);
   };
 
   return (

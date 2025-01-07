@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { Icons } from "@/icons/icons";
 import ButtonRender from "./addWorkspaceElement-Component/ButtonRender";
 import ListModal from "./list-Components/ListModal";
@@ -15,6 +15,7 @@ interface ButtonProps {
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
   isWorkspace: boolean;
+  color?: string;
 }
 
 const AddWorkspaceElement: React.FC<ButtonProps> = ({
@@ -27,7 +28,20 @@ const AddWorkspaceElement: React.FC<ButtonProps> = ({
   onMouseEnter,
   onMouseLeave,
   isWorkspace,
+  color,
 }) => {
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const [offsetTopState, setOffsetTopState] = useState<number | null>(null);
+
+  const handleClick = () => {
+    if (buttonRef.current) {
+      const offsetTop = buttonRef.current.getBoundingClientRect().top;
+      setOffsetTopState(offsetTop); // Przypisanie offsetTop do stanu
+    }
+
+    onClick();
+  };
+
   const [modalState, setModalState] = useState<
     | "none"
     | "menuWorkspaceList"
@@ -73,7 +87,8 @@ const AddWorkspaceElement: React.FC<ButtonProps> = ({
   return (
     <div className="relative">
       <button
-        onClick={onClick}
+        ref={buttonRef}
+        onClick={handleClick}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
         className={`group/button flex items-center rounded-md h-8 w-full mr-1 pl-1 mb-px flex-grow min-w-0 ${
@@ -90,15 +105,15 @@ const AddWorkspaceElement: React.FC<ButtonProps> = ({
           <div className="flex justify-center items-center h-8 w-6">
             {isWorkspace ? (
               <div
-                className={`flex justify-center items-center w-5 h-5 rounded ${
-                  active ? "bg-blue-400" : "bg-violet-400"
+                className={`flex justify-center items-center w-6 h-6  font-sans text-[12px] font-semibold text-white rounded ${
+                  active ? "bg-gray-200" : `bg-${color}`
                 }`}
               >
                 {React.cloneElement(icon, {
                   className: `${
                     active
                       ? "transition-transform duration-300  group-hover/button:rotate-90 text-blue-700"
-                      : "text-gray-700"
+                      : ""
                   }`,
                 })}
               </div>
@@ -182,7 +197,7 @@ const AddWorkspaceElement: React.FC<ButtonProps> = ({
                       className={
                         active
                           ? "text-[14px] text-blue-700"
-                          : "text-[14px] text-gray-700"
+                          : "text-[14px] text-gray-700 "
                       }
                     />
                   </button>
@@ -194,30 +209,48 @@ const AddWorkspaceElement: React.FC<ButtonProps> = ({
       </button>
       {modalState === "menuListChanger" && (
         <div
-          id="menuListChanger"
-          className="fixed z-50 bg-white border border-gray-300 shadow-lg rounded-lg py-2"
-          style={{ left: `${width - 20}px`, bottom: "10px" }}
+          className="fixed inset-0 flex justify-center bg-transparent bg-opacity-50 z-50"
+          onClick={() => toggleModal("none")}
         >
-          <MenuListChanger />
+          <div
+            id="menuListChanger"
+            className="fixed z-50 bg-white border border-gray-300 shadow-lg rounded-lg py-2"
+            style={{ left: `${width - 20}px`, bottom: "10px" }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <MenuListChanger />
+          </div>
         </div>
       )}
       {modalState === "menuFileChanger" && (
         <div
-          id="menuFileChanger"
-          className="fixed z-50 bg-white border border-gray-300 shadow-lg rounded-lg py-2"
-          style={{ left: `${width - 20}px`, bottom: "10px" }}
+          className="fixed inset-0 flex justify-center bg-transparent bg-opacity-50 z-50"
+          onClick={() => toggleModal("none")}
         >
-          <MenuFileChanger />
+          <div
+            id="menuFileChanger"
+            className="fixed z-50 bg-white border border-gray-300 shadow-lg rounded-lg py-2"
+            style={{ left: `${width - 20}px`, bottom: "10px" }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <MenuFileChanger />
+          </div>
         </div>
       )}
 
       {modalState === "menuWorkspaceList" && (
         <div
-          id="menuWorkspaceList"
-          className="fixed z-50 bg-white border border-gray-300 shadow-lg rounded-lg py-2"
-          style={{ left: `${width - 20}px` }}
+          className="fixed inset-0 flex justify-center bg-transparent bg-opacity-50 z-50"
+          onClick={() => toggleModal("none")}
         >
-          <ButtonRender toggleModal={toggleModal} />
+          <div
+            id="menuWorkspaceList"
+            className="fixed z-50 top-2/4 bg-white border border-gray-300 shadow-lg rounded-lg py-2"
+            style={{ left: `${width - 20}px`, top: `${offsetTopState}px` }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <ButtonRender toggleModal={toggleModal} />
+          </div>
         </div>
       )}
 

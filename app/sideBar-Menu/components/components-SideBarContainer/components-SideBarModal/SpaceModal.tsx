@@ -5,6 +5,7 @@ import { ModalProps } from "@/app/topBar-Nav/components/type";
 import SpaceModalHeader from "./components-SpaceModal/SpaceModalHeader";
 import SpaceModalBody from "./components-SpaceModal/SpaceModalBody";
 import SpaceModalFooter from "./components-SpaceModal/SpaceModalFooter";
+import { useWorkspaceFormContext } from "@/context/FormProviders/WorkspaceFormProvider";
 
 export default function SpaceModal({ onClose }: ModalProps) {
   const [isModalVisible, setModalVisible] = useState(false);
@@ -12,14 +13,19 @@ export default function SpaceModal({ onClose }: ModalProps) {
   const [selectedIcon, setSelectedIcon] = useState<string>("");
 
   const modalRef = useRef<HTMLDivElement | null>(null);
-
-  const handleOutsideClick = (event: MouseEvent) => {
-    if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-      setModalVisible(false);
-    }
-  };
+  const { setError } = useWorkspaceFormContext();
 
   useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
+        setModalVisible(false);
+        setError(false);
+      }
+    };
+
     if (isModalVisible) {
       document.addEventListener("mousedown", handleOutsideClick);
     } else {
@@ -28,7 +34,7 @@ export default function SpaceModal({ onClose }: ModalProps) {
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
-  }, [isModalVisible]);
+  }, [isModalVisible, setError]);
 
   return (
     <div ref={modalRef} className="relative bg-white rounded-lg shadow-custom">
@@ -42,7 +48,7 @@ export default function SpaceModal({ onClose }: ModalProps) {
         selectedIcon={selectedIcon}
         setSelectedIcon={setSelectedIcon}
       />
-      <SpaceModalFooter />
+      <SpaceModalFooter onClose={onClose} />
     </div>
   );
 }
