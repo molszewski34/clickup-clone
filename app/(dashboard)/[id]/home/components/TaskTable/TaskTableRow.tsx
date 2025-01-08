@@ -18,14 +18,20 @@ export const TaskTableRow = ({ row }: TaskTableRowProps) => {
         </td>
         <td
           className="border-b hover:outline hover:outline-offset-0 hover:outline-1 hover:outline-gray-400 hover:rounded  hover:cursor-pointer"
-          key={`assignees-${row.original.id}`}>
+          key={`assignees-${row.original.id}`}
+        >
           <div className="flex flex-row" key={"a"}>
             {row.original.assignees && row.original.assignees?.length > 0 ? (
               row.original.assignees?.map((singleAssignee) => {
-                return <UserInitials key={singleAssignee.email} user={singleAssignee} />; // K:TODO: assignee powinien miec ten sam type co User
+                return (
+                  <UserInitials key={singleAssignee.id} user={singleAssignee} />
+                );
               })
             ) : (
-              <Icons.HiOutlineUserAdd color="gray" size={16}></Icons.HiOutlineUserAdd>
+              <Icons.HiOutlineUserAdd
+                color="gray"
+                size={16}
+              ></Icons.HiOutlineUserAdd>
             )}
           </div>
         </td>
@@ -34,7 +40,10 @@ export const TaskTableRow = ({ row }: TaskTableRowProps) => {
           if (singleCell.column.id === "assignees") return null;
           return (
             <td key={singleCell.id} className="h-8 border-b">
-              {flexRender(singleCell.column.columnDef.cell, singleCell.getContext())}
+              {flexRender(
+                singleCell.column.columnDef.cell,
+                singleCell.getContext()
+              )}
             </td>
           );
         })}

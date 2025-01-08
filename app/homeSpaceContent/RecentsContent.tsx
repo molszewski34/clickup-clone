@@ -7,6 +7,7 @@ import { getWorkspaces } from "../server-actions/workspace/getWorkspaces";
 import { getProjects } from "../server-actions/project/getProjects";
 import { getTasks } from "../server-actions/task/getTasks";
 import { getSubTasks } from "../server-actions/subtasks/getSubtasks";
+import { Project, Task } from "../server-actions/types";
 
 const RenderButtons = () => {
   const { userId } = useUser();
@@ -54,7 +55,7 @@ const RenderButtons = () => {
   return (
     <>
       {data.flatMap((workspace) =>
-        workspace.projects.map((project) => (
+        workspace.projects.map((project: Project) => (
           <div key={project.id} className="mb-2">
             <button className="flex justify-between w-full items-center mx-2 p-2 py-1 rounded-md hover:bg-gray-100 group/hidden">
               <div className="flex gap-2 items-center">
@@ -64,7 +65,7 @@ const RenderButtons = () => {
                 </div>
                 <div>&bull;</div>
                 <div className="font-sans text-sm text-gray-400">
-                  In {project.workspaceName}
+                  In {project.name}
                 </div>
               </div>
               <div className=" hidden gap-1 items-center group-hover/hidden:flex">
@@ -76,7 +77,7 @@ const RenderButtons = () => {
                 </button>
               </div>
             </button>
-            {project.tasks.map((task) => (
+            {project.tasks.map((task: Task) => (
               <div key={task.id} className="">
                 <button className="flex justify-between w-full items-center mx-2 p-2 py-1 rounded-md hover:bg-gray-100 group/hidden">
                   <div className="flex gap-2 items-center">
@@ -98,7 +99,7 @@ const RenderButtons = () => {
                     </button>
                   </div>
                 </button>
-                {task.subtasks.map((subtask) => (
+                {task.subtasks.map((subtask: Task) => (
                   <div key={subtask.id} className="">
                     <button className="flex justify-between w-full items-center mx-2 p-2 py-1 rounded-md hover:bg-gray-100 group/hidden">
                       <div className="flex gap-2 items-center">

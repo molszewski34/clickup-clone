@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { ModalProps } from "@/app/topBar-Nav/components/type";
 import SpaceModalHeader from "./components-SpaceModal/SpaceModalHeader";
 import SpaceModalBody from "./components-SpaceModal/SpaceModalBody";
@@ -15,8 +15,8 @@ export default function SpaceModal({ onClose }: ModalProps) {
   const modalRef = useRef<HTMLDivElement | null>(null);
   const { setError } = useWorkspaceFormContext();
 
-  useEffect(() => {
-    const handleOutsideClick = (event: MouseEvent) => {
+  const handleOutsideClick = useCallback(
+    (event: MouseEvent) => {
       if (
         modalRef.current &&
         !modalRef.current.contains(event.target as Node)
@@ -24,8 +24,11 @@ export default function SpaceModal({ onClose }: ModalProps) {
         setModalVisible(false);
         setError(false);
       }
-    };
+    },
+    [setError]
+  );
 
+  useEffect(() => {
     if (isModalVisible) {
       document.addEventListener("mousedown", handleOutsideClick);
     } else {
@@ -34,7 +37,7 @@ export default function SpaceModal({ onClose }: ModalProps) {
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
-  }, [isModalVisible, setError]);
+  }, [isModalVisible, handleOutsideClick]);
 
   return (
     <div ref={modalRef} className="relative bg-white rounded-lg shadow-custom">

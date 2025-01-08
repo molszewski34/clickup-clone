@@ -8,7 +8,7 @@ import { useCreateTask } from "@/hooks/useCreateTask";
 import { useData } from "@/context/DataProvider/DataProvider";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { TaskStatus } from "../../types";
-import { User } from "@/app/server-actions/user/getUser";
+import { User } from "@/app/server-actions/types";
 
 type NewTaskProps = {
   status?: TaskStatus;
@@ -59,7 +59,8 @@ export const NewTask = ({ status }: NewTaskProps) => {
         {isOpen ? (
           <form
             className="flex flex-row w-full justify-between gap-2 h-8 text-sm items-center"
-            onSubmit={handleSubmit(onSubmit)}>
+            onSubmit={handleSubmit(onSubmit)}
+          >
             <input
               {...register("taskName")}
               id="taskName"
@@ -73,7 +74,8 @@ export const NewTask = ({ status }: NewTaskProps) => {
                 })
               }
               placeholder="New task"
-              className="outline-none"></input>
+              className="outline-none"
+            ></input>
             <div className="flex flex-row pr-32 gap-2">
               <Button
                 color="gray"
@@ -89,16 +91,25 @@ export const NewTask = ({ status }: NewTaskProps) => {
                     priority: "",
                     details: "",
                   }));
-                }}>
+                }}
+              >
                 Cancel
               </Button>
-              <Button color="indigo" className="text-xs font-semibold" type="submit">
+              <Button
+                color="indigo"
+                className="text-xs font-semibold"
+                type="submit"
+              >
                 Add task
               </Button>
             </div>
           </form>
         ) : (
-          <Button onClick={() => setIsOpen(true)} color="gray" className="h-6 rounded-md text-sm">
+          <Button
+            onClick={() => setIsOpen(true)}
+            color="gray"
+            className="h-6 rounded-md text-sm"
+          >
             + Add Task
           </Button>
         )}
