@@ -1,4 +1,7 @@
 export type User = {
+  uid: string;
+  name?: string;
+  email?: string;
   id: string;
   signUpFullName: string;
   signUpEmail: string;
@@ -17,15 +20,6 @@ export interface Task {
   timeEstimate?: string;
   priority?: string;
   details?: string;
-}
-
-export interface Assignee {
-  uid: string;
-  name?: string;
-  email?: string;
-  id: string;
-  signUpFullName: string;
-  signUpEmail: string;
 }
 
 export interface Project {
