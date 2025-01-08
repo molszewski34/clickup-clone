@@ -110,6 +110,19 @@ Menu pojawia się po nacisnieciu przycisku który pojawia się po najechaniu na 
 Po wybraniu opcji Delete pojawia się ten modal
 ![Imgur](https://imgur.com/DREFBXG)
 
+W celu usunięcia workspace należy wpisać nazwe listy i zatwierdzić.
+
+**Sprawy techniczne**
+Na ten moment workspaces jest pod kolekcją obiektu User. Workspace tak samo jak User posiada pod kolekcje list, tasków i sub tasków.
+
+Główne pliki uczestniczące w procesach workspace:
+getWorkspaces.ts - pobieranie wszystkich workspace
+createNewWorkspace.ts - tworzenie nowego workspace
+deleteWorkspace.ts
+updateWorkspace.ts
+
+Pliki te są akcjami które są później obsługiwane poprzez react-query. Niema konkretnej zależności i podczas badania powiązań można natrafić zarówno na hooki jak i komponenty w których query jest przekazywane do akcji. W procesie tym pośredniczy też Provider - WorkspaceFormProvider który zbiera informacje z poszczególnych input.
+
 #### Subbar
 
 ![Imgur](https://imgur.com/J3RQfdi)
@@ -117,10 +130,11 @@ Po wybraniu opcji Delete pojawia się ten modal
 **Odpowiedzialny za element** : Jakub Skrzeczowski
 Subbar występuje w dwóch głównych formach:
 
-1. **Prosty subbar** (subbar pod górną częścią nawigacji):  
+1. **Prosty subbar** (subbar pod górną częścią nawigacji):
+
    - Zawiera linki, tekst lub buttony, w zależnośći który link z **Górna część nawigacji** jest aktywny. Większość obecnie jest nieaktywna i czeka na dostarcznie funkcjonalności im odpowiadającym
 
-2. **view subBar** (workspaceId/l/projectId):  
+2. **view subBar** (workspaceId/l/projectId):
    - Ten element zawiera przyciski do otwierania modali, otwierania dodatkowego navbaru bezpośredio nad view subBar, a także dodatkowy subbar zawierający filtry umożliwiające zarządzanie listami w workspace.
 
 **MIT License**
