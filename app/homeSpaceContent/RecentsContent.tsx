@@ -8,6 +8,7 @@ import { getProjects } from "../server-actions/project/getProjects";
 import { getTasks } from "../server-actions/task/getTasks";
 import { getSubTasks } from "../server-actions/subtasks/getSubtasks";
 import { Project, Task } from "../server-actions/types";
+import CardContainer from "./Components/CardContainer";
 
 const RenderButtons = () => {
   const { userId } = useUser();
@@ -134,23 +135,12 @@ const RenderButtons = () => {
 
 export default function RecentsContent() {
   return (
-    <div className="h-[336px] border border-gray-200 rounded-xl hover:border-gray-400 overflow-hidden group">
-      <div className="flex items-center justify-between pb-2 mt-3 px-4 font-sans font-semibold text-base text-gray-950">
-        Recents
-        <div className="hidden gap-1 group-hover:flex">
-          <button className="flex justify-center items-center w-6 h-6 rounded-md hover:bg-gray-100">
-            <Icons.FullScreen className="text-[14px] text-gray-600" />
-          </button>
-          <button className="flex justify-center items-center w-6 h-6 rounded-md hover:bg-gray-100">
-            <Icons.ThreeDotsIcon className="text-[14px] text-gray-600" />
-          </button>
-        </div>
-      </div>
+    <CardContainer title="Recents" NumberIcons={2} height="336px">
       <div className="w-full h-[258px] pb-4 custom-scrollbar overflow-y-auto overflow-x-hidden">
         <div className="flex flex-col w-full pr-5">
           <RenderButtons />
         </div>
       </div>
-    </div>
+    </CardContainer>
   );
 }
