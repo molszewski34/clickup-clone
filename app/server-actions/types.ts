@@ -20,6 +20,7 @@ export interface Task {
   timeEstimate?: string;
   priority?: string;
   details?: string;
+  subtasks: Task[];
 }
 
 export interface Project {
@@ -30,6 +31,7 @@ export interface Project {
   userId?: string;
   workspaceId?: string;
   isPrivate?: boolean;
+  tasks: Task[];
 }
 
 export interface Workspace {
