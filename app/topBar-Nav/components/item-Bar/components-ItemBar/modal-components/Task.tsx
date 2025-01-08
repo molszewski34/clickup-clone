@@ -29,7 +29,7 @@ export default function Task() {
             type="text"
             value={query} // Set the input's value to the current state
             onChange={handleInputChange} // Trigger state update on input change
-            placeholder="Tusk name or type '/' for commands" // Placeholder text guiding the user
+            placeholder="Task name or type '/' for commands" // Placeholder text guiding the user
             className="w-full h-6 text-lg/6 rounded-lg font-medium text-gray-600 font-sans pl-1 border-2 border-none mr-auto focus:outline-none"
           />
         </div>
