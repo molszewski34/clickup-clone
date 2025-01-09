@@ -5,11 +5,12 @@ import React from "react";
 import { getInitials } from "../utils/getInitials";
 import { usetaskFormContext } from "@/context/FormProviders/TaskFormProvider";
 import { Task, User } from "@/app/server-actions/types";
-import UserUserQuery from "@/hooks/userUserQuery";
+import useUserQuery from "@/hooks/useUserQuery";
+
 function UsersList() {
   const { setFormData } = usetaskFormContext();
 
-  const users = UserUserQuery();
+  const users = useUserQuery();
 
   return (
     <ul>
