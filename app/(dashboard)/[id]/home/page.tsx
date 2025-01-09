@@ -9,7 +9,7 @@ import { Icons } from "@/icons/icons";
 import WidgetHeader from "../../_components/WidgetHeader";
 import ButtonVariant3 from "@/components/ButtonVariant3";
 import ButtonVariant2 from "@/components/ButtonVariant2";
-import HomeContentV2 from "@/app/HomeSpaceContent/HomeContentV2";
+import HomeContentV2 from "@/app/HomeSpace/HomeContentV2";
 
 const UserHomePage = ({ params }: { params: Promise<{ id: string }> }) => {
   const router = useRouter();
