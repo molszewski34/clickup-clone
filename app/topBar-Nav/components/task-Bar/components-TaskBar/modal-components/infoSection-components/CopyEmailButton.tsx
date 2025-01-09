@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { CopyEmailButtonProps } from "@/app/topBar-Nav/components/type";
 import { Icons } from "@/icons/icons";
+import Skeleton from "react-loading-skeleton";
 
 // CopyEmailButton component for displaying email and copying it to the clipboard
 export const CopyEmailButton: React.FC<CopyEmailButtonProps> = ({
@@ -35,7 +36,7 @@ export const CopyEmailButton: React.FC<CopyEmailButtonProps> = ({
           <span className="text-green-500">Copied!</span>
         ) : loading ? (
           // If still loading, show a question mark
-          "?"
+          <Skeleton />
         ) : (
           // Otherwise, show the email
           email

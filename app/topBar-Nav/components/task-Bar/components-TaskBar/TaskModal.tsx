@@ -5,33 +5,29 @@ import ButtonAiResults from "./modal-components/ButtonAiResults";
 import MenuRender from "./modal-components/MenuRender";
 import { TaskModalProps } from "../../type"; //Import typeScript
 import { Icons } from "@/icons/icons";
+import { useUserProfile } from "@/hooks/useUserProfile";
+import Skeleton from "react-loading-skeleton";
 
 export default function TaskModal({ onClose }: TaskModalProps) {
+  const { userData } = useUserProfile();
+
   const [userInitial, setUserInitial] = useState("?"); // State for the initials
   const [fullName, setFullName] = useState(""); // State for the full name
   const [loading, setLoading] = useState(true); // State for loading data
 
-  // Function simulating fetching user data (name and initials)
-  const fetchUserData = () => {
-    setTimeout(() => {
-      const userName = "Jakub King Workspace"; // Simulated user's full name
-      const nameParts = userName.trim().split(" "); // Split name into parts
-      const firstLetter = nameParts[0]?.charAt(0).toUpperCase() || ""; // First letter of the first name
-      const lastLetter = nameParts[1]?.charAt(0).toUpperCase() || ""; // First letter of the last name (if exists)
-      const FullUserName = nameParts[0] + " " + nameParts[1];
-
-      setUserInitial(firstLetter + lastLetter); // Set initials
-      setFullName(FullUserName); // Set full name
-      setLoading(false); // Set state to "loaded"
-    }, 1000); // Simulating delay for loading
-  };
-
-  // Run fetchUserData on mount
   useEffect(() => {
     if (typeof window !== "undefined") {
-      fetchUserData();
+      const userName = userData?.signUpFullName || "";
+      const nameParts = userName.trim().split(" ");
+      const firstLetter = nameParts[0]?.charAt(0).toUpperCase() || "";
+      const lastLetter = nameParts[1]?.charAt(0).toUpperCase() || "";
+      const fullUserName = nameParts[0] + " " + nameParts[1];
+
+      setUserInitial(firstLetter + lastLetter);
+      setFullName(fullUserName);
+      setLoading(false);
     }
-  }, []);
+  }, [userData]);
 
   return (
     <>
@@ -58,7 +54,7 @@ export default function TaskModal({ onClose }: TaskModalProps) {
             <div className="flex justify-between items-center mb-3">
               <button className="flex gap-1 items-center justify-center rounded-md hover:bg-gray-100 p-1 pl-2 ">
                 <div className="flex items-center text-lg font-sans font-medium text-gray-950 mr-1">
-                  {loading ? "Loading..." : fullName}
+                  {loading ? <Skeleton /> : fullName}
                 </div>
                 <Icons.ArrowDownIcon className="text-[10px] fill-gray-900" />
               </button>
