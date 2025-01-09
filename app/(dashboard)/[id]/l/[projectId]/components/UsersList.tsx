@@ -1,23 +1,19 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { getUsers } from '@/app/server-actions/user/getUser';
-import { getInitials } from '../utils/getInitials';
-import { usetaskFormContext } from '@/context/FormProviders/TaskFormProvider';
-import { Task } from '@/app/server-actions/types';
+import React from "react";
 
+import { getInitials } from "../utils/getInitials";
+import { usetaskFormContext } from "@/context/FormProviders/TaskFormProvider";
+import { Task, User } from "@/app/server-actions/types";
+import UserUserQuery from "@/hooks/userUserQuery";
 function UsersList() {
-  const { data: users } = useQuery({
-    queryKey: ['users'],
-    queryFn: getUsers,
-  });
-
   const { setFormData } = usetaskFormContext();
+
+  const users = UserUserQuery();
 
   return (
     <ul>
-      {users?.map((user) => (
+      {users?.map((user: User) => (
         <span
           className="cursor-pointer"
           key={user.id}
