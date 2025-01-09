@@ -9,7 +9,7 @@ import { Icons } from "@/icons/icons";
 import WidgetHeader from "../../_components/WidgetHeader";
 import ButtonVariant3 from "@/components/ButtonVariant3";
 import ButtonVariant2 from "@/components/ButtonVariant2";
-import HomeContent from "@/app/HomeSpaceContent/HomeContent";
+import HomeContentV2 from "@/app/HomeSpaceContent/HomeContentV2";
 
 const UserHomePage = ({ params }: { params: Promise<{ id: string }> }) => {
   const router = useRouter();
@@ -57,7 +57,7 @@ const UserHomePage = ({ params }: { params: Promise<{ id: string }> }) => {
         className="w-full custom-scrollbar overflow-y-auto overflow-x-hidden"
         style={{ height: "calc(100vh - 90px)" }}
       >
-        <HomeContent />
+        <HomeContentV2 />
       </div>
     </div>
   );

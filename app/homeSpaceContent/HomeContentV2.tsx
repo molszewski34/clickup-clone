@@ -9,7 +9,7 @@ import { useUserProfile } from "@/hooks/useUserProfile";
 import CardContainer from "./Components/CardContainer";
 import EmptyCardContent from "./Components/EmptyCardContetnt";
 
-export default function HomeContent() {
+export default function HomeContentV2() {
   const { userData } = useUserProfile();
   const userName = userData?.signUpFullName || "";
   const firstName = userName.split(" ")[0];
