@@ -9,7 +9,6 @@ import { Icons } from "@/icons/icons";
 import WidgetHeader from "../../_components/WidgetHeader";
 import ButtonVariant3 from "@/components/ButtonVariant3";
 import ButtonVariant2 from "@/components/ButtonVariant2";
-
 import HomeContent from "@/app/HomeSpaceContent/HomeContent";
 
 const UserHomePage = ({ params }: { params: Promise<{ id: string }> }) => {
