@@ -1,4 +1,4 @@
-import SideBarContainer from "./components/SideBarContainer";
+import SideBarContainer from "./components/SideBarContainer/SideBarContainer";
 
 export default function SideBar() {
   return (

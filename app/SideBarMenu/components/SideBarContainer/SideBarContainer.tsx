@@ -1,12 +1,13 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
-import ResizeHandle from "./components-SideBarContainer/ResizeHandle";
-import SidebarContent from "./components-SideBarContainer/SidebarContent";
-import SidebarModal from "./components-SideBarContainer/SidebarModal";
-import ContainerModalWorkButtons from "./componentsMenuContainerModals/ContainerModalWorkButtons";
-import ContainerModalFavouritesButton from "./componentsMenuContainerModals/ContainerModalFavouritesButton";
+
 import { useUserProfile } from "@/hooks/useUserProfile";
+import SidebarContent from "../components-SideBarContainer/SidebarContent";
+import ResizeHandle from "../components-SideBarContainer/ResizeHandle";
+import ContainerModalFavouritesButton from "../componentsMenuContainerModals/ContainerModalFavouritesButton";
+import ContainerModalWorkButtons from "../componentsMenuContainerModals/ContainerModalWorkButtons";
+import SidebarModal from "../components-SideBarContainer/SidebarModal";
 
 export default function SideBarContainer() {
   const [modalState, setModalState] = useState<

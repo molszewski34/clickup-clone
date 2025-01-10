@@ -3,7 +3,7 @@
 import { usePathname } from "next/navigation"; // Importujemy usePathname z next/navigation
 import { useUser } from "@/context/DataProvider/UserDataProvider"; // Import kontekstu użytkownika
 import TopbarNav from "../topBar-Nav/components/TopbarNav";
-import SideBarContainer from "../SideBarMenu/components/SideBarContainer";
+import SideBarContainer from "../SideBarMenu/components/SideBarContainer/SideBarContainer";
 
 export default function RootLayout({
   children,
