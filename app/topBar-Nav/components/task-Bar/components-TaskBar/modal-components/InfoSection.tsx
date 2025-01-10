@@ -8,10 +8,11 @@ import { UseLocalTime } from "./infoSection-hook/UseLocalTime";
 import { InfoRow } from "./infoSection-components/InfoRow";
 import { CopyEmailButton } from "./infoSection-components/CopyEmailButton";
 import { Icons } from "@/icons/icons";
+import { useUserProfile } from "@/hooks/useUserProfile";
 
 export default function InfoSection() {
-  // Fetching user email and loading state from the custom hook
-  const { email, loading } = UseUserData();
+  const { loading } = UseUserData();
+  const { userData } = useUserProfile();
 
   // Fetching the local time using the custom hook
   const localTime = UseLocalTime();
@@ -37,7 +38,10 @@ export default function InfoSection() {
 
       <InfoRow title="Email">
         {/* Button to copy the email address to clipboard */}
-        <CopyEmailButton email={email} loading={loading} />
+        <CopyEmailButton
+          email={userData?.signUpEmail || ""}
+          loading={loading}
+        />
       </InfoRow>
 
       <InfoRow title="Local time">
