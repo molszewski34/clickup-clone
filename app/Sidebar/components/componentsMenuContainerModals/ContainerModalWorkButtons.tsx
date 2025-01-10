@@ -1,5 +1,5 @@
 import { Icons } from "@/icons/icons";
-import WorkspaceButtons from "../components-SideBarContainer/WorkspaceButtons";
+import WorkspaceButtons from "../SidebarContainer/components/WorkspaceButtons";
 interface ContainerModalWorkButtonsProps {
   openModal: () => void;
 }

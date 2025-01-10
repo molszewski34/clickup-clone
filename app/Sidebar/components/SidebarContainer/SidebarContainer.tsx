@@ -3,13 +3,13 @@
 import React, { useState, useEffect, useCallback } from "react";
 
 import { useUserProfile } from "@/hooks/useUserProfile";
-import SidebarContent from "../components-SideBarContainer/SidebarContent";
-import ResizeHandle from "../components-SideBarContainer/ResizeHandle";
 import ContainerModalFavouritesButton from "../componentsMenuContainerModals/ContainerModalFavouritesButton";
 import ContainerModalWorkButtons from "../componentsMenuContainerModals/ContainerModalWorkButtons";
-import SidebarModal from "../components-SideBarContainer/SidebarModal";
+import SidebarContent from "./components/SidebarContent/SidebarContent";
+import ResizeHandle from "./components/ResizeHandle";
+import SidebarModal from "./components/SidebarModal";
 
-export default function SideBarContainer() {
+export default function SidebarContainer() {
   const [modalState, setModalState] = useState<
     "none" | "menuFavorite" | "menuSpace"
   >("none");

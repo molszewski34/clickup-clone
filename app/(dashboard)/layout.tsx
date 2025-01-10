@@ -3,7 +3,7 @@
 import { usePathname } from "next/navigation"; // Importujemy usePathname z next/navigation
 import { useUser } from "@/context/DataProvider/UserDataProvider"; // Import kontekstu użytkownika
 import TopbarNav from "../topBar-Nav/components/TopbarNav";
-import SideBarContainer from "../SideBarMenu/components/SideBarContainer/SideBarContainer";
+import SidebarContainer from "../Sidebar/components/SidebarContainer/SidebarContainer";
 
 export default function RootLayout({
   children,
@@ -22,7 +22,7 @@ export default function RootLayout({
         <div>
           <TopbarNav />
           <div className="flex items-start">
-            {shouldRenderSidebar && <SideBarContainer />}{" "}
+            {shouldRenderSidebar && <SidebarContainer />}
             {/* Renderujemy Sidebar tylko, gdy warunek jest spełniony */}
             {children}
           </div>

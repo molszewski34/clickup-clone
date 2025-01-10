@@ -3,12 +3,12 @@ import { useRouter } from "next/navigation";
 import { useWorkspaceQuery } from "@/hooks/useWorkspaceQuery";
 import { useProjectQuery } from "@/hooks/useProjectQuery";
 import { Icons } from "@/icons/icons";
-import AddWorkspaceElement from "../AddWorkspaceElement";
 import { useData } from "@/context/DataProvider/DataProvider";
 import { useUser } from "@/context/DataProvider/UserDataProvider";
 import { useQuery } from "@tanstack/react-query";
 import { getTasks } from "@/app/server-actions/task/getTasks";
 import { AddIcons } from "./components-SideBarModal/AddIcons";
+import AddWorkspaceElement from "../../AddWorkspaceElement";
 
 const WorkspaceButtons = ({ width }: { width: number }) => {
   const router = useRouter();

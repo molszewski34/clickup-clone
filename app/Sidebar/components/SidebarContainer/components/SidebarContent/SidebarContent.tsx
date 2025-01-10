@@ -2,12 +2,12 @@
 
 import React, { useState, useCallback, useMemo } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import UserProfile from "./components-SideBarContnet/UserProfile";
-import Button from "./components-SideBarContnet/Button";
-import ButtonFavourites from "./components-SideBarContnet/ButtonFavourites";
-import buttons from "./components-SideBarContnet/buttons";
 import { Icons } from "@/icons/icons";
-import WorkspaceButtons from "./WorkspaceButtons";
+import UserProfile from "./components/UserProfile";
+import buttons from "./components/buttons";
+import Button from "./components/Button";
+import ButtonFavourites from "./components/ButtonFavourites";
+import WorkspaceButtons from "../WorkspaceButtons";
 
 interface SidebarContentProps {
   userName: string;

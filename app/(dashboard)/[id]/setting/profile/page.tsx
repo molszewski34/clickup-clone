@@ -5,8 +5,8 @@ import { useRouter } from "next/navigation";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/db/firebase/lib/firebase";
 import { useInitializeWorkspace } from "../../../_hooks/useInitializeWorkspace";
-import SettingMenu from "@/app/SideBarMenu/components/components-SideBarContainer/setting/settingMenu";
-import Setting from "@/app/SideBarMenu/components/components-SideBarContainer/setting/Setting";
+import SettingMenu from "@/app/Sidebar/components/SidebarContainer/components/setting/settingMenu";
+import Setting from "@/app/Sidebar/components/SidebarContainer/components/setting/Setting";
 
 const UserPulsePage = ({ params }: { params: Promise<{ id: string }> }) => {
   const router = useRouter();
