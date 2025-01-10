@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
-import { auth, db } from '@/db/firebase/lib/firebase';
-import { onAuthStateChanged, User } from 'firebase/auth';
-import { doc, getDoc } from 'firebase/firestore';
+import { useEffect, useState } from "react";
+import { auth, db } from "@/db/firebase/lib/firebase";
+import { onAuthStateChanged, User } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
 
 interface UserProfileData {
   signUpFullName: string;
@@ -32,18 +32,20 @@ export function useUserProfile(): UseUserProfileReturn {
         setUser(currentUser);
 
         try {
-          const userDocRef = doc(db, 'users', currentUser.uid);
+          const userDocRef = doc(db, "users", currentUser.uid);
           const userDocSnap = await getDoc(userDocRef);
 
           if (userDocSnap.exists()) {
             setUserData(userDocSnap.data() as UserProfileData);
           } else {
-            setError('User data not found in Firestore.');
+            setError("User data not found in Firestore.");
           }
-        } catch (err: any) {
-          setError(
-            err.message || 'An error occurred while fetching user data.'
-          );
+        } catch (err) {
+          if (err instanceof Error) {
+            setError(err.message);
+          } else {
+            setError("An unknown error occurred.");
+          }
         }
       } else {
         setUser(null);
