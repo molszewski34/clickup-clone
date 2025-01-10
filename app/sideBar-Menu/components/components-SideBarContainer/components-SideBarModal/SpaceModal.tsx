@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { ModalProps } from "@/app/topBar-Nav/components/type";
 import SpaceModalHeader from "./components-SpaceModal/SpaceModalHeader";
 import SpaceModalBody from "./components-SpaceModal/SpaceModalBody";
@@ -15,12 +15,18 @@ export default function SpaceModal({ onClose }: ModalProps) {
   const modalRef = useRef<HTMLDivElement | null>(null);
   const { setError } = useWorkspaceFormContext();
 
-  const handleOutsideClick = (event: MouseEvent) => {
-    if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-      setModalVisible(false);
-      setError(false);
-    }
-  };
+  const handleOutsideClick = useCallback(
+    (event: MouseEvent) => {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
+        setModalVisible(false);
+        setError(false);
+      }
+    },
+    [setError]
+  );
 
   useEffect(() => {
     if (isModalVisible) {

@@ -1,11 +1,6 @@
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/db/firebase/lib/firebase";
-
-export type User = {
-  id: string;
-  signUpFullName: string;
-  signUpEmail: string;
-};
+import { User } from "../types";
 
 export const getUsers = async (): Promise<User[]> => {
   const usersCollection = collection(db, "users");
