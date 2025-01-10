@@ -1,27 +1,27 @@
-import { Icons } from '@/icons/icons';
-import React, { useState } from 'react';
-import dark from '../../../../img/dark.png';
-import light from '../../../../img/light.png';
-import Image from 'next/image';
-import useLogoutHandler from '@/app/(auth)/login/_hooks/useLogoutHandler';
-import { useUserProfile } from '@/hooks/useUserProfile';
+import { Icons } from "@/icons/icons";
+import React, { useState } from "react";
+import dark from "../../../../img/dark.png";
+import light from "../../../../img/light.png";
+import Image from "next/image";
+import useLogoutHandler from "@/app/(auth)/login/_hooks/useLogoutHandler";
+import { useUserProfile } from "@/app/server-actions/user/useUserProfile";
 
 export default function Setting() {
-  const [Password, setPassword] = useState('bllalala');
+  const [Password, setPassword] = useState("bllalala");
 
-  const [selectedWeekStart, setSelectedWeekStart] = useState<string>('monday');
-  const [selectedTimeFormat, setSelectedTimeFormat] = useState<string>('24h');
+  const [selectedWeekStart, setSelectedWeekStart] = useState<string>("monday");
+  const [selectedTimeFormat, setSelectedTimeFormat] = useState<string>("24h");
   const [selectedDateFormat, setSelectedDateFormat] =
-    useState<string>('dd/mm/yyyy');
+    useState<string>("dd/mm/yyyy");
 
-  const [selectedMode, setSelectedMode] = useState('light'); // 'light' lub 'dark'
-  const [activeColor, setActiveColor] = useState<string>('indigo-500'); // Stan do przechowywania aktywnego koloru
+  const [selectedMode, setSelectedMode] = useState("light"); // 'light' lub 'dark'
+  const [activeColor, setActiveColor] = useState<string>("indigo-500"); // Stan do przechowywania aktywnego koloru
 
   const { handleLogout } = useLogoutHandler(); // Korzystanie z hooka
 
   const { userData } = useUserProfile();
 
-  console.log('userData w Settings', userData);
+  console.log("userData w Settings", userData);
 
   type Option = {
     id: string;
@@ -36,33 +36,33 @@ export default function Setting() {
 
   //Lista dostępnych kolorów do wyboru
   const colors: string[] = [
-    'indigo-500',
-    'blue-500',
-    'sky-500',
-    'teal-500',
-    'emerald-600',
-    'amber-500',
-    'orange-500',
-    'red-500',
-    'pink-500',
-    'purple-500',
-    'stone-500',
-    'black',
+    "indigo-500",
+    "blue-500",
+    "sky-500",
+    "teal-500",
+    "emerald-600",
+    "amber-500",
+    "orange-500",
+    "red-500",
+    "pink-500",
+    "purple-500",
+    "stone-500",
+    "black",
   ];
 
   const options: Options = {
     weekStart: [
-      { id: 'monday', label: 'Monday' },
-      { id: 'sunday', label: 'Sunday' },
+      { id: "monday", label: "Monday" },
+      { id: "sunday", label: "Sunday" },
     ],
     timeFormat: [
-      { id: '24h', label: '24 Hour' },
-      { id: '12h', label: '12 Hour' },
+      { id: "24h", label: "24 Hour" },
+      { id: "12h", label: "12 Hour" },
     ],
     dateFormat: [
-      { id: 'dd/mm/yyyy', label: 'DD/MM/YYYY' },
-      { id: 'mm/dd/yyyy', label: 'MM/DD/YYYY' },
-      { id: 'yyyy/mm/dd', label: 'YYYY/MM/DD' },
+      { id: "dd/mm/yyyy", label: "DD/MM/YYYY" },
+      { id: "mm/dd/yyyy", label: "MM/DD/YYYY" },
+      { id: "yyyy/mm/dd", label: "YYYY/MM/DD" },
     ],
   };
 
@@ -100,10 +100,10 @@ export default function Setting() {
   };
 
   const makeInitials = (fullName: string | undefined): string => {
-    if (!fullName) return '';
+    if (!fullName) return "";
     const words = fullName.trim().split(/\s+/);
-    const firstWord = words[0] || '';
-    const lastWord = words[words.length - 1] || '';
+    const firstWord = words[0] || "";
+    const lastWord = words[words.length - 1] || "";
 
     return `${firstWord.charAt(0).toUpperCase()}${lastWord
       .charAt(0)
@@ -251,7 +251,7 @@ export default function Setting() {
                     className={`flex float-left items-center justify-center rounded-[14px] w-11 h-11 ${
                       activeColor === color
                         ? `border-2 border-${color} cursor-default` // Aktywny kolor, dodajemy obramowanie
-                        : 'cursor-pointer hover:border-2 hover:border-gray-200' // Inaczej, zmiana kursora i obramowanie przy hover
+                        : "cursor-pointer hover:border-2 hover:border-gray-200" // Inaczej, zmiana kursora i obramowanie przy hover
                     } bg-white`}
                   >
                     {/* Wyświetlamy kolor w przycisku */}
@@ -282,7 +282,7 @@ export default function Setting() {
           <div className="block">
             <div className="grid grid-flow-col gap-4 justify-start">
               <label
-                onClick={() => setSelectedMode('light')}
+                onClick={() => setSelectedMode("light")}
                 className="cursor-pointer"
               >
                 <Image
@@ -290,16 +290,16 @@ export default function Setting() {
                   alt="Light Mode"
                   height={60}
                   className={` w-auto h-auto cursor-pointer border rounded-xl p-2${
-                    selectedMode === 'light'
-                      ? 'border-blue-500 ring ring-blue-500'
-                      : 'border-gray-300'
+                    selectedMode === "light"
+                      ? "border-blue-500 ring ring-blue-500"
+                      : "border-gray-300"
                   }`}
                 />
                 <p
                   className={`font-sans text-sm/5 px-3 py-2 mt-2${
-                    selectedMode === 'light'
-                      ? 'text-gray-900 font-medium'
-                      : 'text-gray-500 '
+                    selectedMode === "light"
+                      ? "text-gray-900 font-medium"
+                      : "text-gray-500 "
                   }`}
                 >
                   Light
@@ -307,7 +307,7 @@ export default function Setting() {
               </label>
 
               <label
-                onClick={() => setSelectedMode('dark')}
+                onClick={() => setSelectedMode("dark")}
                 className="cursor-pointer"
               >
                 <Image
@@ -315,16 +315,16 @@ export default function Setting() {
                   alt="Light Mode"
                   height={60}
                   className={` w-auto h-auto cursor-pointer border rounded-xl p-2${
-                    selectedMode === 'dark'
-                      ? 'border-blue-500 ring ring-blue-500'
-                      : 'border-gray-300'
+                    selectedMode === "dark"
+                      ? "border-blue-500 ring ring-blue-500"
+                      : "border-gray-300"
                   }`}
                 />
                 <p
                   className={`font-sans text-sm/5 px-3 py-2 mt-2${
-                    selectedMode === 'dark'
-                      ? 'text-gray-900 font-medium'
-                      : 'text-gray-500 '
+                    selectedMode === "dark"
+                      ? "text-gray-900 font-medium"
+                      : "text-gray-500 "
                   }`}
                 >
                   Dark
@@ -413,19 +413,19 @@ export default function Setting() {
           </div>
           <div className="block">
             {renderRadioButtons(
-              'Start of the calendar week',
+              "Start of the calendar week",
               options.weekStart,
               selectedWeekStart,
               setSelectedWeekStart
             )}
             {renderRadioButtons(
-              'Time format',
+              "Time format",
               options.timeFormat,
               selectedTimeFormat,
               setSelectedTimeFormat
             )}
             {renderRadioButtons(
-              'Date format',
+              "Date format",
               options.dateFormat,
               selectedDateFormat,
               setSelectedDateFormat

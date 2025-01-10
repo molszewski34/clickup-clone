@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Icons } from "@/icons/icons";
 import UserProfilModal from "./components-NotePadBar/UserProfilModal";
-import { useUserProfile } from "@/hooks/useUserProfile";
+import { useUserProfile } from "@/app/server-actions/user/useUserProfile";
 
 export default function UserProfilBar() {
   const [isModalOpen, setIsModalOpen] = useState(false);

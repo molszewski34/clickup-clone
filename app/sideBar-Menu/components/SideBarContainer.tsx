@@ -6,7 +6,7 @@ import SidebarContent from "./components-SideBarContainer/SidebarContent";
 import SidebarModal from "./components-SideBarContainer/SidebarModal";
 import ContainerModalWorkButtons from "./componentsMenuContainerModals/ContainerModalWorkButtons";
 import ContainerModalFavouritesButton from "./componentsMenuContainerModals/ContainerModalFavouritesButton";
-import { useUserProfile } from "@/hooks/useUserProfile";
+import { useUserProfile } from "@/app/server-actions/user/useUserProfile";
 
 export default function SideBarContainer() {
   const [modalState, setModalState] = useState<

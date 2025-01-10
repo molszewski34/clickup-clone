@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import ButtonRender from "./modal-components/ButtonRender";
-import { useUserProfile } from "@/hooks/useUserProfile";
+import { useUserProfile } from "@/app/server-actions/user/useUserProfile";
 
 export default function UserProfilModal() {
   const [userInitial, setUserInitial] = useState("?"); // State for the initials

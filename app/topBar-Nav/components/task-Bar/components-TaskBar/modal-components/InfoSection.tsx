@@ -8,7 +8,7 @@ import { UseLocalTime } from "./infoSection-hook/UseLocalTime";
 import { InfoRow } from "./infoSection-components/InfoRow";
 import { CopyEmailButton } from "./infoSection-components/CopyEmailButton";
 import { Icons } from "@/icons/icons";
-import { useUserProfile } from "@/hooks/useUserProfile";
+import { useUserProfile } from "@/app/server-actions/user/useUserProfile";
 
 export default function InfoSection() {
   const { loading } = UseUserData();

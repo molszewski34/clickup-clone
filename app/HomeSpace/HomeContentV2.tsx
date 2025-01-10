@@ -5,7 +5,7 @@ import AssignedContent from "./AssignedContent";
 import PersonalListIMG from "../img/empty-my-list.svg";
 import AssignedCommentsIMG from "../img/no-assigned.svg";
 import LineUpIMG from "../img/empty-lineup.svg";
-import { useUserProfile } from "@/hooks/useUserProfile";
+import { useUserProfile } from "@/app/server-actions/user/useUserProfile";
 import CardContainer from "./Components/CardContainer";
 import EmptyCardContent from "./Components/EmptyCardContetnt";
 

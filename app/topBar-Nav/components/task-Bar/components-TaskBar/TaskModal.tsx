@@ -5,7 +5,7 @@ import ButtonAiResults from "./modal-components/ButtonAiResults";
 import MenuRender from "./modal-components/MenuRender";
 import { TaskModalProps } from "../../type"; //Import typeScript
 import { Icons } from "@/icons/icons";
-import { useUserProfile } from "@/hooks/useUserProfile";
+import { useUserProfile } from "@/app/server-actions/user/useUserProfile";
 import Skeleton from "react-loading-skeleton";
 
 export default function TaskModal({ onClose }: TaskModalProps) {
