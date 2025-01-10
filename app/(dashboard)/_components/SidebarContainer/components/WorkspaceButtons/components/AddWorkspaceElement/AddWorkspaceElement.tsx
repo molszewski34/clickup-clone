@@ -1,22 +1,12 @@
 import React, { useCallback, useRef, useState } from "react";
+import ButtonProps from "./components/ButtonProps";
 import { Icons } from "@/icons/icons";
-import MenuListChanger from "./components/MenuListChanger/MenuListChanger";
-import MenuFileChanger from "./components/MenuFileChanger/MenuFileChanger";
-import ListModal from "./components/ListModal";
-import ButtonRender from "./components/ButtonRender/ButtonRender";
-
-interface ButtonProps {
-  label: string;
-  icon: React.ReactElement;
-  extraIcons: number;
-  active: boolean;
-  onClick: () => void;
-  width: number;
-  onMouseEnter?: () => void;
-  onMouseLeave?: () => void;
-  isWorkspace: boolean;
-  color?: string;
-}
+import {
+  CreateListModal,
+  MenuFileChangerModal,
+  MenuListChangerModal,
+  MenuWorkspaceListModal,
+} from "./components/modals";
 
 const AddWorkspaceElement: React.FC<ButtonProps> = ({
   label,
@@ -36,9 +26,8 @@ const AddWorkspaceElement: React.FC<ButtonProps> = ({
   const handleClick = () => {
     if (buttonRef.current) {
       const offsetTop = buttonRef.current.getBoundingClientRect().top;
-      setOffsetTopState(offsetTop); // Przypisanie offsetTop do stanu
+      setOffsetTopState(offsetTop);
     }
-
     onClick();
   };
 
@@ -207,66 +196,23 @@ const AddWorkspaceElement: React.FC<ButtonProps> = ({
           )}
         </div>
       </button>
-      {modalState === "menuListChanger" && (
-        <div
-          className="fixed inset-0 flex justify-center bg-transparent bg-opacity-50 z-50"
-          onClick={() => toggleModal("none")}
-        >
-          <div
-            id="menuListChanger"
-            className="fixed z-50 bg-white border border-gray-300 shadow-lg rounded-lg py-2"
-            style={{ left: `${width - 20}px`, bottom: "10px" }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <MenuListChanger />
-          </div>
-        </div>
-      )}
-      {modalState === "menuFileChanger" && (
-        <div
-          className="fixed inset-0 flex justify-center bg-transparent bg-opacity-50 z-50"
-          onClick={() => toggleModal("none")}
-        >
-          <div
-            id="menuFileChanger"
-            className="fixed z-50 bg-white border border-gray-300 shadow-lg rounded-lg py-2"
-            style={{ left: `${width - 20}px`, bottom: "10px" }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <MenuFileChanger />
-          </div>
-        </div>
-      )}
-
-      {modalState === "menuWorkspaceList" && (
-        <div
-          className="fixed inset-0 flex justify-center bg-transparent bg-opacity-50 z-50"
-          onClick={() => toggleModal("none")}
-        >
-          <div
-            id="menuWorkspaceList"
-            className="fixed z-50 top-2/4 bg-white border border-gray-300 shadow-lg rounded-lg py-2"
-            style={{ left: `${width - 20}px`, top: `${offsetTopState}px` }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <ButtonRender toggleModal={toggleModal} />
-          </div>
-        </div>
-      )}
-
-      {modalState === "createList" && (
-        <div
-          className="fixed inset-0 flex justify-center bg-gray-950 bg-opacity-50 z-50"
-          onClick={() => toggleModal("none")}
-        >
-          <div
-            className="bg-white rounded-xl w-[540px] h-[326px] mt-[128px] shadow-lg  border border-gray-20 overflow-hidden"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <ListModal toggleModal={toggleModal} />
-          </div>
-        </div>
-      )}
+      <MenuListChangerModal
+        modalState={modalState}
+        toggleModal={toggleModal}
+        width={width}
+      />
+      <MenuFileChangerModal
+        modalState={modalState}
+        toggleModal={toggleModal}
+        width={width}
+      />
+      <MenuWorkspaceListModal
+        modalState={modalState}
+        toggleModal={toggleModal}
+        width={width}
+        offsetTopState={offsetTopState}
+      />
+      <CreateListModal modalState={modalState} toggleModal={toggleModal} />
     </div>
   );
 };

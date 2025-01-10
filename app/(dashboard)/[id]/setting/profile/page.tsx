@@ -5,8 +5,8 @@ import { useRouter } from "next/navigation";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/db/firebase/lib/firebase";
 import { useInitializeWorkspace } from "../../../_hooks/useInitializeWorkspace";
-import SettingMenu from "@/app/Sidebar/components/SidebarContainer/components/settingsss/settingMenu";
-import Setting from "@/app/Sidebar/components/SidebarContainer/components/settingsss/Setting";
+import SettingMenu from "@/app/(dashboard)/_components/SidebarContainer/components/SettingPreview/SettingMenu/SettingMenu";
+import SettingsPreview from "@/app/(dashboard)/_components/SidebarContainer/components/SettingPreview/SettingPreview";
 
 const UserPulsePage = ({ params }: { params: Promise<{ id: string }> }) => {
   const router = useRouter();
@@ -40,7 +40,7 @@ const UserPulsePage = ({ params }: { params: Promise<{ id: string }> }) => {
         className="flex w-full font-sans text-4xl"
         style={{ height: "calc(100vh - 40px)" }}
       >
-        <Setting />
+        <SettingsPreview />
       </div>
     </>
   );
