@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useWorkspaceQuery } from "@/hooks/useWorkspaceQuery";
 import { useProjectQuery } from "@/hooks/useProjectQuery";
@@ -34,6 +34,10 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
     isLoading: loadingProjects,
     error: projectsError,
   } = useProjectQuery();
+
+  useEffect(() => {
+    setActiveProject(projectId);
+  }, [projectId]);
 
   const { data: tasks } = useQuery({
     queryKey: ["tasks", projectId],
