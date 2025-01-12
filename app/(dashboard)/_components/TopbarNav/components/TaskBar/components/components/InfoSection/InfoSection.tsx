@@ -1,10 +1,10 @@
 import React from "react";
-import { UseUserData } from "./hook/UseUserData";
-import { UseLocalTime } from "./hook/UseLocalTime";
 import { InfoRow } from "./components/InfoRow";
 import { CopyEmailButton } from "./components/CopyEmailButton";
 import { Icons } from "@/icons/icons";
 import { useUserProfile } from "@/hooks/useUserProfile";
+import { UseUserData } from "./hook/useUserData";
+import { UseLocalTime } from "./hook/useLocalTime";
 
 export default function InfoSection() {
   const { loading } = UseUserData();
