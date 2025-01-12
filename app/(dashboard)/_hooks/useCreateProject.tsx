@@ -30,7 +30,7 @@ export const useCreateProject = ({ toggleModal }: UseCreateProjectProps) => {
       queryClient.invalidateQueries({ queryKey: ["projects"] });
 
       toggleModal("none");
-      console.log("data.id", data.id);
+
       router.push(`/${userId}/l/${data.id}`);
       setProjectId(data.id);
     },
