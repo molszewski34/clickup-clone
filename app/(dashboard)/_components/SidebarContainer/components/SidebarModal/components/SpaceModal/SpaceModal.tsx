@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
-import { ModalProps } from "@/app/topBar-Nav/components/type";
 import { useWorkspaceFormContext } from "@/context/FormProviders/WorkspaceFormProvider";
 import SpaceModalHeader from "./components/SpaceModalHeader";
 import SpaceModalBody from "./components/SpaceModalBody/SpaceModalBody";
 import SpaceModalFooter from "./components/SpaceModalFooter";
+import { ModalProps } from "@/app/(dashboard)/_components/TopbarNav/components/type";
 
 export default function SpaceModal({ onClose }: ModalProps) {
   const [isModalVisible, setModalVisible] = useState(false);
