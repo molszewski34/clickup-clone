@@ -5,7 +5,6 @@ import ButtonFileChanger from "../MenuFileChanger/components/ButtonFileChanger";
 const MenuListChanger: React.FC = () => {
   const [activeButton, setActiveButton] = useState<number | null>(null);
 
-  // Split buttons into groups
   const buttonGroups = [
     buttonsMenuFileChanger.slice(0, 2),
     buttonsMenuFileChanger.slice(2, 7),
@@ -17,7 +16,6 @@ const MenuListChanger: React.FC = () => {
     <div className="flex flex-col rounded-lg w-[272px] h-auto">
       {buttonGroups.map((group, groupIndex) => (
         <React.Fragment key={groupIndex}>
-          {/* Render button group */}
           {group.map((button, index) => (
             <ButtonFileChanger
               key={`${groupIndex}-${index}`}
@@ -25,10 +23,9 @@ const MenuListChanger: React.FC = () => {
               icon={button.icon}
               active={activeButton === groupIndex * 10 + index}
               onClick={() => {
-                // Simply set the active button without opening any modal
                 setActiveButton(groupIndex * 10 + index);
               }}
-              groupIndex={groupIndex} // Pass groupIndex
+              groupIndex={groupIndex}
               NumberIndex={index}
             />
           ))}

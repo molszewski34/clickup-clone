@@ -19,8 +19,8 @@ export default function RelationshipTask() {
             type="text"
             name=""
             id=""
-            value={Link} // Wartość pochodzi ze stanu
-            onChange={(e) => setLink(e.target.value)} // Aktualizujemy stan przy zmianie wartości
+            value={Link}
+            onChange={(e) => setLink(e.target.value)}
             placeholder="Paste any link..."
             className="border-none mr-auto focus:outline-none py-[7px] text-sm w-full font-sans text-gray-800"
           />

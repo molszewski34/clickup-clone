@@ -1,4 +1,4 @@
-import { Icons } from "@/icons/icons"; // Import obiektu Icons
+import { Icons } from "@/icons/icons";
 
 export default function LineButtonsAfterClick() {
   const buttons = [1, 2, 3, 4, 5];
