@@ -2,10 +2,12 @@ import { Icons } from "@/icons/icons";
 import { useUser } from "@/context/DataProvider/UserDataProvider";
 import useLogoutHandler from "@/app/(auth)/login/_hooks/useLogoutHandler";
 import ButtonRender from "./components/ButtonRender";
+import { useUserProfile } from "@/hooks/useUserProfile";
 
 export default function SettingMenu() {
   const { userId } = useUser();
   const { handleLogout } = useLogoutHandler();
+  const { userData } = useUserProfile();
 
   const handleBackWorkspace = () => {
     window.location.href = `/${userId}/home`;
@@ -28,7 +30,7 @@ export default function SettingMenu() {
         </div>
         <div className="mx-2 w-fit">
           <div className="p-2 pt-4 font-sans text-[11px] uppercase font-medium text-gray-500">
-            Mariusz Olszewski Workspace
+            {userData?.signUpFullName} Workspace
           </div>
         </div>
         <div className=" flex flex-col h-full justify-between">
