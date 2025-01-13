@@ -4,22 +4,21 @@ import { Icons } from "@/icons/icons";
 
 export default function TaskTopMenu({
   onClose,
-  toggleMenu, // Dodane do props
+  toggleMenu,
 }: {
   onClose: () => void;
-  toggleMenu: () => void; // Typ funkcji
+  toggleMenu: () => void;
 }) {
   const [isButtonActive, setIsButtonActive] = useState(false);
 
   const handleButtonClick = () => {
-    setIsButtonActive((prev) => !prev); // Przełącz stan aktywności
-    toggleMenu(); // Wywołaj przekazaną funkcję do przełączania menu
+    setIsButtonActive((prev) => !prev);
+    toggleMenu();
   };
   return (
     <>
       <div className="flex w-full h-[49px] px-2 bg-gray-50 border-b border-gray-200">
         <div className="flex items-center flex-grow">
-          {/* Przycisk przełączający widoczność menu */}
           <button
             className={`px-2 min-h-8 min-w-8 rounded-lg ${
               isButtonActive ? "hover:bg-gray-200" : "bg-blue-200"
@@ -43,13 +42,10 @@ export default function TaskTopMenu({
             <div className="flex justify-center items-center px-1 min-h-5 min-w-5 bg-blue-200 rounded-md">
               <Icons.People className="text-[14px] text-gray-700 transform scale-x-[-1]" />
             </div>
-            {/* Name workspace */}
             <div>Team Space</div>
             <div>/</div>
-            {/* name Project */}
             <div>Projects</div>
             <div>/</div>
-            {/* Name task */}
             <div className="font-medium text-gray-900">Front-end</div>
             <div className="w-px h-3 bg-gray-300"></div>
             <div className="flex">
@@ -63,7 +59,6 @@ export default function TaskTopMenu({
           </div>
         </div>
         <div className="flex items-center flex-shrink-0">
-          {/* Data create */}
           <div className="ml-2 font-sans text-gray-500 text-xs">
             Created on Nov 21
           </div>

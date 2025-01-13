@@ -8,7 +8,6 @@ export default function TaskModal({ isMenuOpen }: { isMenuOpen: boolean }) {
   return (
     <>
       <div className="flex flex-row h-full">
-        {/* Menu boczne */}
         <div
           className={`flex flex-col h-full ${
             isMenuOpen ? "w-[300px]" : "w-[0px]"

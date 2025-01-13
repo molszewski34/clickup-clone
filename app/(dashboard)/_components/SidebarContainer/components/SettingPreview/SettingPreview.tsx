@@ -14,10 +14,10 @@ export default function SettingsPreview() {
   const [selectedDateFormat, setSelectedDateFormat] =
     useState<string>("dd/mm/yyyy");
 
-  const [selectedMode, setSelectedMode] = useState("light"); // 'light' lub 'dark'
-  const [activeColor, setActiveColor] = useState<string>("indigo-500"); // Stan do przechowywania aktywnego koloru
+  const [selectedMode, setSelectedMode] = useState("light");
+  const [activeColor, setActiveColor] = useState<string>("indigo-500");
 
-  const { handleLogout } = useLogoutHandler(); // Korzystanie z hooka
+  const { handleLogout } = useLogoutHandler();
 
   const { userData } = useUserProfile();
 
@@ -34,7 +34,6 @@ export default function SettingsPreview() {
     dateFormat: Option[];
   };
 
-  //Lista dostępnych kolorów do wyboru
   const colors: string[] = [
     "indigo-500",
     "blue-500",
@@ -94,9 +93,8 @@ export default function SettingsPreview() {
     </div>
   );
 
-  // Funkcja obsługująca zmianę koloru
   const handleColorChange = (color: string) => {
-    setActiveColor(color); // Ustawiamy wybrany kolor jako aktywny
+    setActiveColor(color);
   };
 
   const makeInitials = (fullName: string | undefined): string => {
@@ -113,12 +111,10 @@ export default function SettingsPreview() {
   return (
     <>
       <div className="sticky flex flex-col w-full h-full pt-6 px-12 pb-0 overflow-y-auto overflow-x-hidden bg-white">
-        {/* title */}
         <div className=" flex w-full h-5 font-sans font-medium mb-[30px] text-gray-900 text-2xl/snug">
           My Settings
         </div>
 
-        {/* Profile div  */}
         <div className="grid gap-x-9 gap-y-6 grid-cols-custom-grid pb-6 border-b border-gray-200 mb-8">
           <div className="flex flex-col gap-y-1">
             <h2 className="font-sans text-sm/snug font-medium text-gray-900">
@@ -178,8 +174,8 @@ export default function SettingsPreview() {
                   type="password"
                   name=""
                   id=""
-                  value={Password} // Wartość pochodzi ze stanu
-                  onChange={(e) => setPassword(e.target.value)} // Aktualizujemy stan przy zmianie wartości
+                  value={Password}
+                  onChange={(e) => setPassword(e.target.value)}
                   className="border-none mr-auto focus:outline-none py-[7px] text-sm font-sans text-gray-800 w-full"
                 />
               </div>
@@ -187,7 +183,6 @@ export default function SettingsPreview() {
           </div>
         </div>
 
-        {/* 2-steps authentication  */}
         <div className="grid gap-x-9 gap-y-6 grid-cols-custom-grid pb-6  border-b border-gray-200 mb-8">
           <div className="flex flex-col gap-y-1">
             <h2 className="font-sans text-sm/snug font-medium text-gray-900">
@@ -230,7 +225,6 @@ export default function SettingsPreview() {
           </div>
         </div>
 
-        {/* Select color */}
         <div className="grid gap-x-9 gap-y-6 grid-cols-custom-grid pb-6  ">
           <div className="flex flex-col gap-y-1">
             <h2 className="font-sans text-sm/snug font-medium text-gray-900">
@@ -242,19 +236,16 @@ export default function SettingsPreview() {
           </div>
           <div className="block">
             <ul className="relative gap-[14px] flex flex-wrap -m-1">
-              {/* Lista kolorów */}
               {colors.map((color) => (
                 <li key={color}>
-                  {/* Przycisk dla każdego koloru */}
                   <button
-                    onClick={() => handleColorChange(color)} // Po kliknięciu zmienia kolor
+                    onClick={() => handleColorChange(color)}
                     className={`flex float-left items-center justify-center rounded-[14px] w-11 h-11 ${
                       activeColor === color
-                        ? `border-2 border-${color} cursor-default` // Aktywny kolor, dodajemy obramowanie
-                        : "cursor-pointer hover:border-2 hover:border-gray-200" // Inaczej, zmiana kursora i obramowanie przy hover
+                        ? `border-2 border-${color} cursor-default`
+                        : "cursor-pointer hover:border-2 hover:border-gray-200"
                     } bg-white`}
                   >
-                    {/* Wyświetlamy kolor w przycisku */}
                     <span
                       className={`flex justify-center items-center w-8 h-8 rounded-lg bg-${color}`}
                     >
@@ -269,7 +260,6 @@ export default function SettingsPreview() {
           </div>
         </div>
 
-        {/* Select color mode */}
         <div className="grid gap-x-9 gap-y-6 grid-cols-custom-grid pb-6">
           <div className="flex flex-col gap-y-1">
             <h2 className="font-sans text-sm/snug font-medium text-gray-900">
@@ -334,7 +324,6 @@ export default function SettingsPreview() {
           </div>
         </div>
 
-        {/* Select Contrast*/}
         <div className="grid gap-x-9 gap-y-6 grid-cols-custom-grid pb-6 border-b border-gray-200 mb-8">
           <div className="flex flex-col gap-y-1">
             <h2 className="font-sans text-sm/snug font-medium text-gray-900">
@@ -357,7 +346,6 @@ export default function SettingsPreview() {
           </div>
         </div>
 
-        {/* Select  Language & Region*/}
         <div className="grid gap-x-9 gap-y-6 grid-cols-custom-grid pb-6  border-b border-gray-200 mb-8">
           <div className="flex flex-col gap-y-1">
             <h2 className="font-sans text-sm/snug font-medium text-gray-900">
@@ -401,7 +389,6 @@ export default function SettingsPreview() {
           </div>
         </div>
 
-        {/* Select Time & Date format */}
         <div className="grid gap-x-9 gap-y-6 grid-cols-custom-grid pb-6 border-b border-gray-200 mb-8">
           <div className="flex flex-col gap-y-1">
             <h2 className="font-sans text-sm/snug font-medium text-gray-900">
@@ -433,7 +420,6 @@ export default function SettingsPreview() {
           </div>
         </div>
 
-        {/* Select Preferences*/}
         <div className="grid gap-x-9 gap-y-6 grid-cols-custom-grid pb-6 border-b border-gray-200 mb-8">
           <div className="flex flex-col gap-y-1">
             <h2 className="font-sans text-sm/snug font-medium text-gray-900">
@@ -586,7 +572,6 @@ export default function SettingsPreview() {
           </div>
         </div>
 
-        {/* Select Danger zone */}
         <div className="grid gap-x-9 gap-y-6 grid-cols-custom-grid pb-6">
           <div className="flex flex-col gap-y-1">
             <h2 className="font-sans text-sm/snug font-medium text-gray-900">
@@ -605,7 +590,7 @@ export default function SettingsPreview() {
               <div className="flex flex-col items-end">
                 <button
                   className="px-[11px] w-auto border h-8 mb-3 rounded-md border-gray-200 font-sans text-sm/snug font-medium text-gray-700"
-                  onClick={handleLogout} // Wywołanie funkcji wylogowania po kliknięciu
+                  onClick={handleLogout}
                 >
                   Log out of all sessions
                 </button>
@@ -617,7 +602,6 @@ export default function SettingsPreview() {
           </div>
         </div>
 
-        {/* section save */}
         <div className="sticky bottom-0 flex justify-end  w-auto pl-12 py-3 border-t border-gray-200 bg-white">
           <button className="px-[11px] max-w-fit border h-10 rounded-md bg-blue-600 font-sans text-sm/snug font-medium text-white">
             Save changes

@@ -1,23 +1,23 @@
-import React, { useState } from 'react';
-import { useAuth } from '../_hooks/useAuth'; // Hook do pobierania danych użytkownika
-import { createNewWorkspace } from '@/app/server-actions/workspace/createNewWorkspace'; // Funkcja odpowiedzialna za dodanie workspace i projektu
-import { Workspace } from '@/app/server-actions/types'; // Typ Workspace
+import React, { useState } from "react";
+import { useAuth } from "../_hooks/useAuth";
+import { createNewWorkspace } from "@/app/server-actions/workspace/createNewWorkspace";
+import { Workspace } from "@/app/server-actions/types";
 
 const AddWorkspace: React.FC = () => {
-  const [workspaceName, setWorkspaceName] = useState('');
-  const [workspaceDescription, setWorkspaceDescription] = useState('');
+  const [workspaceName, setWorkspaceName] = useState("");
+  const [workspaceDescription, setWorkspaceDescription] = useState("");
   const [isPrivate] = useState(false);
-  const [icon] = useState('');
+  const [icon] = useState("");
   const [loading, setLoading] = useState(false);
   const { user } = useAuth();
   const handleAddWorkspace = async () => {
     if (!workspaceName) {
-      alert('Workspace name is required');
+      alert("Workspace name is required");
       return;
     }
 
     if (!user) {
-      alert('You must be logged in to create a workspace');
+      alert("You must be logged in to create a workspace");
       return;
     }
 
@@ -35,12 +35,12 @@ const AddWorkspace: React.FC = () => {
     try {
       await createNewWorkspace(newWorkspace, user.uid);
 
-      alert('Workspace and project created successfully!');
-      setWorkspaceName('');
-      setWorkspaceDescription('');
+      alert("Workspace and project created successfully!");
+      setWorkspaceName("");
+      setWorkspaceDescription("");
     } catch (error) {
-      console.error('Error adding workspace and project:', error);
-      alert('Failed to create workspace and project');
+      console.error("Error adding workspace and project:", error);
+      alert("Failed to create workspace and project");
     } finally {
       setLoading(false);
     }
@@ -66,7 +66,7 @@ const AddWorkspace: React.FC = () => {
         disabled={loading}
       />
       <button onClick={handleAddWorkspace} disabled={loading}>
-        {loading ? 'Adding Workspace...' : 'Add Workspace'}
+        {loading ? "Adding Workspace..." : "Add Workspace"}
       </button>
     </div>
   );

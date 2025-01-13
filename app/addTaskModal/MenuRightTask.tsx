@@ -5,15 +5,15 @@ import LinksTask from "./componentsMenuRight/LinksTask";
 import RelationshipTask from "./componentsMenuRight/RelationshipTask";
 
 export default function MenuRightTask() {
-  const [activeButton, setActiveButton] = useState("activity"); // 'activity', 'links', or 'relationships'
-  const [isCollapsed, setIsCollapsed] = useState(false); // To toggle the width of the content area
+  const [activeButton, setActiveButton] = useState("activity");
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   const handleActivityClick = () => {
     if (activeButton === "activity") {
-      setIsCollapsed((prev) => !prev); // Toggle collapse state on second click
+      setIsCollapsed((prev) => !prev);
     } else {
-      setActiveButton("activity"); // Activate "Activity" button
-      setIsCollapsed(false); // Reset collapse state
+      setActiveButton("activity");
+      setIsCollapsed(false);
     }
   };
 
@@ -28,10 +28,8 @@ export default function MenuRightTask() {
         {activeButton === "links" && <LinksTask />}
         {activeButton === "relationships" && <RelationshipTask />}
       </div>
-      {/* Sidebar Buttons */}
       <div className="flex px-2 py-3 flex-col h-full w-[60px] overflow-hidden bg-gray-50 border-l border-gray-200">
         <div className="flex flex-col items-center gap-4">
-          {/* Activity Button */}
           <div className="flex w-full gap-1 h-auto flex-col justify-center items-center">
             <button
               className={`flex justify-center min-h-8 min-w-8 items-center rounded-lg ${
@@ -60,7 +58,6 @@ export default function MenuRightTask() {
 
           <div className="h-px w-full bg-gray-200"></div>
 
-          {/* Links Button */}
           <div className="flex w-full gap-1 h-auto flex-col justify-center items-center">
             <button
               className={`flex justify-center min-h-8 min-w-8 items-center rounded-lg ${
@@ -80,7 +77,6 @@ export default function MenuRightTask() {
 
           <div className="h-px w-full bg-gray-200"></div>
 
-          {/* More Button */}
           <div className="flex w-full gap-1 h-auto flex-col justify-center items-center">
             <button
               className={`flex justify-center min-h-8 min-w-8 items-center rounded-lg ${
