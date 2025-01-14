@@ -1,18 +1,13 @@
-import { doc, setDoc } from 'firebase/firestore';
-import { db } from '@/db/firebase/lib/firebase';
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "@/db/firebase/lib/firebase";
+import { Task } from "../types";
 
-export const addTask = async (
+export const updateTask = async (
+  task: Task,
   userId: string,
   workspaceId: string,
   projectId: string,
-  taskName: string,
-  selectedTaskId: string,
-  taskStatus: string,
-  dueDate: Date | null,
-  assignees: string,
-  timeEstimate: string,
-  priority: string,
-  details: string
+  selectedTaskId: string
 ) => {
   try {
     const taskRef = doc(
@@ -20,21 +15,15 @@ export const addTask = async (
       `users/${userId}/workspaces/${workspaceId}/projects/${projectId}/tasks/${selectedTaskId}`
     );
 
-    await setDoc(taskRef, {
-      id: selectedTaskId,
-      workspaceId,
-      projectId,
-      name: taskName,
-      taskStatus,
-      dueDate,
-      assignees,
-      timeEstimate,
-      priority,
-      details,
+    await updateDoc(taskRef, {
+      assignees: task.assignees,
+      status: task.status,
+      priority: task.priority,
+      taskName: task.taskName,
     });
 
     console.log(`Zaktualizowano task o id: ${selectedTaskId}`);
   } catch (error) {
-    console.error('Błąd podczas aktualizowania taska', error);
+    console.error("Błąd podczas aktualizowania taska", error);
   }
 };

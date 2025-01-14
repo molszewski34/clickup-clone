@@ -1,22 +1,14 @@
 import { SvgIcons } from "./svgIcons";
 import { LuClipboardList } from "react-icons/lu";
-import {
-  FaCheck,
-  FaListUl,
-  FaPlus,
-  FaRegCircleDot,
-  FaRegHourglass,
-} from "react-icons/fa6";
+import { FaCheck, FaListUl, FaPlus, FaRegCircleDot, FaRegHourglass } from "react-icons/fa6";
 import {
   RiAttachmentLine,
   RiDashboardHorizontalLine,
   RiEmojiStickerLine,
+  RiFlag2Fill,
+  RiFlag2Line,
 } from "react-icons/ri";
-import {
-  HiMiniSignal,
-  HiOutlineCalendar,
-  HiOutlineEnvelope,
-} from "react-icons/hi2";
+import { HiMiniSignal, HiOutlineCalendar, HiOutlineEnvelope } from "react-icons/hi2";
 import {
   IoIosArrowDown,
   IoIosArrowForward,
@@ -24,14 +16,9 @@ import {
   IoIosMore,
   IoIosPlay,
   IoMdClose,
+  IoMdCheckmark,
 } from "react-icons/io";
-import {
-  FiCheckSquare,
-  FiColumns,
-  FiCopy,
-  FiPlusCircle,
-  FiSearch,
-} from "react-icons/fi";
+import { FiCheckSquare, FiColumns, FiCopy, FiPlusCircle, FiSearch } from "react-icons/fi";
 import {
   LuArchive,
   LuBox,
@@ -55,6 +42,8 @@ import {
   IoListOutline,
   IoPeopleOutline,
   IoSearchOutline,
+  IoRadioButtonOn,
+  IoCheckmarkCircle,
 } from "react-icons/io5";
 import {
   PiArrowLineDownRight,
@@ -68,6 +57,7 @@ import {
   PiWind,
 } from "react-icons/pi";
 import { HiOutlineUserAdd } from "react-icons/hi";
+import { IoMdCloseCircle } from "react-icons/io";
 import { AiOutlineClose, AiOutlineTeam } from "react-icons/ai";
 import {
   HiOutlineArrowLeft,
@@ -83,6 +73,7 @@ import {
   MdOutlineEmojiEmotions,
   MdOutlineStars,
   MdOutlineWaterDrop,
+  MdDoNotDisturbAlt,
 } from "react-icons/md";
 import {
   TbArrowsDoubleNeSw,
@@ -95,14 +86,7 @@ import {
   TbSwitch,
 } from "react-icons/tb";
 import { VscHome, VscLayoutCentered } from "react-icons/vsc";
-import {
-  GoCodeSquare,
-  GoDotFill,
-  GoMention,
-  GoPencil,
-  GoRepoForked,
-  GoStop,
-} from "react-icons/go";
+import { GoCodeSquare, GoDotFill, GoMention, GoPencil, GoRepoForked, GoStop } from "react-icons/go";
 import { CiHome, CiImageOn, CiShare2, CiTrophy } from "react-icons/ci";
 import { FaRegCheckCircle, FaRegTrashAlt } from "react-icons/fa";
 import { IoMdArrowDropdown, IoMdArrowDropright } from "react-icons/io";
@@ -165,6 +149,13 @@ export const Icons = {
   MdOutlineModeComment: MdOutlineModeComment,
   PiDotsThreeBold: PiDotsThreeBold,
   HiOutlineUserAdd: HiOutlineUserAdd,
+  IoMdCloseCircle: IoMdCloseCircle,
+  RiFlag2Fill,
+  RiFlag2Line,
+  IoMdCheckmark,
+  MdDoNotDisturbAlt,
+  IoRadioButtonOn,
+  IoCheckmarkCircle,
 
   // added new Icons
   AttachmentIcon: RiAttachmentLine,

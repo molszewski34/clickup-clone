@@ -1,27 +1,23 @@
-export type User = {
-  uid: string;
-  name?: string;
-  email?: string;
-  id: string;
-  signUpFullName: string;
-  signUpEmail: string;
-};
+import { TaskPriority, TaskStatus } from "../(dashboard)/[id]/home/types";
 
 export interface Task {
   id: string;
   taskName: string;
-  name: string;
   projectId: string;
-  taskId: string;
-  createdAt: Date;
-  status: string;
+  createdAt?: Date;
+  status: TaskStatus;
   dueDate?: Date | null;
-  assignees?: User[];
+  assignees: User[];
   timeEstimate?: string;
-  priority?: string;
+  priority?: TaskPriority | "";
   details?: string;
-  subtasks: Task[];
 }
+
+export type User = {
+  id: string;
+  signUpFullName: string;
+  signUpEmail: string;
+};
 
 export interface Project {
   id?: string;

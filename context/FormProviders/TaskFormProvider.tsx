@@ -1,22 +1,27 @@
-'use client';
+"use client";
+import { TaskStatus } from "@/app/(dashboard)/[id]/home/types";
+import { Task } from "@/app/server-actions/types";
+import React, { createContext, useContext, useState } from "react";
 
-import React, { createContext, useContext, useState } from 'react';
+type TaskFormContext = {
+  formData: Task;
+  setFormData: (arg: Task) => void;
+};
 
-const TaskFormContext = createContext<any>(null);
+const TaskFormContext = createContext<TaskFormContext | undefined>(undefined);
 
-export const TaskFormProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
-  const [formData, setFormData] = useState({
-    id: '',
-    taskName: '',
-
-    dueDate: '',
+export const TaskFormProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [formData, setFormData] = useState<Task>({
+    id: "",
+    taskName: "",
+    projectId: "",
     assignees: [],
-    timeEstimate: '',
-    priority: '',
-    details: '',
+    timeEstimate: "",
+    priority: "",
+    details: "",
+    status: TaskStatus.todo,
   });
+  console.log(formData);
 
   return (
     <TaskFormContext.Provider value={{ formData, setFormData }}>
@@ -25,10 +30,10 @@ export const TaskFormProvider: React.FC<{ children: React.ReactNode }> = ({
   );
 };
 
-export const usetaskFormContext = () => {
+export const useTaskFormContext = () => {
   const context = useContext(TaskFormContext);
   if (!context) {
-    throw new Error('useFormContext must be used within a taskFormProvider');
+    throw new Error("useFormContext must be used within a taskFormProvider");
   }
   return context;
 };

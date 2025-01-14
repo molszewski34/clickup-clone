@@ -31,9 +31,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
     return (
       <div className="flex flex-col w-full">
-        <label className="text-[11px] text-gray-700 font-semibold py-2" htmlFor={id}>
-          {label}
-        </label>
+        {label && (
+          <label className="text-[11px] text-gray-700 font-semibold py-2" htmlFor={id}>
+            {label}
+          </label>
+        )}
         <div className="relative flex flex-row">
           <div className="absolute px-3 h-full w-full flex items-center justify-between text-gray-400 pointer-events-none">
             {children}
