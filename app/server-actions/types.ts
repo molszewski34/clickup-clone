@@ -42,6 +42,13 @@ export interface Workspace {
   icon: Icon | string;
   isPrivate: boolean;
   userId: string;
+  filtersState: {
+    isOpen: boolean; 
+    searchQuery: string; 
+    assignedToMe: boolean; 
+    assignedTo: string[]; 
+    statuses: string[];
+  }
 }
 
 export type Icon = {

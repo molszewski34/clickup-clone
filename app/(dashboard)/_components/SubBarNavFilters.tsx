@@ -4,27 +4,30 @@ import FilterButton from "@/components/FilterButton";
 import { Icons } from "@/icons/icons";
 import React, { useState } from "react";
 import FilterInput from "./FilterInput";
-
+import { useWorkspaceFormContext } from "@/context/FormProviders/WorkspaceFormProvider";
+import { Workspace } from "@/app/server-actions/types";
+import { TaskStatus } from "../[id]/home/types";
 type Props = {
   subBarNavHeaderActive: boolean;
   subBarNavFilterActive: boolean;
-  setFilters: React.Dispatch<React.SetStateAction<{ taskName: string }>>;
-  filters: { taskName: string };
 };
 
 const SubBarNavFilters = ({
   subBarNavHeaderActive,
   subBarNavFilterActive,
-  setFilters,
-  filters,
 }: Props) => {
   const [activeFilterButton, setActiveFilterButton] = useState<string | null>(
     null
   );
-  const [closeButtonActive, setCloseButtonActive] = useState(false);
-  const [meModeButtonActive, setMeModeButtonActive] = useState(false);
+  const { formData, setFormData } = useWorkspaceFormContext();
   const handleTaskNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFilters((prev) => ({ ...prev, taskName: e.target.value }));
+    setFormData((prevState: Workspace) => ({
+      ...prevState,
+      filtersState: {
+        ...prevState.filtersState,
+        searchQuery: e.target.value,
+      },
+    }));
   };
   return (
     <div
@@ -72,18 +75,32 @@ const SubBarNavFilters = ({
 
         <div className="relative items-center flex group">
           <FilterButton
-            isActive={meModeButtonActive}
-            onClick={() => {
-              setMeModeButtonActive(true);
-            }}
+            isActive={formData.filtersState.assignedToMe}
+            onClick={() =>
+              setFormData((prevState: Workspace) => ({
+                ...prevState,
+                filtersState: {
+                  ...prevState.filtersState,
+                  assignedToMe: true,
+                },
+              }))
+            }
           >
             <Icons.PersonIcon style={{ strokeWidth: "0.5px" }} />
             Me mode
           </FilterButton>
-          {meModeButtonActive && (
+          {formData.filtersState.assignedToMe && (
             <ButtonVariant4
               className={`w-[22px] h-[22px] min-h-[22px] absolute right-[0.5px] bg-blue_150 hover:bg-blue_200 text-blue_300 z-30 opacity-0 group-hover:opacity-100`}
-              onClick={() => setMeModeButtonActive(false)}
+              onClick={() =>
+                setFormData((prevState: Workspace) => ({
+                  ...prevState,
+                  filtersState: {
+                    ...prevState.filtersState,
+                    assignedToMe: false,
+                  },
+                }))
+              }
             >
               <Icons.CloseXIcon style={{ strokeWidth: "0.5px" }} />
             </ButtonVariant4>
@@ -102,9 +119,21 @@ const SubBarNavFilters = ({
         </FilterButton>
         <div className="relative items-center flex group">
           <FilterButton
-            isActive={closeButtonActive}
+            isActive={formData.filtersState?.statuses?.includes(
+              TaskStatus.completed
+            )}
             onClick={() => {
-              setCloseButtonActive((prev) => !prev);
+              setFormData((prevState: Workspace) => ({
+                ...prevState,
+                filtersState: {
+                  ...prevState.filtersState,
+                  statuses: [
+                    !prevState.filtersState?.statuses?.includes(
+                      TaskStatus.completed
+                    ) && TaskStatus.completed,
+                  ],
+                },
+              }));
             }}
           >
             <Icons.CheckIcon />
@@ -115,15 +144,25 @@ const SubBarNavFilters = ({
       <div className="w-[1px] h-4 mx-2  bg-gray_50"></div>
       <div className="relative flex items-center group w-36">
         <FilterInput
-          isActive={filters.taskName !== ""}
-          value={filters.taskName}
+          isActive={formData.filtersState.searchQuery !== ""}
+          value={formData.filtersState.searchQuery}
           onChange={handleTaskNameChange}
         />
 
-        {filters.taskName !== "" && (
+        {formData.filtersState.searchQuery !== "" && (
           <ButtonVariant2
-            onClick={() => setFilters((prev) => ({ ...prev, taskName: "" }))}
-            variant={filters.taskName !== "" ? "tertiary" : "primary"}
+            onClick={() =>
+              setFormData((prevState: Workspace) => ({
+                ...prevState,
+                filtersState: {
+                  ...prevState.filtersState,
+                  searchQuery: "",
+                },
+              }))
+            }
+            variant={
+              formData.filtersState.searchQuery !== " " ? "tertiary" : "primary"
+            }
             className="absolute right-6 w-5 h-5 pl-0 pr-0 pt-0 pb-0 gap-0 flex items-center justify-center "
           >
             <Icons.CloseXIcon
@@ -134,7 +173,9 @@ const SubBarNavFilters = ({
         )}
         <ButtonVariant2
           isActive={activeFilterButton === "dots"}
-          variant={filters.taskName !== "" ? "tertiary" : "primary"}
+          variant={
+            formData.filtersState.searchQuery !== "" ? "tertiary" : "primary"
+          }
           onClick={() =>
             setActiveFilterButton((prev) => (prev === "dots" ? "" : "dots"))
           }

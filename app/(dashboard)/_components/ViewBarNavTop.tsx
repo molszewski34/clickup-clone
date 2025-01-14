@@ -3,6 +3,7 @@ import ButtonVariant2 from "../../../components/ButtonVariant2";
 import ButtonVariant3 from "../../../components/ButtonVariant3";
 import ButtonVariant4 from "../../../components/ButtonVariant4";
 import { Icons } from "../../../icons/icons";
+import { useWorkspaceFormContext } from "@/context/FormProviders/WorkspaceFormProvider";
 type Props = {
   activeButton: string | null;
   subBarNavHeaderActive: boolean;
@@ -16,6 +17,8 @@ const ViewBarNavTop: React.FC<Props> = ({
   subBarNavHeaderActive,
   setSubBarNavFilterActive,
 }) => {
+  const { formData } = useWorkspaceFormContext();
+  const { filtersState } = formData;
   const [buttonActive, setButtonActive] = useState<string | null>(null);
   const expandButtonHandler = () => {
     setButtonActive((prev) => (prev === "expandButton" ? "" : "expandButton"));
@@ -35,13 +38,29 @@ const ViewBarNavTop: React.FC<Props> = ({
           </ButtonVariant2>
         ) : (
           <>
-            <ButtonVariant2 onClick={() => filterButtonHandler()}>
+            <ButtonVariant2
+              variant="activeFilter"
+              isActive={filtersState.searchQuery !== ""}
+              onClick={() => filterButtonHandler()}
+            >
               <Icons.SearchIcon className="text-[16px] relative top-[2px]" />
               search
             </ButtonVariant2>
-            <ButtonVariant2 onClick={() => filterButtonHandler()}>
+            <ButtonVariant2
+              variant="activeFilter"
+              isActive={formData.filtersState.assignedToMe}
+              onClick={() => filterButtonHandler()}
+            >
               <Icons.SliderHorizontal className="text-[14px] relative top-[4px]" />
               {buttonActive === "filterHide" ? "filter" : "hide"}
+              {formData.filtersState.assignedToMe ? (
+                <>
+                  <p className=" font-bold">&middot;</p>
+                  {1}
+                </>
+              ) : (
+                ""
+              )}
             </ButtonVariant2>
             <ButtonVariant2
               isActive={buttonActive === "customize"}

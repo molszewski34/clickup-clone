@@ -7,45 +7,78 @@ import { useUser } from "@/context/DataProvider/UserDataProvider";
 import { Table } from "../../../home/components/TaskTable/Table";
 import { TaskStatus } from "../../../home/types";
 import { Task } from "@/app/server-actions/types";
-
-type FiltersTypes = {
-  filters: { taskName: string };
-};
-
-const TasksList = ({ filters }: FiltersTypes) => {
+import { useWorkspaceFormContext } from "@/context/FormProviders/WorkspaceFormProvider";
+import { Workspace } from "@/app/server-actions/types";
+const TasksList = () => {
+  const { formData } = useWorkspaceFormContext();
   const { workspaceId, projectId } = useData();
   const { userId } = useUser();
   const { data: tasks = [] } = useTasksQuery(userId, workspaceId, projectId);
 
-  
-  const filterTasksByName = (taskList: Task[]) => {
-    const { taskName } = filters;
-    return taskList.filter((task) =>
-      taskName
-        ? task.taskName.toLowerCase().includes(taskName.toLowerCase())
-        : true
-    );
-  };
+  const applyFilters = (
+    tasks: Task[],
+    filtersState: Workspace["filtersState"]
+  ) => {
+    return tasks.filter((task) => {
+      // Filter by taskName
+      if (
+        filtersState?.searchQuery &&
+        !task.taskName
+          .toLowerCase()
+          .includes(filtersState.searchQuery.toLowerCase())
+      ) {
+        return false;
+      }
 
-  // Filtrowanie tasków według statusu i nazwy
-  const tasksInProgress = filterTasksByName(
-    tasks.filter((task) => task.status === TaskStatus.inProgress)
-  );
-  const tasksTodo = filterTasksByName(
-    tasks.filter((task) => task.status === TaskStatus.todo)
-  );
-  const tasksCompleted = filterTasksByName(
-    tasks.filter((task) => task.status === TaskStatus.completed)
-  );
+      // Filtrer by status
+      // if (filtersState?.statuses.length > 0 &&
+      //     !filtersState.statuses.includes(task.status)) {
+      //   return false;
+      // }
+
+      // Filter by user, show only taskassigned to logged user
+      // if (filtersState.assignedToMe && !task.assignedUsers.includes(filtersState.userId)) {
+      //   return false;
+      // }
+
+      // Filter by assigned user to some task, show tasks choosen user
+      // if (filtersState.assignedTo.length > 0 &&
+      //     !filtersState.assignedTo.some(user => task.assignedUsers.includes(user))) {
+      //   return false;
+      // }
+      return true;
+    });
+  };
+  const filteredTasks = applyFilters(tasks, formData.filtersState);
+
+  const tasksGroupedByStatus = {
+    [TaskStatus.todo]: filteredTasks.filter(
+      (task) => task.status === TaskStatus.todo
+    ),
+    [TaskStatus.inProgress]: filteredTasks.filter(
+      (task) => task.status === TaskStatus.inProgress
+    ),
+    [TaskStatus.completed]: filteredTasks.filter(
+      (task) => task.status === TaskStatus.completed
+    ),
+  };
+  const tableOrder = formData.filtersState?.statuses?.includes(
+    TaskStatus.completed
+  )
+    ? [TaskStatus.completed, TaskStatus.inProgress, TaskStatus.todo]
+    : [TaskStatus.inProgress, TaskStatus.todo];
 
   return (
     <div className="flex flex-col gap-4 p-5">
-      COMPLETED TASKS
-      <Table tasks={tasksCompleted} status={TaskStatus.completed} />
-      IN PROGRES TASKS
-      <Table tasks={tasksInProgress} status={TaskStatus.inProgress} />
-      TO DO TASKS
-      <Table tasks={tasksTodo} status={TaskStatus.todo} />
+      {tableOrder.map((status) => (
+        <div key={status}>
+          <h2>{status.toUpperCase()} TASKS</h2>
+          <Table
+            tasks={tasksGroupedByStatus[status]}
+            status={status as TaskStatus}
+          />
+        </div>
+      ))}
     </div>
   );
 };
