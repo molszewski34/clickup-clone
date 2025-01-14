@@ -17,7 +17,6 @@ export default function LinksTask() {
           Links
         </div>
         <div className="flex border border-gray-200 overflow-hidden rounded-lg">
-          {/* First button (Squares) */}
           <button
             className={`px-2 min-h-8 min-w-8 ${
               activeButton === "squares" ? "bg-gray-200" : "hover:bg-gray-200"
@@ -31,7 +30,6 @@ export default function LinksTask() {
             />
           </button>
 
-          {/* Second button (List) */}
           <button
             className={`px-2 min-h-8 min-w-8 ${
               activeButton === "list" ? "bg-gray-200" : "hover:bg-gray-200"

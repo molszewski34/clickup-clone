@@ -1,16 +1,14 @@
 import { Icons } from "@/icons/icons";
-import { useUser } from "@/context/DataProvider/UserDataProvider"; // Import kontekstu użytkownika
+import { useUser } from "@/context/DataProvider/UserDataProvider";
 import useLogoutHandler from "@/app/(auth)/login/_hooks/useLogoutHandler";
 import ButtonRender from "./components/ButtonRender";
 
 export default function SettingMenu() {
-  const { userId } = useUser(); // Pobranie userId z kontekstu
-  const { handleLogout } = useLogoutHandler(); // Korzystanie z hooka
+  const { userId } = useUser();
+  const { handleLogout } = useLogoutHandler();
 
-  // Funkcja obsługująca wylogowanie
   const handleBackWorkspace = () => {
-    // Przekierowanie na stronę logowania
-    window.location.href = `/${userId}/home`; // Przekierowanie na stronę /login
+    window.location.href = `/${userId}/home`;
   };
 
   return (
@@ -22,7 +20,7 @@ export default function SettingMenu() {
         <div className=" flex justify-center items-center w-full h-[47px] px-2 border-b border-gray-200">
           <button
             className="flex w-full gap-[9px] h-8 items-center rounded-md hover:bg-gray-200 px-[11px] font-sans font-normal text-sm"
-            onClick={handleBackWorkspace} // Wywołanie funkcji wylogowania po kliknięciu
+            onClick={handleBackWorkspace}
           >
             <Icons.ArrowLeft className="text-[16px] text-gray-500 stroke-2" />
             Back to Workspace
@@ -38,7 +36,7 @@ export default function SettingMenu() {
           <div className=" sticky bottom-0 flex justify-center items-center w-full h-[47px] px-2 border-t border-gray-200">
             <button
               className="flex w-full gap-[9px] h-8 items-center rounded-md hover:bg-gray-200 px-[11px] font-sans font-normal text-sm"
-              onClick={handleLogout} // Wywołanie funkcji wylogowania po kliknięciu
+              onClick={handleLogout}
             >
               <Icons.Logout className="text-[16px] text-gray-500 stroke-2" />
               Log out
