@@ -4,16 +4,24 @@ import React from "react";
 import { Task } from "@/app/server-actions/types";
 import { UserInitials } from "./UserInitials";
 import { Icons } from "@/icons/icons";
+import { useRouter } from "next/navigation";
 
 type TaskTableRowProps = {
   row: Row<Task>;
 };
 
 export const TaskTableRow = ({ row }: TaskTableRowProps) => {
+  const router = useRouter();
+  const handlePushToTaskPage = (taskId: string) => {
+    router.push(`/t/${taskId}`);
+  };
   return (
     <>
       <tr key={row.id} className="h-8 group hover:bg-gray-50 table-row">
-        <td className="flex flex-row gap-2 h-8 text-sm items-center min-w-56 text-nowrap text-gray-700 font-semibold border-b">
+        <td
+          className="flex flex-row gap-2 h-8 text-sm items-center min-w-56 text-nowrap text-gray-700 font-semibold border-b"
+          onClick={() => handlePushToTaskPage(row.original.id)}
+        >
           {row.original.taskName}
         </td>
         <td
