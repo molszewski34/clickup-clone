@@ -11,6 +11,7 @@ export default function MenuRightTask() {
   const handleActivityClick = () => {
     if (activeButton === "activity") {
       setIsCollapsed((prev) => !prev);
+      setActiveButton("null");
     } else {
       setActiveButton("activity");
       setIsCollapsed(false);
