@@ -25,13 +25,13 @@ const ButtonProfil: React.FC<ButtonProps> = ({
       <div className="flex w-full justify-between items-center">
         <div className="flex justify-center items-center h-8 w-6">
           {React.cloneElement(icon, {
-            className: active ? "blue-700" : "gray-500",
+            className: active ? "text-blue-700" : "text-gray-600",
           })}
         </div>
         <div className="flex justify-start items-center flex-grow min-w-0 ml-1">
           <span
             className={`block text-sm font-sans truncate ${
-              active ? "text-blue-700" : "text-gray-700"
+              active ? "text-blue-700" : "text-gray-600"
             }`}
           >
             {label}

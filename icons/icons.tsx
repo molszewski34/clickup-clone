@@ -45,17 +45,20 @@ import {
   BsFillPeopleFill,
   BsInfoCircle,
   BsLayoutTextSidebar,
+  BsPersonPlus,
   BsThreeDots,
 } from "react-icons/bs";
 import { FiHome } from "react-icons/fi";
 import {
   IoCalendarClearOutline,
+  IoCloudOutline,
   IoListOutline,
   IoPeopleOutline,
   IoSearchOutline,
 } from "react-icons/io5";
 import {
   PiArrowLineDownRight,
+  PiBell,
   PiCalendarCheck,
   PiListPlus,
   PiMagicWandLight,
@@ -87,6 +90,7 @@ import {
   TbFolderPlus,
   TbFolderShare,
   TbGridDots,
+  TbPlanet,
   TbSquareArrowUp,
   TbSwitch,
 } from "react-icons/tb";
@@ -116,7 +120,7 @@ import { CgClose } from "react-icons/cg";
 import { ImArrowDownRight2 } from "react-icons/im";
 import { GrEmptyCircle } from "react-icons/gr";
 import { TiMediaPlay } from "react-icons/ti";
-import { BiHide, BiImport } from "react-icons/bi";
+import { BiBuildings, BiHide, BiImport } from "react-icons/bi";
 
 export const Icons = {
   ListUlicon: FaListUl,
@@ -229,6 +233,11 @@ export const Icons = {
   House: CiHome,
   FullScreen: BsArrowsAngleExpand,
   Forked: GoRepoForked,
+  TbPlanet: TbPlanet,
+  BiBuildings: BiBuildings,
+  PiBell: PiBell,
+  Cloud: IoCloudOutline,
+  PersonPlus: BsPersonPlus,
 
   // New icons SVG
   AiIcon: SvgIcons.Ai,
