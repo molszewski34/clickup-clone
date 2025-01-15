@@ -3,8 +3,8 @@ import React, { useState } from "react";
 import ButtonDescrition from "./components/ButtonDescription";
 import FirstLineButtons from "./components/FirstLineButtons";
 import SecondLineButtons from "./components/SecondLineButtons";
-import LastLineButtons from "./components/LastLineButtons";
 import { Icons } from "@/icons/icons";
+import LastLineButtons from "../../../../components/LastLineButtons";
 
 export default function Task() {
   const [query, setQuery] = useState("");
@@ -47,7 +47,15 @@ export default function Task() {
 
         <div className="w-full h-px bg-gray-200" />
 
-        <LastLineButtons />
+        <LastLineButtons
+          templatesButtonText="Templates"
+          actionButtonText="Create Task"
+          showTemplatesButton={true}
+          showAttachmentButton={true}
+          showRingingButton={true}
+          ringingCount={1}
+          actionButtonSuffix={true}
+        />
       </div>
     </>
   );

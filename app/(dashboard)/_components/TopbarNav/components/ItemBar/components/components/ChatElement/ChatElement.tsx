@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import FirstLineButtons from "./components/FirstLineButtons";
 import LineButtonsAfterClick from "./components/LineButtonsAfterClick";
-import LastLineButtons from "./components/LastLineButtons";
+import LastLineButtons from "../../../../components/LastLineButtons";
 
 export default function ChatElement() {
   const [query, setQuery] = useState("");
@@ -55,7 +55,12 @@ export default function ChatElement() {
 
         <div className="w-full h-px bg-gray-200" />
 
-        <LastLineButtons />
+        <LastLineButtons
+          showCheckbox={true}
+          showRingingButton={true}
+          checkboxLabel="Private"
+          actionButtonText="Create Dashboard"
+        />
       </div>
     </>
   );

@@ -11,6 +11,7 @@ import ReminderBar from "./components/ReminderBar/ReminderBar";
 import DocBar from "./components/DocBar/DocBar";
 import UserProfilBar from "./components/UserProfilBar/UserProfilBar";
 import ItemBar from "./components/ItemBar/ItemBar";
+import IconButton from "./components/components/IconButton";
 
 export default function TopbarNav() {
   const { userId } = useUser();
@@ -33,9 +34,11 @@ export default function TopbarNav() {
             <NotePadBar />
             <ReminderBar />
             <DocBar />
-            <button className="flex justify-center items-center hover:bg-white bg-opacity-10 hover:bg-opacity-20 rounded-md h-8 w-8 mr-1">
-              <Icons.GridDotsIcon className="text-[16px] text-white" />
-            </button>
+            <IconButton
+              onClick={() => {}}
+              icon={<Icons.GridDotsIcon />}
+              size="16px"
+            />
             <UserProfilBar />
           </div>
         </div>

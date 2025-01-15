@@ -1,7 +1,8 @@
 "use client";
 import React, { useState } from "react";
-import FirstLineButtons from "./components/FirstLineButtons";
-import LastLineButtons from "./components/LastLineButtons";
+import LastLineButtons from "../../../../components/LastLineButtons";
+import UniversalButton from "../../../../components/UniversalButton";
+import { Icons } from "@/icons/icons";
 
 export default function Whiteboard() {
   const [query, setQuery] = useState("");
@@ -14,7 +15,13 @@ export default function Whiteboard() {
   return (
     <>
       <div className="pt-6">
-        <FirstLineButtons />
+        <div className="flex items-center px-6 gap-2 mb-4">
+          <UniversalButton
+            IconComponent1={Icons.ListPlusIcon}
+            text="My Whiteboards"
+            IconComponent2={Icons.ArrowDownIcon}
+          />
+        </div>
         <div className="flex items-center w-auto mx-6 mb-3">
           <input
             type="text"
@@ -27,7 +34,11 @@ export default function Whiteboard() {
 
         <div className="w-full h-px bg-gray-200 mt-20" />
 
-        <LastLineButtons />
+        <LastLineButtons
+          showAttachmentButtonS={true}
+          checkboxLabel="Private"
+          actionButtonText="Create Whiteboard"
+        />
       </div>
     </>
   );

@@ -1,41 +1,35 @@
 "use client";
 import React, { useState } from "react";
-import NewItemModal from "./components/ItemModal";
+import ItemModal from "./components/ItemModal";
 import { Icons } from "@/icons/icons";
-
-export default function ItemBar() {
+import IconButton from "../components/IconButton";
+import Modal from "../components/Modal";
+const ItemBar: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
-
   const defaultTab = "Task";
-
   return (
     <>
-      <button
-        className="flex justify-center items-center hover:bg-white bg-opacity-10 hover:bg-opacity-20 rounded-md h-8 px-[11px] mx-1"
+      <IconButton
         onClick={openModal}
-      >
-        <Icons.PlusCircleIcon className="text-[16px] text-white ml-1" />
-        <span className="h-4 w-8 ml-1 text-sm/[16px] text-center font-semibold text-white font-sans">
-          New
-        </span>
-      </button>
-
+        icon={<Icons.PlusCircleIcon />}
+        size="16px"
+        textIcon="New"
+        buttonClass="h-8 px-[11px] mx-1"
+      />
       {isModalOpen && (
-        <div
-          className="fixed inset-0 flex justify-center bg-gray-800 bg-opacity-50 z-50"
-          onClick={closeModal}
+        <Modal
+          isModalOpen={isModalOpen}
+          closeModal={closeModal}
+          width="638px"
+          height="fit-content"
+          sClassName="mt-36"
         >
-          <div
-            className="bg-white rounded-xl w-[638px] h-fit mt-36 shadow-custom border border-gray-200"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <NewItemModal onClose={closeModal} defaultTab={defaultTab} />
-          </div>
-        </div>
-      )}
+          <ItemModal onClose={closeModal} defaultTab={defaultTab} />{" "}
+        </Modal>
+      )}{" "}
     </>
   );
-}
+};
+export default ItemBar;
