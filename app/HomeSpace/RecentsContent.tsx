@@ -66,7 +66,7 @@ const RenderButtons = () => {
                 </div>
                 <div>&bull;</div>
                 <div className="font-sans text-sm text-gray-400">
-                  In {project.name}
+                  In {workspace.name}
                 </div>
               </div>
               <div className=" hidden gap-1 items-center group-hover/hidden:flex">
