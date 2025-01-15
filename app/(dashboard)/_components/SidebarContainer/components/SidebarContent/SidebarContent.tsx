@@ -64,9 +64,10 @@ const SidebarContent = ({
             icon={button.icon}
             extraIcons={button.extraIcons}
             active={activeButton === index}
+            disabled={button.disabled}
             onClick={() => {
               setActiveButton(index);
-              handleNavigation(index); // Navigate on click
+              handleNavigation(index);
             }}
             width={width}
           />
@@ -102,7 +103,6 @@ const SidebarContent = ({
           </div>
         </div>
 
-        {/* Zmieniona część: ikonki wyświetlające się przy mniejszej szerokości */}
         {width < 200 && (
           <div className="flex flex-col justify-center items-center gap-1 mt-2">
             <button
@@ -126,7 +126,6 @@ const SidebarContent = ({
           </div>
         )}
 
-        {/* Reszta komponentu, jeśli szerokość ekranu jest większa niż 200 */}
         <div
           className={`flex-row rounded-lg w-auto h-auto my-2 ml-3 mr-2 ${
             width < 200 ? "hidden" : ""
