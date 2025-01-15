@@ -1,12 +1,12 @@
 "use client";
 
-import React from "react";
 import SidebarContent from "./components/SidebarContent/SidebarContent";
 import ResizeHandle from "./components/ResizeHandle";
 import SidebarModal from "./components/SidebarModal/SidebarModal";
 import ContainerModalFavouritesButton from "./components/ContainerModalFavouritesButton";
 import ContainerModalWorkButtons from "./components/ContainerModalWorkButtons";
 import { useSidebar } from "./components/useSidebar";
+import UserProfile from "./components/UserProfile";
 
 export default function SidebarContainer() {
   const {
@@ -20,6 +20,7 @@ export default function SidebarContainer() {
     closeModal,
     toggleModal,
     handleMouseDown,
+    shrinkSidebar,
   } = useSidebar();
 
   return (
@@ -34,14 +35,22 @@ export default function SidebarContainer() {
           }}
           className="border border-gray-200 bg-opacity-50 bg-gray-100 shadow-md group custom-scrollbar overflow-x-hidden overflow-y-auto"
         >
-          <SidebarContent
-            userName={`${userName} workspace`}
-            userInitial={userInitial}
-            loading={loading}
-            width={width}
-            openModal={openModal}
-            toggleModal={toggleModal}
-          />
+          <div>
+            <UserProfile
+              userName={userName}
+              userInitial={userInitial}
+              width={width}
+              shrinkSidebar={shrinkSidebar}
+            />
+            <SidebarContent
+              userName={`${userName} workspace`}
+              userInitial={userInitial}
+              loading={loading}
+              width={width}
+              openModal={openModal}
+              toggleModal={toggleModal}
+            />
+          </div>
         </div>
 
         <ResizeHandle width={width} onMouseDown={handleMouseDown} />

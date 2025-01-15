@@ -15,13 +15,11 @@ export function useSidebar() {
   const closeModal = () => setIsModalOpen(false);
 
   const fetchUserInitial = useCallback(() => {
-    setTimeout(() => {
-      const userName = userData?.signUpFullName || "";
-      const firstLetter = userName.trim().charAt(0).toUpperCase() || "";
-      setUserInitial(firstLetter);
-      setUserName(userName);
-      setLoading(false);
-    }, 1000);
+    const userName = userData?.signUpFullName || "";
+    const firstLetter = userName.trim().charAt(0).toUpperCase() || "";
+    setUserInitial(firstLetter);
+    setUserName(userName);
+    setLoading(false);
   }, [userData]);
 
   useEffect(() => {
@@ -38,6 +36,7 @@ export function useSidebar() {
     (e: MouseEvent) => {
       if (isResizing) {
         const newWidth = e.clientX;
+        console.log("Mouse Move: Setting width to", newWidth);
         setWidth(newWidth < 200 ? 60 : Math.min(Math.max(newWidth, 60), 369));
       }
     },
@@ -67,6 +66,10 @@ export function useSidebar() {
     };
   }, [isResizing, handleMouseMove, handleMouseUp]);
 
+  const shrinkSidebar = () => {
+    setWidth(60);
+  };
+
   return {
     modalState,
     width,
@@ -78,5 +81,6 @@ export function useSidebar() {
     closeModal,
     toggleModal,
     handleMouseDown,
+    shrinkSidebar,
   };
 }
