@@ -24,7 +24,7 @@ export default function AddTaskModal() {
           onClick={closeModal}
         >
           <div
-            className="static bg-white rounded-xl w-full h-[799px] mt-16 shadow-custom border border-gray-200 overflow-hidden"
+            className="static bg-white rounded-xl w-full h-[90vh] mt-[5vh] shadow-custom border border-gray-200 overflow-hidden"
             style={{ maxWidth: "calc(-40px + 100vw)" }}
             onClick={(e) => e.stopPropagation()}
           >
