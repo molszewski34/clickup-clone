@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import buttonsMenuFileChanger from "../MenuFileChanger/components/buttonsMenuFileChanger";
-import ButtonFileChanger from "../MenuFileChanger/components/ButtonFileChanger";
+import buttonsMenuListChanger from "./components/buttonsMenuListChanger";
+import ButtonListChanger from "./components/ButtonListChanger";
 
 const MenuListChanger: React.FC = () => {
   const [activeButton, setActiveButton] = useState<number | null>(null);
 
   const buttonGroups = [
-    buttonsMenuFileChanger.slice(0, 2),
-    buttonsMenuFileChanger.slice(2, 7),
-    buttonsMenuFileChanger.slice(7, 11),
-    buttonsMenuFileChanger.slice(11, 15),
+    buttonsMenuListChanger.slice(0, 2),
+    buttonsMenuListChanger.slice(2, 7),
+    buttonsMenuListChanger.slice(7, 11),
+    buttonsMenuListChanger.slice(11, 15),
   ];
 
   return (
@@ -17,7 +17,7 @@ const MenuListChanger: React.FC = () => {
       {buttonGroups.map((group, groupIndex) => (
         <React.Fragment key={groupIndex}>
           {group.map((button, index) => (
-            <ButtonFileChanger
+            <ButtonListChanger
               key={`${groupIndex}-${index}`}
               label={button.label}
               icon={button.icon}
