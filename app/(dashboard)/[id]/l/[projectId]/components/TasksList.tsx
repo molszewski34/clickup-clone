@@ -32,7 +32,7 @@ const TasksList = ({ filters }: FiltersTypes) => {
   );
 
   return (
-    <div className="flex flex-col gap-4 p-5 overflow-y-auto">
+    <div className="flex flex-col gap-4 p-5 overflow-y-auto h-full">
       <TaskTable tasks={tasksCompleted} status={TaskStatus.completed} />
       <TaskTable tasks={tasksInProgress} status={TaskStatus.inProgress} />
       <TaskTable tasks={tasksTodo} status={TaskStatus.todo} />

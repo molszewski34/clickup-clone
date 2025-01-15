@@ -105,6 +105,7 @@ import { ImArrowDownRight2 } from "react-icons/im";
 import { GrEmptyCircle } from "react-icons/gr";
 import { TiMediaPlay } from "react-icons/ti";
 import { BiBuildings, BiHide, BiImport } from "react-icons/bi";
+import { BsArrowReturnLeft } from "react-icons/bs";
 
 export const Icons = {
   ListUlicon: FaListUl,
@@ -156,6 +157,7 @@ export const Icons = {
   MdDoNotDisturbAlt,
   IoRadioButtonOn,
   IoCheckmarkCircle,
+  BsArrowReturnLeft,
 
   // added new Icons
   AttachmentIcon: RiAttachmentLine,

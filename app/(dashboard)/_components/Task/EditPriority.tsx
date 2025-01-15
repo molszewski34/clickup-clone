@@ -25,7 +25,9 @@ export const EditPriority = ({ setTaskRowEditableCell }: EditPriorityProps) => {
 
   return (
     <div className="relative pointer-events-auto z-10">
-      <div className="absolute top-4 bg-white shadow-custom w-44 rounded-lg" ref={priorityRef}>
+      <div
+        className="absolute top-4 bg-white shadow-customPopupTableShadow w-44 rounded-lg"
+        ref={priorityRef}>
         <div className="flex flex-col p-2">
           {Object.keys(TaskPriority).map((key) => {
             const isSelected = formData.priority === key;

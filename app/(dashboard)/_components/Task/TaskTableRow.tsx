@@ -63,7 +63,7 @@ export const TaskTableRow = ({ row }: TaskTableRowProps) => {
               <Icons.HiOutlineUserAdd color="gray" size={16}></Icons.HiOutlineUserAdd>
             )}
             {taskRowEditableCell === "assignee" && (
-              <div className="absolute left-4 top-10 z-10">
+              <div className="absolute top-10 z-10">
                 <EditAssignee setTaskRowEditableCell={setTaskRowEditableCell} />
               </div>
             )}
@@ -87,12 +87,6 @@ export const TaskTableRow = ({ row }: TaskTableRowProps) => {
           {taskRowEditableCell === "status-right" && (
             <EditStatus setTaskRowEditableCell={setTaskRowEditableCell} />
           )}
-        </td>
-        <td className="border-b bg-gray-50 text-left text-sm text-gray-300 cursor-not-allowed">
-          <Icons.MdOutlineModeComment size={15} className="mx-1" />
-        </td>
-        <td className="border-b bg-gray-50 text-left text-sm text-gray-300 cursor-not-allowed">
-          <Icons.PiDotsThreeBold size={15} className="mx-1" />
         </td>
       </tr>
     </>

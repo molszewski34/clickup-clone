@@ -19,7 +19,9 @@ export const EditAssignee = ({ setTaskRowEditableCell }: EditAssigneeProps) => {
   });
   return (
     <div className="pointer-events-auto z-10">
-      <div className="bg-white rounded w-[280px] shadow-custom divide-y" ref={assigneeRef}>
+      <div
+        className="bg-white rounded w-[280px] shadow-customPopupTableShadow divide-y"
+        ref={assigneeRef}>
         <Input
           id="search-user"
           value={filterUser}

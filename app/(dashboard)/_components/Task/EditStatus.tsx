@@ -26,7 +26,7 @@ export const EditStatus = ({ setTaskRowEditableCell }: EditStatusProps) => {
 
   return (
     <div
-      className="absolute top-8 z-10 bg-white rounded-lg shadow-custom w-fit p-2"
+      className="absolute top-8 z-10 bg-white rounded-lg shadow-customPopupTableShadow w-fit p-2"
       ref={statusRef}>
       {Object.keys(TaskStatus).map((key) => {
         console.log(key);

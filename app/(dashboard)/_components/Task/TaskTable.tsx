@@ -37,14 +37,6 @@ export const TaskTable = ({ tasks, status }: TableProps) => {
       accessorKey: "status",
       header: () => <div className="text-left w-[100px]">Status</div>,
     },
-    {
-      accessorKey: "comments",
-      header: () => <div className="text-left w-[76px] bg-gray-50">Comments</div>,
-    },
-    {
-      accessorKey: "addField",
-      header: () => <div className="text-left w-[76px]">Add field</div>,
-    },
   ];
 
   const table = useReactTable({
