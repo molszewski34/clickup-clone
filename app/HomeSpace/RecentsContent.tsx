@@ -9,11 +9,30 @@ import { getTasks } from "../server-actions/task/getTasks";
 import { getSubTasks } from "../server-actions/subtasks/getSubtasks";
 import { Project, Task } from "../server-actions/types";
 import CardContainer from "./Components/CardContainer";
+import { useRouter } from "next/navigation";
+import { useData } from "@/context/DataProvider/DataProvider";
 
 const RenderButtons = () => {
+  const { setWorkspaceId, setProjectId, setProjectName } = useData();
   const { userId } = useUser();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [data, setData] = useState<any[]>([]);
+  const router = useRouter();
+
+  const handlePushToTaskPage = (taskId: string) => {
+    router.push(`/t/${taskId}`);
+  };
+
+  const handleProjectClick = (
+    workspaceId: string,
+    projectId: string,
+    projectName: string
+  ) => {
+    setWorkspaceId(workspaceId);
+    setProjectId(projectId);
+    setProjectName(projectName);
+    router.push(`/${userId}/l/${projectId}`);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -58,7 +77,16 @@ const RenderButtons = () => {
       {data.flatMap((workspace) =>
         workspace.projects.map((project: Project) => (
           <div key={project.id} className="mb-2">
-            <button className="flex justify-between w-full items-center mx-2 p-2 py-1 rounded-md hover:bg-gray-100 group/hidden">
+            <button
+              onClick={() =>
+                handleProjectClick(
+                  workspace.id,
+                  project.id ?? "",
+                  project.name ?? ""
+                )
+              }
+              className="flex justify-between w-full items-center mx-2 p-2 py-1 rounded-md hover:bg-gray-100 group/hidden"
+            >
               <div className="flex gap-2 items-center">
                 <Icons.ListOutline className="text-[16px] text-gray-700" />
                 <div className="font-sans font-medium text-sm text-gray-700">
@@ -80,7 +108,10 @@ const RenderButtons = () => {
             </button>
             {project.tasks.map((task: Task) => (
               <div key={task.id} className="">
-                <button className="flex justify-between w-full items-center mx-2 p-2 py-1 rounded-md hover:bg-gray-100 group/hidden">
+                <button
+                  onClick={() => handlePushToTaskPage(task.id)}
+                  className="flex justify-between w-full items-center mx-2 p-2 py-1 rounded-md hover:bg-gray-100 group/hidden"
+                >
                   <div className="flex gap-2 items-center">
                     <Icons.DotIcon className="text-[16px] text-gray-700" />
                     <div className="font-sans font-medium text-sm text-gray-700">
