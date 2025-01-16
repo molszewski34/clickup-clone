@@ -15,12 +15,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div>
-          <TopbarNav />
-          <div className="flex items-start">
-            {shouldRenderSidebar && <SidebarContainer />}
-            {children}
-          </div>
+        <TopbarNav />
+        <div className="flex flex-row items-start" style={{ height: `calc(100vh - 40px)` }}>
+          {shouldRenderSidebar && <SidebarContainer />}
+          {/* Renderujemy Sidebar tylko, gdy warunek jest spełniony */}
+          {children}
         </div>
       </body>
     </html>

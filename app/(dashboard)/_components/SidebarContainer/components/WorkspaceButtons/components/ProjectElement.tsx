@@ -1,19 +1,15 @@
 import { Icons } from "@/icons/icons";
 import AddWorkspaceElement from "./AddWorkspaceElement/AddWorkspaceElement";
+import { Task } from "@/app/server-actions/types";
 interface ProjectElementProps {
   project: Project;
   isActive: boolean;
   onClick: (projectId: string, projectName: string) => void;
   width: number;
   setTasksLength: (length: number) => void;
-  tasks: Task[] | undefined;
+  tasks: Task[];
 }
 interface Project {
-  id: string;
-  name: string;
-}
-
-interface Task {
   id: string;
   name: string;
 }

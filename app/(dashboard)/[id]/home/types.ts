@@ -19,6 +19,7 @@ export enum TaskPriority {
   high = "High",
   normal = "Normal",
   low = "Low",
+  none = "",
 }
 
 export interface FlatTaskElement {
