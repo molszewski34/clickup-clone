@@ -27,12 +27,7 @@ const RenderButtons = () => {
                 const tasks = await getTasks(userId, workspace.id, project.id);
                 const tasksWithSubTasks = await Promise.all(
                   tasks.map(async (task) => {
-                    const subtasks = await getSubTasks(
-                      userId,
-                      workspace.id,
-                      project.id,
-                      task.id
-                    );
+                    const subtasks = await getSubTasks(userId, workspace.id, project.id, task.id);
                     return { ...task, subtasks };
                   })
                 );
@@ -61,13 +56,9 @@ const RenderButtons = () => {
             <button className="flex justify-between w-full items-center mx-2 p-2 py-1 rounded-md hover:bg-gray-100 group/hidden">
               <div className="flex gap-2 items-center">
                 <Icons.ListOutline className="text-[16px] text-gray-700" />
-                <div className="font-sans font-medium text-sm text-gray-700">
-                  {project.name}
-                </div>
+                <div className="font-sans font-medium text-sm text-gray-700">{project.name}</div>
                 <div>&bull;</div>
-                <div className="font-sans text-sm text-gray-400">
-                  In {project.name}
-                </div>
+                <div className="font-sans text-sm text-gray-400">In {project.name}</div>
               </div>
               <div className=" hidden gap-1 items-center group-hover/hidden:flex">
                 <button className="w-6 h-6 flex justify-center items-center rounded-md border bg-white border-gray-200 hover:bg-gray-200">
@@ -84,12 +75,10 @@ const RenderButtons = () => {
                   <div className="flex gap-2 items-center">
                     <Icons.DotIcon className="text-[16px] text-gray-700" />
                     <div className="font-sans font-medium text-sm text-gray-700">
-                      {task.name || task.taskName}
+                      {task.taskName}
                     </div>
                     <div>&bull;</div>
-                    <div className="font-sans text-sm text-gray-400">
-                      In {project.name}
-                    </div>
+                    <div className="font-sans text-sm text-gray-400">In {project.name}</div>
                   </div>
                   <div className=" hidden gap-1 items-center group-hover/hidden:flex">
                     <button className="w-6 h-6 flex justify-center items-center rounded-md border bg-white border-gray-200 hover:bg-gray-200">
@@ -100,7 +89,7 @@ const RenderButtons = () => {
                     </button>
                   </div>
                 </button>
-                {task.subtasks.map((subtask: Task) => (
+                {/* {task.subtasks.map((subtask: Task) => ( //KAROL: zakomentowane bo nie mamy w tej chwili subtasków
                   <div key={subtask.id} className="">
                     <button className="flex justify-between w-full items-center mx-2 p-2 py-1 rounded-md hover:bg-gray-100 group/hidden">
                       <div className="flex gap-2 items-center">
@@ -123,7 +112,7 @@ const RenderButtons = () => {
                       </div>
                     </button>
                   </div>
-                ))}
+                ))} */}
               </div>
             ))}
           </div>

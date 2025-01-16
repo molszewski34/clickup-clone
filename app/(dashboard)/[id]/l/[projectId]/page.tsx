@@ -11,19 +11,15 @@ export default function Page() {
     taskName: "",
   });
   return (
-    <div className="flex flex-col gap-4 w-full">
-      <div>
+    <div className="flex flex-col gap-4 w-full h-full">
+      <>
         <WidgetHeader>
-          <ButtonVariant2
-            isActive={true}
-            className={`items-center h-8 font-semibold `}
-          >
+          <ButtonVariant2 isActive={true} className={`items-center h-8 font-semibold `}>
             Everything
           </ButtonVariant2>
         </WidgetHeader>
         <ViewsBarContainer filters={filters} setFilters={setFilters} />
-      </div>
-      {/* Example for using the Table with filtered tasks */}
+      </>
       <TasksList filters={filters} />
     </div>
   );
