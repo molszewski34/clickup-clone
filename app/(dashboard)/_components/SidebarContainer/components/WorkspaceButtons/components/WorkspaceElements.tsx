@@ -75,6 +75,7 @@ export const WorkspaceElement = ({
         }}
         onMouseLeave={() => handleMouseLeave(workspace.id)}
         isWorkspace={true}
+        rotate={true}
       />
       {children}
     </div>

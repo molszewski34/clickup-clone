@@ -1,8 +1,9 @@
 "use client";
 import React, { useState } from "react";
 import ButtonWriting from "./components/ButtonWriting";
-import FirstLineButtons from "./components/FirstLineButtons";
-import LastLineButtons from "./components/LastLineButtons";
+import LastLineButtons from "../../../../components/LastLineButtons";
+import UniversalButton from "../../../../components/UniversalButton";
+import { Icons } from "@/icons/icons";
 
 export default function DocElement() {
   const [query, setQuery] = useState("");
@@ -16,8 +17,13 @@ export default function DocElement() {
   return (
     <>
       <div className="pt-6">
-        <FirstLineButtons />
-
+        <div className="flex items-center px-6 gap-2 mb-3">
+          <UniversalButton
+            IconComponent1={Icons.ListPlusIcon}
+            text="Personal List"
+            IconComponent2={Icons.ArrowDownIcon}
+          />
+        </div>
         <div className="flex items-center w-auto mx-6 mb-3">
           <input
             type="text"
@@ -31,8 +37,11 @@ export default function DocElement() {
         <ButtonWriting />
 
         <div className="w-full h-px bg-gray-200 mt-6" />
-
-        <LastLineButtons />
+        <LastLineButtons
+          showCheckbox={true}
+          checkboxLabel="Private"
+          actionButtonText="Create Doc"
+        />
       </div>
     </>
   );

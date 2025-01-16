@@ -31,5 +31,6 @@ export const ProjectElement = ({
     width={width}
     onMouseEnter={() => setTasksLength(tasks ? tasks.length : 0)}
     isWorkspace={false}
+    rotate={false}
   />
 );

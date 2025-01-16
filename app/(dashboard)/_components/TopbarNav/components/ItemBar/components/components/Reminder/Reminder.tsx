@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import ButtonList from "./components/ButtonList";
-import LastLineButtons from "./components/LastLineButtons";
+import LastLineButtons from "../../../../components/LastLineButtons";
 
 export default function Reminder() {
   const [query, setQuery] = useState("");
@@ -23,12 +23,13 @@ export default function Reminder() {
             className="w-full h-6 text-lg/6 rounded-lg font-medium text-gray-600 font-sans pl-1 border-2 border-none mr-auto focus:outline-none"
           />
         </div>
-
         <ButtonList />
-
         <div className="w-full h-px bg-gray-200 mt-20" />
-
-        <LastLineButtons />
+        <LastLineButtons
+          showAttachmentButtonS={true}
+          checkboxLabel="Private"
+          actionButtonText="Create Reminder"
+        />
       </div>
     </>
   );

@@ -2,6 +2,7 @@
 import { useState } from "react";
 import TaskModal from "./components/TaskModal";
 import { Icons } from "@/icons/icons";
+import IconButton from "../components/IconButton";
 
 export default function TaskBar() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -11,12 +12,11 @@ export default function TaskBar() {
 
   return (
     <>
-      <button
-        className="flex justify-center items-center hover:bg-white bg-opacity-10 hover:bg-opacity-20 rounded-md h-8 w-8 mx-1"
+      <IconButton
         onClick={openModal}
-      >
-        <Icons.CheckCircleIcon className="text-[16px] text-white" />
-      </button>
+        icon={<Icons.CheckCircleIcon />}
+        size="16px"
+      />
 
       <div
         className={`fixed inset-0 flex items-center justify-end bg-transparent z-50 transition-opacity duration-300 ${

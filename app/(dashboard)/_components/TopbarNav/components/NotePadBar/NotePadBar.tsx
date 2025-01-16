@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Icons } from "@/icons/icons";
 import NotePadModal from "./components/NotePadModal/NotePadModal";
+import IconButton from "../components/IconButton";
 
 export default function NotePadBar() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -11,12 +12,11 @@ export default function NotePadBar() {
 
   return (
     <>
-      <button
-        className="flex justify-center items-center hover:bg-white bg-opacity-10 hover:bg-opacity-20 rounded-md h-8 w-8 mr-1"
+      <IconButton
         onClick={openModal}
-      >
-        <Icons.NotePadIcon className="text-[14px] text-white" />
-      </button>
+        icon={<Icons.NotePadIcon />}
+        size="14px"
+      />
 
       {isModalOpen && (
         <div

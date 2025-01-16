@@ -1,7 +1,8 @@
 "use client";
 import React, { useState } from "react";
-import FirstLineButtons from "../Task/components/FirstLineButtons";
-import LastLineButtons from "../Task/components/LastLineButtons";
+import UniversalButton from "../../../../components/UniversalButton";
+import { Icons } from "@/icons/icons";
+import LastLineButtons from "../../../../components/LastLineButtons";
 
 export default function Dashboard() {
   const [query, setQuery] = useState("");
@@ -15,8 +16,13 @@ export default function Dashboard() {
   return (
     <>
       <div className="pt-6">
-        <FirstLineButtons />
-
+        <div className="flex items-center px-6 gap-2 mb-4">
+          <UniversalButton
+            IconComponent1={Icons.ListPlusIcon}
+            text="My Dashboards"
+            IconComponent2={Icons.ArrowDownIcon}
+          />
+        </div>
         <div className="flex items-center w-auto mx-6 mb-3">
           <input
             type="text"
@@ -26,10 +32,12 @@ export default function Dashboard() {
             className="w-full h-6 text-lg/6 rounded-lg font-medium text-gray-600 font-sans border-2 border-none mr-auto focus:outline-none"
           />
         </div>
-
         <div className="w-full h-px bg-gray-200 mt-20" />
-
-        <LastLineButtons />
+        <LastLineButtons
+          showCheckbox={true}
+          checkboxLabel="Private"
+          actionButtonText="Create Dashboard"
+        />
       </div>
     </>
   );

@@ -1,11 +1,12 @@
-import { Icons } from "@/icons/icons";
 import React from "react";
+import { Icons } from "@/icons/icons";
 
 interface ButtonProps {
   label: string;
   icon: React.ReactElement;
   extraIcons: number;
   active: boolean;
+  disabled: boolean;
   onClick: () => void;
   width: number;
 }
@@ -15,19 +16,21 @@ const Button: React.FC<ButtonProps> = ({
   icon,
   extraIcons,
   active,
+  disabled,
   onClick,
   width,
 }) => {
   return (
     <button
       onClick={onClick}
+      disabled={disabled}
       className={`group/button flex items-center rounded-md h-8 w-full mr-1 pl-1 mb-px flex-grow min-w-0 ${
         width < 200 ? "justify-center max-w-8" : ""
       } ${
         active
           ? "bg-blue-200 text-blue-700"
           : "hover:bg-gray-200 hover:text-gray-700"
-      }`}
+      } ${disabled ? "cursor-not-allowed opacity-50" : ""}`}
     >
       <div className="flex w-full justify-between items-center">
         <div className="flex justify-center items-center h-8 w-6">
@@ -80,4 +83,5 @@ const Button: React.FC<ButtonProps> = ({
     </button>
   );
 };
+
 export default Button;
