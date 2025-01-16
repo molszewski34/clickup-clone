@@ -1,19 +1,19 @@
-'use client';
+"use client";
 
-import { SubmitHandler, useForm } from 'react-hook-form';
-import AuthLayout from '../_components/AuthLayout';
-import { yupResolver } from '@hookform/resolvers/yup';
-import AuthForm from '../_components/AuthForm';
-import { Input } from '@/components/Input';
-import { HiOutlineMail } from 'react-icons/hi';
-import { TfiLock } from 'react-icons/tfi';
-import { TiWarning } from 'react-icons/ti';
-import { LiaEye } from 'react-icons/lia';
-import { LiaEyeSlash } from 'react-icons/lia';
-import useLoginHandler from './_hooks/useLoginHandler';
-import { RedirectTo } from '../types/types';
-import { loginSchema } from '../schemas/loginSchema';
-import { useState } from 'react';
+import { SubmitHandler, useForm } from "react-hook-form";
+import AuthLayout from "../_components/AuthLayout";
+import { yupResolver } from "@hookform/resolvers/yup";
+import AuthForm from "../_components/AuthForm";
+import { Input } from "@/components/Input";
+import { HiOutlineMail } from "react-icons/hi";
+import { TfiLock } from "react-icons/tfi";
+import { TiWarning } from "react-icons/ti";
+import { LiaEye } from "react-icons/lia";
+import { LiaEyeSlash } from "react-icons/lia";
+import useLoginHandler from "./_hooks/useLoginHandler";
+import { RedirectTo } from "../types/types";
+import { loginSchema } from "../schemas/loginSchema";
+import { useState } from "react";
 
 export type LoginInputs = {
   login: string;
@@ -37,8 +37,8 @@ const LoginPage = () => {
 
   const isFormBeingSubmitted = isSubmitting || isValidating || isLoggingIn;
 
-  const loginValue = watch('login');
-  const passwordValue = watch('password');
+  const loginValue = watch("login");
+  const passwordValue = watch("password");
 
   return (
     <AuthLayout redirectTo={RedirectTo.signup}>
@@ -48,48 +48,47 @@ const LoginPage = () => {
         onSubmit={handleSubmit(onSubmit)}
         error={loginError}
         title="Welcome back!"
-        type="login"
-      >
+        type="login">
         <div className="w-full">
           <Input
-            {...register('login')}
+            {...register("login")}
             id="login"
             placeholder="Enter your work email"
             label="Work Email"
             value={loginValue}
-            className={
-              errors.login &&
-              'border-red-500 hover:border-red-500 focus:border-red-500'
-            }
-          >
-            <HiOutlineMail size={20} color={errors.login ? 'red' : undefined} />
+            className={`${
+              errors.login && "border-red-500 hover:border-red-500 focus:border-red-500"
+            }`}>
+            <HiOutlineMail
+              size={20}
+              color={errors.login ? "red" : undefined}
+              className="text-gray-400"
+            />
           </Input>
-          {errors.login && (
+          {errors.login ? (
             <div className="flex flex-row text-red-500 gap-1 items-center">
               <TiWarning />
               <p className="first-letter:capitalize text-xs font-semibold">
                 {errors.login.message}!
               </p>
             </div>
+          ) : (
+            <div className="p-2"></div>
           )}
         </div>
         <div className="w-full">
           <Input
-            {...register('password')}
+            {...register("password")}
             id="password"
             label="Password"
             placeholder="Enter password"
-            type={isShowPassword ? 'text' : 'password'}
+            type={isShowPassword ? "text" : "password"}
             value={passwordValue}
             className={`
-              ${
-                errors.password &&
-                'border-red-500 hover:border-red-500 focus:border-red-500'
-              }
-            `}
-          >
+              ${errors.password && "border-red-500 hover:border-red-500 focus:border-red-500"}
+            `}>
             <div className="flex flex-row justify-between w-full">
-              <TfiLock color={errors.password ? 'red' : undefined} />
+              <TfiLock color={errors.password ? "red" : undefined} className="text-gray-500" />
               {isShowPassword ? (
                 <LiaEyeSlash
                   className="pointer-events-auto cursor-pointer text-gray-600"
@@ -103,13 +102,15 @@ const LoginPage = () => {
               )}
             </div>
           </Input>
-          {errors.password && (
+          {errors.password ? (
             <div className="flex flex-row text-red-500 gap-1">
               <TiWarning />
               <p className="first-letter:capitalize text-xs font-semibold">
                 {errors.password.message}!
               </p>
             </div>
+          ) : (
+            <div className="p-2"></div>
           )}
         </div>
       </AuthForm>

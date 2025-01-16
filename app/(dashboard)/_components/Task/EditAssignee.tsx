@@ -27,7 +27,7 @@ export const EditAssignee = ({ setTaskRowEditableCell }: EditAssigneeProps) => {
           value={filterUser}
           onChange={(e) => setUserFilter(e.target.value)}
           placeholder="Search or enter email..."
-          className="text-gray-800 border-none"
+          className="text-gray-800 border-none placeholder:text-gray-800"
           type="text">
           <Icons.SearchIcon size={13} className="text-gray-700 ml-1" />
         </Input>
