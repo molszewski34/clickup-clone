@@ -5,10 +5,13 @@ import { useUser } from "@/context/DataProvider/UserDataProvider";
 import { useCreateTask } from "@/hooks/useCreateTask";
 import { useData } from "@/context/DataProvider/DataProvider";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { TaskStatus } from "../../[id]/home/types";
+import { TaskPriority, TaskStatus } from "../../[id]/home/types";
 import { Task } from "@/app/server-actions/types";
 import { StatusIcon } from "./StatusIcon";
 import { Icons } from "@/icons/icons";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { createNewTaskSchema } from "../../schemas/createNewTaskSchema";
+import { useUpdateTaskForm } from "../../_hooks/useUpdateTaskForm";
 
 type NewTaskProps = {
   status?: TaskStatus;
@@ -20,6 +23,7 @@ export const NewTask = ({ status }: NewTaskProps) => {
   const { projectId, workspaceId } = useData();
   const [isOpen, setIsOpen] = useState(false);
   const createTaskMutation = useCreateTask();
+  const { updateTaskForm } = useUpdateTaskForm();
 
   const clearedTaskForm: Task = {
     id: "",
@@ -27,13 +31,17 @@ export const NewTask = ({ status }: NewTaskProps) => {
     taskName: "",
     assignees: [],
     timeEstimate: "",
-    priority: "",
+    priority: TaskPriority.none,
     details: "",
-    status: TaskStatus.todo,
+    status: status || TaskStatus.todo,
+    createdAt: null,
+    dueDate: null,
   };
 
   useEffect(() => {
     setFormData(clearedTaskForm);
+    setValue("taskName", clearedTaskForm.taskName);
+    setValue("status", clearedTaskForm.status);
   }, [isOpen]);
 
   const onSubmit: SubmitHandler<Task> = async () => {
@@ -47,10 +55,14 @@ export const NewTask = ({ status }: NewTaskProps) => {
       workspaceId,
       projectId,
     });
-    setFormData(clearedTaskForm);
     setIsOpen(false);
   };
-  const { register, handleSubmit } = useForm<Task>();
+  const { register, handleSubmit, watch, setValue } = useForm<Task>({
+    mode: "onSubmit",
+    resolver: yupResolver(createNewTaskSchema),
+  });
+
+  const taskNameValue = watch("taskName");
 
   return (
     <tr
@@ -71,17 +83,14 @@ export const NewTask = ({ status }: NewTaskProps) => {
               <div className="flex flex-row w-9/12 justify-between">
                 <div className="flex flex-row">
                   <input
-                    {...register("taskName")}
+                    {...register("taskName", {
+                      onChange: (e) => {
+                        updateTaskForm("taskName", e.target.value);
+                      },
+                    })}
                     id="taskName"
                     type="text"
-                    value={formData.taskName}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        taskName: e.target.value,
-                        status: status || TaskStatus.todo,
-                      })
-                    }
+                    value={taskNameValue}
                     placeholder="New task name"
                     className="outline-none bg-transparent"></input>
                 </div>
