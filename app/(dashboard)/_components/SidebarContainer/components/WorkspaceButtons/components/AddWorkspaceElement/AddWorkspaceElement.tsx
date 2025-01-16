@@ -19,6 +19,7 @@ const AddWorkspaceElement: React.FC<ButtonProps> = ({
   onMouseLeave,
   isWorkspace,
   color,
+  rotate = false,
 }) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const [offsetTopState, setOffsetTopState] = useState<number | null>(null);
@@ -99,8 +100,8 @@ const AddWorkspaceElement: React.FC<ButtonProps> = ({
                 }`}
               >
                 {React.cloneElement(icon, {
-                  className: `${
-                    active
+                  className: `${active ? "text-blue-700" : ""}${
+                    active && rotate
                       ? "transition-transform duration-300  group-hover/button:rotate-90 text-blue-700"
                       : ""
                   }`,
@@ -108,11 +109,13 @@ const AddWorkspaceElement: React.FC<ButtonProps> = ({
               </div>
             ) : (
               React.cloneElement(icon, {
-                className: `${
-                  active
+                className: `${active ? "text-blue-700" : ""}${
+                  active && rotate
                     ? "transition-transform duration-300  group-hover/button:rotate-90 text-blue-700"
                     : "text-gray-700"
-                }`,
+                }
+                
+                `,
               })
             )}
           </div>

@@ -1,10 +1,10 @@
-import React from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { useUser } from '@/context/DataProvider/UserDataProvider';
-import { useCreateProject } from '@/hooks/useCreateProject';
+import React from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { useUser } from "@/context/DataProvider/UserDataProvider";
+import { useCreateProject } from "@/app/(dashboard)/_hooks/useCreateProject";
 
 interface ListModalProps {
-  toggleModal: (modal: 'none' | 'menuWorkspaceList' | 'createList') => void;
+  toggleModal: (modal: "none" | "menuWorkspaceList" | "createList") => void;
 }
 
 interface FormValues {
@@ -23,11 +23,11 @@ const ListModal: React.FC<ListModalProps> = ({ toggleModal }) => {
     formState: { errors, isSubmitting },
   } = useForm<FormValues>();
 
-  const nameValue = watch('name');
+  const nameValue = watch("name");
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     if (!userId) {
-      console.error('User ID is required but is null.');
+      console.error("User ID is required but is null.");
       return;
     }
 
@@ -46,7 +46,7 @@ const ListModal: React.FC<ListModalProps> = ({ toggleModal }) => {
         </div>
         <button
           type="button"
-          onClick={() => toggleModal('none')}
+          onClick={() => toggleModal("none")}
           className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white font-semibold text-gray-400 
           hover:rotate-180 transition-transform duration-300 ease-in-out"
         >
@@ -67,7 +67,7 @@ const ListModal: React.FC<ListModalProps> = ({ toggleModal }) => {
             type="text"
             placeholder="e.g. Marketing, Engineering, HR"
             className="w-full border border-gray-200 px-3 py-2 text-sm font-sans rounded-lg"
-            {...register('name', { required: 'Name is required' })}
+            {...register("name", { required: "Name is required" })}
           />
           {errors.name && (
             <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>
@@ -87,7 +87,7 @@ const ListModal: React.FC<ListModalProps> = ({ toggleModal }) => {
               <input
                 type="checkbox"
                 className="sr-only peer"
-                {...register('isPrivate')}
+                {...register("isPrivate")}
               />
               <div className="relative w-9 h-5 bg-gray-400 rounded-full peer-checked:bg-blue-600 after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:w-4 after:h-4 after:bg-white after:rounded-full after:transition-all peer-checked:after:translate-x-4" />
             </label>
@@ -107,7 +107,7 @@ const ListModal: React.FC<ListModalProps> = ({ toggleModal }) => {
           <button
             type="submit"
             className={`rounded-md bg-blue-500 text-white px-3 font-medium text-sm h-8 font-sans ${
-              !nameValue ? 'opacity-70' : ''
+              !nameValue ? "opacity-70" : ""
             }`}
             disabled={isSubmitting || !nameValue}
           >

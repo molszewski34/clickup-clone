@@ -8,13 +8,10 @@ import TasksList from "./components/TasksList";
 
 export default function Page() {
   return (
-    <div className="flex flex-col gap-4 w-full">
+    <div className="flex flex-col gap-4 w-full h-full">
       <div>
         <WidgetHeader>
-          <ButtonVariant2
-            isActive={true}
-            className={`items-center h-8 font-semibold `}
-          >
+          <ButtonVariant2 isActive={true} className={`items-center h-8 font-semibold `}>
             Everything
           </ButtonVariant2>
         </WidgetHeader>

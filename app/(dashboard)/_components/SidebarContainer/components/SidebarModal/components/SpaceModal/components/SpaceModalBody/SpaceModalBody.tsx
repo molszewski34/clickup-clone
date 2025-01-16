@@ -8,12 +8,12 @@ import DescriptionInput from "./components/DescriptionInput";
 import PrivacyToggle from "./components/PrivacyToggle";
 
 interface SpaceModalBodyProps {
-  isModalVisible: boolean; // Stan widoczności modala
-  setModalVisible: (visible: boolean) => void; // Funkcja do ustawiania widoczności modala
-  selectedColor: string; // Wybrany kolor
-  setSelectedColor: (color: string) => void; // Funkcja do ustawiania wybranego koloru
-  selectedIcon: keyof typeof AddIcons; // Wybrany klucz ikony z obiektu AddIcons
-  setSelectedIcon: (icon: keyof typeof AddIcons) => void; // Funkcja do ustawiania wybranej ikony
+  isModalVisible: boolean;
+  setModalVisible: (visible: boolean) => void;
+  selectedColor: string;
+  setSelectedColor: (color: string) => void;
+  selectedIcon: keyof typeof AddIcons;
+  setSelectedIcon: (icon: keyof typeof AddIcons) => void;
 }
 
 const SpaceModalBody: React.FC<SpaceModalBodyProps> = ({
@@ -27,14 +27,13 @@ const SpaceModalBody: React.FC<SpaceModalBodyProps> = ({
   const { setFormData } = useWorkspaceFormContext();
   return (
     <div className="p-6">
-      {/* Komponent wyboru ikony i koloru */}
       <IconAndNamePicker
         isModalVisible={isModalVisible}
         setModalVisible={setModalVisible}
         selectedColor={selectedColor}
         selectedIcon={selectedIcon}
         setSelectedColor={(color: string) => {
-          setSelectedColor(color); // Zmiana koloru
+          setSelectedColor(color);
         }}
         setSelectedIcon={(icon: keyof typeof AddIcons) => {
           console.log(icon);
@@ -48,9 +47,7 @@ const SpaceModalBody: React.FC<SpaceModalBodyProps> = ({
           }));
         }}
       />
-      {/* Komponent do wprowadzenia opisu */}
       <DescriptionInput />
-      {/* Komponent do ustawienia prywatności */}
       <PrivacyToggle />
     </div>
   );

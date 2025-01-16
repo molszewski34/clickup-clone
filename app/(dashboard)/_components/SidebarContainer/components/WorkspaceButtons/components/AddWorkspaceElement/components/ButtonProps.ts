@@ -9,6 +9,7 @@ interface ButtonProps {
   onMouseLeave?: () => void;
   isWorkspace: boolean;
   color?: string;
+  rotate?: boolean;
 }
 
 export default ButtonProps;

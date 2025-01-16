@@ -66,7 +66,7 @@ const RenderButtons = () => {
                 </div>
                 <div>&bull;</div>
                 <div className="font-sans text-sm text-gray-400">
-                  In {project.name}
+                  In {workspace.name}
                 </div>
               </div>
               <div className=" hidden gap-1 items-center group-hover/hidden:flex">
@@ -84,7 +84,7 @@ const RenderButtons = () => {
                   <div className="flex gap-2 items-center">
                     <Icons.DotIcon className="text-[16px] text-gray-700" />
                     <div className="font-sans font-medium text-sm text-gray-700">
-                      {task.name || task.taskName}
+                      {task.taskName}
                     </div>
                     <div>&bull;</div>
                     <div className="font-sans text-sm text-gray-400">
@@ -100,7 +100,7 @@ const RenderButtons = () => {
                     </button>
                   </div>
                 </button>
-                {task.subtasks.map((subtask: Task) => (
+                {/* {task.subtasks.map((subtask: Task) => ( //KAROL: zakomentowane bo nie mamy w tej chwili subtasków
                   <div key={subtask.id} className="">
                     <button className="flex justify-between w-full items-center mx-2 p-2 py-1 rounded-md hover:bg-gray-100 group/hidden">
                       <div className="flex gap-2 items-center">
@@ -123,7 +123,7 @@ const RenderButtons = () => {
                       </div>
                     </button>
                   </div>
-                ))}
+                ))} */}
               </div>
             ))}
           </div>

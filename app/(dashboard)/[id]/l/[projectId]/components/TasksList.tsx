@@ -4,7 +4,7 @@ import React from "react";
 import { useTasksQuery } from "@/hooks/useTaskQuery";
 import { useData } from "@/context/DataProvider/DataProvider";
 import { useUser } from "@/context/DataProvider/UserDataProvider";
-import { Table } from "../../../home/components/TaskTable/Table";
+import { TaskTable } from "@/app/(dashboard)/_components/Task/TaskTable";
 import { TaskStatus } from "../../../home/types";
 import { Task } from "@/app/server-actions/types";
 import { useWorkspaceFormContext } from "@/context/FormProviders/WorkspaceFormProvider";
@@ -73,7 +73,7 @@ const TasksList = () => {
       {tableOrder.map((status) => (
         <div key={status}>
           <h2>{status.toUpperCase()} TASKS</h2>
-          <Table
+          <TaskTable
             tasks={tasksGroupedByStatus[status]}
             status={status as TaskStatus}
           />

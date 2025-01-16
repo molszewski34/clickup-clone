@@ -1,4 +1,4 @@
-import type { Config } from "tailwindcss";  
+import type { Config } from "tailwindcss";
 
 export default {
   content: [
@@ -15,19 +15,19 @@ export default {
         foreground: "var(--foreground)",
         customColor: "rgba(8, 128, 234, 1)",
         whitev1: "#FFFFFF",
-        white_50:"#f7f8f9",
+        white_50: "#f7f8f9",
         white_100: "#F0F1F3",
         lightBlue_500:"#f0f1ff",
         lightBlue_200:"#b6b6ff29",
         blue_600: "#7F77F1",
         blue_550: "#7f77f129",
         blue_400: "#9992F4",
-        blue_300:"#544dc9",
-        blue_200:"#ccc9fa",
-        blue_150:"#5f55ee29",
-        blue_100:"#E5E4FC",
-        blue_50:"#f2f1fe",
-        darkBlue_700:"#5a43d6",
+        blue_300: "#544dc9",
+        blue_200: "#ccc9fa",
+        blue_150: "#5f55ee29",
+        blue_100: "#E5E4FC",
+        blue_50: "#f2f1fe",
+        darkBlue_700: "#5a43d6",
         darkBlue_600: "#43418d",
         darkBlue_500: "#3b3a70",
         darkGray_600: "#2a2e34",
@@ -37,18 +37,18 @@ export default {
         darkGray_300: "#4F5762",
         gray_600: "#656F7D",
         gray_100: "rgb(60,65,74)",
-        gray_50:"#e8eaed",
+        gray_50: "#e8eaed",
         gray_400: "#87909E",
         iconDarkMode: "#999b9e",
       },
       boxShadow: {
-        custom:
-          "0px 16px 48px 0px rgba(0, 0, 0, 0.24), 0px 24px 96px 0px rgba(0, 0, 0, 0.24)",
+        custom: "0px 16px 48px 0px rgba(0, 0, 0, 0.24), 0px 24px 96px 0px rgba(0, 0, 0, 0.24)",
         customDoubleBlueShadow_600: "0 0 0 1px #7F77F1, 0 0 0 4px #7f77f129",
         customGrayShadow_300: "0 0 0 1px #e8eaed",
         customGrayShadow_400: "0 0 0 1px #3c414a",
         customBlueShadow_600: "0 0 0 1px #43418d",
         customBlueShadow_500: "0 0 0 1px #ccc9fa",
+        customPopupTableShadow: "0 1px 10px 0 rgba(0, 0, 0, .25)",
       },
       fontFamily: {
         sans: [

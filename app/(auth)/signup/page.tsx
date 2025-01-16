@@ -70,7 +70,7 @@ const SignupPage = () => {
             className={
               errors.fullName && "border-red-500 hover:border-red-500 focus:border-red-500"
             }>
-            <BiUser size={20} color={errors.fullName && "red"} />
+            <BiUser size={20} color={errors.fullName && "red"} className="text-gray-400" />
           </Input>
           {errors.fullName ? (
             <div className="flex flex-row text-red-500 gap-1">
@@ -92,7 +92,7 @@ const SignupPage = () => {
             value={signUpEmail}
             onChange={(e) => setSignUpEmail(e.target.value)}
             className={errors.login && "border-red-500 hover:border-red-500 focus:border-red-500"}>
-            <HiOutlineMail size={20} color={errors.login && "red"} />
+            <HiOutlineMail size={20} color={errors.login && "red"} className="text-gray-400" />
           </Input>
           {errors.login ? (
             <div className="flex flex-row text-red-500 gap-1">
@@ -118,7 +118,7 @@ const SignupPage = () => {
               errors.password && " border-red-500 hover:border-red-500 focus:border-red-500"
             }>
             <div className="flex flex-row justify-between w-full">
-              <TfiLock color={errors.password && "red"} />
+              <TfiLock color={errors.password && "red"} className="text-gray-500" />
               {isShowPassword ? (
                 <LiaEyeSlash
                   className="pointer-events-auto cursor-pointer text-gray-600"
