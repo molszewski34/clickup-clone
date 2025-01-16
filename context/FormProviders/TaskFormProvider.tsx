@@ -1,5 +1,5 @@
 "use client";
-import { TaskStatus } from "@/app/(dashboard)/[id]/home/types";
+import { TaskPriority, TaskStatus } from "@/app/(dashboard)/[id]/home/types";
 import { Task } from "@/app/server-actions/types";
 import React, { createContext, useContext, useState } from "react";
 
@@ -17,11 +17,10 @@ export const TaskFormProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     projectId: "",
     assignees: [],
     timeEstimate: "",
-    priority: "",
+    priority: TaskPriority.none,
     details: "",
     status: TaskStatus.todo,
   });
-  console.log(formData);
 
   return (
     <TaskFormContext.Provider value={{ formData, setFormData }}>
