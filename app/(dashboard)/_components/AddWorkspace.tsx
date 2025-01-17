@@ -29,6 +29,13 @@ const AddWorkspace: React.FC = () => {
       desc: workspaceDescription,
       icon,
       isPrivate,
+      filtersState: {
+        isOpen: false,
+        searchQuery: "",
+        assignedToMe: false,
+        assignedTo: [],
+        statuses: [],
+      },
     };
 
     setLoading(true);
