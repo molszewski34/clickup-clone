@@ -6,7 +6,7 @@ import React, { useState } from "react";
 import FilterInput from "./FilterInput";
 import { useWorkspaceFormContext } from "@/context/FormProviders/WorkspaceFormProvider";
 import { Workspace } from "@/app/server-actions/types";
-import { TaskStatus } from "../[id]/home/types";
+import { TaskStatus } from "../../[id]/home/types";
 type Props = {
   subBarNavHeaderActive: boolean;
   subBarNavFilterActive: boolean;

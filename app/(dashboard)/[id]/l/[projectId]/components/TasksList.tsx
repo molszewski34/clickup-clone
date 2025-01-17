@@ -9,6 +9,7 @@ import { TaskStatus } from "../../../home/types";
 import { Task } from "@/app/server-actions/types";
 import { useWorkspaceFormContext } from "@/context/FormProviders/WorkspaceFormProvider";
 import { Workspace } from "@/app/server-actions/types";
+import { StatusBadge } from "@/app/(dashboard)/_components/Task/StatusBadge";
 const TasksList = () => {
   const { formData } = useWorkspaceFormContext();
   const { workspaceId, projectId } = useData();
@@ -72,7 +73,9 @@ const TasksList = () => {
     <div className="flex flex-col gap-4 p-5">
       {tableOrder.map((status) => (
         <div key={status}>
-          <h2>{status.toUpperCase()} TASKS</h2>
+          <div>
+            <StatusBadge taskStatus={status} />
+          </div>
           <TaskTable
             tasks={tasksGroupedByStatus[status]}
             status={status as TaskStatus}

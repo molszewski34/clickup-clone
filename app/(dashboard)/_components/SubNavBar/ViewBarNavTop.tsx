@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import ButtonVariant2 from "../../../components/ButtonVariant2";
-import ButtonVariant3 from "../../../components/ButtonVariant3";
-import ButtonVariant4 from "../../../components/ButtonVariant4";
-import { Icons } from "../../../icons/icons";
+import ButtonVariant2 from "../../../../components/ButtonVariant2";
+import ButtonVariant3 from "../../../../components/ButtonVariant3";
+import ButtonVariant4 from "../../../../components/ButtonVariant4";
+import { Icons } from "../../../../icons/icons";
 import { useWorkspaceFormContext } from "@/context/FormProviders/WorkspaceFormProvider";
 type Props = {
   activeButton: string | null;
