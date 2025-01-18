@@ -6,7 +6,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/db/firebase/lib/firebase";
 import { useInitializeWorkspace } from "../../_hooks/useInitializeWorkspace";
 import { Icons } from "@/icons/icons";
-import WidgetHeader from "../../_components/WidgetHeader";
+import WidgetHeader from "../../_components/SubNavBar/WidgetHeader";
 import ButtonVariant3 from "@/components/ButtonVariant3";
 import ButtonVariant2 from "@/components/ButtonVariant2";
 import HomeContentV2 from "@/app/HomeSpace/HomeContentV2";

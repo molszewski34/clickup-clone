@@ -1,8 +1,8 @@
 "use client";
 import React, { useState, useRef } from "react";
-import { Icons } from "../../../icons/icons";
-import ButtonVariant1 from "../../../components/ButtonVariant1";
-import ButtonVariant2 from "../../../components/ButtonVariant2";
+import { Icons } from "../../../../icons/icons";
+import ButtonVariant1 from "../../../../components/ButtonVariant1";
+import ButtonVariant2 from "../../../../components/ButtonVariant2";
 import ViewBarNavTop from "./ViewBarNavTop";
 
 interface Props {
