@@ -9,7 +9,6 @@ const tasksQueryKey = (userId: string, workspaceId: string, projectId: string) =
 ];
 
 export const useTasksQuery = (userId: string, workspaceId: string, projectId: string) => {
-  console.log("here", userId, workspaceId, projectId);
   return useQuery({
     queryKey: tasksQueryKey(userId, workspaceId, projectId),
     queryFn: () => getTasks(userId, workspaceId, projectId),
