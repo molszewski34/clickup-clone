@@ -50,6 +50,7 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
       setActiveWorkspace(workspaceId);
       setWorkspaceId(workspaceId);
       setWorkspaceName(workspaceName);
+      localStorage.setItem("workspaceId", workspaceId);
     }
   };
 
@@ -57,6 +58,7 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
     setActiveProject((prev) => (prev === projectId ? null : projectId));
     setProjectId(projectId);
     setProjectName(projectName);
+    localStorage.setItem("projectId", projectId);
 
     router.push(`/${userId}/l/${projectId}`);
   };

@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import React, {
   createContext,
@@ -7,7 +7,7 @@ import React, {
   SetStateAction,
   useContext,
   useState,
-} from 'react';
+} from "react";
 
 type DataContextType = {
   userId: string | null;
@@ -26,19 +26,15 @@ type DataContextType = {
   setTasksLength: Dispatch<SetStateAction<number>>;
 };
 
-export const DataContext = createContext<DataContextType | undefined>(
-  undefined
-);
+export const DataContext = createContext<DataContextType | undefined>(undefined);
 
-export const DataProvider: React.FC<{ children: ReactNode }> = ({
-  children,
-}) => {
-  const [userId, setUserId] = useState('');
-  const [workspaceId, setWorkspaceId] = useState('');
-  const [workspaceName, setWorkspaceName] = useState('');
-  const [projectId, setProjectId] = useState('');
-  const [projectName, setProjectName] = useState('');
-  const [taskId, setTaskId] = useState('');
+export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const [userId, setUserId] = useState("");
+  const [workspaceId, setWorkspaceId] = useState(localStorage.getItem("workspaceId") || "");
+  const [workspaceName, setWorkspaceName] = useState("");
+  const [projectId, setProjectId] = useState(localStorage.getItem("projectId") || "");
+  const [projectName, setProjectName] = useState("");
+  const [taskId, setTaskId] = useState("");
   const [tasksLength, setTasksLength] = useState(0);
 
   return (
@@ -58,8 +54,7 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({
         setTaskId,
         tasksLength,
         setTasksLength,
-      }}
-    >
+      }}>
       {children}
     </DataContext.Provider>
   );
@@ -68,7 +63,7 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({
 export const useData = () => {
   const context = useContext(DataContext);
   if (!context) {
-    throw new Error('useData must be used within a DataProvider');
+    throw new Error("useData must be used within a DataProvider");
   }
   return context;
 };
