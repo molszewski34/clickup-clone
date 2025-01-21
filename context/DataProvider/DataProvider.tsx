@@ -6,6 +6,7 @@ import React, {
   ReactNode,
   SetStateAction,
   useContext,
+  useEffect,
   useState,
 } from "react";
 
@@ -30,12 +31,21 @@ export const DataContext = createContext<DataContextType | undefined>(undefined)
 
 export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [userId, setUserId] = useState("");
-  const [workspaceId, setWorkspaceId] = useState(localStorage.getItem("workspaceId") || "");
+  const [workspaceId, setWorkspaceId] = useState("");
   const [workspaceName, setWorkspaceName] = useState("");
-  const [projectId, setProjectId] = useState(localStorage.getItem("projectId") || "");
+  const [projectId, setProjectId] = useState("");
   const [projectName, setProjectName] = useState("");
   const [taskId, setTaskId] = useState("");
   const [tasksLength, setTasksLength] = useState(0);
+
+  useEffect(() => {
+    if (!workspaceId) {
+      setWorkspaceId(localStorage.getItem("workspaceId") || "");
+    }
+    if (!projectId) {
+      setProjectId(localStorage.getItem("projectId") || "");
+    }
+  }, []);
 
   return (
     <DataContext.Provider
