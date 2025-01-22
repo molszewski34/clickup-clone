@@ -1,31 +1,25 @@
 "use client";
 
-import { usePathname } from "next/navigation"; // Importujemy usePathname z next/navigation
-import { useUser } from "@/context/DataProvider/UserDataProvider"; // Import kontekstu użytkownika
-import TopbarNav from "../topBar-Nav/components/TopbarNav";
-import SideBarContainer from "../sideBar-Menu/components/SideBarContainer";
+import { usePathname } from "next/navigation";
+import SidebarContainer from "./_components/SidebarContainer/SidebarContainer";
+import TopbarNav from "./_components/TopbarNav/TopbarNav";
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const pathname = usePathname(); // Pobieramy aktualną ścieżkę
-  const { userId } = useUser(); // Pobieramy userId z kontekstu
-
-  // Sprawdzamy, czy aktualna ścieżka jest '/userId/setting/profile'
-  const shouldRenderSidebar = pathname !== `/${userId}/setting/profile`;
+  const pathname = usePathname();
+  const shouldRenderSidebar = !pathname.includes("/setting");
 
   return (
     <html lang="en">
       <body>
-        <div>
-          <TopbarNav />
-          <div className="flex items-start">
-            {shouldRenderSidebar && <SideBarContainer />}{" "}
-            {/* Renderujemy Sidebar tylko, gdy warunek jest spełniony */}
-            {children}
-          </div>
+        <TopbarNav />
+        <div className="flex flex-row items-start" style={{ height: `calc(100vh - 40px)` }}>
+          {shouldRenderSidebar && <SidebarContainer />}
+          {/* Renderujemy Sidebar tylko, gdy warunek jest spełniony */}
+          {children}
         </div>
       </body>
     </html>

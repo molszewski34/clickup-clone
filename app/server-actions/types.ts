@@ -1,23 +1,23 @@
+import { TaskPriority, TaskStatus } from "../(dashboard)/[id]/home/types";
+
 export interface Task {
   id: string;
   taskName: string;
-  name: string;
   projectId: string;
-  taskId: string;
-  createdAt: Date;
-  status: string;
+  createdAt?: Date | null;
+  status: TaskStatus;
   dueDate?: Date | null;
-  assignees?: Assignee[];
+  assignees: User[];
   timeEstimate?: string;
-  priority?: string;
+  priority?: TaskPriority;
   details?: string;
 }
 
-export interface Assignee {
-  uid: string;
-  name?: string;
-  email?: string;
-}
+export type User = {
+  id: string;
+  signUpFullName: string;
+  signUpEmail: string;
+};
 
 export interface Project {
   id?: string;
@@ -27,6 +27,7 @@ export interface Project {
   userId?: string;
   workspaceId?: string;
   isPrivate?: boolean;
+  tasks: Task[];
 }
 
 export interface Workspace {
@@ -37,6 +38,13 @@ export interface Workspace {
   icon: Icon | string;
   isPrivate: boolean;
   userId: string;
+  filtersState: {
+    isOpen: boolean; 
+    searchQuery: string; 
+    assignedToMe: boolean; 
+    assignedTo: string[]; 
+    statuses: string[];
+  }
 }
 
 export type Icon = {
