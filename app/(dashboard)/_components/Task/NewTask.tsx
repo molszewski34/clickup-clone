@@ -12,10 +12,11 @@ import { Icons } from "@/icons/icons";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { createNewTaskSchema } from "../../schemas/createNewTaskSchema";
 import { useUpdateTaskForm } from "../../_hooks/useUpdateTaskForm";
+import { NewTaskVisibility } from "../../[id]/l/[projectId]/components/TasksList";
 
 type NewTaskProps = {
-  openedNewTask: "top" | "bottom" | "none";
-  setOpenedNewTask: (arg: "top" | "bottom" | "none") => void;
+  openedNewTask: NewTaskVisibility;
+  setOpenedNewTask: (arg: NewTaskVisibility) => void;
   status?: TaskStatus;
   ref?: React.MutableRefObject<null>;
 };
@@ -57,7 +58,7 @@ export const NewTask = ({ status, openedNewTask, setOpenedNewTask, ref }: NewTas
       workspaceId,
       projectId,
     });
-    setOpenedNewTask("none");
+    setOpenedNewTask({ ...openedNewTask, newTaskVisibility: "none" });
   };
   const { register, handleSubmit, watch, setValue } = useForm<Task>({
     mode: "onSubmit",
@@ -69,7 +70,7 @@ export const NewTask = ({ status, openedNewTask, setOpenedNewTask, ref }: NewTas
   return (
     <tr
       className={`h-8 group w-full table-row border-b ${
-        openedNewTask === "none" && "hover:cursor-pointer hover:bg-gray-50"
+        openedNewTask.newTaskVisibility === "none" && "hover:cursor-pointer hover:bg-gray-50"
       }`}
       ref={ref}>
       <>
@@ -101,7 +102,7 @@ export const NewTask = ({ status, openedNewTask, setOpenedNewTask, ref }: NewTas
                   color="gray"
                   className="text-xs font-semibold rounded-[4.5px]"
                   onClick={() => {
-                    setOpenedNewTask("none");
+                    setOpenedNewTask({ ...openedNewTask, newTaskVisibility: "none" });
                   }}>
                   Cancel
                 </Button>

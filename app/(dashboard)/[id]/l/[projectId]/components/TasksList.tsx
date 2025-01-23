@@ -14,13 +14,21 @@ import ButtonIcon from "@/app/(dashboard)/ui/ButtonIcon";
 import { Icons } from "@/icons/icons";
 import { Button } from "@/components/Button";
 
+export type NewTaskVisibility = {
+  status: TaskStatus;
+  newTaskVisibility: "top" | "bottom" | "none";
+};
+
 const TasksList = () => {
   const { formData } = useWorkspaceFormContext();
   const { workspaceId, projectId } = useData();
   const { userId } = useUser();
   const { data: tasks = [] } = useTasksQuery(userId, workspaceId, projectId);
   const [visibleGroups, setVisibleGroups] = useState<TaskStatus[]>([]);
-  const [openedNewTask, setOpenedNewTask] = useState<"top" | "bottom" | "none">("none");
+  const [openedNewTask, setOpenedNewTask] = useState<NewTaskVisibility>({
+    status: TaskStatus.todo,
+    newTaskVisibility: "none",
+  });
 
   const handleVisibleGroups = (status: TaskStatus) => {
     if (visibleGroups.includes(status)) {
@@ -83,11 +91,11 @@ const TasksList = () => {
                 className="flex items-center justify-center w-5 h-5 hover:bg-gray-200 rounded"></ButtonIcon>
               <StatusBadge taskStatus={status} />
               <p className="text-xs font-semibold">{tasksGroupedByStatus[status].length}</p>
-              {openedNewTask !== "top" && (
+              {openedNewTask.newTaskVisibility !== "top" && (
                 <Button
                   color="gray"
                   className="px-0.5 gap-[8px] rounded-md text-xs font-semibold hover:bg-gray-100 border-transparent"
-                  onClick={() => setOpenedNewTask("top")}>
+                  onClick={() => setOpenedNewTask({ status: status, newTaskVisibility: "top" })}>
                   <div className="flex flex-row items-center gap-1 text-gray-500">
                     <Icons.PlusIco size={14} />
                     Add Task
