@@ -1,17 +1,25 @@
 "use client";
-import React, { ReactNode } from "react";
+import React, { ReactNode, useRef } from "react";
 import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { TaskTableRow } from "./TaskTableRow";
 import { Task } from "@/app/server-actions/types";
 import { NewTask } from "./NewTask";
 import { TaskStatus } from "../../[id]/home/types";
+import { Button } from "@/components/Button";
+import { Icons } from "@/icons/icons";
+import { useOnClickOutside } from "@/hooks/useOnClickOutside";
 
 type TableProps = {
   tasks: Task[];
+  openedNewTask: "top" | "bottom" | "none";
+  setOpenedNewTask: (arg: "top" | "bottom" | "none") => void;
   status?: TaskStatus;
 };
 
-export const TaskTable = ({ tasks, status }: TableProps) => {
+export const TaskTable = ({ tasks, openedNewTask, setOpenedNewTask, status }: TableProps) => {
+  const newTaskRef = useRef(null);
+  useOnClickOutside(newTaskRef, () => setOpenedNewTask("none"));
+
   const columns: ColumnDef<Task, ReactNode>[] = [
     {
       accessorKey: "status-icon",
@@ -68,10 +76,40 @@ export const TaskTable = ({ tasks, status }: TableProps) => {
         ))}
       </thead>
       <tbody className="">
+        {openedNewTask === "top" && (
+          <NewTask
+            status={status}
+            openedNewTask={openedNewTask}
+            setOpenedNewTask={setOpenedNewTask}
+            ref={newTaskRef}
+          />
+        )}
         {table.getRowModel().rows.map((singleRow) => {
           return <TaskTableRow key={singleRow.id} row={singleRow} />;
         })}
-        <NewTask status={status} />
+        {openedNewTask === "bottom" ? (
+          <NewTask
+            status={status}
+            openedNewTask={openedNewTask}
+            setOpenedNewTask={setOpenedNewTask}
+          />
+        ) : (
+          <>
+            <td key="status-icon" className="justify-items-center text-gray-400">
+              <Icons.PlusIco size={14} />
+            </td>
+            <td
+              colSpan={4}
+              className="items-center min-w-56"
+              onClick={() => setOpenedNewTask("bottom")}>
+              <Button
+                color="gray"
+                className="h-6 rounded-[4.5px] -ml-2 text-sm text-gray-200 border-transparent group-hover:border-gray-300">
+                Add Task
+              </Button>
+            </td>
+          </>
+        )}
       </tbody>
     </table>
   );

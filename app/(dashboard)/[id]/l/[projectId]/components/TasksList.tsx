@@ -20,6 +20,7 @@ const TasksList = () => {
   const { userId } = useUser();
   const { data: tasks = [] } = useTasksQuery(userId, workspaceId, projectId);
   const [visibleGroups, setVisibleGroups] = useState<TaskStatus[]>([]);
+  const [openedNewTask, setOpenedNewTask] = useState<"top" | "bottom" | "none">("none");
 
   const handleVisibleGroups = (status: TaskStatus) => {
     if (visibleGroups.includes(status)) {
@@ -82,17 +83,25 @@ const TasksList = () => {
                 className="flex items-center justify-center w-5 h-5 hover:bg-gray-200 rounded"></ButtonIcon>
               <StatusBadge taskStatus={status} />
               <p className="text-xs font-semibold">{tasksGroupedByStatus[status].length}</p>
-              <Button
-                color="gray"
-                className="px-0.5 gap-[8px] rounded-md text-xs font-semibold hover:bg-gray-100 border-transparent">
-                <div className="flex flex-row items-center gap-1 text-gray-500">
-                  <Icons.PlusIco size={14} />
-                  Add Task
-                </div>
-              </Button>
+              {openedNewTask !== "top" && (
+                <Button
+                  color="gray"
+                  className="px-0.5 gap-[8px] rounded-md text-xs font-semibold hover:bg-gray-100 border-transparent"
+                  onClick={() => setOpenedNewTask("top")}>
+                  <div className="flex flex-row items-center gap-1 text-gray-500">
+                    <Icons.PlusIco size={14} />
+                    Add Task
+                  </div>
+                </Button>
+              )}
             </div>
             {isGroupVisible && (
-              <TaskTable tasks={tasksGroupedByStatus[status]} status={status as TaskStatus} />
+              <TaskTable
+                tasks={tasksGroupedByStatus[status]}
+                status={status as TaskStatus}
+                openedNewTask={openedNewTask}
+                setOpenedNewTask={setOpenedNewTask}
+              />
             )}
           </div>
         );
