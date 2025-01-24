@@ -1,6 +1,9 @@
 <h1 align='center'>Click up - clone</h1>
 
-<div align='center'> ![Static Badge](https://img.shields.io/badge/15.0.3-white?logo=nextdotjs&label=nextjs)![Static Badge](https://img.shields.io/badge/5.62.2-red?logo=reactquery&logoColor=white&label=react-query)![Static Badge](https://img.shields.io/badge/8.20.5-white?logo=reacttable&logoColor=white&label=react-table&labelColor=blue)![Static Badge](https://img.shields.io/badge/11.0.2-white?logo=firebase&logoColor=white&label=firebase&labelColor=orange)
+<div align='center'>
+
+![Static Badge](https://img.shields.io/badge/15.0.3-white?logo=nextdotjs&label=nextjs) ![Static Badge](https://img.shields.io/badge/5.62.2-red?logo=reactquery&logoColor=white&label=react-query) ![Static Badge](https://img.shields.io/badge/8.20.5-white?logo=reacttable&logoColor=white&label=react-table&labelColor=blue) ![Static Badge](https://img.shields.io/badge/11.0.2-white?logo=firebase&logoColor=white&label=firebase&labelColor=orange)
+
 </div>
 
  <p align='center'>
