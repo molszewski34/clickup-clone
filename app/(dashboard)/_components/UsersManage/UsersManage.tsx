@@ -1,11 +1,11 @@
 import { SetStateAction, useState } from "react";
 import { Icons } from "@/icons/icons";
-import SearchManageFull from "./components/SearchManageFull";
-import ContentManageFull from "./components/ContentManageFull";
-import SearchManageGuests from "./components/SearchManageGuests";
-import ContentManageGuests from "./components/ContentManageGuests";
-import SearchManageLimited from "./components/SearchManageLimited";
-import ContentManageLimited from "./components/ContentManageLimited";
+import SearchManageGuests from "./components/Search/SearchManageGuests";
+import SearchManageLimited from "./components/Search/SearchManageLimited";
+import SearchManageFull from "./components/Search/SearchManageFull";
+import ContentManageGuests from "./components/ContentMenage/ContentManageGuests";
+import ContentManageLimited from "./components/ContentMenage/ContentManageLimited";
+import ContentManageFull from "./components/ContentMenage/ContentManageFull";
 
 export default function UsersManage() {
   const [activeTab, setActiveTab] = useState("full");
