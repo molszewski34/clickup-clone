@@ -52,7 +52,7 @@ Wersje live można zobaczyć na stronie https://clickup-clone-sable.vercel.app/l
 
 ### Strona logowania
 
-![Imgur](https://i.imgur.com/a/Xnu0dxu.png)
+![Imgur](https://imgur.com/HWwqH95.png)
 
 **Odpowiedzialni za stronę**: Mariusz Olszewski, Karol Słupiński
 Karol Słupiński - user interface i walidacja danych za pomocą react-hook-form i yup.
@@ -64,7 +64,7 @@ Strona przyjmuje adres email i hasło. Hasło musi składać się z przynajmniej
 
 ### Strona rejestracji
 
-![Imgur](https://imgur.com/jvoLAfP)
+![Imgur](https://imgur.com/jvoLAfP.png)
 
 **Odpowiedzialni za stronę**: Mariusz Olszewski, Karol Słupiński
 Karol Słupiński - user interface i walidacja danych za pomocą react-hook-form i yup.
@@ -82,7 +82,7 @@ Dashboard jest główną częścią aplikacji. W związku z nie będzie omawiany
 
 #### Sidebar
 
-![Imgur](https://imgur.com/OD7nvDG)
+![Imgur](https://imgur.com/OD7nvDG.png)
 
 **Odpowiedzialni za element**: Mariusz Olszewski, Jakub King
 Jakub King - tworzenie user interface wszystkich elementów listy i elementów typu pop-up. Integracja elementów i osadzenie na stronie.
@@ -104,14 +104,14 @@ Workspace jest folderem przechowującym listy z taskami. Gdy dodawany jest works
 
 Dodawanie workspace:
 Workspace jest dodawany z modala
-![Imgur](https://imgur.com/zji5801)
+![Imgur](https://imgur.com/zji5801.png)
 
 Usuwanie workspace:
 Menu pojawia się po nacisnieciu przycisku który pojawia się po najechaniu na element listy.
-![Imgur](https://imgur.com/rRGAx47)
+![Imgur](https://imgur.com/rRGAx47.png)
 
 Po wybraniu opcji Delete pojawia się ten modal
-![Imgur](https://imgur.com/DREFBXG)
+![Imgur](https://imgur.com/DREFBXG.png)
 
 W celu usunięcia workspace należy wpisać nazwe listy i zatwierdzić.
 
@@ -128,7 +128,7 @@ Pliki te są akcjami które są później obsługiwane poprzez react-query. Niem
 
 #### Subbar
 
-![Imgur](https://imgur.com/J3RQfdi)
+![Imgur](https://imgur.com/J3RQfdi.png)
 
 **Odpowiedzialny za element** : Jakub Skrzeczowski
 Subbar występuje w dwóch głównych formach:
