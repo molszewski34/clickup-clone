@@ -76,12 +76,11 @@ const AddWorkspaceElement: React.FC<ButtonProps> = ({
 
   return (
     <div className="relative">
-      <button
-        ref={buttonRef}
+      <div
         onClick={handleClick}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
-        className={`group/button flex items-center rounded-md h-8 w-full mr-1 pl-1 mb-px flex-grow min-w-0 ${
+        className={`group/button flex items-center cursor-pointer rounded-md h-8 w-full mr-1 pl-1 mb-px flex-grow min-w-0 ${
           width < 200 ? "justify-center" : ""
         } ${
           modalState === "menuWorkspaceList" && !active
@@ -198,7 +197,7 @@ const AddWorkspaceElement: React.FC<ButtonProps> = ({
             </div>
           )}
         </div>
-      </button>
+      </div>
       <MenuListChangerModal
         modalState={modalState}
         toggleModal={toggleModal}

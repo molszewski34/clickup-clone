@@ -77,7 +77,7 @@ const RenderButtons = () => {
       {data.flatMap((workspace) =>
         workspace.projects.map((project: Project) => (
           <div key={project.id} className="mb-2">
-            <button
+            <div
               onClick={() =>
                 handleProjectClick(
                   workspace.id,
@@ -85,7 +85,7 @@ const RenderButtons = () => {
                   project.name ?? ""
                 )
               }
-              className="flex justify-between w-full items-center mx-2 p-2 py-1 rounded-md hover:bg-gray-100 group/hidden"
+              className="flex justify-between cursor-pointer w-full items-center mx-2 p-2 py-1 rounded-md hover:bg-gray-100 group/hidden"
             >
               <div className="flex gap-2 items-center">
                 <Icons.ListOutline className="text-[16px] text-gray-700" />
@@ -105,12 +105,12 @@ const RenderButtons = () => {
                   <Icons.AttachIcon className="text-[12px] text-gray-500" />
                 </button>
               </div>
-            </button>
+            </div>
             {project.tasks.map((task: Task) => (
               <div key={task.id} className="">
-                <button
+                <div
                   onClick={() => handlePushToTaskPage(task.id)}
-                  className="flex justify-between w-full items-center mx-2 p-2 py-1 rounded-md hover:bg-gray-100 group/hidden"
+                  className="flex justify-between w-full items-center mx-2 p-2 py-1 cursor-pointer rounded-md hover:bg-gray-100 group/hidden"
                 >
                   <div className="flex gap-2 items-center">
                     <Icons.DotIcon className="text-[16px] text-gray-700" />
@@ -130,7 +130,7 @@ const RenderButtons = () => {
                       <Icons.AttachIcon className="text-[12px] text-gray-500" />
                     </button>
                   </div>
-                </button>
+                </div>
                 {/* {task.subtasks.map((subtask: Task) => ( //KAROL: zakomentowane bo nie mamy w tej chwili subtasków
                   <div key={subtask.id} className="">
                     <button className="flex justify-between w-full items-center mx-2 p-2 py-1 rounded-md hover:bg-gray-100 group/hidden">
