@@ -44,7 +44,7 @@ export const TaskTableRow = ({ row }: TaskTableRowProps) => {
           </div>
         </td>
         <td
-          className="text-sm items-center min-w-56 text-nowrap text-gray-700 font-semibold border-b group group-hover:bg-gray-50"
+          className="text-sm items-center min-w-56 text-nowrap text-gray-700 font-semibold border-b group group-hover:bg-gray-50 cursor-pointer hover:text-purple-600"
           onClick={() => handlePushToTaskPage(row.original.id)}>
           {row.original.taskName}
         </td>

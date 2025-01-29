@@ -1,3 +1,145 @@
+<h1 align='center'>Click up - clone</h1>
+
+<div align='center'>
+
+![Static Badge](https://img.shields.io/badge/15.0.3-white?logo=nextdotjs&label=nextjs) ![Static Badge](https://img.shields.io/badge/5.62.2-red?logo=reactquery&logoColor=white&label=react-query) ![Static Badge](https://img.shields.io/badge/8.20.5-white?logo=reacttable&logoColor=white&label=react-table&labelColor=blue) ![Static Badge](https://img.shields.io/badge/11.0.2-white?logo=firebase&logoColor=white&label=firebase&labelColor=orange)
+
+</div>
+
+ <p align='center'>
+<b >Grupowy nie komercyjny projekt stworzony z myśla o pogłębianiu swoich umiejętności.</b>
+</p>
+
+## Spis treści
+
+- [Spis treści](#spis-treści)
+- [Wprowadzenie](#wprowadzenie)
+- [Wersja live](#wersja-live)
+- [Użyte technologie](#użyte-technologie)
+- [Opis stron i ich elementów](#opis-stron-i-ich-elementów)
+  - [Strona logowania](#strona-logowania)
+    - [Jak korzystać](#jak-korzystać)
+  - [Strona rejestracji](#strona-rejestracji)
+    - [Jak korzystać](#jak-korzystać-1)
+  - [Dashboard](#dashboard)
+    - [Sidebar](#sidebar)
+    - [Subbar](#subbar)
+
+## Wprowadzenie
+
+Click-up clone jest klonem aplikacji webowej Click up. Projekt powstał jako wyzwanie dla developerów aby zapoznać się z najnowszymi technologiami oferowanymi dla aplikacji webowych. Nie jest planowana wersja komercyjna.
+
+## Wersja live
+
+Wersje live można zobaczyć na stronie https://clickup-clone-sable.vercel.app/login. Prosimy o nie umieszczanie swoich oficjalnych mailów w celu testowania. Jedna z funkcjonalności wykorzystuje liste użytkowników co może prowadzić do wycieku adresów mailowych. Mail jest wymagany w procesie logowania! Prosimy również byście drodzy testerzy - nie rozwalili naszej apki w pierwszym tygodniu jej upublicznia :)
+
+## Użyte technologie
+
+    "@hookform/resolvers": "^3.9.1",
+    "@tanstack/react-query": "^5.62.2",
+    "@tanstack/react-table": "^8.20.5",
+    "@tanstack/react-query-devtools": "^5.62.2",
+    "@types/jest": "^29.5.14",
+    "firebase": "^11.0.2",
+    "next": "15.0.3",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-hook-form": "^7.53.2",
+    "react-icons": "^5.3.0",
+    "yup": "^1.4.0"
+
+## Opis stron i ich elementów
+
+### Strona logowania
+
+![Imgur](https://imgur.com/HWwqH95.png)
+
+**Odpowiedzialni za stronę**: Mariusz Olszewski, Karol Słupiński
+Karol Słupiński - user interface i walidacja danych za pomocą react-hook-form i yup.
+Mariusz Olszewski - tworzenie tras, połączenie z bazą danych, zapisywanie danych do bazy danych, ustawienie połączenia z google mail.
+
+#### Jak korzystać
+
+Strona przyjmuje adres email i hasło. Hasło musi składać się z przynajmniej 8 znaków i zawierać jedną dużą litere.
+
+### Strona rejestracji
+
+![Imgur](https://imgur.com/jvoLAfP.png)
+
+**Odpowiedzialni za stronę**: Mariusz Olszewski, Karol Słupiński
+Karol Słupiński - user interface i walidacja danych za pomocą react-hook-form i yup.
+Mariusz Olszewski - tworzenie tras, połączenie z bazą danych, zapisywanie danych do bazy danych, ustawienie połączenia z google mail.
+
+#### Jak korzystać
+
+1. Wpisz Imię i Nazwisko. Nazwa użytkownika jest w dalszych etapach przekształcana w inicjały. Twoje imię i nazwisko będzie widniało w wielu miejscach aplikacji więc dobrze abyś nie posługiwał się nazwami którymi nie chcesz być przywitany przez następną stronę.
+2. Email. Zaleca się z korzystania mailów używanych do testowania aplikacji. Firebase może odrzucać niektóre skrzynki mailowe. Po zakończeniu procesu rejestracji na podany mail przyjdzie potwierdzenie rejestracji.
+3. Hasło. Hasło musi składać się z przynajmniej 8 znaków i zawierać jedną dużą literę.
+
+### Dashboard
+
+Dashboard jest główną częścią aplikacji. W związku z nie będzie omawiany jako jedna stroną a na podstawie elementów.
+
+#### Sidebar
+
+![Imgur](https://imgur.com/OD7nvDG.png)
+
+**Odpowiedzialni za element**: Mariusz Olszewski, Jakub King
+Jakub King - tworzenie user interface wszystkich elementów listy i elementów typu pop-up. Integracja elementów i osadzenie na stronie.
+Mariusz Olszewski - integracja user interface z firestore.
+
+**Górna część nawigacji**
+Na ten moment większość linków jest nie aktywna do czasu wprowadzenia przypisanych dla nich funkcjonalności. Po naciśnięciu linku użytkownik zostanie przeniesiony do odpowiadającej nazwie strony.
+
+**Dolna część nawigacji - spaces**
+Ta część nawigacji bocznej jest odpowiedzialna za pokazywanie w formie folderów - workspaces i projects.
+
+**Elementy dolnej nawigacji**
+
+**Lista**
+Po kliknięciu któregoś z folderów użytkownik jest odsyłany do ścieżki strony składającej się z workspace `workspaceId/l/projectId`. Adres jest dynamicznie ustalana za pomocą providera `useData.tsx` i `useUser.tsx` które otrzymują id od elementów danej listy. Id jest przesyłane akcją onMouseEnter w WorkspaceButtons.tsx. W dynamicznym generowaniu stron kluczowy był `params` i `useRouter` w `SidebarContent.tsx`.
+
+**Workspace**
+Workspace jest folderem przechowującym listy z taskami. Gdy dodawany jest workspace to wzraz z nim umieszczana jest pierwsza domyślna lista o nazwie "List".
+
+Dodawanie workspace:
+Workspace jest dodawany z modala
+![Imgur](https://imgur.com/zji5801.png)
+
+Usuwanie workspace:
+Menu pojawia się po nacisnieciu przycisku który pojawia się po najechaniu na element listy.
+![Imgur](https://imgur.com/rRGAx47.png)
+
+Po wybraniu opcji Delete pojawia się ten modal
+![Imgur](https://imgur.com/DREFBXG.png)
+
+W celu usunięcia workspace należy wpisać nazwe listy i zatwierdzić.
+
+**Sprawy techniczne**
+Na ten moment workspaces jest pod kolekcją obiektu User. Workspace tak samo jak User posiada pod kolekcje list, tasków i sub tasków.
+
+Główne pliki uczestniczące w procesach workspace:
+getWorkspaces.ts - pobieranie wszystkich workspace
+createNewWorkspace.ts - tworzenie nowego workspace
+deleteWorkspace.ts
+updateWorkspace.ts
+
+Pliki te są akcjami które są później obsługiwane poprzez react-query. Niema konkretnej zależności i podczas badania powiązań można natrafić zarówno na hooki jak i komponenty w których query jest przekazywane do akcji. W procesie tym pośredniczy też Provider - WorkspaceFormProvider który zbiera informacje z poszczególnych input.
+
+#### Subbar
+
+![Imgur](https://imgur.com/J3RQfdi.png)
+
+**Odpowiedzialny za element** : Jakub Skrzeczowski
+Subbar występuje w dwóch głównych formach:
+
+1. **Prosty subbar** (subbar pod górną częścią nawigacji):
+
+   - Zawiera linki, tekst lub buttony, w zależnośći który link z **Górna część nawigacji** jest aktywny. Większość obecnie jest nieaktywna i czeka na dostarcznie funkcjonalności im odpowiadającym
+
+2. **view subBar** (workspaceId/l/projectId):
+   - Ten element zawiera przyciski do otwierania modali, otwierania dodatkowego navbaru bezpośredio nad view subBar, a także dodatkowy subbar zawierający filtry umożliwiające zarządzanie listami w workspace.
+
 **MIT License**
 
 Copyright (c) [2024] Mariusz Olszewski

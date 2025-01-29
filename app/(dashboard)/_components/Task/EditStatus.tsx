@@ -17,7 +17,6 @@ export const EditStatus = ({ setTaskRowEditableCell }: EditStatusProps) => {
   const { updateTaskForm } = useUpdateTaskForm();
   const { mutate, isSuccess } = useUpdateTask();
   const { formData } = useTaskFormContext();
-
   useOnClickOutside(statusRef, () => setTaskRowEditableCell(""));
 
   useEffect(() => {
@@ -29,7 +28,6 @@ export const EditStatus = ({ setTaskRowEditableCell }: EditStatusProps) => {
       className="absolute top-8 z-10 bg-white rounded-lg shadow-customPopupTableShadow w-fit p-2"
       ref={statusRef}>
       {Object.keys(TaskStatus).map((key) => {
-        console.log(key);
         const isSelected = formData.status === TaskStatus[key as keyof typeof TaskStatus];
         return (
           <div
