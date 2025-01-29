@@ -15,53 +15,53 @@ const iconMap: IconMap = {
   Whiteboard: IconWhiteboard,
 };
 
-export default function SearchResults() {
-  const [data, setData] = useState<SearchResult[]>([]);
-  const [loading, setLoading] = useState(true);
+interface SearchResultsProps {
+  results: {
+    id: string;
+    type: string;
+    name: string;
+    description?: string;
+  }[];
+}
+export default function SearchResults({ results }: SearchResultsProps) {
 
-  useEffect(() => {
-    const fakeData: SearchResult[] = [
-      {
-        title: "Project 1",
-        type: "Doc",
-        space: "Team Space",
-        category: "Marketing",
-        updated: "2 days ago",
-      },
-      {
-        title: "Dashboard",
-        type: "Dashboard",
-        space: "Personal",
-        category: "Finance",
-        updated: "5 days ago",
-      },
-      {
-        title: "Whiteboard",
-        type: "Whiteboard",
-        space: "Team Space",
-        category: "Design",
-        updated: "1 week ago",
-      },
-    ];
-
-    setTimeout(() => {
-      setData(fakeData);
-      setLoading(false);
-    }, 500);
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="w-100 h-8 text-center text-base font-sans font-medium text-gray-600 pr-3">
-        Loading...
-      </div>
-    );
-  }
+  // const fakeData: SearchResult[] = [
+  //   {
+  //     title: "Project 1",
+  //     type: "Doc",
+  //     space: "Team Space",
+  //     category: "Marketing",
+  //     updated: "2 days ago",
+  //   },
+  //   {
+  //     title: "Dashboard",
+  //     type: "Dashboard",
+  //     space: "Personal",
+  //     category: "Finance",
+  //     updated: "5 days ago",
+  //   },
+  //   {
+  //     title: "Whiteboard",
+  //     type: "Whiteboard",
+  //     space: "Team Space",
+  //     category: "Design",
+  //     updated: "1 week ago",
+  //   },
+  // ];
   return (
     <>
-      {data.map((item, index) => (
-        <SearchResultItem key={index} item={item} iconMap={iconMap} />
-      ))}
+      <div className="flex flex-col px-4">
+        {results.length > 0 ? (
+          results.map((result) => (
+            <div key={result.id} className="py-2 border-b border-gray-200">
+              <div className="font-medium text-gray-800">{result.name}</div>
+              <div className="text-sm text-gray-600">{result.description}</div>
+            </div>
+          ))
+        ) : (
+          <div className="text-gray-500">No results found</div>
+        )}
+      </div>
     </>
   );
 }
