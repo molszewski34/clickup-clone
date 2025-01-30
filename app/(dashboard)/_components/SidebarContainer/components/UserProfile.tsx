@@ -2,6 +2,8 @@
 
 import { Icons } from "@/icons/icons";
 import Icon from "@/app/(dashboard)/ui/Icon";
+import { useEffect, useRef, useState } from "react";
+import ChangeSpacesModal from "./ChangeSpacesModal/ChangeSpacesModal";
 
 interface UserProfileProps {
   userName: string;
@@ -16,21 +18,43 @@ const UserProfile: React.FC<UserProfileProps> = ({
   width,
   shrinkSidebar,
 }) => {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  const openModal = () => setModalIsOpen(true);
+  const closeModal = () => setModalIsOpen(false);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
+        closeModal();
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className="flex justify-between items-center rounded-lg w-auto h-8 my-2 ml-3 mr-2">
+    <div className="relative flex justify-between items-center rounded-lg w-auto h-8 my-2 ml-3 mr-2">
       <button
         className={`flex items-center rounded-md hover:bg-gray-200 hover:bg-opacity-50 h-8 w-auto mr-1 pl-1 flex-grow min-w-0 ${
           width < 200 ? "justify-start" : ""
         }`}
+        onClick={openModal}
       >
-        <div className="flex justify-center items-center min-w-6 h-6 bg-green-300 rounded-md text-gray-600 text-xs font-sans font-bold">
+        <div className="flex justify-center items-center min-w-6 h-6 bg-emerald-600 rounded-md text-white text-xs font-sans font-bold">
           {userInitial}
         </div>
 
         {width >= 200 && (
           <div className="flex-grow min-w-0 ml-2">
             <span className="block text-gray-700 text-left text-base font-semibold truncate font-sans">
-              {userName}&lsquo;s Workspace
+              {userName}&apos;s Workspace
             </span>
           </div>
         )}
@@ -55,6 +79,16 @@ const UserProfile: React.FC<UserProfileProps> = ({
               icon={<Icons.CreateDocIcon />}
             />
           </button>
+        </div>
+      )}
+      {modalIsOpen && (
+        <div className="absolute left-[0] top-full mt-2 z-50 flex">
+          <div
+            ref={modalRef}
+            className="bg-gray-50 w-[250px] border border-gray-200 rounded-md shadow-lg flex flex-col"
+          >
+            <ChangeSpacesModal userName={userName} userInitial={userInitial} />
+          </div>
         </div>
       )}
     </div>
