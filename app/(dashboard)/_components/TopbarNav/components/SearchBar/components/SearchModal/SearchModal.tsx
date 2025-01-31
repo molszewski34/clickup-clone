@@ -4,13 +4,33 @@ import ButtonAI from "./components/Buttons/ButtonAI";
 import NavInModal from "./components/NavInModal";
 import SortMenuModal from "./components/SortMenuModal/SortMenuModal";
 import SearchResults from "./components/SearchResults/SearchResults";
+import { searchItems } from "./components/searchAlgorithm";
+interface SearchItem {
+  id: string;
+  type: "task" | "list" | "other";
+  name: string;
+  description?: string;
+}
+
+const mockData: SearchItem[] = [
+  { id: "1", type: "task", name: "Fix bug in modal", description: "Bug with input focus" },
+  { id: "2", type: "list", name: "Grocery List", description: "Buy milk, bread, and eggs" },
+  { id: "3", type: "other", name: "Meeting Notes", description: "Project kickoff meeting notes" },
+];
 
 export default function SearchModal() {
   const [query, setQuery] = useState("");
+  const [results, setResults] = useState<SearchItem[]>([]);
+
   const handleInputChange = (event: {
     target: { value: SetStateAction<string> };
   }) => {
-    setQuery(event.target.value);
+    const value = event.target.value;
+    setQuery(value);
+
+    // Wywołanie funkcji wyszukiwania
+    const searchResults = searchItems(value, mockData);
+    setResults(searchResults);
   };
 
   return (
@@ -32,7 +52,7 @@ export default function SearchModal() {
         <div className="flex items-center h-[34px] w-full px-4 py-1 font-sans text-xs font-medium text-gray-500">
           Results
         </div>
-        <SearchResults />
+        <SearchResults results={results} />
       </div>
     </>
   );

@@ -1,19 +1,19 @@
 "use client";
-import { useState, useEffect } from "react";
-import SearchResultItem from "./components/SearchResultItem";
+// import { useState, useEffect } from "react";
+// import SearchResultItem from "./components/SearchResultItem";
 import {
-  IconMap,
-  SearchResult,
+  // IconMap,
+  // SearchResult,
 } from "@/app/(dashboard)/_components/TopbarNav/components/type";
-import IconDoc from "@/app/(dashboard)/_components/TopbarNav/components/icon/IconDoc";
-import IconDashboard from "@/app/(dashboard)/_components/TopbarNav/components/icon/IconDashboard";
-import IconWhiteboard from "@/app/(dashboard)/_components/TopbarNav/components/icon/IconWhiteboard";
+// import IconDoc from "@/app/(dashboard)/_components/TopbarNav/components/icon/IconDoc";
+// import IconDashboard from "@/app/(dashboard)/_components/TopbarNav/components/icon/IconDashboard";
+// import IconWhiteboard from "@/app/(dashboard)/_components/TopbarNav/components/icon/IconWhiteboard";
 
-const iconMap: IconMap = {
-  Doc: IconDoc,
-  Dashboard: IconDashboard,
-  Whiteboard: IconWhiteboard,
-};
+// const iconMap: IconMap = {
+//   Doc: IconDoc,
+//   Dashboard: IconDashboard,
+//   Whiteboard: IconWhiteboard,
+// };
 
 interface SearchResultsProps {
   results: {
