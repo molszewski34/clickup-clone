@@ -4,10 +4,12 @@ import { Icons } from "@/icons/icons";
 import Icon from "@/app/(dashboard)/ui/Icon";
 import { useEffect, useRef, useState } from "react";
 import ChangeSpacesModal from "./ChangeSpacesModal/ChangeSpacesModal";
+import Skeleton from "react-loading-skeleton";
 
 interface UserProfileProps {
   userName: string;
   userInitial: string;
+  loading: boolean;
   width: number;
   shrinkSidebar: () => void; // Dodaj shrinkSidebar jako prop
 }
@@ -15,6 +17,7 @@ interface UserProfileProps {
 const UserProfile: React.FC<UserProfileProps> = ({
   userName,
   userInitial,
+  loading,
   width,
   shrinkSidebar,
 }) => {
@@ -54,7 +57,11 @@ const UserProfile: React.FC<UserProfileProps> = ({
         {width >= 200 && (
           <div className="flex-grow min-w-0 ml-2">
             <span className="block text-gray-700 text-left text-base font-semibold truncate font-sans">
-              {userName}&apos;s Workspace
+              {loading ? (
+                <Skeleton width={120} height={16} borderRadius={4} />
+              ) : (
+                `${userName}'s Workspace`
+              )}
             </span>
           </div>
         )}
