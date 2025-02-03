@@ -13,11 +13,49 @@ interface SearchItem {
 }
 
 const mockData: SearchItem[] = [
-  { id: "1", type: "task", name: "Fix bug in modal", description: "Bug with input focus" },
-  { id: "2", type: "list", name: "Grocery List", description: "Buy milk, bread, and eggs" },
-  { id: "3", type: "other", name: "Meeting Notes", description: "Project kickoff meeting notes" },
+  {
+    id: "1",
+    type: "task",
+    name: "Fix bug in modal",
+    description: "Bug with input focus",
+  },
+  {
+    id: "2",
+    type: "list",
+    name: "Grocery List",
+    description: "Buy milk, bread, and eggs",
+  },
+  {
+    id: "3",
+    type: "other",
+    name: "Meeting Notes",
+    description: "Project kickoff meeting notes",
+  },
 ];
 
+  // const fakeData: SearchResult[] = [
+  //   {
+  //     title: "Project 1",
+  //     type: "Doc",
+  //     space: "Team Space",
+  //     category: "Marketing",
+  //     updated: "2 days ago",
+  //   },
+  //   {
+  //     title: "Dashboard",
+  //     type: "Dashboard",
+  //     space: "Personal",
+  //     category: "Finance",
+  //     updated: "5 days ago",
+  //   },
+  //   {
+  //     title: "Whiteboard",
+  //     type: "Whiteboard",
+  //     space: "Team Space",
+  //     category: "Design",
+  //     updated: "1 week ago",
+  //   },
+  // ];
 export default function SearchModal() {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<SearchItem[]>([]);
