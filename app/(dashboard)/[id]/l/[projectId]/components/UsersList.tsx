@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import { getUsers } from "@/app/server-actions/user/getUser";
+import { getUsers } from "@/app/server-actions/user/getUsers";
 import { getInitials } from "../utils/getInitials";
 import { useTaskFormContext } from "@/context/FormProviders/TaskFormProvider";
 import { User } from "@/app/server-actions/types";
