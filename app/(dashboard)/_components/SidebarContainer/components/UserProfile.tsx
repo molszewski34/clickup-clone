@@ -13,7 +13,7 @@ interface UserProfileProps {
   width: number;
   shrinkSidebar: () => void; // Dodaj shrinkSidebar jako prop
 }
-
+//test
 const UserProfile: React.FC<UserProfileProps> = ({
   userName,
   userInitial,
