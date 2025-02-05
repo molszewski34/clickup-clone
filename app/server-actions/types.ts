@@ -17,6 +17,8 @@ export type User = {
   id: string;
   signUpFullName: string;
   signUpEmail: string;
+  createdAt?: Date;
+  lastActive?: Date;
 };
 
 export interface Project {
@@ -39,12 +41,12 @@ export interface Workspace {
   isPrivate: boolean;
   userId: string;
   filtersState: {
-    isOpen: boolean; 
-    searchQuery: string; 
-    assignedToMe: boolean; 
-    assignedTo: string[]; 
+    isOpen: boolean;
+    searchQuery: string;
+    assignedToMe: boolean;
+    assignedTo: string[];
     statuses: string[];
-  }
+  };
 }
 
 export type Icon = {
