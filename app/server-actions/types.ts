@@ -49,6 +49,15 @@ export interface Workspace {
   };
 }
 
+export type Space = {
+  id: string;
+  name: string;
+  createdAt: Date;
+  isPrivate: boolean;
+  description?: string;
+  icon?: Icon;
+};
+
 export type Icon = {
   activeColor: string;
   selectedIconName: string | null;

@@ -21,6 +21,6 @@ export const updateUser = async (
       });
     }
   } catch (error) {
-    console.error("Błąd poczas aktualizowanie użytkownika", error);
+    console.error("Błąd podczas aktualizowania użytkownika", error);
   }
 };
