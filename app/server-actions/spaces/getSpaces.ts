@@ -8,7 +8,9 @@ export const getSpaces = async () => {
 
   try {
     const spacesDocs = await getDocs(spacesRef);
-    spacesDocs.docs.forEach((singleSpace) => spaces.push(singleSpace.data() as Space));
+    spacesDocs.docs.forEach((singleSpace) =>
+      spaces.push({ id: singleSpace.id, ...(singleSpace.data() as Omit<Space, "id">) })
+    );
     return spaces;
   } catch (error) {
     console.error("Error occured when fetching the spaces", error);
