@@ -3,7 +3,6 @@
 import SearchResultItem from "./components/SearchResultItem";
 import {
   IconMap,
-  SearchResult,
 } from "@/app/(dashboard)/_components/TopbarNav/components/type";
 import IconDoc from "@/app/(dashboard)/_components/TopbarNav/components/icon/IconDoc";
 import IconDashboard from "@/app/(dashboard)/_components/TopbarNav/components/icon/IconDashboard";
@@ -15,15 +14,17 @@ const iconMap: IconMap = {
   Whiteboard: IconWhiteboard,
 };
 
-interface SearchResultsProps {
-  results: {
-    id: string;
-    type: string;
-    name: string;
-    description?: string;
-  }[];
-}
-export default function SearchResults({ results }: SearchResultsProps) {
+export default function SearchResults({ results }: { 
+  query: string,
+  
+      workspaceName: string;
+      projectName: string;
+      taskName: string;
+      details: string | undefined;
+      assignees: User[];
+      assignedTo: (string | null)[];
+    
+  }) {
 
   return (
     <>
