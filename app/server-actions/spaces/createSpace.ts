@@ -9,14 +9,14 @@ export const createSpace = async (
 ) => {
   try {
     const spacesRef = collection(db, "spaces");
-    await addDoc(spacesRef, {
+    const newSpace = await addDoc(spacesRef, {
       name,
       description,
       isPrivate,
       createdAt: new Date(),
     });
-
     console.log("Space added successfully");
+    return { id: newSpace.id };
   } catch (error) {
     console.error("Error adding document:", error);
   }
