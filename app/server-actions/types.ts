@@ -58,6 +58,20 @@ export type Space = {
   icon?: Icon;
 };
 
+export enum Role {
+  admin = "Admin",
+  member = "Member",
+  guest = "Guest",
+}
+
+export type UserAssociation = {
+  id: string;
+  userId: User["id"];
+  spaceId: Space["id"];
+  role: Role;
+  joinedAt: Date;
+};
+
 export type Icon = {
   activeColor: string;
   selectedIconName: string | null;
