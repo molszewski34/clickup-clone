@@ -24,7 +24,11 @@ export const useSignUpHandler = () => {
     setIsSigningUp(true);
 
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, data.login, data.password);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        data.login,
+        data.password
+      );
       const user = userCredential.user;
       await sendEmailVerification(user);
       await updateProfile(user, { displayName: signUpFullName });
@@ -35,7 +39,7 @@ export const useSignUpHandler = () => {
         createdAt: new Date().toISOString(),
       });
       const userPrivateSpace = await createSpace(
-        `${signUpFullName}'s space`,
+        `Workspace`,
         "This is your private space.",
         true
       );
