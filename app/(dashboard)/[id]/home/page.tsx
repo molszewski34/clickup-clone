@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/db/firebase/lib/firebase";
-import { useInitializeWorkspace } from "../../_hooks/useInitializeWorkspace";
 import { Icons } from "@/icons/icons";
 import WidgetHeader from "../../_components/SubNavBar/WidgetHeader";
 import ButtonVariant3 from "@/components/ButtonVariant3";
@@ -14,8 +13,6 @@ import HomeContentV2 from "@/app/HomeSpace/HomeContentV2";
 const UserHomePage = ({ params }: { params: Promise<{ id: string }> }) => {
   const router = useRouter();
   const [, setUserId] = useState<string | null>(null);
-
-  useInitializeWorkspace();
 
   useEffect(() => {
     const fetchParams = async () => {
