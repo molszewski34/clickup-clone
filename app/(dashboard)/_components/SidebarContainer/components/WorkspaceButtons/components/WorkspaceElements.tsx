@@ -2,10 +2,10 @@ import React, { ReactNode, useState } from "react";
 import { Icons } from "@/icons/icons";
 import { AddIcons } from "../../SidebarModal/components/AddIcons";
 import AddWorkspaceElement from "./AddWorkspaceElement/AddWorkspaceElement";
-import { Workspace } from "@/app/server-actions/types";
+import { Space } from "@/app/server-actions/types";
 
 interface WorkspaceElementProps {
-  workspace: Workspace;
+  workspace: Space;
   isActive: boolean;
   onClick: (workspaceId: string, workspaceName: string) => void;
   width: number;
