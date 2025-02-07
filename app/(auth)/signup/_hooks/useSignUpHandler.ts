@@ -1,46 +1,55 @@
-import { useState } from 'react';
-
-import { auth, db } from '@/db/firebase/lib/firebase';
+import { useState } from "react";
+import { auth, db } from "@/db/firebase/lib/firebase";
 import {
   createUserWithEmailAndPassword,
   updateProfile,
   sendEmailVerification,
-} from 'firebase/auth';
-import { SignupInputs } from '../page';
-import { doc, setDoc } from 'firebase/firestore';
-function useSignUpHandler() {
-  const [signUpFullName, setSignUpFullName] = useState('');
-  const [signUpEmail, setSignUpEmail] = useState('');
-  const [signUpPassword, setSignUpPassword] = useState('');
-  const [signUpError, setSignUpError] = useState('');
+} from "firebase/auth";
+import { SignupInputs } from "../page";
+import { doc, setDoc } from "firebase/firestore";
+import { createSpace } from "@/app/server-actions/spaces/createSpace";
+import { createUserAssociation } from "@/app/server-actions/user2space/createUserAssociation";
+import { Role } from "@/app/server-actions/types";
+
+export const useSignUpHandler = () => {
+  const [signUpFullName, setSignUpFullName] = useState("");
+  const [signUpEmail, setSignUpEmail] = useState("");
+  const [signUpPassword, setSignUpPassword] = useState("");
+  const [signUpError, setSignUpError] = useState("");
   const [isSigningUp, setIsSigningUp] = useState(false);
-  const [signUpSuccess, setSignUpSuccess] = useState('');
+  const [signUpSuccess, setSignUpSuccess] = useState("");
+
   const handleRegister = async (data: SignupInputs) => {
-    setSignUpError('');
+    setSignUpError("");
     setIsSigningUp(true);
+
     try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        data.login,
-        data.password
-      );
+      const userCredential = await createUserWithEmailAndPassword(auth, data.login, data.password);
       const user = userCredential.user;
       await sendEmailVerification(user);
       await updateProfile(user, { displayName: signUpFullName });
-      await setDoc(doc(db, 'users', user.uid), {
+      await setDoc(doc(db, "users", user.uid), {
         signUpFullName,
         signUpEmail,
         uid: user.uid,
         createdAt: new Date().toISOString(),
       });
-
-      console.log('Account created successfully!');
-      setSignUpSuccess('Account created successfully!');
+      const userPrivateSpace = await createSpace(
+        `${signUpFullName}'s space`,
+        "This is your private space.",
+        true
+      );
+      if (!userPrivateSpace) {
+        setSignUpError("Could not create space for a new user!");
+      } else {
+        await createUserAssociation(user.uid, userPrivateSpace.id, Role.admin);
+      }
+      setSignUpSuccess("Account created successfully!");
     } catch (err: unknown) {
       if (err instanceof Error) {
         setSignUpError(err.message);
       } else {
-        setSignUpError('An unknown error occurred.');
+        setSignUpError("An unknown error occurred.");
       }
     }
     setIsSigningUp(false);
@@ -58,6 +67,4 @@ function useSignUpHandler() {
     signUpSuccess,
     handleRegister,
   };
-}
-
-export default useSignUpHandler;
+};
