@@ -36,23 +36,12 @@ export interface Workspace {
   id: string;
   name: string;
   createdAt: string;
-  desc: string;
-  icon: Icon | string;
-  isPrivate: boolean;
-  userId: string;
-  filtersState: {
-    isOpen: boolean;
-    searchQuery: string;
-    assignedToMe: boolean;
-    assignedTo: string[];
-    statuses: string[];
-  };
+  description: string;
 }
 
 export type Space = {
   id: string;
   name: string;
-  createdAt: Date;
   isPrivate: boolean;
   description?: string;
   icon?: Icon;
@@ -64,10 +53,20 @@ export enum Role {
   guest = "Guest",
 }
 
+export enum TargetType {
+  workspace = "Workspace",
+  space = "Space",
+  folder = "Folder",
+  list = "List",
+}
+
+export type TargetId = Workspace["id"] | Space["id"]; //Karol TODO: add List id and Folder id when implementing;
+
 export type UserAssociation = {
   id: string;
+  targetType: TargetType;
   userId: User["id"];
-  spaceId: Space["id"];
+  targetId: TargetId;
   role: Role;
   joinedAt: Date;
 };

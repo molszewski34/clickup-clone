@@ -1,6 +1,6 @@
 "use client";
 
-import { getWorkspaces } from "@/app/server-actions/workspace/getWorkspaces";
+import { getWorkspaces } from "@/app/server-actions/workspace-old/getWorkspaces";
 import { useUser } from "@/context/DataProvider/UserDataProvider";
 import { useQuery } from "@tanstack/react-query";
 

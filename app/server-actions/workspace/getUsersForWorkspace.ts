@@ -1,19 +1,19 @@
 import { db } from "@/db/firebase/lib/firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
-import { Space, UserAssociation } from "../types";
+import { TargetId, UserAssociation } from "../types";
 import { getUserById } from "../user/getUserById";
 
-export const getUsersInSpace = async (spaceId: Space["id"]) => {
+export const getUsersForWorkspace = async (workspaceId: TargetId) => {
   const userAssociationCollectionRef = collection(db, "user2space");
-  const userAssociationSpaceQuery = query(
+  const userAssociationWorkspaceQuery = query(
     userAssociationCollectionRef,
-    where("spaceId", "==", spaceId)
+    where("targetId", "==", workspaceId)
   );
 
   try {
-    const userAssociationsInSpace = await getDocs(userAssociationSpaceQuery);
+    const userAssociationsInWorkspace = await getDocs(userAssociationWorkspaceQuery);
     const userIds: UserAssociation["userId"][] = [];
-    userAssociationsInSpace.docs.forEach((singleAssociation) => {
+    userAssociationsInWorkspace.docs.forEach((singleAssociation) => {
       userIds.push(singleAssociation.data().userId);
     });
     const userDataPromises = userIds.map(async (singleUserId) => {
@@ -28,6 +28,6 @@ export const getUsersInSpace = async (spaceId: Space["id"]) => {
     );
     return usersInSpace;
   } catch (error) {
-    console.error(`Could not fetch users for space Id: ${spaceId}.`, error);
+    console.error(`Could not fetch users for workspace Id: ${workspaceId}.`, error);
   }
 };

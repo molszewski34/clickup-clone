@@ -1,21 +1,21 @@
-import { db } from '@/db/firebase/lib/firebase';
-import { doc, deleteDoc } from 'firebase/firestore';
+import { deleteDoc, doc, getDoc } from "firebase/firestore";
+import { Workspace } from "../types";
+import { db } from "@/db/firebase/lib/firebase";
 
-export const deleteWorkspace = async (
-  userId: string,
-  selectedWorkspaceId: string
-) => {
+export const deleteWorkspace = async (workspaceId: Workspace["id"]) => {
+  const workspaceRef = doc(db, `workspace/${workspaceId}`);
+  const workspaceDoc = await getDoc(workspaceRef);
+
   try {
-    const workspaceRef = doc(
-      db,
-      `users/${userId}/workspaces/${selectedWorkspaceId}`
-    );
-
-    await deleteDoc(workspaceRef);
-
-    console.log(`Workspace o ID: "${selectedWorkspaceId}" został usunięty`);
+    if (!workspaceDoc.exists()) {
+      console.error(
+        `Error occured when deleting space. Could not find space with specified ID: ${workspaceId}`
+      );
+    } else {
+      await deleteDoc(workspaceRef);
+      console.log(`Space deleted successfully`);
+    }
   } catch (error) {
-    console.error('Error deleting workspace', error);
-    throw new Error('Error deleting workspace: ' + error);
+    console.error(`Error occured when deleting space (ID: ${workspaceId}). `, error);
   }
 };

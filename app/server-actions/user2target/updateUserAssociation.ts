@@ -3,7 +3,7 @@ import { Role, UserAssociation } from "../types";
 import { db } from "@/db/firebase/lib/firebase";
 
 export const updateUserAssociation = async (id: UserAssociation["id"], role: Role) => {
-  const userAssociationRef = doc(db, `user2space/${id}`);
+  const userAssociationRef = doc(db, `user2target/${id}`);
 
   try {
     await updateDoc(userAssociationRef, { role });

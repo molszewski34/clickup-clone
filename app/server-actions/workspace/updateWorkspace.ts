@@ -1,29 +1,24 @@
-import { db } from '@/db/firebase/lib/firebase';
-import { doc, setDoc } from 'firebase/firestore';
-import { Workspace } from '@/app/server-actions/types';
+import { doc, updateDoc } from "firebase/firestore";
+import { Workspace } from "../types";
+import { db } from "@/db/firebase/lib/firebase";
 
 export const updateWorkspace = async (
-  userId: string,
-  selectedWorkspace: Workspace,
-  selectedWorkspaceId: string
+  workspaceId: Workspace["id"],
+  name?: Workspace["name"],
+  description?: Workspace["description"]
 ) => {
+  const workspaceRef = doc(db, `workspace/${workspaceId}`);
+
+  const newWorkspaceProperties = { name: name, description: description };
+  const objectProperties: Record<string, string | boolean> = {};
+  Object.entries(newWorkspaceProperties).forEach(([key, value]) => {
+    if (value === undefined) return;
+    objectProperties[key] = value;
+  });
+
   try {
-    const workspaceRef = doc(
-      db,
-      `users/${userId}/workspaces/${selectedWorkspaceId}`
-    );
-    await setDoc(workspaceRef, {
-      id: selectedWorkspace.id,
-      name: selectedWorkspace.name,
-      createdAt: selectedWorkspace.createdAt,
-      userId: userId,
-      desc: selectedWorkspace.desc,
-      icon: selectedWorkspace.icon,
-      isPrivate: selectedWorkspace.isPrivate,
-    });
-    console.log('Workspace added successfully');
+    await updateDoc(workspaceRef, objectProperties);
   } catch (error) {
-    console.error('Error updating workspace', error);
-    throw new Error('Error updating workspace ' + error);
+    console.log("Error occured when updating space", error);
   }
 };
