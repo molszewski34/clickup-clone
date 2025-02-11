@@ -53,20 +53,13 @@ export enum Role {
   guest = "Guest",
 }
 
-export enum TargetType {
-  workspace = "Workspace",
-  space = "Space",
-  folder = "Folder",
-  list = "List",
-}
-
-export type TargetId = Workspace["id"] | Space["id"]; //Karol TODO: add List id and Folder id when implementing;
-
 export type UserAssociation = {
   id: string;
-  targetType: TargetType;
   userId: User["id"];
-  targetId: TargetId;
+  userEmail: User["signUpEmail"];
+  userFullName: User["signUpFullName"];
+  userLastActive: User["lastActive"];
+  workspaceId: Workspace["id"];
   role: Role;
   joinedAt: Date;
 };

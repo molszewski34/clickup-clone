@@ -1,15 +1,15 @@
 import { useState } from "react";
-import { auth, db } from "@/db/firebase/lib/firebase";
+import { auth } from "@/db/firebase/lib/firebase";
 import {
   createUserWithEmailAndPassword,
   updateProfile,
   sendEmailVerification,
 } from "firebase/auth";
 import { SignupInputs } from "../page";
-import { doc, setDoc } from "firebase/firestore";
 import { createUserAssociation } from "@/app/server-actions/user2target/createUserAssociation";
-import { Role, TargetType } from "@/app/server-actions/types";
+import { Role } from "@/app/server-actions/types";
 import { createWorkspace } from "@/app/server-actions/workspace/createWorkspace";
+import { createUser } from "@/app/server-actions/user/createUser";
 
 export const useSignUpHandler = () => {
   const [signUpFullName, setSignUpFullName] = useState("");
@@ -28,27 +28,21 @@ export const useSignUpHandler = () => {
       const user = userCredential.user;
       await sendEmailVerification(user);
       await updateProfile(user, { displayName: signUpFullName });
-      await setDoc(doc(db, "users", user.uid), {
-        signUpFullName,
-        signUpEmail,
-        uid: user.uid,
-        createdAt: new Date().toISOString(),
-      });
-      const userDefaultWorkspace = await createWorkspace(
-        `${signUpFullName}'s space`,
-        "This is your private space."
-      );
-      if (!userDefaultWorkspace) {
-        setSignUpError("Could not create workspace for a new user!");
-      } else {
-        await createUserAssociation(
-          TargetType.workspace,
-          user.uid,
-          userDefaultWorkspace.id,
-          Role.admin
+      const userCreated = await createUser(signUpFullName, signUpEmail, user.uid);
+      if (userCreated !== undefined) {
+        const userDefaultWorkspace = await createWorkspace(
+          `${signUpFullName}'s space`,
+          "This is your default workspace"
         );
+        if (!userDefaultWorkspace) {
+          setSignUpError("Could not create workspace for a new user!");
+        } else {
+          await createUserAssociation(userCreated, userDefaultWorkspace.id, Role.admin);
+        }
+        setSignUpSuccess("Account created successfully!");
+      } else {
+        console.error("Error! Newly created user not found");
       }
-      setSignUpSuccess("Account created successfully!");
     } catch (err: unknown) {
       if (err instanceof Error) {
         setSignUpError(err.message);

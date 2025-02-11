@@ -10,7 +10,6 @@ export const getWorkspaceById = async (workspaceId: Workspace["id"]) => {
       console.error("Workspace not found");
       return;
     }
-    console.log(workspaceDoc.data());
     return workspaceDoc.data() as Workspace;
   } catch (error) {
     console.error("Error occured when fetching space", error);

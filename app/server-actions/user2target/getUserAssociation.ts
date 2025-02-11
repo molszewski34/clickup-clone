@@ -1,18 +1,13 @@
 import { collection, getDocs, query, where } from "firebase/firestore";
-import { TargetId, TargetType, User, UserAssociation } from "../types";
+import { User, UserAssociation, Workspace } from "../types";
 import { db } from "@/db/firebase/lib/firebase";
 
-export const getUserAssociation = async (
-  userId: User["id"],
-  targetId: TargetId,
-  targetType: TargetType
-) => {
-  const userAssociationCollectionRef = collection(db, "user2target");
+export const getUserAssociation = async (userId: User["id"], workspaceId: Workspace["id"]) => {
+  const userAssociationCollectionRef = collection(db, "user2workspace");
   const userAssociationDocQuery = query(
     userAssociationCollectionRef,
     where("userId", "==", userId),
-    where("targetId", "==", targetId),
-    where("targetType", "==", targetType)
+    where("workspaceId", "==", workspaceId)
   );
   const userAssociation: UserAssociation[] = [];
 

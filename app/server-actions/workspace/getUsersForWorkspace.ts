@@ -1,9 +1,9 @@
 import { db } from "@/db/firebase/lib/firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
-import { TargetId, UserAssociation } from "../types";
+import { UserAssociation, Workspace } from "../types";
 import { getUserById } from "../user/getUserById";
 
-export const getUsersForWorkspace = async (workspaceId: TargetId) => {
+export const getUsersForWorkspace = async (workspaceId: Workspace["id"]) => {
   const userAssociationCollectionRef = collection(db, "user2space");
   const userAssociationWorkspaceQuery = query(
     userAssociationCollectionRef,

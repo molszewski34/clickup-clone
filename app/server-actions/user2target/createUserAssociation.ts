@@ -1,31 +1,25 @@
-import { addDoc, collection } from "firebase/firestore";
-import { Role, TargetId, TargetType, User } from "../types";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { Role, User, Workspace } from "../types";
 import { db } from "@/db/firebase/lib/firebase";
-import { getUserById } from "../user/getUserById";
-import { getSpaceById } from "../spaces/getSpaceById";
 import { getUserAssociation } from "./getUserAssociation";
+import { getWorkspaceById } from "../workspace/getWorkspaceById";
 
 export const createUserAssociation = async (
-  targetType: TargetType,
-  userId: User["id"],
-  targetId: TargetId,
+  user: User,
+  workspaceId: Workspace["id"],
   role: Role
 ) => {
-  const user2targetRef = collection(db, "user2target");
-
+  const user2workspaceRef = collection(db, "user2workspace");
   try {
-    const user = getUserById(userId);
-    const space = getSpaceById(targetId);
-    const userAssociation = await getUserAssociation(userId, targetId, targetType);
+    const space = await getWorkspaceById(workspaceId);
+    const userAssociation = await getUserAssociation(user.id, workspaceId);
     if (!user || !space || userAssociation) {
       if (!user) {
-        console.error(
-          `Error occured when adding user to space. User with ID: ${userId} does not exist!`
-        );
+        console.error(`Error occured when adding user to workspace. User not found!`);
       }
       if (!space) {
         console.error(
-          `Error occured when adding user to space. Space with ID: ${targetId} does not exist!`
+          `Error occured when adding user to workspace. Space with ID: ${workspaceId} does not exist!`
         );
       }
       if (userAssociation) {
@@ -33,9 +27,16 @@ export const createUserAssociation = async (
       }
       return;
     }
-    await addDoc(user2targetRef, { userId, targetId, role, joinedAt: new Date() });
-    console.log("User added to space successfully!");
+    await addDoc(user2workspaceRef, {
+      userId: user.id,
+      userEmail: user.signUpEmail,
+      userFullName: user.signUpFullName,
+      workspaceId,
+      role,
+      joinedAt: serverTimestamp(),
+    });
+    console.log("User added to workspace successfully!");
   } catch (error) {
-    console.error("Error occured when adding user to space. ", error);
+    console.error("Error occured when adding user to workspace. ", error);
   }
 };

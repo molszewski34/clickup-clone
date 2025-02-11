@@ -19,6 +19,6 @@ export const updateWorkspace = async (
   try {
     await updateDoc(workspaceRef, objectProperties);
   } catch (error) {
-    console.log("Error occured when updating space", error);
+    console.log("Error occured when updating workspace", error);
   }
 };
