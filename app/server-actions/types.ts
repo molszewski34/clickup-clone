@@ -36,23 +36,12 @@ export interface Workspace {
   id: string;
   name: string;
   createdAt: string;
-  desc: string;
-  icon: Icon | string;
-  isPrivate: boolean;
-  userId: string;
-  filtersState: {
-    isOpen: boolean;
-    searchQuery: string;
-    assignedToMe: boolean;
-    assignedTo: string[];
-    statuses: string[];
-  };
+  description: string;
 }
 
 export type Space = {
   id: string;
   name: string;
-  createdAt: Date;
   isPrivate: boolean;
   description?: string;
   icon?: Icon;
@@ -67,7 +56,10 @@ export enum Role {
 export type UserAssociation = {
   id: string;
   userId: User["id"];
-  spaceId: Space["id"];
+  userEmail: User["signUpEmail"];
+  userFullName: User["signUpFullName"];
+  userLastActive: User["lastActive"];
+  workspaceId: Workspace["id"];
   role: Role;
   joinedAt: Date;
 };

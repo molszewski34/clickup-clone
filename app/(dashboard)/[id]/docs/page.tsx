@@ -4,13 +4,10 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/db/firebase/lib/firebase";
-import { useInitializeWorkspace } from "../../_hooks/useInitializeWorkspace";
 
 const UserDocPage = ({ params }: { params: Promise<{ id: string }> }) => {
   const router = useRouter();
   const [, setUserId] = useState<string | null>(null);
-
-  useInitializeWorkspace();
 
   useEffect(() => {
     const fetchParams = async () => {
@@ -34,8 +31,7 @@ const UserDocPage = ({ params }: { params: Promise<{ id: string }> }) => {
   return (
     <div
       className="flex justify-center items-center w-full font-sans text-4xl"
-      style={{ height: "calc(100vh - 40px)" }}
-    >
+      style={{ height: "calc(100vh - 40px)" }}>
       Page Docs in progress
     </div>
   );
