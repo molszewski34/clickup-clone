@@ -39,6 +39,7 @@ export default function SidebarContainer() {
             <UserProfile
               userName={userName}
               userInitial={userInitial}
+              loading={loading}
               width={width}
               shrinkSidebar={shrinkSidebar}
             />
