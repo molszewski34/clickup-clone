@@ -65,8 +65,8 @@ export default function ContentManageFull({ filterUser }: UsersListProps): JSX.E
   }, []);
 
   return (
-    <div className="flex flex-col rounded-md border border-gray-200 h-full mt-[10px] mb-[30px] custom-scrollbar">
-      <div className="flex w-full h-[37px] text-[11px] text-center text-gray-400 font-medium border-b uppercase border-gray-200 px-[30px]">
+    <div className="flex relative flex-col rounded-md border border-gray-200 h-full mt-[10px] mb-[30px] custom-scrollbar">
+      <div className="flex bg-white sticky z-10 top-0 w-full h-[37px] text-[11px] text-center text-gray-400 font-medium border-b uppercase border-gray-200 px-[30px]">
         <button className="w-4/12 h-full uppercase">Name</button>
         <button className="w-4/12 h-full uppercase">Email</button>
         <div className="flex w-4/12 h-full">
