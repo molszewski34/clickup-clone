@@ -6,7 +6,7 @@ import {
   sendEmailVerification,
 } from "firebase/auth";
 import { SignupInputs } from "../page";
-import { createUserAssociation } from "@/app/server-actions/user2target/createUserAssociation";
+import { createUserAssociation } from "@/app/server-actions/user2workspace/createUserAssociation";
 import { Role } from "@/app/server-actions/types";
 import { createWorkspace } from "@/app/server-actions/workspace/createWorkspace";
 import { createUser } from "@/app/server-actions/user/createUser";
@@ -31,13 +31,13 @@ export const useSignUpHandler = () => {
       const userCreated = await createUser(signUpFullName, signUpEmail, user.uid);
       if (userCreated !== undefined) {
         const userDefaultWorkspace = await createWorkspace(
-          `${signUpFullName}'s space`,
+          `${signUpFullName}'s workspace`,
           "This is your default workspace"
         );
         if (!userDefaultWorkspace) {
           setSignUpError("Could not create workspace for a new user!");
         } else {
-          await createUserAssociation(userCreated, userDefaultWorkspace.id, Role.admin);
+          await createUserAssociation(userCreated.id, userDefaultWorkspace.id, Role.admin);
         }
         setSignUpSuccess("Account created successfully!");
       } else {
