@@ -17,7 +17,7 @@ export const ChangeSpacesModal = () => {
 
   return (
     <>
-      <div className="Flex flex-col p-2">
+      <div className="flex flex-col h-fit p-2">
         {/* <WorkspaceCard workspaceName="Karol Słupiński's workspace" numberOfMembers={1} /> */}
         <button
           className="flex items-center gap-2 w-full px-2 py-1 text-gray-700 text-sm font-normal hover:bg-gray-200 rounded-md"
@@ -33,7 +33,7 @@ export const ChangeSpacesModal = () => {
         </button>
       </div>
       <div className="w-full h-px bg-gray-200"></div>
-      <div className="Flex flex-col p-2 h-[150px] overflow-y-auto">
+      <div className="Flex flex-col p-2 max-h-80 overflow-y-auto">
         <div className="flex justify-between items-center gap-2 p-2">
           <div className="text-[12px] font-medium text-gray-500">Switch Workspace</div>
           {/* <button className="flex items-center p-1 hover:bg-gray-200 rounded-md">
