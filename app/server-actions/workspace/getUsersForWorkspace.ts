@@ -4,10 +4,10 @@ import { UserAssociation, Workspace } from "../types";
 import { getUserById } from "../user/getUserById";
 
 export const getUsersForWorkspace = async (workspaceId: Workspace["id"]) => {
-  const userAssociationCollectionRef = collection(db, "user2space");
+  const userAssociationCollectionRef = collection(db, "user2workspace");
   const userAssociationWorkspaceQuery = query(
     userAssociationCollectionRef,
-    where("targetId", "==", workspaceId)
+    where("workspaceId", "==", workspaceId)
   );
 
   try {
