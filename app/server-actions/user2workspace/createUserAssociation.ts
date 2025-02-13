@@ -3,30 +3,36 @@ import { Role, User, Workspace } from "../types";
 import { db } from "@/db/firebase/lib/firebase";
 import { getUserAssociation } from "./getUserAssociation";
 import { getWorkspaceById } from "../workspace/getWorkspaceById";
+import { getUserById } from "../user/getUserById";
 
 export const createUserAssociation = async (
-  user: User,
+  userId: User["id"],
   workspaceId: Workspace["id"],
   role: Role
 ) => {
   const user2workspaceRef = collection(db, "user2workspace");
   try {
-    const space = await getWorkspaceById(workspaceId);
-    const userAssociation = await getUserAssociation(user.id, workspaceId);
-    if (!user || !space || userAssociation) {
+    const workspace = await getWorkspaceById(workspaceId);
+    const user = await getUserById(userId);
+
+    if (!user || !workspace) {
       if (!user) {
         console.error(`Error occured when adding user to workspace. User not found!`);
       }
-      if (!space) {
+      if (!workspace) {
         console.error(
           `Error occured when adding user to workspace. Space with ID: ${workspaceId} does not exist!`
         );
       }
+      return;
+    } else {
+      const userAssociation = await getUserAssociation(user.id, workspace.id);
       if (userAssociation) {
         console.error("This association already exists!");
+        return;
       }
-      return;
     }
+
     await addDoc(user2workspaceRef, {
       userId: user.id,
       userEmail: user.signUpEmail,

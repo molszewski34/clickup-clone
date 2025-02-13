@@ -45,7 +45,7 @@ export const ChangeSpacesModal = () => {
             return (
               <button
                 className="flex items-center hover:bg-gray-200 rounded-md"
-                key={`workspace-card-${singleWorkspace}`}>
+                key={`workspace-card-${singleWorkspace.id}`}>
                 <WorkspaceCard
                   workspaceName={singleWorkspace.name}
                   workspaceNumberOfMembers={singleWorkspace.members.length}
