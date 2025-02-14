@@ -1,18 +1,5 @@
-import { User } from "@/app/server-actions/types";
-export interface SearchResult {
-  id: string;
-  title: string;
-  type: "Task" | "Project" | "Workspace" | "Person";
-  description?: string;
-}
-export interface SearchQuery {
-  workspaceName: string;
-  projectName: string;
-  taskName: string;
-  details?: string;
-  assignees: User[];
-  assignedTo: (string | null)[];
-}
+import { SearchQuery,SearchResult } from "../../../../type";
+
 export const searchItems = (
   query: string,
   {
@@ -20,8 +7,6 @@ export const searchItems = (
     projectName,
     taskName,
     details,
-    assignees,
-    assignedTo,
   }: SearchQuery
 ): SearchResult[] => {
   if (!query.trim()) return [];
@@ -49,7 +34,7 @@ export const searchItems = (
   }
 
   // Przeszukiwanie zadań
-  if (taskName.toLowerCase().includes(lowerQuery) || details.toLowerCase().includes(lowerQuery)) {
+  if (taskName.toLowerCase().includes(lowerQuery) || details?.toLowerCase().includes(lowerQuery)) {
     results.push({
       id: "task",
       title: taskName,
@@ -58,16 +43,6 @@ export const searchItems = (
     });
   }
 
-  // Przeszukiwanie osób
-  [...assignees, ...assignedTo].forEach((person) => {
-    if (person && person.toLowerCase().includes(lowerQuery)) {
-      results.push({
-        id: `person-${person}`,
-        title: person,
-        type: "Person",
-      });
-    }
-  });
 
   return results;
 };

@@ -30,17 +30,17 @@ const SearchResultItem = ({ item, iconMap }: SearchResultItemProps) => {
             </div>
             <div className="flex gap-1 w-auto text-xs text-gray-600">
               <span>{item.type}</span>
-              <span>&#8226;</span>
+              {/* <span>&#8226;</span>
               <span>{item.space}</span>
               <span>/</span>
               <span>{item.category}</span>
               <span>&#8226;</span>
-              <span>{item.updated}</span>
+              <span>{item.updated}</span> */}
             </div>
           </div>
         </button>
         <div className="flex gap-2 pr-3 w-auto opacity-0 group-hover:opacity-100">
-          {item.type === "Doc" ? <ButtonAiResults /> : <ButtonTab />}
+          {item.type === "Task" ? <ButtonAiResults /> : <ButtonTab />}
           <ButtonAttach />
           <ButtonNewTab />
           <ButtonEnter />

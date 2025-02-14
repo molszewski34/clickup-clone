@@ -20,10 +20,8 @@ export default function SearchModal() {
     projectName,
     taskName: taskData.taskName,
     details: taskData.details,
-    assignees: taskData.assignees,
-    assignedTo: [],
   });
-
+  console.log(taskData);
   return (
     <>
       <div className="flex-row w-full">

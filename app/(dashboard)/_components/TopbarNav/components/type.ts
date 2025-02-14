@@ -59,14 +59,26 @@ export interface InfoRowProps {
 
 // types.ts
 
-export interface SearchResult {
-  title: string;
-  type: string;
-  space: string;
-  category: string;
-  updated: string;
-}
+// export interface SearchResult {
+//   title: string;
+//   type: string;
+//   space: string;
+//   category: string;
+//   updated: string;
+// }
 
 export interface IconMap {
   [key: string]: React.FC;
+}
+export interface SearchQuery {
+  workspaceName: string;
+  projectName: string;
+  taskName: string;
+  details?: string;
+}
+export interface SearchResult {
+  id: string;
+  title: string;
+  type: "Task" | "Project" | "Workspace" | "Person";
+  description?: string;
 }
