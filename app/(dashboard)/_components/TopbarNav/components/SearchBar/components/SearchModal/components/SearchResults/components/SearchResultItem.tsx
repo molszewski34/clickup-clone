@@ -31,11 +31,6 @@ const SearchResultItem = ({ item, iconMap }: SearchResultItemProps) => {
             <div className="flex gap-1 w-auto text-xs text-gray-600">
               <span>{item.type}</span>
               <span>&#8226;</span>
-              {/* <span>{item.space}</span>
-              <span>/</span>
-              <span>{item.category}</span>
-              <span>&#8226;</span>
-              <span>{item.updated}</span> */}
             </div>
           </div>
         </button>

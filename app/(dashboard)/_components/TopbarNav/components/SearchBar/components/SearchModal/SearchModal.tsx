@@ -11,7 +11,6 @@ import SearchResults from "./components/SearchResults/SearchResults";
 
 export default function SearchModal() {
   const [query, setQuery] = useState("");
-
   const { workspaceName, projectName } = useData();
   const { formData: taskData } = useTaskFormContext();
 
@@ -21,7 +20,6 @@ export default function SearchModal() {
     taskName: taskData.taskName,
     details: taskData.details,
   });
-  console.log(taskData);
   return (
     <>
       <div className="flex-row w-full">

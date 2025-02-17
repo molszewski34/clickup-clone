@@ -15,7 +15,6 @@ export const searchItems = (
 
   const results: SearchResult[] = [];
 
-  // Przeszukiwanie przestrzeni roboczych
   if (workspaceName.toLowerCase().includes(lowerQuery)) {
     results.push({
       id: "workspace",
@@ -24,7 +23,6 @@ export const searchItems = (
     });
   }
 
-  // Przeszukiwanie projektów
   if (projectName.toLowerCase().includes(lowerQuery)) {
     results.push({
       id: "project",
@@ -33,7 +31,6 @@ export const searchItems = (
     });
   }
 
-  // Przeszukiwanie zadań
   if (taskName.toLowerCase().includes(lowerQuery) || details?.toLowerCase().includes(lowerQuery)) {
     results.push({
       id: "task",

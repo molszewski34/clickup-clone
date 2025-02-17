@@ -19,7 +19,6 @@ const iconMap: IconMap = {
   Project: Icons.Folder,
   List: Icons.ListOutline,
 };
-// "Task" | "Project" | "Workspace" |
 export default function SearchResults({
   results,
 }: {
