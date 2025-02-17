@@ -131,6 +131,7 @@ import { GrEmptyCircle } from "react-icons/gr";
 import { TiMediaPlay } from "react-icons/ti";
 import { BiBuildings, BiHide, BiImport } from "react-icons/bi";
 import { BsArrowReturnLeft } from "react-icons/bs";
+import { GiUpgrade } from "react-icons/gi";
 
 export const Icons = {
   ListUlicon: FaListUl,
@@ -259,6 +260,7 @@ export const Icons = {
   PersonPlus: BsPersonPlus,
   Question: BsFillQuestionCircleFill,
   CheckM: FaCheck,
+  Upgrade: GiUpgrade,
 
   // New icons SVG
   AiIcon: SvgIcons.Ai,
