@@ -1,5 +1,9 @@
 "use client";
-import { SetStateAction, useState } from "react";
+import { useState } from "react";
+import { searchItems } from "./components/searchAlgorithm";
+import { useData } from "@/context/DataProvider/DataProvider";
+import { useTaskFormContext } from "@/context/FormProviders/TaskFormProvider";
+
 import ButtonAI from "./components/Buttons/ButtonAI";
 import NavInModal from "./components/NavInModal";
 import SortMenuModal from "./components/SortMenuModal/SortMenuModal";
@@ -7,12 +11,15 @@ import SearchResults from "./components/SearchResults/SearchResults";
 
 export default function SearchModal() {
   const [query, setQuery] = useState("");
-  const handleInputChange = (event: {
-    target: { value: SetStateAction<string> };
-  }) => {
-    setQuery(event.target.value);
-  };
+  const { workspaceName, projectName } = useData();
+  const { formData: taskData } = useTaskFormContext();
 
+  const results = searchItems(query, {
+    workspaceName,
+    projectName,
+    taskName: taskData.taskName,
+    details: taskData.details,
+  });
   return (
     <>
       <div className="flex-row w-full">
@@ -20,7 +27,7 @@ export default function SearchModal() {
           <input
             type="text"
             value={query}
-            onChange={handleInputChange}
+            onChange={(e) => setQuery(e.target.value)}
             placeholder="Search, run a command, or ask a question…"
             className="w-[377px] h-6 text-base rounded-lg font-medium text-gray-600 font-sans pl-1 border-2 border-none mr-auto focus:outline-none"
           />
@@ -32,7 +39,7 @@ export default function SearchModal() {
         <div className="flex items-center h-[34px] w-full px-4 py-1 font-sans text-xs font-medium text-gray-500">
           Results
         </div>
-        <SearchResults />
+        <SearchResults results={results} />
       </div>
     </>
   );
