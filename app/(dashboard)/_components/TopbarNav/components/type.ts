@@ -57,15 +57,6 @@ export interface InfoRowProps {
   children: ReactNode; // Child elements to be rendered inside the row
 }
 
-// types.ts
-
-// export interface SearchResult {
-//   title: string;
-//   type: string;
-//   space: string;
-//   category: string;
-//   updated: string;
-// }
 
 export interface IconMap {
   [key: string]: React.FC;

@@ -1,5 +1,4 @@
 "use client";
-// import { useState, useEffect } from "react";
 import SearchResultItem from "./components/SearchResultItem";
 import {
   IconMap,
