@@ -6,6 +6,7 @@ import {
   FaPlus,
   FaRegCircleDot,
   FaRegHourglass,
+  FaRegFolder
 } from "react-icons/fa6";
 import {
   RiAttachmentLine,
@@ -246,6 +247,7 @@ export const Icons = {
   From: LuClipboardList,
   FolderPlus: TbFolderPlus,
   FolderShare: TbFolderShare,
+  Folder:FaRegFolder,
   Import: BiImport,
   House: CiHome,
   FullScreen: BsArrowsAngleExpand,

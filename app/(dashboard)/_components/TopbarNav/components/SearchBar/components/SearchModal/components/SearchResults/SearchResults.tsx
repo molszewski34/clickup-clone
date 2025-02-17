@@ -15,9 +15,11 @@ const iconMap: IconMap = {
   Dashboard: IconDashboard,
   Whiteboard: IconWhiteboard,
   Task: Icons.IoCheckmarkCircle,
-  Workspace: Icons.IoRadioButtonOn,
+  Workspace: Icons.TeableIcon,
+  Project: Icons.Folder,
+  List: Icons.ListOutline,
 };
-// "Task" | "Project" | "Workspace" | "Person"
+// "Task" | "Project" | "Workspace" |
 export default function SearchResults({
   results,
 }: {
@@ -34,7 +36,7 @@ export default function SearchResults({
                 item={result}
                 iconMap={iconMap}
               />
-              <div className="font-medium text-gray-800">{result.title}</div>
+              <div className="font-medium text-gray-800">{result.type}</div>
               <div className="text-sm text-gray-600">{result.description}</div>
             </div>
           ))
