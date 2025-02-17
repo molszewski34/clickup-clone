@@ -1,11 +1,14 @@
+"use client";
 import { useUser } from "@/context/DataProvider/UserDataProvider";
 import { Icons } from "@/icons/icons";
-import { WorkspaceCard } from "../WorkspaceCard";
+import { WorkspaceCard } from "./WorkspaceCard";
 import { useGetWorkspacesForUser } from "@/hooks/useGetWorkspacesForUser";
+import { useChangeUserActiveWorkspace } from "@/hooks/useChangeUserActiveWorkspace";
 
-export const ChangeSpacesModal = () => {
+export const ChangeWorkspace = () => {
   const { userId } = useUser();
   const { data: workspacesData } = useGetWorkspacesForUser(userId);
+  const { mutate } = useChangeUserActiveWorkspace();
 
   const handleButtonClick = () => {
     window.location.href = `/${userId}/setting/users`;
@@ -45,7 +48,8 @@ export const ChangeSpacesModal = () => {
             return (
               <button
                 className="flex items-center hover:bg-gray-200 rounded-md"
-                key={`workspace-card-${singleWorkspace.id}`}>
+                key={`workspace-card-${singleWorkspace.id}`}
+                onClick={() => mutate({ userId, newActiveWorkspaceId: singleWorkspace.id })}>
                 <WorkspaceCard
                   workspaceName={singleWorkspace.name}
                   workspaceNumberOfMembers={singleWorkspace.members.length}
