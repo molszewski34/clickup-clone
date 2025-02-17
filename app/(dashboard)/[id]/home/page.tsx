@@ -1,9 +1,7 @@
 "use client";
-
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "@/db/firebase/lib/firebase";
+// import { useRouter } from "next/navigation";
+// import { onAuthStateChanged } from "firebase/auth";
+// import { auth } from "@/db/firebase/lib/firebase";
 
 import { Icons } from "@/icons/icons";
 import WidgetHeader from "../../_components/SubNavBar/WidgetHeader";
@@ -11,28 +9,28 @@ import ButtonVariant3 from "@/components/ButtonVariant3";
 import ButtonVariant2 from "@/components/ButtonVariant2";
 import HomeContentV2 from "@/app/HomeSpace/HomeContentV2";
 
-const UserHomePage = ({ params }: { params: Promise<{ id: string }> }) => {
-  const router = useRouter();
-  const [, setUserId] = useState<string | null>(null);
+const UserHomePage = (/*{ params }: { params: Promise<{ id: string }> }*/) => {
+  // const router = useRouter();
+  // const [, setUserId] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchParams = async () => {
-      const resolvedParams = await params;
-      const userId = resolvedParams.id;
+  // useEffect(() => {
+  //   const fetchParams = async () => {
+  //     const resolvedParams = await params;
+  //     const userId = resolvedParams.id;
 
-      const unsubscribe = onAuthStateChanged(auth, (user) => {
-        if (!user || user.uid !== userId) {
-          router.push("/login");
-        }
-      });
+  //     const unsubscribe = onAuthStateChanged(auth, (user) => {
+  //       if (!user || user.uid !== userId) {
+  //         router.push("/login");
+  //       }
+  //     });
 
-      setUserId(userId);
+  //     setUserId(userId);
 
-      return () => unsubscribe();
-    };
+  //     return () => unsubscribe();
+  //   };
 
-    fetchParams();
-  }, [params, router]);
+  //   fetchParams();
+  // }, [params, router]); TODO: Implement new checking function and make it a wrapper
 
   return (
     <div className="w-full">
@@ -43,7 +41,7 @@ const UserHomePage = ({ params }: { params: Promise<{ id: string }> }) => {
         </div>
         <div className="flex items-center px-2 gap-1">
           <ButtonVariant3 className={` !text-sm h-8 font-semibold px-[11px]`}>
-            Menage cards
+            Manage cards
           </ButtonVariant3>
           <div className="w-[1px] h-4 mx-2  bg-gray_50"></div>
           <ButtonVariant2 className={`items-center h-8`}>

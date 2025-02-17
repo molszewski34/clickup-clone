@@ -10,6 +10,7 @@ import { createUserAssociation } from "@/app/server-actions/user2workspace/creat
 import { Role } from "@/app/server-actions/types";
 import { createWorkspace } from "@/app/server-actions/workspace/createWorkspace";
 import { createUser } from "@/app/server-actions/user/createUser";
+import { updateUser } from "@/app/server-actions/user/updateUser";
 
 export const useSignUpHandler = () => {
   const [signUpFullName, setSignUpFullName] = useState("");
@@ -37,7 +38,16 @@ export const useSignUpHandler = () => {
         if (!userDefaultWorkspace) {
           setSignUpError("Could not create workspace for a new user!");
         } else {
-          await createUserAssociation(userCreated.id, userDefaultWorkspace.id, Role.admin);
+          const userAssociation = await createUserAssociation(
+            userCreated.id,
+            userDefaultWorkspace.id,
+            Role.admin
+          );
+          if (!userAssociation) {
+            console.error("Could not create user association!");
+          } else {
+            await updateUser(userCreated.id, undefined, undefined, userAssociation.workspaceId);
+          }
         }
         setSignUpSuccess("Account created successfully!");
       } else {

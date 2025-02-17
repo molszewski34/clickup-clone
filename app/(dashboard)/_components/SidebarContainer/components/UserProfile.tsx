@@ -3,7 +3,7 @@
 import { Icons } from "@/icons/icons";
 import Icon from "@/app/(dashboard)/ui/Icon";
 import { useEffect, useRef, useState } from "react";
-import { ChangeSpacesModal } from "./ChangeSpacesModal/ChangeSpacesModal";
+import { ChangeWorkspace } from "./ChangeWorkspace";
 import Skeleton from "react-loading-skeleton";
 
 interface UserProfileProps {
@@ -85,7 +85,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
           <div
             ref={modalRef}
             className="bg-gray-50 w-[250px] border border-gray-200 rounded-md shadow-lg flex flex-col">
-            <ChangeSpacesModal />
+            <ChangeWorkspace />
           </div>
         </div>
       )}

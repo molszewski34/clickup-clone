@@ -1,5 +1,5 @@
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import { Role, User, Workspace } from "../types";
+import { Role, User, UserAssociation, Workspace } from "../types";
 import { db } from "@/db/firebase/lib/firebase";
 import { getUserAssociation } from "./getUserAssociation";
 import { getWorkspaceById } from "../workspace/getWorkspaceById";
@@ -33,15 +33,21 @@ export const createUserAssociation = async (
       }
     }
 
-    await addDoc(user2workspaceRef, {
+    const properties = {
       userId: user.id,
       userEmail: user.signUpEmail,
       userFullName: user.signUpFullName,
       workspaceId,
       role,
-      joinedAt: serverTimestamp(),
-    });
+      joinedAt: serverTimestamp() as unknown as Date,
+    } as Omit<UserAssociation, "id" | "userLastActive">;
+
+    const newUserAssociation = await addDoc(user2workspaceRef, properties);
     console.log("User added to workspace successfully!");
+    return { id: newUserAssociation.id, ...properties } as Omit<
+      UserAssociation,
+      "id" | "userLastActive"
+    >;
   } catch (error) {
     console.error("Error occured when adding user to workspace. ", error);
   }
