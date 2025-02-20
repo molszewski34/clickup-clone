@@ -4,12 +4,17 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
   sendEmailVerification,
+  getAuth,
 } from "firebase/auth";
 import { SignupInputs } from "../page";
 import { createUserAssociation } from "@/app/server-actions/user2workspace/createUserAssociation";
 import { Role } from "@/app/server-actions/types";
 import { createWorkspace } from "@/app/server-actions/workspace/createWorkspace";
 import { createUser } from "@/app/server-actions/user/createUser";
+import { getUserByEmail } from "@/app/server-actions/user/getUserByEmail";
+import { updateUser } from "@/app/server-actions/user/updateUser";
+import { updateUserAssociation } from "@/app/server-actions/user2workspace/updateUserAssociation";
+import { getUserAssociation } from "@/app/server-actions/user2workspace/getUserAssociation";
 
 export const useSignUpHandler = () => {
   const [signUpFullName, setSignUpFullName] = useState("");
@@ -24,24 +29,58 @@ export const useSignUpHandler = () => {
     setIsSigningUp(true);
 
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, data.login, data.password);
+      const userMailExist = await getUserByEmail(signUpEmail);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        data.login,
+        data.password
+      );
       const user = userCredential.user;
-      await sendEmailVerification(user);
-      await updateProfile(user, { displayName: signUpFullName });
-      const userCreated = await createUser(signUpFullName, signUpEmail, user.uid);
-      if (userCreated !== undefined) {
-        const userDefaultWorkspace = await createWorkspace(
-          `${signUpFullName}'s workspace`,
-          "This is your default workspace"
-        );
-        if (!userDefaultWorkspace) {
-          setSignUpError("Could not create workspace for a new user!");
-        } else {
-          await createUserAssociation(userCreated.id, userDefaultWorkspace.id, Role.admin);
+
+      if (userMailExist) {
+        await sendEmailVerification(user);
+        const auth = getAuth();
+
+        const currentUser = auth.currentUser;
+        const currentUserId = currentUser?.uid;
+        if (!currentUserId) {
+          throw new Error("User ID is undefined. Cannot update user.");
         }
-        setSignUpSuccess("Account created successfully!");
+        const currentUserAssociation2Workspace =
+          await getUserAssociation(currentUserId);
+        if (!currentUserAssociation2Workspace) {
+          throw new Error("Reference not found.");
+        }
+        const currentUserRole = currentUserAssociation2Workspace.role;
+
+        await updateUser(currentUserId);
+        await updateUserAssociation(currentUserId, currentUserRole);
       } else {
-        console.error("Error! Newly created user not found");
+        await updateProfile(user, { displayName: signUpFullName });
+        const userCreated = await createUser(
+          signUpFullName,
+          signUpEmail,
+          user.uid
+        );
+        await sendEmailVerification(user);
+        if (userCreated !== undefined) {
+          const userDefaultWorkspace = await createWorkspace(
+            `${signUpFullName}'s workspace`,
+            "This is your default workspace"
+          );
+          if (!userDefaultWorkspace) {
+            setSignUpError("Could not create workspace for a new user!");
+          } else {
+            await createUserAssociation(
+              userCreated.id,
+              userDefaultWorkspace.id,
+              Role.admin
+            );
+          }
+          setSignUpSuccess("Account created successfully!");
+        } else {
+          console.error("Error! Newly created user not found");
+        }
       }
     } catch (err: unknown) {
       if (err instanceof Error) {
