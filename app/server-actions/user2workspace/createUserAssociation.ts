@@ -17,7 +17,9 @@ export const createUserAssociation = async (
 
     if (!user || !workspace) {
       if (!user) {
-        console.error(`Error occured when adding user to workspace. User not found!`);
+        console.error(
+          `Error occured when adding user to workspace. User not found!`
+        );
       }
       if (!workspace) {
         console.error(
@@ -26,7 +28,7 @@ export const createUserAssociation = async (
       }
       return;
     } else {
-      const userAssociation = await getUserAssociation(user.id, workspace.id);
+      const userAssociation = await getUserAssociation(user.id);
       if (userAssociation) {
         console.error("This association already exists!");
         return;
