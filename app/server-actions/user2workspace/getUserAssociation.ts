@@ -1,13 +1,12 @@
 import { collection, getDocs, query, where } from "firebase/firestore";
-import { User, UserAssociation, Workspace } from "../types";
+import { User, UserAssociation } from "../types";
 import { db } from "@/db/firebase/lib/firebase";
 
-export const getUserAssociation = async (userId: User["id"], workspaceId: Workspace["id"]) => {
+export const getUserAssociation = async (userId: User["id"]) => {
   const userAssociationCollectionRef = collection(db, "user2workspace");
   const userAssociationDocQuery = query(
     userAssociationCollectionRef,
-    where("userId", "==", userId),
-    where("workspaceId", "==", workspaceId)
+    where("userId", "==", userId)
   );
   const userAssociation: UserAssociation[] = [];
 
@@ -19,7 +18,6 @@ export const getUserAssociation = async (userId: User["id"], workspaceId: Worksp
         ...(singleAssociation.data() as Omit<UserAssociation, "id">),
       })
     );
-    console.log(userAssociation[0]);
     return userAssociation[0];
   } catch (error) {
     console.log("Error occured when fetching user association.", error);
