@@ -1,21 +1,26 @@
 "use client";
-import { useUser } from "@/context/DataProvider/UserDataProvider";
 import { Icons } from "@/icons/icons";
 import { WorkspaceCard } from "./WorkspaceCard";
-import { useGetWorkspacesForUser } from "@/hooks/useGetWorkspacesForUser";
 import { useChangeUserActiveWorkspace } from "@/hooks/useChangeUserActiveWorkspace";
+import { WorkspaceWithMembers } from "@/hooks/useGetWorkspacesForUser";
+import { Workspace } from "@/app/server-actions/types";
+import { useUser } from "@/context/DataProvider/UserDataProvider";
 
-export const ChangeWorkspace = () => {
+type ChangeWorkspaceProps = {
+  workspacesToSwitch: WorkspaceWithMembers[];
+  currentWorkspace: Workspace;
+};
+
+export const ChangeWorkspace = ({ workspacesToSwitch, currentWorkspace }: ChangeWorkspaceProps) => {
   const { userId } = useUser();
-  const { data: workspacesData } = useGetWorkspacesForUser(userId);
   const { mutate } = useChangeUserActiveWorkspace();
 
   const handleButtonClick = () => {
-    window.location.href = `/${userId}/setting/users`;
+    window.location.href = `/${currentWorkspace.id}/setting/users`;
   };
 
   const handleButtonSettingsClick = () => {
-    window.location.href = `/${userId}/setting/profile`;
+    window.location.href = `/${currentWorkspace.id}/setting/profile`;
   };
 
   return (
@@ -43,8 +48,8 @@ export const ChangeWorkspace = () => {
             <Icons.SearchIcon className="text-gray-500 text-[14px] " />
           </button> */}
         </div>
-        {workspacesData &&
-          workspacesData.map((singleWorkspace) => {
+        {workspacesToSwitch &&
+          workspacesToSwitch.map((singleWorkspace) => {
             return (
               <button
                 className="flex items-center hover:bg-gray-200 rounded-md"

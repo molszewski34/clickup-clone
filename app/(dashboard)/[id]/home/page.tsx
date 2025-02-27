@@ -30,7 +30,7 @@ const UserHomePage = (/*{ params }: { params: Promise<{ id: string }> }*/) => {
   //   };
 
   //   fetchParams();
-  // }, [params, router]); TODO: Implement new checking function and make it a wrapper
+  // }, [params, router]); KAROL: Deprecated; TODO: implement checking if user is logged in as a wrapper
 
   return (
     <div className="w-full">
