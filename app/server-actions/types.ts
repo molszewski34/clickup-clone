@@ -19,6 +19,7 @@ export type User = {
   signUpEmail: string;
   createdAt?: Date;
   lastActive?: Date;
+  activeWorkspace: Workspace["id"];
 };
 
 export interface Project {

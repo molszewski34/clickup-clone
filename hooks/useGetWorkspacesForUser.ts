@@ -17,6 +17,7 @@ export const useGetWorkspacesForUser = (userId: User["id"]) => {
         const singleWorkspaceUsers = await getUsersForWorkspace(singleWorkspace.id);
         if (singleWorkspaceUsers !== undefined) {
           singleWorkspace["members"] = singleWorkspaceUsers;
+
           return singleWorkspace;
         } else {
           console.error("Could not find workspace users");
@@ -25,13 +26,14 @@ export const useGetWorkspacesForUser = (userId: User["id"]) => {
       const workspacesWithMembers = (await Promise.all(userWorkspacesPromises)).filter(
         (singleWorkspaceWithMembers) => singleWorkspaceWithMembers !== undefined
       );
+      console.log(workspacesWithMembers);
       return workspacesWithMembers;
     }
   };
 
   return useQuery({
-    queryKey: [],
-    queryFn: () => getWorkspacesWithNumberOfMembers(),
+    queryKey: ["userWorkspaces"],
+    queryFn: getWorkspacesWithNumberOfMembers,
     enabled: !!userId,
   });
 };

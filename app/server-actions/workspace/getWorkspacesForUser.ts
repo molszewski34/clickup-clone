@@ -26,7 +26,6 @@ export const getWorkspacesForUser = async (userId: User["id"]) => {
     const userWorkspaces = (await Promise.all(workspaceDataPromises)).filter(
       (singleUserTarget) => singleUserTarget !== undefined
     );
-    console.log(userWorkspaces);
     return userWorkspaces;
   } catch (error) {
     console.error(`Could not fetch spaces for user ID: ${userId}.`, error);

@@ -5,7 +5,8 @@ import { User } from "../types";
 export const updateUser = async (
   userId: string,
   userLastActive?: User["lastActive"],
-  userFullName?: User["signUpFullName"]
+  userFullName?: User["signUpFullName"],
+  activeWorkspace?: User["activeWorkspace"]
 ) => {
   try {
     const userRef = doc(db, `users/${userId}`);
@@ -18,6 +19,11 @@ export const updateUser = async (
     if (userLastActive) {
       await updateDoc(userRef, {
         lastActive: userLastActive,
+      });
+    }
+    if (activeWorkspace) {
+      await updateDoc(userRef, {
+        activeWorkspace,
       });
     }
   } catch (error) {
