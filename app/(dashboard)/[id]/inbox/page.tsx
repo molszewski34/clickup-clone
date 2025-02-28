@@ -1,32 +1,24 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "@/db/firebase/lib/firebase";
+const UserInboxPage = () => {
+  // useEffect(() => {
+  //   const fetchParams = async () => {
+  //     const resolvedParams = await params;
+  //     const userId = resolvedParams.id;
 
-const UserInboxPage = ({ params }: { params: Promise<{ id: string }> }) => {
-  const router = useRouter();
-  const [, setUserId] = useState<string | null>(null);
+  //     const unsubscribe = onAuthStateChanged(auth, (user) => {
+  //       if (!user || user.uid !== userId) {
+  //         router.push("/login");
+  //       }
+  //     });
 
-  useEffect(() => {
-    const fetchParams = async () => {
-      const resolvedParams = await params;
-      const userId = resolvedParams.id;
+  //     setUserId(userId);
 
-      const unsubscribe = onAuthStateChanged(auth, (user) => {
-        if (!user || user.uid !== userId) {
-          router.push("/login");
-        }
-      });
+  //     return () => unsubscribe();
+  //   };
 
-      setUserId(userId);
-
-      return () => unsubscribe();
-    };
-
-    fetchParams();
-  }, [params, router]);
+  //   fetchParams();
+  // }, [params, router]); KAROL: Deprecated; TODO: implement checking if user is logged in as a wrapper
 
   return (
     <div
