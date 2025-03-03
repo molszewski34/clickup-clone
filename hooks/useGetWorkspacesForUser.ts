@@ -26,7 +26,6 @@ export const useGetWorkspacesForUser = (userId: User["id"]) => {
       const workspacesWithMembers = (await Promise.all(userWorkspacesPromises)).filter(
         (singleWorkspaceWithMembers) => singleWorkspaceWithMembers !== undefined
       );
-      console.log(workspacesWithMembers);
       return workspacesWithMembers;
     }
   };
