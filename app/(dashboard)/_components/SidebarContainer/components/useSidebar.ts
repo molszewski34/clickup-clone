@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import { Workspace } from "@/app/server-actions/types";
 import { useGetWorkspacesForUser } from "@/hooks/useGetWorkspacesForUser";
 import { useUser } from "@/context/DataProvider/UserDataProvider";
+import { useQueryClient } from "@tanstack/react-query";
 
 export function useSidebar() {
   const [modalState, setModalState] = useState("none");
@@ -18,20 +19,20 @@ export function useSidebar() {
   const {
     data: userWorkspaces,
     isLoading: isLoadingUserWorkspaces,
-    refetch: refetchUserWorkspaces,
     isRefetching: isRefetchingUserWorkspaces,
   } = useGetWorkspacesForUser(userId);
   const {
     data: currentWorkspace,
     isLoading: isLoadingCurrentWorkspace,
-    refetch: refetchCurrentWorkspace,
     isRefetching: isRefetchingCurrentWorkspace,
   } = useGetWorkspaceById(id as Workspace["id"]);
 
+  const queryClient = useQueryClient();
+
   useEffect(() => {
-    refetchCurrentWorkspace();
-    refetchUserWorkspaces();
-  }, [id, refetchCurrentWorkspace, refetchUserWorkspaces]);
+    //@ts-expect-error react query here accepts string[], but typescript in react query expects {queryKey: ["workspace", "userWorkspaces"]} but with object syntax the function does not work
+    queryClient.invalidateQueries(["workspace", "userWorkspaces"]);
+  }, [id, queryClient]);
 
   const isLoading =
     isLoadingCurrentWorkspace ||
