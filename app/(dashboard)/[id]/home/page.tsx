@@ -9,29 +9,7 @@ import ButtonVariant3 from "@/components/ButtonVariant3";
 import ButtonVariant2 from "@/components/ButtonVariant2";
 import HomeContentV2 from "@/app/HomeSpace/HomeContentV2";
 
-const UserHomePage = (/*{ params }: { params: Promise<{ id: string }> }*/) => {
-  // const router = useRouter();
-  // const [, setUserId] = useState<string | null>(null);
-
-  // useEffect(() => {
-  //   const fetchParams = async () => {
-  //     const resolvedParams = await params;
-  //     const userId = resolvedParams.id;
-
-  //     const unsubscribe = onAuthStateChanged(auth, (user) => {
-  //       if (!user || user.uid !== userId) {
-  //         router.push("/login");
-  //       }
-  //     });
-
-  //     setUserId(userId);
-
-  //     return () => unsubscribe();
-  //   };
-
-  //   fetchParams();
-  // }, [params, router]); KAROL: Deprecated; TODO: implement checking if user is logged in as a wrapper
-
+const UserHomePage = () => {
   return (
     <div className="w-full">
       <WidgetHeader className="justify-between">
