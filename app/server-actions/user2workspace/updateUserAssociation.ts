@@ -6,11 +6,17 @@ export const updateUserAssociation = async (
   id: UserAssociation["id"],
   role?: Role,
   userEmail?: User["signUpEmail"],
-  userFullName?: User["signUpFullName"]
+  userFullName?: User["signUpFullName"],
+  userId?: User["userId"]
 ) => {
   const userAssociationRef = doc(db, `user2workspace/${id}`);
 
-  const newUserAssociationProperties = { role, userEmail, userFullName };
+  const newUserAssociationProperties = {
+    role,
+    userEmail,
+    userFullName,
+    userId,
+  };
   const userAssociationProperties: Record<
     string,
     Role | User["signUpEmail"] | User["signUpFullName"]
