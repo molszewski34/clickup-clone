@@ -28,7 +28,7 @@ export const LoadingScreen = ({ isLoading }: LoadingScreenProps) => {
         <Image src={logo} alt="demo logo"></Image>
         <p className="font-semibold self-end text-gray-700">Loading your content</p>
         <div className="w-2 h-2">
-          <Loader></Loader>
+          <Loader />
         </div>
       </div>
     </div>
