@@ -11,7 +11,16 @@
     "test": "jest",
     "test:watch": "jest --watch"
   },
+  "emulators": {
+    "firestore": {
+      "port": 8080
+    },
+    "auth": {
+      "port": 9099
+    }
+  },
   "dependencies": {
+    "@firebasegen/default-connector": "file:dataconnect-generated/js/default-connector",
     "@hookform/resolvers": "^3.9.1",
     "@react-email/components": "^0.0.33",
     "@react-email/render": "^1.0.5",
@@ -20,7 +29,6 @@
     "@tanstack/react-table": "^8.20.5",
     "@types/jest": "^29.5.14",
     "emailjs-com": "^3.2.0",
-    "firebase": "^11.0.2",
     "next": "15.0.3",
     "nodemailer": "^6.10.0",
     "react": "18.3.1",
@@ -31,6 +39,7 @@
     "yup": "^1.4.0"
   },
   "devDependencies": {
+    "@firebase/testing": "^0.20.11",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.0.1",
@@ -40,6 +49,8 @@
     "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "15.0.3",
+    "firebase": "^11.3.1",
+    "firebase-admin": "^13.1.0",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "postcss": "^8",
