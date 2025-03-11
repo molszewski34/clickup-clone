@@ -17,7 +17,7 @@ export const AuthGuard = ({
 
   const router = useRouter();
   const pathname = usePathname();
-  const { data: userData, isLoading: isUserDataLoading, isSuccess } = useUsersGetUserById(userId);
+  const { data: userData, isSuccess } = useUsersGetUserById(userId);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -37,11 +37,8 @@ export const AuthGuard = ({
 
   return (
     <div className="relative w-screen max-h-screen">
-      <LoadingScreen isLoading={isLoading || isUserDataLoading} />
-      <div
-        className={`absolute inset-0 z-10 ${
-          isLoading || isUserDataLoading ? "invisible" : "visible"
-        }`}>
+      <LoadingScreen isLoading={isLoading} />
+      <div className={`absolute inset-0 z-10 ${isLoading ? "invisible" : "visible"}`}>
         {children}
       </div>
     </div>

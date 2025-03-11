@@ -8,8 +8,6 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { WorkspaceFormProvider } from "@/context/FormProviders/WorkspaceFormProvider";
 import { TaskFormProvider } from "@/context/FormProviders/TaskFormProvider";
 import { AuthGuard } from "./(auth)/_components/AuthGuard";
-import { Suspense } from "react";
-import { LoadingScreen } from "@/components/LoadingScreen";
 
 export default function RootLayout({
   children,
@@ -19,20 +17,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Suspense fallback={<LoadingScreen isLoading={true} />}>
-          <QueryClientProvider client={queryClient}>
-            <UserProvider>
-              <AuthGuard>
-                <WorkspaceFormProvider>
-                  <TaskFormProvider>
-                    <DataProvider>{children}</DataProvider>
-                  </TaskFormProvider>
-                </WorkspaceFormProvider>
-              </AuthGuard>
-            </UserProvider>
-            <ReactQueryDevtools initialIsOpen={false} />
-          </QueryClientProvider>
-        </Suspense>
+        <QueryClientProvider client={queryClient}>
+          <UserProvider>
+            <AuthGuard>
+              <WorkspaceFormProvider>
+                <TaskFormProvider>
+                  <DataProvider>{children}</DataProvider>
+                </TaskFormProvider>
+              </WorkspaceFormProvider>
+            </AuthGuard>
+          </UserProvider>
+          <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
       </body>
     </html>
   );
