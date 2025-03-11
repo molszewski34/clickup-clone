@@ -66,7 +66,12 @@ const InviteForm: React.FC<InviteFormProps> = ({
           workspaceName
         );
       } else {
-        await createUser(signUpFullName, signUpEmail, invitedUserId);
+        await createUser(
+          signUpFullName,
+          signUpEmail,
+          invitedUserId,
+          associatedWorkspace
+        );
         await createUserAssociation(invitedUserId, associatedWorkspace, role);
         await sendInvitationEmail(
           data.email,
