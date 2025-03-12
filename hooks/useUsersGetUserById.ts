@@ -5,5 +5,6 @@ export const useUsersGetUserById = (userId: string) => {
   return useQuery({
     queryKey: ["user", userId],
     queryFn: () => getUserById(userId),
+    enabled: !!userId,
   });
 };
