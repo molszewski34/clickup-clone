@@ -19,7 +19,7 @@ export const getUserByEmail = async (
     const userDoc = querySnapshot.docs[0];
     return { id: userDoc.id, ...userDoc.data() } as User;
   } catch (error) {
-    console.log("Error occurred when accessing user details", error);
+    console.error("Error occurred when accessing user details", error);
     return null;
   }
 };
