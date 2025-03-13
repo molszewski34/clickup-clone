@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Icons } from "@/icons/icons";
+import InviteUserToWorkspace from "./InviteUserToWorkspace";
+import { Role } from "@/app/server-actions/types";
 
 const optionDetails = {
   Members: "Access to public Spaces, Docs and Dashboards.",
@@ -17,13 +19,14 @@ export default function SearchManageFull({
   onSearchInputChange,
 }: UsersListProps): JSX.Element {
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [buttonText, setButtonText] = useState("Members");
+  const [buttonText, setButtonText] = useState<Role>(Role.member);
+
   const modalRef = useRef<HTMLDivElement>(null);
 
   const openModal = () => setModalIsOpen(true);
   const closeModal = () => setModalIsOpen(false);
 
-  const handleOptionClick = (option: string) => {
+  const handleOptionClick = (option: Role) => {
     setButtonText(option);
     closeModal();
   };
@@ -61,32 +64,11 @@ export default function SearchManageFull({
             />
           </div>
         </div>
-        <div className="flex w-full items-center h-[34px] pl-[15px]">
-          <div className="flex w-full h-full border border-gray-300 px-[15px] focus:border-gray-500 rounded-l">
-            <input
-              type="search"
-              id=""
-              placeholder="Search"
-              className="text-[14px] w-full h-full font-normal text-black bg-transparent outline-none"
-            />
-          </div>
-          <button
-            onClick={openModal}
-            className="flex items-center px-[15px] h-full border-t border-b border-gray-300"
-          >
-            <div className="flex justify-center items-center w-[88px] gap-1 font-sans text-sm text-black">
-              <div className="truncate max-w-[72px]">{buttonText}</div>
-              <Icons.PlayWorkspace
-                className={`text-[12px] text-black ${
-                  modalIsOpen ? "-rotate-90" : "rotate-90"
-                }`}
-              />
-            </div>
-          </button>
-          <button className="flex items-center px-[30px] text-sm font-medium text-white h-full bg-violet-700 rounded-r">
-            Invite
-          </button>
-        </div>
+        <InviteUserToWorkspace
+          modalIsOpen={modalIsOpen}
+          openModal={openModal}
+          buttonText={buttonText}
+        />
       </div>
 
       {modalIsOpen && (
@@ -98,7 +80,9 @@ export default function SearchManageFull({
             {Object.keys(optionDetails).map((option, index, array) => (
               <div key={option}>
                 <button
-                  onClick={() => handleOptionClick(option)}
+                  onClick={() =>
+                    handleOptionClick(Role[option as keyof typeof Role])
+                  }
                   className={`mx-2 py-[7px] rounded-md hover:bg-gray-100 font-sans text-gray-700 ${
                     buttonText === option
                       ? "bg-gray-100 font-medium"

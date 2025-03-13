@@ -2,7 +2,12 @@ import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
 import { db } from "@/db/firebase/lib/firebase";
 import { User } from "../types";
 
-export const createUser = async (signUpFullName: string, signUpEmail: string, userId: string) => {
+export const createUser = async (
+  signUpFullName: string,
+  signUpEmail: string,
+  userId: string,
+  activeWorkspace?: User["activeWorkspace"]
+) => {
   const usersRef = doc(db, "users", userId);
 
   try {
@@ -22,6 +27,7 @@ export const createUser = async (signUpFullName: string, signUpEmail: string, us
         signUpFullName,
         signUpEmail,
         createdAt: serverTimestamp(),
+        activeWorkspace: activeWorkspace,
       });
 
       const newDoc = await getDoc(usersRef);
@@ -30,7 +36,10 @@ export const createUser = async (signUpFullName: string, signUpEmail: string, us
         return;
       } else {
         console.log("User created succesfully!");
-        return { ...(newDoc.data() as Omit<User, "id">), id: newDoc.id } as User;
+        return {
+          ...(newDoc.data() as Omit<User, "id">),
+          id: newDoc.id,
+        } as User;
       }
     }
   } catch (error) {

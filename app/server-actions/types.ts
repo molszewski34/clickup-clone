@@ -17,6 +17,7 @@ export type User = {
   id: string;
   signUpFullName: string;
   signUpEmail: string;
+  userId: string;
   createdAt?: Date;
   lastActive?: Date;
   activeWorkspace: Workspace["id"];
