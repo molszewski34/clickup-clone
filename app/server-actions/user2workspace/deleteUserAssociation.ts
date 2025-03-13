@@ -1,11 +1,13 @@
 import { deleteDoc, doc } from "firebase/firestore";
-import { User, Workspace } from "../types";
+import { UserAssociation } from "../types";
 import { db } from "@/db/firebase/lib/firebase";
 import { getUserAssociation } from "./getUserAssociation";
 
-export const deleteUserAssociation = async (userId: User["id"], workspaceId: Workspace["id"]) => {
+export const deleteUserAssociation = async (
+  userId: UserAssociation["userId"]
+) => {
   try {
-    const userAssociation = await getUserAssociation(userId, workspaceId);
+    const userAssociation = await getUserAssociation(userId);
     if (!userAssociation) {
       console.error("Cannot delete this user association.");
       return;
