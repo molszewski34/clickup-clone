@@ -1,15 +1,21 @@
 import { useState } from "react";
-import { auth, db } from "@/db/firebase/lib/firebase";
+import { auth } from "@/db/firebase/lib/firebase";
 import {
   createUserWithEmailAndPassword,
   updateProfile,
   sendEmailVerification,
+  getAuth,
 } from "firebase/auth";
 import { SignupInputs } from "../page";
-import { doc, setDoc } from "firebase/firestore";
-import { createSpace } from "@/app/server-actions/spaces/createSpace";
-import { createUserAssociation } from "@/app/server-actions/user2space/createUserAssociation";
+import { createUserAssociation } from "@/app/server-actions/user2workspace/createUserAssociation";
 import { Role } from "@/app/server-actions/types";
+import { createWorkspace } from "@/app/server-actions/workspace/createWorkspace";
+import { createUser } from "@/app/server-actions/user/createUser";
+import { updateUser } from "@/app/server-actions/user/updateUser";
+import { updateUserAssociation } from "@/app/server-actions/user2workspace/updateUserAssociation";
+import { getUserByEmail } from "@/app/server-actions/user/getUserByEmail";
+import { updateUserKey } from "@/app/server-actions/user/updateUserKey";
+import { getUserAssociationByEmail } from "@/app/server-actions/user2workspace/getUserAssociationByEmail";
 
 export const useSignUpHandler = () => {
   const [signUpFullName, setSignUpFullName] = useState("");
@@ -30,25 +36,83 @@ export const useSignUpHandler = () => {
         data.password
       );
       const user = userCredential.user;
-      await sendEmailVerification(user);
-      await updateProfile(user, { displayName: signUpFullName });
-      await setDoc(doc(db, "users", user.uid), {
-        signUpFullName,
-        signUpEmail,
-        uid: user.uid,
-        createdAt: new Date().toISOString(),
-      });
-      const userPrivateSpace = await createSpace(
-        `Workspace`,
-        "This is your private space.",
-        true
-      );
-      if (!userPrivateSpace) {
-        setSignUpError("Could not create space for a new user!");
+
+      if (user) {
+        //* being forced to not use firebase server functions i manage to create new working way. Here is point by point explanation.
+        const userMailExist = await getUserByEmail(signUpEmail); //* To validate if user is joining workspace or just signing up function check if user has been added to database in InviteToWorkspace.tsx. If true process start
+        if (!userMailExist) {
+          throw new Error("User email do not exist");
+        }
+        const userMailId = userMailExist?.id; //* Here code starts to be complicated. Because firebase (or any db model) don't allow to change key of user - server takes record with old id - clones to new (id from firebase auth) and delete old. It uses additional db callbacks but makes job done. All of this is made because this hook can't take params needed for proper workflow. Hook is also out of context scope. This operation is required for updateUser to work.
+
+        if (userMailExist) {
+          await sendEmailVerification(user);
+          const auth = getAuth();
+          const currentUser = auth.currentUser;
+          const currentUserId = currentUser?.uid;
+          if (!currentUserId) {
+            throw new Error("User is not authethificated");
+          }
+          await updateUserKey(userMailId, currentUserId); //* Here we update and delete old record created in InviteToWorkspace.tsx
+
+          const userAssociation = await getUserAssociationByEmail(signUpEmail); //* in InviteToWorkspace.tsx user joins with randomly created uid so only way to identify association is by using email
+
+          if (!currentUserId) {
+            throw new Error("User ID is undefined. Cannot update user.");
+          }
+          await updateUser(currentUserId, undefined, signUpFullName); //* user name is updated
+
+          if (!userAssociation) {
+            throw new Error("User association not found");
+          }
+
+          await updateUserAssociation(
+            userAssociation.id,
+            undefined,
+            undefined,
+            signUpFullName,
+            currentUserId
+          ); //* user association also updates userId with new one so other scripts can query base on new userId which this time is the same as id in auth
+        } else {
+          await updateProfile(user, { displayName: signUpFullName });
+          const userCreated = await createUser(
+            signUpFullName,
+            signUpEmail,
+            user.uid
+          );
+          await sendEmailVerification(user);
+          if (userCreated !== undefined) {
+            const userDefaultWorkspace = await createWorkspace(
+              `${signUpFullName}'s workspace`,
+              "This is your default workspace"
+            );
+            if (!userDefaultWorkspace) {
+              setSignUpError("Could not create workspace for a new user!");
+            } else {
+              const userAssociation = await createUserAssociation(
+                userCreated.id,
+                userDefaultWorkspace.id,
+                Role.admin
+              );
+              if (!userAssociation) {
+                console.error("Could not create user association!");
+              } else {
+                await updateUser(
+                  userCreated.id,
+                  undefined,
+                  undefined,
+                  userAssociation.workspaceId
+                );
+              }
+            }
+            setSignUpSuccess("Account created successfully!");
+          } else {
+            console.error("Error! Newly created user not found");
+          }
+        }
       } else {
-        await createUserAssociation(user.uid, userPrivateSpace.id, Role.admin);
+        console.error("User object is missing");
       }
-      setSignUpSuccess("Account created successfully!");
     } catch (err: unknown) {
       if (err instanceof Error) {
         setSignUpError(err.message);

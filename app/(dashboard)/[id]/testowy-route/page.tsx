@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/db/firebase/lib/firebase";
-import { useInitializeWorkspace } from "../../_hooks/useInitializeWorkspace";
 
 import ModalEditTask from "../home/components/ModalEditTask/ModalEditTask";
 
@@ -16,8 +15,6 @@ const UserHomePage: React.FC<UserHomeProps> = ({ params }) => {
   const router = useRouter();
 
   const [, setUserId] = useState<string | null>(null);
-
-  useInitializeWorkspace();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {

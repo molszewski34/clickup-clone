@@ -1,15 +1,48 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { useUserProfile } from "@/hooks/useUserProfile";
+import { useGetWorkspaceById } from "@/hooks/useGetWorkspaceById";
+import { useParams } from "next/navigation";
+import { Workspace } from "@/app/server-actions/types";
+import { useGetWorkspacesForUser } from "@/hooks/useGetWorkspacesForUser";
+import { useUser } from "@/context/DataProvider/UserDataProvider";
+import { useQueryClient } from "@tanstack/react-query";
 
 export function useSidebar() {
   const [modalState, setModalState] = useState("none");
   const [width, setWidth] = useState(369);
   const [isResizing, setIsResizing] = useState(false);
-  const [userName, setUserName] = useState("");
   const [userInitial, setUserInitial] = useState("");
-  const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { userData } = useUserProfile();
+  const { userId } = useUser();
+  const { id } = useParams();
+  const {
+    data: userWorkspaces,
+    isLoading: isLoadingUserWorkspaces,
+    isRefetching: isRefetchingUserWorkspaces,
+  } = useGetWorkspacesForUser(userId);
+  const {
+    data: currentWorkspace,
+    isLoading: isLoadingCurrentWorkspace,
+    isRefetching: isRefetchingCurrentWorkspace,
+  } = useGetWorkspaceById(id as Workspace["id"]);
+
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    //@ts-expect-error react query here accepts string[], but typescript in react query expects {queryKey: ["workspace", "userWorkspaces"]} but with object syntax the function does not work
+    queryClient.invalidateQueries(["workspace", "userWorkspaces"]);
+  }, [id, queryClient]);
+
+  const isLoading =
+    isLoadingCurrentWorkspace ||
+    isLoadingUserWorkspaces ||
+    isRefetchingCurrentWorkspace ||
+    isRefetchingUserWorkspaces;
+
+  const workspacesToSwitch = userWorkspaces?.filter(
+    (singleWorkspace) => singleWorkspace.id !== currentWorkspace?.id
+  );
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
@@ -18,8 +51,6 @@ export function useSidebar() {
     const userName = userData?.signUpFullName || "";
     const firstLetter = userName.trim().charAt(0).toUpperCase() || "";
     setUserInitial(firstLetter);
-    setUserName(userName);
-    setLoading(false);
   }, [userData]);
 
   useEffect(() => {
@@ -70,17 +101,29 @@ export function useSidebar() {
     setWidth(60);
   };
 
-  return {
-    modalState,
-    width,
-    userName,
-    userInitial,
-    loading,
+  return useMemo(() => {
+    return {
+      isLoading,
+      currentWorkspace,
+      workspacesToSwitch,
+      modalState,
+      width,
+      userInitial,
+      isModalOpen,
+      openModal,
+      closeModal,
+      toggleModal,
+      handleMouseDown,
+      shrinkSidebar,
+    };
+  }, [
+    currentWorkspace,
+    isLoading,
     isModalOpen,
-    openModal,
-    closeModal,
-    toggleModal,
-    handleMouseDown,
-    shrinkSidebar,
-  };
+    modalState,
+    userInitial,
+    userWorkspaces,
+    workspacesToSwitch,
+    width,
+  ]);
 }

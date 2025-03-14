@@ -9,34 +9,19 @@ import ButtonFavourites from "./components/ButtonFavourites";
 import WorkspaceButtons from "../WorkspaceButtons/WorkspaceButtons";
 
 interface SidebarContentProps {
-  userName: string;
   userInitial: string;
-  loading: boolean;
   width: number;
   openModal: () => void;
   toggleModal: (modal: "none" | "menuFavorite" | "menuSpace") => void;
 }
 
-const SidebarContent = ({
-  width,
-  openModal,
-  toggleModal,
-}: SidebarContentProps) => {
+const SidebarContent = ({ width, openModal, toggleModal }: SidebarContentProps) => {
   const [activeButton, setActiveButton] = useState<number | null>(null);
   const router = useRouter();
   const pathname = usePathname();
 
   const paths = useMemo(
-    () => [
-      "home",
-      "inbox",
-      "docs",
-      "dashboards",
-      "whiteboards",
-      "pulse",
-      "goals",
-      "timesheets",
-    ],
+    () => ["home", "inbox", "docs", "dashboards", "whiteboards", "pulse", "goals", "timesheets"],
     []
   );
 
@@ -82,11 +67,8 @@ const SidebarContent = ({
         <div
           className={`items-center h-8 pl-4 pr-2 justify-between ${
             width < 200 ? "hidden" : "flex"
-          }`}
-        >
-          <div className="flex items-center text-xs font-sans font-medium text-gray-500">
-            Space
-          </div>
+          }`}>
+          <div className="flex items-center text-xs font-sans font-medium text-gray-500">Space</div>
           <div className="flex gap-[2px]">
             <button className="flex justify-center items-center w-6 h-6 rounded-md hover:bg-gray-200">
               <Icons.ThreeDotsIcon className="text-[16px] text-gray-500" />
@@ -96,8 +78,7 @@ const SidebarContent = ({
             </button>
             <button
               className="flex justify-center items-center w-6 h-6 rounded-md bg-blue-500 hover:bg-blue-700"
-              onClick={openModal}
-            >
+              onClick={openModal}>
               <Icons.PlusIcon className="text-[14px] text-white" />
             </button>
           </div>
@@ -110,8 +91,7 @@ const SidebarContent = ({
               onClick={(e) => {
                 toggleModal("menuFavorite");
                 e.stopPropagation();
-              }}
-            >
+              }}>
               <Icons.Star className="text-[18px] text-gray-500" />
             </button>
             <button
@@ -119,8 +99,7 @@ const SidebarContent = ({
               onClick={(e) => {
                 toggleModal("menuSpace");
                 e.stopPropagation();
-              }}
-            >
+              }}>
               <Icons.AppsIcon className="text-[18px] text-blue-500" />
             </button>
           </div>
@@ -129,8 +108,7 @@ const SidebarContent = ({
         <div
           className={`flex-row rounded-lg w-auto h-auto my-2 ml-3 mr-2 ${
             width < 200 ? "hidden" : ""
-          }`}
-        >
+          }`}>
           <WorkspaceButtons width={width} />
         </div>
       </div>

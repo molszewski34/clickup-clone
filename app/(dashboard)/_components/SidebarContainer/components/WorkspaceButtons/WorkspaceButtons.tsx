@@ -1,14 +1,14 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useWorkspaceQuery } from "@/hooks/useWorkspaceQuery";
 import { useProjectQuery } from "@/hooks/useProjectQuery";
-import { useQuery } from "@tanstack/react-query";
-import { getTasks } from "@/app/server-actions/task/getTasks";
+// import { useQuery } from "@tanstack/react-query";
+// import { getTasks } from "@/app/server-actions/task/getTasks";
 import { WorkspaceElement } from "./components/WorkspaceElements";
 import { ProjectElement } from "./components/ProjectElement";
 import { useData } from "@/context/DataProvider/DataProvider";
 import { useUser } from "@/context/DataProvider/UserDataProvider";
+import { useWorkspaceQuery } from "@/hooks/useWorkspaceQuery";
 
 const WorkspaceButtons = ({ width }: { width: number }) => {
   const router = useRouter();
@@ -19,7 +19,7 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
 
   const {
     projectId,
-    workspaceId,
+    // workspaceId,
     setWorkspaceName,
     setTasksLength,
     setWorkspaceId,
@@ -39,11 +39,11 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
     setActiveProject(projectId);
   }, [projectId]);
 
-  const { data: tasks } = useQuery({
-    queryKey: ["tasks", projectId],
-    queryFn: () => getTasks(userId, workspaceId, projectId),
-    enabled: !!projectId,
-  });
+  // const { data: tasks } = useQuery({
+  //   queryKey: ["tasks", projectId],
+  //   queryFn: () => getTasks(userId, workspaceId, projectId),
+  //   enabled: !!projectId,
+  // }); TODO: Uncomment when implementing new tasks
 
   const handleWorkspaceClick = (workspaceId: string, workspaceName: string) => {
     if (activeWorkspace === workspaceId) {
@@ -96,7 +96,7 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
                       onClick={handleProjectClick}
                       width={width}
                       setTasksLength={setTasksLength}
-                      tasks={tasks || []}
+                      tasks={[]}
                     />
                   ))
                 ) : (
