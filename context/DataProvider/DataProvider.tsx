@@ -13,10 +13,10 @@ import React, {
 type DataContextType = {
   userId: string | null;
   setUserId: Dispatch<React.SetStateAction<string>>;
-  workspaceId: string;
-  setWorkspaceId: Dispatch<SetStateAction<string>>;
-  workspaceName: string;
-  setWorkspaceName: Dispatch<SetStateAction<string>>;
+  spaceId: string;
+  setSpaceId: Dispatch<SetStateAction<string>>;
+  spaceName: string;
+  setSpaceName: Dispatch<SetStateAction<string>>;
   projectId: string;
   setProjectId: Dispatch<SetStateAction<string>>;
   projectName: string;
@@ -27,20 +27,24 @@ type DataContextType = {
   setTasksLength: Dispatch<SetStateAction<number>>;
 };
 
-export const DataContext = createContext<DataContextType | undefined>(undefined);
+export const DataContext = createContext<DataContextType | undefined>(
+  undefined
+);
 
-export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const DataProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   const [userId, setUserId] = useState("");
-  const [workspaceId, setWorkspaceId] = useState("");
-  const [workspaceName, setWorkspaceName] = useState("");
+  const [spaceId, setSpaceId] = useState("");
+  const [spaceName, setSpaceName] = useState("");
   const [projectId, setProjectId] = useState("");
   const [projectName, setProjectName] = useState("");
   const [taskId, setTaskId] = useState("");
   const [tasksLength, setTasksLength] = useState(0);
 
   useEffect(() => {
-    if (!workspaceId) {
-      setWorkspaceId(localStorage.getItem("workspaceId") || "");
+    if (!spaceId) {
+      setSpaceId(localStorage.getItem("spaceId") || "");
     }
     if (!projectId) {
       setProjectId(localStorage.getItem("projectId") || "");
@@ -52,10 +56,10 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       value={{
         userId,
         setUserId,
-        workspaceId,
-        setWorkspaceId,
-        workspaceName,
-        setWorkspaceName,
+        spaceId,
+        setSpaceId,
+        spaceName,
+        setSpaceName,
         projectId,
         setProjectId,
         projectName,
@@ -64,7 +68,8 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         setTaskId,
         tasksLength,
         setTasksLength,
-      }}>
+      }}
+    >
       {children}
     </DataContext.Provider>
   );
