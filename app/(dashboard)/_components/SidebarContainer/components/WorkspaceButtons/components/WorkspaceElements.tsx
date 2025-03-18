@@ -4,8 +4,10 @@ import { AddIcons } from "../../SidebarModal/components/AddIcons";
 import AddWorkspaceElement from "./AddWorkspaceElement/AddWorkspaceElement";
 import { Space } from "@/app/server-actions/types";
 
+
 interface SpaceElementProps {
   space: Space;
+
   isActive: boolean;
   onClick: (spaceId: string, spaceName: string) => void;
   width: number;

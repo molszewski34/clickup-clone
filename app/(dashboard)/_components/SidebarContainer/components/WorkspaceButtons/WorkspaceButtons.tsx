@@ -77,9 +77,11 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
             isActive={activeSpace === space.id}
             onClick={handleWorkspaceClick}
             width={width}
+
             setSpaceName={setSpaceName}
           >
             {activeSpace === space.id && (
+
               <div className="ml-4 mt-2">
                 {loadingProjects ? (
                   <p>Loading projects...</p>
@@ -101,7 +103,11 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
                   ))
                 ) : (
                   <p className="text-sm text-gray-500">
+
                     No projects in this space.
+
+                    Create a <u>Folder</u>, <u>List</u> or <u>Doc</u>
+
                   </p>
                 )}
               </div>

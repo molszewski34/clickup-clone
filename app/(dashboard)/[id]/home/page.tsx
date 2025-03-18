@@ -29,7 +29,8 @@ const UserHomePage = () => {
       </WidgetHeader>
       <div
         className="w-full custom-scrollbar overflow-y-auto overflow-x-hidden"
-        style={{ height: "calc(100vh - 90px)" }}>
+        style={{ height: "calc(100vh - 90px)" }}
+      >
         <HomeContentV2 />
       </div>
     </div>
