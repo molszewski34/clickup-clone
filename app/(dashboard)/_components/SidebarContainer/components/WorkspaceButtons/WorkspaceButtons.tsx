@@ -8,21 +8,21 @@ import { WorkspaceElement } from "./components/WorkspaceElements";
 import { ProjectElement } from "./components/ProjectElement";
 import { useData } from "@/context/DataProvider/DataProvider";
 import { useUser } from "@/context/DataProvider/UserDataProvider";
-import { useWorkspaceQuery } from "@/hooks/useWorkspaceQuery";
+import useSpacesQuery from "@/hooks/useSpacesQuery";
 
 const WorkspaceButtons = ({ width }: { width: number }) => {
   const router = useRouter();
-  const workspaceQueryResult = useWorkspaceQuery();
-  const workspaces = workspaceQueryResult.data || [];
-  const [activeWorkspace, setActiveWorkspace] = useState<string | null>(null);
+  const spaceQueryResult = useSpacesQuery();
+  const spaces = spaceQueryResult.data || [];
+  const [activeSpace, setActiveSpace] = useState<string | null>(null);
   const [activeProject, setActiveProject] = useState<string | null>(null);
 
   const {
     projectId,
-    // workspaceId,
-    setWorkspaceName,
+    // spaceId,
+    setSpaceName,
     setTasksLength,
-    setWorkspaceId,
+    setSpaceId,
     setProjectId,
     setProjectName,
   } = useData();
@@ -41,20 +41,20 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
 
   // const { data: tasks } = useQuery({
   //   queryKey: ["tasks", projectId],
-  //   queryFn: () => getTasks(userId, workspaceId, projectId),
+  //   queryFn: () => getTasks(userId, spaceId, projectId),
   //   enabled: !!projectId,
   // }); TODO: Uncomment when implementing new tasks
 
-  const handleWorkspaceClick = (workspaceId: string, workspaceName: string) => {
-    if (activeWorkspace === workspaceId) {
-      setActiveWorkspace(null);
+  const handleWorkspaceClick = (spaceId: string, spaceName: string) => {
+    if (activeSpace === spaceId) {
+      setActiveSpace(null);
       setActiveProject(null);
-      router.push(`/${userId}/o/${workspaceId}`);
+      router.push(`/${userId}/o/${spaceId}`);
     } else {
-      setActiveWorkspace(workspaceId);
-      setWorkspaceId(workspaceId);
-      setWorkspaceName(workspaceName);
-      localStorage.setItem("workspaceId", workspaceId);
+      setActiveSpace(spaceId);
+      setSpaceId(spaceId);
+      setSpaceName(spaceName);
+      localStorage.setItem("spaceId", spaceId);
     }
   };
 
@@ -69,17 +69,19 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
 
   return (
     <div className="flex w-full flex-col">
-      {workspaces.length > 0 ? (
-        workspaces.map((workspace) => (
+      {spaces.length > 0 ? (
+        spaces.map((space) => (
           <WorkspaceElement
-            key={workspace.id}
-            workspace={workspace}
-            isActive={activeWorkspace === workspace.id}
+            key={space.id}
+            space={space}
+            isActive={activeSpace === space.id}
             onClick={handleWorkspaceClick}
             width={width}
-            setWorkspaceName={setWorkspaceName}
+
+            setSpaceName={setSpaceName}
           >
-            {activeWorkspace === workspace.id && (
+            {activeSpace === space.id && (
+
               <div className="ml-4 mt-2">
                 {loadingProjects ? (
                   <p>Loading projects...</p>
@@ -101,7 +103,11 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
                   ))
                 ) : (
                   <p className="text-sm text-gray-500">
+
+                    No projects in this space.
+
                     Create a <u>Folder</u>, <u>List</u> or <u>Doc</u>
+
                   </p>
                 )}
               </div>
@@ -109,7 +115,7 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
           </WorkspaceElement>
         ))
       ) : (
-        <p className="text-gray-500">No workspace to display.</p>
+        <p className="text-gray-500">No space to display.</p>
       )}
     </div>
   );
