@@ -29,7 +29,11 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
 
   const { userId } = useUser();
 
-  const { data: projects, isLoading: loadingProjects, error: projectsError } = useProjectQuery();
+  const {
+    data: projects,
+    isLoading: loadingProjects,
+    error: projectsError,
+  } = useProjectQuery();
 
   useEffect(() => {
     setActiveProject(projectId);
@@ -73,13 +77,16 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
             isActive={activeWorkspace === workspace.id}
             onClick={handleWorkspaceClick}
             width={width}
-            setWorkspaceName={setWorkspaceName}>
+            setWorkspaceName={setWorkspaceName}
+          >
             {activeWorkspace === workspace.id && (
               <div className="ml-4 mt-2">
                 {loadingProjects ? (
                   <p>Loading projects...</p>
                 ) : projectsError ? (
-                  <p className="text-red-500">Error while downloading projects.</p>
+                  <p className="text-red-500">
+                    Error while downloading projects.
+                  </p>
                 ) : projects && projects.length > 0 ? (
                   projects.map((project) => (
                     <ProjectElement
@@ -93,7 +100,9 @@ const WorkspaceButtons = ({ width }: { width: number }) => {
                     />
                   ))
                 ) : (
-                  <p className="text-sm text-gray-500">No projects in this workspace.</p>
+                  <p className="text-sm text-gray-500">
+                    Create a <u>Folder</u>, <u>List</u> or <u>Doc</u>
+                  </p>
                 )}
               </div>
             )}

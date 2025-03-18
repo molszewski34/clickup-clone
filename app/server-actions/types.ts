@@ -43,9 +43,10 @@ export interface Workspace {
 
 export type Space = {
   id: string;
+  createdAt: string;
   name: string;
   isPrivate: boolean;
-  description?: string;
+  desc?: string;
   icon?: Icon;
 };
 
