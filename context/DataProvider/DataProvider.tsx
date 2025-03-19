@@ -17,9 +17,9 @@ type DataContextType = {
   setSpaceId: Dispatch<SetStateAction<string>>;
   spaceName: string;
   setSpaceName: Dispatch<SetStateAction<string>>;
-  projectId: string;
-  setProjectId: Dispatch<SetStateAction<string>>;
-  projectName: string;
+  listId: string;
+  setListId: Dispatch<SetStateAction<string>>;
+  listName: string;
   setProjectName: Dispatch<SetStateAction<string>>;
   taskId: string;
   setTaskId: Dispatch<SetStateAction<string>>;
@@ -37,8 +37,8 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({
   const [userId, setUserId] = useState("");
   const [spaceId, setSpaceId] = useState("");
   const [spaceName, setSpaceName] = useState("");
-  const [projectId, setProjectId] = useState("");
-  const [projectName, setProjectName] = useState("");
+  const [listId, setListId] = useState("");
+  const [listName, setProjectName] = useState("");
   const [taskId, setTaskId] = useState("");
   const [tasksLength, setTasksLength] = useState(0);
 
@@ -46,8 +46,8 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({
     if (!spaceId) {
       setSpaceId(localStorage.getItem("spaceId") || "");
     }
-    if (!projectId) {
-      setProjectId(localStorage.getItem("projectId") || "");
+    if (!listId) {
+      setListId(localStorage.getItem("listId") || "");
     }
   }, []);
 
@@ -60,9 +60,9 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({
         setSpaceId,
         spaceName,
         setSpaceName,
-        projectId,
-        setProjectId,
-        projectName,
+        listId,
+        setListId,
+        listName,
         setProjectName,
         taskId,
         setTaskId,
