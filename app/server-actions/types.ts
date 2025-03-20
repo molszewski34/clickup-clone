@@ -50,6 +50,13 @@ export type Space = {
   icon?: Icon;
 };
 
+export type List = {
+  id: string;
+  createdAt: string;
+  name: string;
+  isPrivate: string;
+};
+
 export enum Role {
   admin = "Admin",
   member = "Member",

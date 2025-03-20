@@ -1,9 +1,9 @@
 import React, { ReactNode, useState } from "react";
 import { Icons } from "@/icons/icons";
 import { AddIcons } from "../../SidebarModal/components/AddIcons";
-import AddWorkspaceElement from "./AddWorkspaceElement/AddWorkspaceElement";
-import { Space } from "@/app/server-actions/types";
 
+import { Space } from "@/app/server-actions/types";
+import AddSpaceElement from "./AddWorkspaceElement/AddSpaceElement";
 
 interface SpaceElementProps {
   space: Space;
@@ -15,7 +15,7 @@ interface SpaceElementProps {
   children?: ReactNode;
 }
 
-export const WorkspaceElement = ({
+export const SpaceElements = ({
   space,
   isActive,
   onClick,
@@ -47,7 +47,7 @@ export const WorkspaceElement = ({
 
   return (
     <div>
-      <AddWorkspaceElement
+      <AddSpaceElement
         label={space.name}
         icon={
           hoverStates[space.id] ? (
@@ -75,7 +75,7 @@ export const WorkspaceElement = ({
           setSpaceName(space.name);
         }}
         onMouseLeave={() => handleMouseLeave(space.id)}
-        isWorkspace={true}
+        isSpace={true}
         rotate={true}
       />
       {children}

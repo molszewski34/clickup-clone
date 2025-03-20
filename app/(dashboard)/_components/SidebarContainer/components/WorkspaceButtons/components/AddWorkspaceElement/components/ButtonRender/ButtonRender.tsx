@@ -3,7 +3,7 @@ import buttonsWorkSpaceModal from "./components/buttonsWorkSpaceModal";
 import ButtonProfil from "./components/ButtonProfil";
 
 interface ButtonRenderProps {
-  toggleModal: (modal: "menuWorkspaceList" | "createList") => void;
+  toggleModal: (modal: "menuSpaceList" | "createList") => void;
 }
 
 const ButtonRender: React.FC<ButtonRenderProps> = ({ toggleModal }) => {

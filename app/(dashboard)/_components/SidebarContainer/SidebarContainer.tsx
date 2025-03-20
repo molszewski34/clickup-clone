@@ -34,7 +34,8 @@ export default function SidebarContainer() {
             height: "calc(100vh - 40px)",
             position: "relative",
           }}
-          className="border border-gray-200 bg-opacity-50 bg-gray-100 shadow-md group custom-scrollbar overflow-x-hidden overflow-y-auto">
+          className="border border-gray-200 bg-opacity-50 bg-gray-100 shadow-md group custom-scrollbar overflow-x-hidden overflow-y-auto"
+        >
           <div>
             <UserProfile
               isLoading={isLoading}
@@ -60,12 +61,14 @@ export default function SidebarContainer() {
         <div
           className="fixed inset-0 flex justify-center bg-transparent bg-opacity-50 z-50"
           style={{ left: "60px" }}
-          onClick={() => toggleModal("none")}>
+          onClick={() => toggleModal("none")}
+        >
           <div
-            id="menuWorkspaceList"
+            id="menuSpaceList"
             className="fixed z-50 top-10 w-[255px] bg-gray-50 border-r border-gray-300 py-2"
             style={{ left: "60px", height: "calc(100vh - 40px)" }}
-            onClick={(e) => e.stopPropagation()}>
+            onClick={(e) => e.stopPropagation()}
+          >
             <ContainerModalFavouritesButton />
           </div>
         </div>
@@ -74,12 +77,14 @@ export default function SidebarContainer() {
         <div
           className="fixed inset-0 flex justify-center bg-transparent bg-opacity-50 z-50"
           style={{ left: "60px" }}
-          onClick={() => toggleModal("none")}>
+          onClick={() => toggleModal("none")}
+        >
           <div
-            id="menuWorkspaceList"
+            id="menuSpaceList"
             className="fixed z-50 top-10 w-[255px] bg-gray-50 border-r border-gray-300 py-2"
             style={{ left: "60px", height: "calc(100vh - 40px)" }}
-            onClick={(e) => e.stopPropagation()}>
+            onClick={(e) => e.stopPropagation()}
+          >
             <ContainerModalWorkButtons openModal={openModal} />
           </div>
         </div>

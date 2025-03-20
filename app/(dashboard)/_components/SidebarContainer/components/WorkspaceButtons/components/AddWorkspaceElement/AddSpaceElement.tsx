@@ -5,10 +5,10 @@ import {
   CreateListModal,
   MenuFileChangerModal,
   MenuListChangerModal,
-  MenuWorkspaceListModal,
+  MenuSpaceListModal,
 } from "./components/modals";
 
-const AddWorkspaceElement: React.FC<ButtonProps> = ({
+const AddSpaceElement: React.FC<ButtonProps> = ({
   label,
   icon,
   extraIcons,
@@ -17,7 +17,7 @@ const AddWorkspaceElement: React.FC<ButtonProps> = ({
   width,
   onMouseEnter,
   onMouseLeave,
-  isWorkspace,
+  isSpace,
   color,
   rotate = false,
 }) => {
@@ -34,7 +34,7 @@ const AddWorkspaceElement: React.FC<ButtonProps> = ({
 
   const [modalState, setModalState] = useState<
     | "none"
-    | "menuWorkspaceList"
+    | "menuSpaceList"
     | "createList"
     | "menuFileChanger"
     | "menuListChanger"
@@ -43,7 +43,7 @@ const AddWorkspaceElement: React.FC<ButtonProps> = ({
   const toggleModal = (
     modal:
       | "none"
-      | "menuWorkspaceList"
+      | "menuSpaceList"
       | "createList"
       | "menuFileChanger"
       | "menuListChanger"
@@ -83,16 +83,16 @@ const AddWorkspaceElement: React.FC<ButtonProps> = ({
         className={`group/button flex items-center cursor-pointer rounded-md h-8 w-full mr-1 pl-1 mb-px flex-grow min-w-0 ${
           width < 200 ? "justify-center" : ""
         } ${
-          modalState === "menuWorkspaceList" && !active
+          modalState === "menuSpaceList" && !active
             ? "bg-gray-200"
             : active
-            ? "bg-blue-200 text-blue-700"
-            : "hover:bg-gray-200 hover:text-gray-700"
+              ? "bg-blue-200 text-blue-700"
+              : "hover:bg-gray-200 hover:text-gray-700"
         }`}
       >
         <div className="flex w-full justify-between items-center">
           <div className="flex justify-center items-center h-8 w-6">
-            {isWorkspace ? (
+            {isSpace ? (
               <div
                 className={`flex justify-center items-center w-6 h-6  font-sans text-[12px] font-semibold text-white rounded ${
                   active ? "bg-gray-200" : `bg-${color}`
@@ -178,7 +178,7 @@ const AddWorkspaceElement: React.FC<ButtonProps> = ({
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      toggleModal("menuWorkspaceList");
+                      toggleModal("menuSpaceList");
                     }}
                     className={`flex justify-center items-center h-6 w-6 rounded-md ${
                       active ? "hover:bg-blue-300" : "hover:bg-gray-300"
@@ -208,7 +208,7 @@ const AddWorkspaceElement: React.FC<ButtonProps> = ({
         toggleModal={toggleModal}
         width={width}
       />
-      <MenuWorkspaceListModal
+      <MenuSpaceListModal
         modalState={modalState}
         toggleModal={toggleModal}
         width={width}
@@ -219,4 +219,4 @@ const AddWorkspaceElement: React.FC<ButtonProps> = ({
   );
 };
 
-export default AddWorkspaceElement;
+export default AddSpaceElement;
