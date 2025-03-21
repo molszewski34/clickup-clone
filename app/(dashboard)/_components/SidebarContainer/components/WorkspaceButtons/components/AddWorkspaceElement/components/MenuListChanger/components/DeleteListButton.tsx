@@ -1,39 +1,27 @@
 import React, { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteDoc, doc } from "firebase/firestore";
-import { db } from "@/db/firebase/lib/firebase";
 import { useData } from "@/context/DataProvider/DataProvider";
-import { useUser } from "@/context/DataProvider/UserDataProvider";
+import useGetCurrentWorkspace from "@/hooks/useGetCurrentWorkspace";
+import { deleteList } from "@/app/server-actions/List/deleteList";
 
-const deleteProject = async (
-  userId: string,
-  workspaceId: string,
-  projectId: string
-): Promise<void> => {
-  const projectRef = doc(
-    db,
-    `users/${userId}/workspaces/${workspaceId}/projects/${projectId}`
-  );
-  await deleteDoc(projectRef);
-};
-
-const DeleteProjectButton: React.FC = () => {
+const DeleteListButton: React.FC = () => {
   const queryClient = useQueryClient();
+  const { workspaceId } = useGetCurrentWorkspace();
 
-  const { workspaceId, projectId } = useData();
-  const { userId } = useUser();
+  const { spaceId, listId } = useData();
   const [isDeleting, setIsDeleting] = useState(false);
 
   const mutation = useMutation<void, Error>({
-    mutationFn: () => deleteProject(userId, workspaceId, projectId),
+    mutationFn: () => deleteList(workspaceId ?? "", listId, spaceId),
+
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["projects", userId, workspaceId],
+        queryKey: ["lists"],
       });
       setIsDeleting(true);
     },
     onError: (error) => {
-      console.error("Error deleting project:", error);
+      console.error("Error deleting list:", error);
     },
   });
 
@@ -50,4 +38,4 @@ const DeleteProjectButton: React.FC = () => {
   );
 };
 
-export default DeleteProjectButton;
+export default DeleteListButton;

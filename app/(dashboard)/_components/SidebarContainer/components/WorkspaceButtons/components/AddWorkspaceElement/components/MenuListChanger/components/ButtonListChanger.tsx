@@ -1,6 +1,6 @@
 import { Icons } from "@/icons/icons";
 import React, { useState } from "react";
-import DeleteProjectButton from "./DeleteProjectButton";
+import DeleteProjectButton from "./DeleteListButton";
 import { useData } from "@/context/DataProvider/DataProvider";
 
 interface ButtonProps {
@@ -25,7 +25,7 @@ const ButtonListChanger: React.FC<ButtonProps> = ({
 
   const [NumbersTemplates] = useState(0);
 
-  const { projectName, tasksLength } = useData();
+  const { listName, tasksLength } = useData();
 
   const isFourthGroupAndIndex3 = groupIndex === 3 && NumberIndex === 3;
 
@@ -53,8 +53,8 @@ const ButtonListChanger: React.FC<ButtonProps> = ({
               className: active
                 ? "text-blue-700"
                 : isFourthGroupAndIndex3
-                ? "text-red-500"
-                : "text-gray-500",
+                  ? "text-red-500"
+                  : "text-gray-500",
             })}
           </div>
           <div className="flex justify-start items-center flex-grow min-w-0 ml-1">
@@ -63,8 +63,8 @@ const ButtonListChanger: React.FC<ButtonProps> = ({
                 active
                   ? "text-blue-700"
                   : isFourthGroupAndIndex3
-                  ? "text-red-500"
-                  : "text-gray-500"
+                    ? "text-red-500"
+                    : "text-gray-500"
               }`}
             >
               {label}
@@ -96,7 +96,7 @@ const ButtonListChanger: React.FC<ButtonProps> = ({
                 <Icons.Trash className="text-[18px] text-red-800 " />
               </div>
               <div className="flex items-center text-lg  mt-4 font-sans font-medium text-gray-950">
-                Delete: <span className=" ml-2">{projectName}</span>
+                Delete: <span className=" ml-2">{listName}</span>
               </div>
               <div className="flex mt-1 text-sm font-sans text-gray-950">
                 <span>
