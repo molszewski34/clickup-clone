@@ -20,7 +20,7 @@ type DataContextType = {
   listId: string;
   setListId: Dispatch<SetStateAction<string>>;
   listName: string;
-  setProjectName: Dispatch<SetStateAction<string>>;
+  setListName: Dispatch<SetStateAction<string>>;
   taskId: string;
   setTaskId: Dispatch<SetStateAction<string>>;
   tasksLength: number;
@@ -38,7 +38,7 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({
   const [spaceId, setSpaceId] = useState("");
   const [spaceName, setSpaceName] = useState("");
   const [listId, setListId] = useState("");
-  const [listName, setProjectName] = useState("");
+  const [listName, setListName] = useState("");
   const [taskId, setTaskId] = useState("");
   const [tasksLength, setTasksLength] = useState(0);
 
@@ -63,7 +63,7 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({
         listId,
         setListId,
         listName,
-        setProjectName,
+        setListName,
         taskId,
         setTaskId,
         tasksLength,

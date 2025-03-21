@@ -1,12 +1,10 @@
 import { getSpaces } from "@/app/server-actions/space/getSpaces";
 import { useQuery } from "@tanstack/react-query";
-import { getAuth } from "firebase/auth";
 import { useUsersGetUserById } from "./useUsersGetUserById";
+import useGetCurrentUser from "./useGetCurrentUser";
 
 function useSpacesQuery() {
-  const auth = getAuth();
-  const currentUser = auth.currentUser;
-  const userId = currentUser?.uid;
+  const { userId } = useGetCurrentUser();
 
   const { data: userData, isLoading: isUserLoading } = useUsersGetUserById(
     userId ?? ""
