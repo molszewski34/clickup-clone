@@ -5,7 +5,7 @@ import { useData } from "@/context/DataProvider/DataProvider";
 
 import { useUsersGetUserById } from "./useUsersGetUserById";
 import useGetCurrentUser from "./useGetCurrentUser";
-import { getLists } from "@/app/server-actions/List/getLists";
+import { getLists } from "@/app/server-actions/list/getLists";
 
 export const useListQuery = () => {
   const { spaceId } = useData();
