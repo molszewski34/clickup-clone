@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
-import { db } from "@/db/firebase/lib/firebase";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
-import { User } from "@/app/server-actions/types";
+import { useEffect, useState } from 'react';
+import { auth, db } from '@/db/firebase/lib/firebase';
+import { onAuthStateChanged, User } from 'firebase/auth';
+import { doc, getDoc } from 'firebase/firestore';
 
 interface UserProfileData {
   signUpFullName: string;
@@ -20,12 +19,9 @@ interface UseUserProfileReturn {
 
 export function useUserProfile(): UseUserProfileReturn {
   const [user, setUser] = useState<User | null>(null);
-
   const [userData, setUserData] = useState<UserProfileData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-
-  const auth = getAuth();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -36,17 +32,17 @@ export function useUserProfile(): UseUserProfileReturn {
         setUser(currentUser);
 
         try {
-          const userDocRef = doc(db, "users", currentUser.uid);
+          const userDocRef = doc(db, 'users', currentUser.uid);
           const userDocSnap = await getDoc(userDocRef);
 
           if (userDocSnap.exists()) {
             setUserData(userDocSnap.data() as UserProfileData);
           } else {
-            setError("User data not found in Firestore.");
+            setError('User data not found in Firestore.');
           }
         } catch (err: any) {
           setError(
-            err.message || "An error occurred while fetching user data."
+            err.message || 'An error occurred while fetching user data.'
           );
         }
       } else {

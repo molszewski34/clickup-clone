@@ -17,10 +17,6 @@ export type User = {
   id: string;
   signUpFullName: string;
   signUpEmail: string;
-  userId: string;
-  createdAt?: Date;
-  lastActive?: Date;
-  activeWorkspace: Workspace["id"];
 };
 
 export interface Project {
@@ -38,41 +34,18 @@ export interface Workspace {
   id: string;
   name: string;
   createdAt: string;
-  description: string;
-}
-
-export type Space = {
-  id: string;
-  createdAt: string;
-  name: string;
+  desc: string;
+  icon: Icon | string;
   isPrivate: boolean;
-  desc?: string;
-  icon?: Icon;
-};
-
-export type List = {
-  id: string;
-  createdAt: string;
-  name: string;
-  isPrivate: string;
-};
-
-export enum Role {
-  admin = "Admin",
-  member = "Member",
-  guest = "Guest",
+  userId: string;
+  filtersState: {
+    isOpen: boolean; 
+    searchQuery: string; 
+    assignedToMe: boolean; 
+    assignedTo: string[]; 
+    statuses: string[];
+  }
 }
-
-export type UserAssociation = {
-  id: string;
-  userId: User["id"];
-  userEmail: User["signUpEmail"];
-  userFullName: User["signUpFullName"];
-  userLastActive: User["lastActive"];
-  workspaceId: Workspace["id"];
-  role: Role;
-  joinedAt: Date;
-};
 
 export type Icon = {
   activeColor: string;

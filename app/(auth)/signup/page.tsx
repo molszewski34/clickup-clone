@@ -11,7 +11,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import AuthLayout from "../_components/AuthLayout";
 import AuthForm from "../_components/AuthForm";
-import { useSignUpHandler } from "./_hooks/useSignUpHandler";
+import useSignUpHandler from "./_hooks/useSignUpHandler";
 import { signupSchema } from "../schemas/signupSchema";
 import { RedirectTo } from "../types/types";
 import { useState } from "react";

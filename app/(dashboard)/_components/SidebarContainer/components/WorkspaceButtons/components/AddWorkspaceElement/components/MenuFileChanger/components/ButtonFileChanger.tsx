@@ -1,7 +1,7 @@
 import { Icons } from "@/icons/icons";
 import React, { useState } from "react";
+import DeleteWorkspaceButton from "./DeleteWorkspaceButton";
 import { useData } from "@/context/DataProvider/DataProvider";
-import DeleteSpaceButton from "./DeleteSpaceButton";
 
 interface ButtonProps {
   label: string;
@@ -22,7 +22,7 @@ const ButtonFileChanger: React.FC<ButtonProps> = ({
   NumberIndex,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { spaceName } = useData();
+  const { workspaceName } = useData();
   const [inputValue, setInputValue] = useState<string>("");
   const isFourthGroupAndIndex3 = groupIndex === 3 && NumberIndex === 2;
 
@@ -52,8 +52,8 @@ const ButtonFileChanger: React.FC<ButtonProps> = ({
               className: active
                 ? "text-blue-700"
                 : isFourthGroupAndIndex3
-                  ? "text-red-500"
-                  : "text-gray-500",
+                ? "text-red-500"
+                : "text-gray-500",
             })}
           </div>
           <div className="flex justify-start items-center flex-grow min-w-0 ml-1">
@@ -62,8 +62,8 @@ const ButtonFileChanger: React.FC<ButtonProps> = ({
                 active
                   ? "text-blue-700"
                   : isFourthGroupAndIndex3
-                    ? "text-red-500"
-                    : "text-gray-500"
+                  ? "text-red-500"
+                  : "text-gray-500"
               }`}
             >
               {label}
@@ -92,7 +92,7 @@ const ButtonFileChanger: React.FC<ButtonProps> = ({
                 <Icons.Trash className="text-[18px] text-red-800 " />
               </div>
               <div className="flex items-center text-lg  mt-4 font-sans font-medium text-gray-950">
-                Delete: <span className=" ml-2">{spaceName}</span>
+                Delete: <span className=" ml-2">{workspaceName}</span>
               </div>
               <div className="flex mt-1 text-sm font-sans text-gray-950">
                 <span>
@@ -113,7 +113,7 @@ const ButtonFileChanger: React.FC<ButtonProps> = ({
                     name=""
                     id=""
                     value={inputValue}
-                    placeholder={spaceName}
+                    placeholder={workspaceName}
                     className="border-none mr-auto focus:outline-none py-[7px] text-sm w-full font-sans text-gray-800"
                     onChange={(e) => setInputValue(e.target.value)}
                   />
@@ -127,8 +127,8 @@ const ButtonFileChanger: React.FC<ButtonProps> = ({
               >
                 Cancel
               </button>
-              <DeleteSpaceButton
-                spaceName={spaceName}
+              <DeleteWorkspaceButton
+                workspaceName={workspaceName}
                 inputValue={inputValue}
                 closeModal={closeModal}
               />

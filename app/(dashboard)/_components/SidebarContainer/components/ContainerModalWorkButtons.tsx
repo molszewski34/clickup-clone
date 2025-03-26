@@ -1,6 +1,5 @@
 import { Icons } from "@/icons/icons";
-import SpaceButtons from "./WorkspaceButtons/SpaceButtons";
-
+import WorkspaceButtons from "./WorkspaceButtons/WorkspaceButtons";
 interface ContainerModalWorkButtonsProps {
   openModal: () => void;
 }
@@ -34,7 +33,7 @@ export default function ContainerModalWorkButtons({
         <div
           className={`flex flex-row rounded-lg min-w-[230px] my-2 ml-3 mr-2 `}
         >
-          <SpaceButtons width={350} />
+          <WorkspaceButtons width={350} />
         </div>
       </div>
       ;
