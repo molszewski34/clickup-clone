@@ -1,37 +1,37 @@
 "use client";
 
 import React, { useState } from "react";
+import { useWorkspaceQuery } from "@/hooks/useWorkspaceQuery";
 import { useData } from "@/context/DataProvider/DataProvider";
 import ProjectsList from "./components/ProjectsList";
-import useSpacesQuery from "@/hooks/useSpacesQuery";
 
 const WorkspacesList = () => {
-  const spaceQueryResult = useSpacesQuery();
-  const spaces = spaceQueryResult.data || [];
-  const { setSpaceId } = useData();
+  const workspaceQueryResult = useWorkspaceQuery();
+  const workspaces = workspaceQueryResult.data || [];
+  const { setWorkspaceId } = useData();
 
   const [showProjectList, setShowProjectList] = useState<boolean>(true);
 
   return (
     <div>
-      <h1>Your Spaces</h1>
-      {spaces.length > 0 ? (
+      <h1>Your Workspaces</h1>
+      {workspaces.length > 0 ? (
         <ul>
-          {spaces.map((space) => (
+          {workspaces.map((workspace) => (
             <li
               onClick={() => {
-                setSpaceId(space.id);
+                setWorkspaceId(workspace.id);
                 setShowProjectList(!showProjectList);
               }}
-              key={space.id}
+              key={workspace.id}
             >
-              {space.name}
+              {workspace.name}
               {showProjectList && <ProjectsList />}
             </li>
           ))}
         </ul>
       ) : (
-        <p>No spaces found.</p>
+        <p>No workspaces found.</p>
       )}
     </div>
   );

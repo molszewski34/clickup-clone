@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { Icons } from "@/icons/icons";
 import { useUser } from "@/context/DataProvider/UserDataProvider";
-import { getWorkspaces } from "../server-actions/workspace-old/getWorkspaces";
+import { getWorkspaces } from "../server-actions/workspace/getWorkspaces";
 import { getProjects } from "../server-actions/project/getProjects";
 import { getTasks } from "../server-actions/task/getTasks";
 import { getSubTasks } from "../server-actions/subtasks/getSubtasks";
@@ -23,7 +23,11 @@ const RenderButtons = () => {
     router.push(`/t/${taskId}`);
   };
 
-  const handleProjectClick = (workspaceId: string, projectId: string, projectName: string) => {
+  const handleProjectClick = (
+    workspaceId: string,
+    projectId: string,
+    projectName: string
+  ) => {
     setWorkspaceId(workspaceId);
     setProjectId(projectId);
     setProjectName(projectName);
@@ -42,7 +46,12 @@ const RenderButtons = () => {
                 const tasks = await getTasks(userId, workspace.id, project.id);
                 const tasksWithSubTasks = await Promise.all(
                   tasks.map(async (task) => {
-                    const subtasks = await getSubTasks(userId, workspace.id, project.id, task.id);
+                    const subtasks = await getSubTasks(
+                      userId,
+                      workspace.id,
+                      project.id,
+                      task.id
+                    );
                     return { ...task, subtasks };
                   })
                 );
@@ -69,13 +78,24 @@ const RenderButtons = () => {
         workspace.projects.map((project: Project) => (
           <div key={project.id} className="mb-2">
             <div
-              onClick={() => handleProjectClick(workspace.id, project.id ?? "", project.name ?? "")}
-              className="flex justify-between cursor-pointer w-full items-center mx-2 p-2 py-1 rounded-md hover:bg-gray-100 group/hidden">
+              onClick={() =>
+                handleProjectClick(
+                  workspace.id,
+                  project.id ?? "",
+                  project.name ?? ""
+                )
+              }
+              className="flex justify-between cursor-pointer w-full items-center mx-2 p-2 py-1 rounded-md hover:bg-gray-100 group/hidden"
+            >
               <div className="flex gap-2 items-center">
                 <Icons.ListOutline className="text-[16px] text-gray-700" />
-                <div className="font-sans font-medium text-sm text-gray-700">{project.name}</div>
+                <div className="font-sans font-medium text-sm text-gray-700">
+                  {project.name}
+                </div>
                 <div>&bull;</div>
-                <div className="font-sans text-sm text-gray-400">In {workspace.name}</div>
+                <div className="font-sans text-sm text-gray-400">
+                  In {workspace.name}
+                </div>
               </div>
               <div className=" hidden gap-1 items-center group-hover/hidden:flex">
                 <button className="w-6 h-6 flex justify-center items-center rounded-md border bg-white border-gray-200 hover:bg-gray-200">
@@ -90,14 +110,17 @@ const RenderButtons = () => {
               <div key={task.id} className="">
                 <div
                   onClick={() => handlePushToTaskPage(task.id)}
-                  className="flex justify-between w-full items-center mx-2 p-2 py-1 cursor-pointer rounded-md hover:bg-gray-100 group/hidden">
+                  className="flex justify-between w-full items-center mx-2 p-2 py-1 cursor-pointer rounded-md hover:bg-gray-100 group/hidden"
+                >
                   <div className="flex gap-2 items-center">
                     <Icons.DotIcon className="text-[16px] text-gray-700" />
                     <div className="font-sans font-medium text-sm text-gray-700">
                       {task.taskName}
                     </div>
                     <div>&bull;</div>
-                    <div className="font-sans text-sm text-gray-400">In {project.name}</div>
+                    <div className="font-sans text-sm text-gray-400">
+                      In {project.name}
+                    </div>
                   </div>
                   <div className=" hidden gap-1 items-center group-hover/hidden:flex">
                     <button className="w-6 h-6 flex justify-center items-center rounded-md border bg-white border-gray-200 hover:bg-gray-200">

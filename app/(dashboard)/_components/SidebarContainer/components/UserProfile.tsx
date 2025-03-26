@@ -3,35 +3,37 @@
 import { Icons } from "@/icons/icons";
 import Icon from "@/app/(dashboard)/ui/Icon";
 import { useEffect, useRef, useState } from "react";
-import { ChangeWorkspace } from "./ChangeWorkspace";
-import { Workspace } from "@/app/server-actions/types";
+import ChangeSpacesModal from "./ChangeSpacesModal/ChangeSpacesModal";
 import Skeleton from "react-loading-skeleton";
-import { WorkspaceWithMembers } from "@/hooks/useGetWorkspacesForUser";
 
 interface UserProfileProps {
-  isLoading: boolean;
-  currentWorkspace: Workspace | undefined;
-  workspacesToSwitch: WorkspaceWithMembers[] | undefined;
+  userName: string;
   userInitial: string;
+  loading: boolean;
   width: number;
-  shrinkSidebar: () => void;
+  shrinkSidebar: () => void; // Dodaj shrinkSidebar jako prop
 }
 
 const UserProfile: React.FC<UserProfileProps> = ({
-  isLoading,
-  currentWorkspace,
-  workspacesToSwitch,
+  userName,
   userInitial,
+  loading,
   width,
   shrinkSidebar,
 }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
 
+  const openModal = () => setModalIsOpen(true);
+  const closeModal = () => setModalIsOpen(false);
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-        setModalIsOpen(false);
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
+        closeModal();
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
@@ -46,7 +48,8 @@ const UserProfile: React.FC<UserProfileProps> = ({
         className={`flex items-center rounded-md hover:bg-gray-200 hover:bg-opacity-50 h-8 w-auto mr-1 pl-1 flex-grow min-w-0 ${
           width < 200 ? "justify-start" : ""
         }`}
-        onClick={() => setModalIsOpen(true)}>
+        onClick={openModal}
+      >
         <div className="flex justify-center items-center min-w-6 h-6 bg-emerald-600 rounded-md text-white text-xs font-sans font-bold">
           {userInitial}
         </div>
@@ -54,10 +57,10 @@ const UserProfile: React.FC<UserProfileProps> = ({
         {width >= 200 && (
           <div className="flex-grow min-w-0 ml-2">
             <span className="block text-gray-700 text-left text-base font-semibold truncate font-sans">
-              {isLoading || !currentWorkspace ? (
+              {loading ? (
                 <Skeleton width={120} height={16} borderRadius={4} />
               ) : (
-                currentWorkspace.name
+                `${userName}'s Workspace`
               )}
             </span>
           </div>
@@ -76,20 +79,22 @@ const UserProfile: React.FC<UserProfileProps> = ({
               shrinkSidebar();
               console.log("Button clicked, sidebar should shrink");
             }}
-            className="flex justify-center items-center hover:bg-white bg-opacity-10 hover:bg-opacity-20 rounded-md h-8 w-8">
-            <Icon className="text-[20px] text-gray-700" icon={<Icons.CreateDocIcon />} />
+            className="flex justify-center items-center hover:bg-white bg-opacity-10 hover:bg-opacity-20 rounded-md h-8 w-8"
+          >
+            <Icon
+              className="text-[20px] text-gray-700"
+              icon={<Icons.CreateDocIcon />}
+            />
           </button>
         </div>
       )}
-      {modalIsOpen && workspacesToSwitch && currentWorkspace && (
+      {modalIsOpen && (
         <div className="absolute left-[0] top-full mt-2 z-50 flex">
           <div
             ref={modalRef}
-            className="bg-gray-50 w-[250px] border border-gray-200 rounded-md shadow-lg flex flex-col">
-            <ChangeWorkspace
-              workspacesToSwitch={workspacesToSwitch}
-              currentWorkspace={currentWorkspace}
-            />
+            className="bg-gray-50 w-[250px] border border-gray-200 rounded-md shadow-lg flex flex-col"
+          >
+            <ChangeSpacesModal userName={userName} userInitial={userInitial} />
           </div>
         </div>
       )}

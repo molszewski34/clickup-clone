@@ -1,6 +1,6 @@
 "use client";
 
-import { getWorkspaces } from "@/app/server-actions/workspace-old/getWorkspaces";
+import { getWorkspaces } from "@/app/server-actions/workspace/getWorkspaces";
 import { useUser } from "@/context/DataProvider/UserDataProvider";
 import { useQuery } from "@tanstack/react-query";
 
@@ -8,14 +8,13 @@ export const useWorkspaceQuery = () => {
   const { userId } = useUser();
 
   return useQuery({
-    queryKey: ["spaces", userId],
+    queryKey: ["workspaces", userId],
     queryFn: () => {
       if (!userId) {
-        return Promise.resolve([]);
+        return Promise.resolve([]); // Zwraca pustą tablicę, jeśli dane są niepełne
       }
-
-      return getSpacesForUser(userId);
+      return getWorkspaces(userId);
     },
-    enabled: !!userId,
+    enabled: !!userId, // Wyłącz zapytanie, jeśli `userId` jest niedostępny
   });
 };

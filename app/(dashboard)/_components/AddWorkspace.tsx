@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useAuth } from "../_hooks/useAuth";
-import { createNewWorkspace } from "@/app/server-actions/workspace-old/createNewWorkspace";
+import { createNewWorkspace } from "@/app/server-actions/workspace/createNewWorkspace";
 import { Workspace } from "@/app/server-actions/types";
 
 const AddWorkspace: React.FC = () => {

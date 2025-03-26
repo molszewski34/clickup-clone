@@ -7,7 +7,7 @@ interface ButtonProps {
   width: number;
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
-  isSpace: boolean;
+  isWorkspace: boolean;
   color?: string;
   rotate?: boolean;
 }

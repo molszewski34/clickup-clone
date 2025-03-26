@@ -1,29 +1,45 @@
-import { useCreateSpace } from "@/hooks/useCreateSpace";
-import React, { useState } from "react";
+import { useWorkspaceFormContext } from '@/context/FormProviders/WorkspaceFormProvider';
+import { useUser } from '@/context/DataProvider/UserDataProvider';
+import { useCreateWorkspace } from '@/hooks/useCreateWorkspace';
+import React, { useState } from 'react';
 
 interface SpaceModalFooterProps {
   onClose: () => void;
 }
 
 const SpaceModalFooter: React.FC<SpaceModalFooterProps> = ({ onClose }) => {
+  const { formData, setError } = useWorkspaceFormContext();
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const createWorkspaceMutation = useCreateSpace();
+  const { userId } = useUser();
+  const createWorkspaceMutation = useCreateWorkspace();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (!userId) {
+      console.error('User ID is required but is null.');
+      return;
+    }
+
+    if (!formData.name.trim()) {
+      setError(true);
+      return;
+    }
+
     setIsSubmitting(true);
-    createWorkspaceMutation.mutate(undefined, {
-      onSuccess: () => {
-        setIsSubmitting(false);
-        onClose();
-      },
-      onError: (error) => {
-        console.error("Error creating workspace:", error);
-        setIsSubmitting(false);
-      },
-    });
+    createWorkspaceMutation.mutate(
+      { formData, userId },
+      {
+        onSuccess: () => {
+          setIsSubmitting(false);
+          onClose();
+        },
+        onError: (error) => {
+          console.error('Error creating workspace:', error);
+          setIsSubmitting(false);
+        },
+      }
+    );
   };
 
   return (
@@ -39,7 +55,7 @@ const SpaceModalFooter: React.FC<SpaceModalFooterProps> = ({ onClose }) => {
         onClick={handleSubmit}
         disabled={isSubmitting}
       >
-        {isSubmitting ? "Loading..." : "Continue"}
+        {isSubmitting ? 'Loading...' : 'Continue'}
       </button>
     </div>
   );
