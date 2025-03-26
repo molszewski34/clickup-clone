@@ -7,6 +7,7 @@ import { UserProvider } from "@/context/DataProvider/UserDataProvider";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { WorkspaceFormProvider } from "@/context/FormProviders/WorkspaceFormProvider";
 import { TaskFormProvider } from "@/context/FormProviders/TaskFormProvider";
+import { AuthGuard } from "./(auth)/_components/AuthGuard";
 
 export default function RootLayout({
   children,
@@ -18,11 +19,13 @@ export default function RootLayout({
       <body>
         <QueryClientProvider client={queryClient}>
           <UserProvider>
-            <WorkspaceFormProvider>
-              <TaskFormProvider>
-                <DataProvider>{children}</DataProvider>
-              </TaskFormProvider>
-            </WorkspaceFormProvider>
+            <AuthGuard>
+              <WorkspaceFormProvider>
+                <TaskFormProvider>
+                  <DataProvider>{children}</DataProvider>
+                </TaskFormProvider>
+              </WorkspaceFormProvider>
+            </AuthGuard>
           </UserProvider>
           <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>

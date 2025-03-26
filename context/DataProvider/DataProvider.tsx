@@ -13,37 +13,41 @@ import React, {
 type DataContextType = {
   userId: string | null;
   setUserId: Dispatch<React.SetStateAction<string>>;
-  workspaceId: string;
-  setWorkspaceId: Dispatch<SetStateAction<string>>;
-  workspaceName: string;
-  setWorkspaceName: Dispatch<SetStateAction<string>>;
-  projectId: string;
-  setProjectId: Dispatch<SetStateAction<string>>;
-  projectName: string;
-  setProjectName: Dispatch<SetStateAction<string>>;
+  spaceId: string;
+  setSpaceId: Dispatch<SetStateAction<string>>;
+  spaceName: string;
+  setSpaceName: Dispatch<SetStateAction<string>>;
+  listId: string;
+  setListId: Dispatch<SetStateAction<string>>;
+  listName: string;
+  setListName: Dispatch<SetStateAction<string>>;
   taskId: string;
   setTaskId: Dispatch<SetStateAction<string>>;
   tasksLength: number;
   setTasksLength: Dispatch<SetStateAction<number>>;
 };
 
-export const DataContext = createContext<DataContextType | undefined>(undefined);
+export const DataContext = createContext<DataContextType | undefined>(
+  undefined
+);
 
-export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const DataProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   const [userId, setUserId] = useState("");
-  const [workspaceId, setWorkspaceId] = useState("");
-  const [workspaceName, setWorkspaceName] = useState("");
-  const [projectId, setProjectId] = useState("");
-  const [projectName, setProjectName] = useState("");
+  const [spaceId, setSpaceId] = useState("");
+  const [spaceName, setSpaceName] = useState("");
+  const [listId, setListId] = useState("");
+  const [listName, setListName] = useState("");
   const [taskId, setTaskId] = useState("");
   const [tasksLength, setTasksLength] = useState(0);
 
   useEffect(() => {
-    if (!workspaceId) {
-      setWorkspaceId(localStorage.getItem("workspaceId") || "");
+    if (!spaceId) {
+      setSpaceId(localStorage.getItem("spaceId") || "");
     }
-    if (!projectId) {
-      setProjectId(localStorage.getItem("projectId") || "");
+    if (!listId) {
+      setListId(localStorage.getItem("listId") || "");
     }
   }, []);
 
@@ -52,19 +56,20 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       value={{
         userId,
         setUserId,
-        workspaceId,
-        setWorkspaceId,
-        workspaceName,
-        setWorkspaceName,
-        projectId,
-        setProjectId,
-        projectName,
-        setProjectName,
+        spaceId,
+        setSpaceId,
+        spaceName,
+        setSpaceName,
+        listId,
+        setListId,
+        listName,
+        setListName,
         taskId,
         setTaskId,
         tasksLength,
         setTasksLength,
-      }}>
+      }}
+    >
       {children}
     </DataContext.Provider>
   );

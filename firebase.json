@@ -1,0 +1,22 @@
+{
+  "emulators": {
+    "auth": {
+      "port": 9099
+    },
+    "firestore": {
+      "port": 8080
+    },
+    "singleProjectMode": true
+  },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "hosting": {
+    "public": "public",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+  },
+  "storage": {
+    "rules": "storage.rules"
+  }
+}

@@ -8,7 +8,6 @@ export const WorkspaceFormProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [formData, setFormData] = useState({
-    id: crypto.randomUUID(),
     name: "",
     createdAt: new Date().toISOString(),
     desc: "",
@@ -27,7 +26,12 @@ export const WorkspaceFormProvider: React.FC<{ children: React.ReactNode }> = ({
 
   return (
     <WorkspaceFormContext.Provider
-      value={{ formData, setFormData, error, setError }}
+      value={{
+        formData,
+        setFormData,
+        error,
+        setError,
+      }}
     >
       {children}
     </WorkspaceFormContext.Provider>
