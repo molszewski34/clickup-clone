@@ -22,7 +22,9 @@ export const AuthGuard = ({
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (!user) {
-        router.push("/login");
+        if (!pathname.includes("signup")) {
+          router.push("/login");
+        } else return;
       } else {
         setUserId(user.uid);
         if (pathname.includes("login") && isSuccess && userData) {
