@@ -1,12 +1,16 @@
 import { db } from "@/db/firebase/lib/firebase";
-import { addDoc, collection } from "firebase/firestore";
-import { Space } from "../types";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { NewDefaultSpace } from "../types";
 
-export const createSpace = async (formData: Space, workspaceId: string) => {
+export const createSpace = async (
+  formData: NewDefaultSpace,
+  workspaceId: string
+) => {
   try {
     const spacesRef = collection(db, `workspace/${workspaceId}/spaces`);
     const newSpace = await addDoc(spacesRef, {
       name: formData.name,
+      createdAt: serverTimestamp(),
       isPrivate: formData.isPrivate,
       desc: formData.desc,
       icon: formData.icon,

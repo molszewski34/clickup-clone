@@ -16,6 +16,7 @@ import { updateUserAssociation } from "@/app/server-actions/user2workspace/updat
 import { getUserByEmail } from "@/app/server-actions/user/getUserByEmail";
 import { updateUserKey } from "@/app/server-actions/user/updateUserKey";
 import { getUserAssociationByEmail } from "@/app/server-actions/user2workspace/getUserAssociationByEmail";
+import { createSpace } from "@/app/server-actions/space/createSpace";
 
 export const useSignUpHandler = () => {
   const [signUpFullName, setSignUpFullName] = useState("");
@@ -38,20 +39,24 @@ export const useSignUpHandler = () => {
       const user = userCredential.user;
 
       if (user) {
-        //* being forced to not use firebase server functions i manage to create new working way. Here is point by point explanation.
+        //* being forced to not use firebase server functions i managed to create new working way. Here is point by point explanation.
         const userMailExist = await getUserByEmail(signUpEmail); //* To validate if user is joining workspace or just signing up function check if user has been added to database in InviteToWorkspace.tsx. If true process start
-        if (!userMailExist) {
-          throw new Error("User email do not exist");
-        }
+        // if (!userMailExist) {
+        //   throw new Error("User email do not exist");
+        // }
         const userMailId = userMailExist?.id; //* Here code starts to be complicated. Because firebase (or any db model) don't allow to change key of user - server takes record with old id - clones to new (id from firebase auth) and delete old. It uses additional db callbacks but makes job done. All of this is made because this hook can't take params needed for proper workflow. Hook is also out of context scope. This operation is required for updateUser to work.
 
         if (userMailExist) {
+          console.log("Procedura dodawania do workspace");
           await sendEmailVerification(user);
           const auth = getAuth();
           const currentUser = auth.currentUser;
           const currentUserId = currentUser?.uid;
           if (!currentUserId) {
             throw new Error("User is not authethificated");
+          }
+          if (!userMailId) {
+            throw new Error("Cannot get user mail id)");
           }
           await updateUserKey(userMailId, currentUserId); //* Here we update and delete old record created in InviteToWorkspace.tsx
 
@@ -75,17 +80,23 @@ export const useSignUpHandler = () => {
           ); //* user association also updates userId with new one so other scripts can query base on new userId which this time is the same as id in auth
         } else {
           await updateProfile(user, { displayName: signUpFullName });
+
+          const userDefaultWorkspace = await createWorkspace(
+            `${signUpFullName}'s workspace`,
+            "This is your default workspace"
+          );
+          if (!userDefaultWorkspace) {
+            throw Error("Workspace failed to initialize");
+          }
+
           const userCreated = await createUser(
             signUpFullName,
             signUpEmail,
-            user.uid
+            user.uid,
+            userDefaultWorkspace.id
           );
           await sendEmailVerification(user);
           if (userCreated !== undefined) {
-            const userDefaultWorkspace = await createWorkspace(
-              `${signUpFullName}'s workspace`,
-              "This is your default workspace"
-            );
             if (!userDefaultWorkspace) {
               setSignUpError("Could not create workspace for a new user!");
             } else {
@@ -94,6 +105,7 @@ export const useSignUpHandler = () => {
                 userDefaultWorkspace.id,
                 Role.admin
               );
+
               if (!userAssociation) {
                 console.error("Could not create user association!");
               } else {
@@ -104,7 +116,21 @@ export const useSignUpHandler = () => {
                   userAssociation.workspaceId
                 );
               }
+
+              const createNewSpace = await createSpace(
+                {
+                  name: "Space",
+                  isPrivate: false,
+                  desc: "",
+                  icon: { activeColor: "indigo-500", selectedIconName: "" },
+                },
+                userDefaultWorkspace.id
+              );
+              if (!createNewSpace) {
+                throw Error("Failed to initialize new user!");
+              }
             }
+
             setSignUpSuccess("Account created successfully!");
           } else {
             console.error("Error! Newly created user not found");

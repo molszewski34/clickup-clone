@@ -43,12 +43,14 @@ export interface Workspace {
 
 export type Space = {
   id: string;
-  createdAt: string;
+  createdAt?: string;
   name: string;
   isPrivate: boolean;
   desc?: string;
   icon?: Icon;
 };
+
+export type NewDefaultSpace = Omit<Space, "id" | "createdAt">;
 
 export type List = {
   id: string;
