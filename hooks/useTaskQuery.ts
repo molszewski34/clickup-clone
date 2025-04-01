@@ -1,17 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
 import { getTasks } from "@/app/server-actions/task/getTasks";
 
-const tasksQueryKey = (userId: string, workspaceId: string, projectId: string) => [
-  "tasks",
-  userId,
-  workspaceId,
-  projectId,
-];
+const tasksQueryKey = (
+  workspaceId: string,
+  spaceId: string,
+  listId: string
+) => [workspaceId, spaceId, listId];
 
-export const useTasksQuery = (userId: string, workspaceId: string, projectId: string) => {
+export const useTasksQuery = (
+  workspaceId: string,
+  spaceId: string,
+  listId: string
+) => {
   return useQuery({
-    queryKey: tasksQueryKey(userId, workspaceId, projectId),
-    queryFn: () => getTasks(userId, workspaceId, projectId),
-    enabled: !!userId && !!workspaceId && !!projectId,
+    queryKey: tasksQueryKey(workspaceId, spaceId, listId),
+    queryFn: () => getTasks(workspaceId, spaceId, listId),
+    enabled: !!workspaceId && !!spaceId,
   });
 };

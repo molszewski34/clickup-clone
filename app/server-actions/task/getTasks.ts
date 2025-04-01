@@ -2,11 +2,15 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/db/firebase/lib/firebase";
 import { Task } from "../types";
 
-export const getTasks = async (userId: string, workspaceId: string, projectId: string) => {
+export const getTasks = async (
+  workspaceId: string,
+  spaceId: string,
+  listId: string
+) => {
   try {
     const projectsRef = collection(
       db,
-      `users/${userId}/workspaces/${workspaceId}/projects/${projectId}/tasks`
+      `workspace/${workspaceId}/spaces/${spaceId}/lists/${listId}/tasks`
     );
     const querySnapshot = await getDocs(projectsRef);
 

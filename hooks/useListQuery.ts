@@ -1,11 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-// import { getProjects } from "@/app/server-actions/project/getProjects";
-
 import { useData } from "@/context/DataProvider/DataProvider";
 
 import { useUsersGetUserById } from "./useUsersGetUserById";
 import useGetCurrentUser from "./useGetCurrentUser";
-import { getLists } from "@/app/server-actions/list/getLists";
+import { getLists } from "@/app/server-actions/List/getLists";
 
 export const useListQuery = () => {
   const { spaceId } = useData();
