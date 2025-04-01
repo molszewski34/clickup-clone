@@ -1,30 +1,32 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { Task } from '@/app/server-actions/types';
-import { addNewTask } from '@/app/server-actions/task/addNewTask';
+import { Task } from "@/app/server-actions/types";
+import { createTask } from "@/app/server-actions/task/createTask";
 
 export const useCreateTask = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async ({
       formData,
-      userId,
+
       workspaceId,
-      projectId,
+      spaceId,
+      listId,
     }: {
       formData: Task;
       userId: string;
       workspaceId: string;
-      projectId: string;
+      spaceId: string;
+      listId: string;
     }) => {
-      await addNewTask(formData, userId, workspaceId, projectId);
+      await createTask(formData, workspaceId, spaceId, listId);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['tasks'] });
-      console.log('Task created successfully!');
+      queryClient.invalidateQueries({ queryKey: ["tasks"] });
+      console.log("Task created successfully!");
     },
     onError: (error: unknown) => {
-      console.error('Error creating task:', error);
+      console.error("Error creating task:", error);
     },
   });
 };

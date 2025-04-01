@@ -1,17 +1,16 @@
 import { TaskPriority, TaskStatus } from "../(dashboard)/[id]/home/types";
 
-export interface Task {
-  id: string;
+export type Task = {
   taskName: string;
-  projectId: string;
-  createdAt?: Date | null;
+  createdAt: Date;
   status: TaskStatus;
-  dueDate?: Date | null;
-  assignees: User[];
-  timeEstimate?: string;
-  priority?: TaskPriority;
-  details?: string;
-}
+  dueDate: Date | null;
+  timeEstimate: Date | null;
+  priority: TaskPriority;
+  lastUpdated: Date;
+  details: string;
+  subtasks?: Task[];
+};
 
 export type User = {
   id: string;

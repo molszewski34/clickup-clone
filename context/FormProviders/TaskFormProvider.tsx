@@ -10,16 +10,19 @@ type TaskFormContext = {
 
 const TaskFormContext = createContext<TaskFormContext | undefined>(undefined);
 
-export const TaskFormProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const TaskFormProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [formData, setFormData] = useState<Task>({
-    id: "",
     taskName: "",
-    projectId: "",
-    assignees: [],
-    timeEstimate: "",
-    priority: TaskPriority.none,
-    details: "",
+    createdAt: new Date(),
     status: TaskStatus.todo,
+    dueDate: null,
+    timeEstimate: null,
+    priority: TaskPriority.none,
+    lastUpdated: new Date(),
+    details: "",
+    subtasks: [],
   });
 
   return (
