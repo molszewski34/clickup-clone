@@ -19,7 +19,6 @@ const SpaceButtons = ({ width }: { width: number }) => {
 
   const {
     listId,
-
     setSpaceName,
     setTasksLength,
     setSpaceId,
@@ -62,7 +61,8 @@ const SpaceButtons = ({ width }: { width: number }) => {
 
   console.log("lists", lists);
 
-  const handleListHover = (listId: string, listName: string) => {
+  const handleListClick = (listId: string, listName: string) => {
+    // Changed from handleListHover to handleListClick
     setActiveList((prev) => (prev === listId ? null : listId));
     setListId(listId);
     setListName(listName);
@@ -95,7 +95,7 @@ const SpaceButtons = ({ width }: { width: number }) => {
                       key={list.id}
                       list={list}
                       isActive={activeList === list.id}
-                      onMouseEnter={() => handleListHover(list.id, list.name)}
+                      onClick={handleListClick} // Changed from onMouseEnter to onClick
                       width={width}
                       setTasksLength={setTasksLength}
                       tasks={[]}
