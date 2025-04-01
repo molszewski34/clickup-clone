@@ -12,20 +12,6 @@ export type Task = {
   subtasks?: Task[];
 };
 
-// export enum TaskStatus {
-//   todo = "To do",
-//   inProgress = "In Progress",
-//   completed = "Completed",
-// }
-
-// export enum TaskPriority {
-//   urgent = "Urgent",
-//   high = "High",
-//   normal = "Normal",
-//   low = "Low",
-//   none = "",
-// }
-
 export type User = {
   id: string;
   signUpFullName: string;
