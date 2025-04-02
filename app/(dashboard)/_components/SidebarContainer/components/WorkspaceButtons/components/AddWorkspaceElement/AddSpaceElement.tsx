@@ -86,8 +86,8 @@ const AddSpaceElement: React.FC<ButtonProps> = ({
           modalState === "menuSpaceList" && !active
             ? "bg-gray-200"
             : active
-              ? "bg-blue-200 text-blue-700"
-              : "hover:bg-gray-200 hover:text-gray-700"
+            ? "bg-blue-200 text-blue-700"
+            : "hover:bg-gray-200 hover:text-gray-700"
         }`}
       >
         <div className="flex w-full justify-between items-center">
@@ -162,7 +162,7 @@ const AddSpaceElement: React.FC<ButtonProps> = ({
                       toggleModal("menuFileChanger");
                     }}
                     className={`flex justify-center items-center h-6 w-6 rounded-md ${
-                      active ? "hover:bg-blue-300" : "hover:bg-gray-300"
+                      active ? "hover:bg-blue-300" : "hover:bg-gray-300 hidden"
                     }`}
                   >
                     <Icons.ThreeDotsIcon
@@ -181,7 +181,7 @@ const AddSpaceElement: React.FC<ButtonProps> = ({
                       toggleModal("menuSpaceList");
                     }}
                     className={`flex justify-center items-center h-6 w-6 rounded-md ${
-                      active ? "hover:bg-blue-300" : "hover:bg-gray-300"
+                      active ? "hover:bg-blue-300" : "hover:bg-gray-300 hidden"
                     }`}
                   >
                     <Icons.PlusIcon

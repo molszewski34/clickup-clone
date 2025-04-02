@@ -6,7 +6,7 @@ import AddSpaceElement from "./AddWorkspaceElement/AddSpaceElement";
 interface ListElementProps {
   list: List;
   isActive: boolean;
-  onMouseEnter: (listId: string, listName: string) => void;
+  onClick: (listId: string, listName: string) => void; // Changed from onMouseEnter to onClick
   width: number;
   setTasksLength: (length: number) => void;
   tasks: Task[];
@@ -15,7 +15,7 @@ interface ListElementProps {
 export const ListElement = ({
   list,
   isActive,
-  onMouseEnter,
+  onClick, // Changed from onMouseEnter to onClick
   width,
   setTasksLength,
   tasks,
@@ -25,9 +25,11 @@ export const ListElement = ({
     icon={<Icons.ListOutline className="text-[20px] text-gray-700" />}
     extraIcons={1}
     active={isActive}
-    onMouseEnter={() => onMouseEnter(list.id, list.name)}
+    onClick={() => {
+      onClick(list.id, list.name);
+      setTasksLength(tasks ? tasks.length : 0);
+    }}
     width={width}
-    onClick={() => setTasksLength(tasks ? tasks.length : 0)}
     isSpace={false}
     rotate={false}
   />
