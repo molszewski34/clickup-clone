@@ -3,9 +3,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useData } from "@/context/DataProvider/DataProvider";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/context/DataProvider/UserDataProvider";
-
+import { createList } from "@/app/server-actions/list/createList";
 import { useUsersGetUserById } from "@/hooks/useUsersGetUserById";
-import { createList } from "@/app/server-actions/List/createList";
 
 interface UseCreateListProps {
   toggleModal: (modal: "none" | "menuSpaceList" | "createList") => void;
