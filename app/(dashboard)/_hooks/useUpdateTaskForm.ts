@@ -6,9 +6,13 @@ export const useUpdateTaskForm = () => {
 
   type PropertyToChange = "taskName" | "assignees" | "priority" | "status";
 
-  const updateTaskForm = <K extends PropertyToChange>(property: K, value: Task[K]) => {
+  const updateTaskForm = <K extends PropertyToChange>(
+    property: K,
+    value: Task[K]
+  ) => {
     const updatedTask = structuredClone(formData);
     updatedTask[property] = value;
+    updatedTask.lastUpdated = new Date();
     setFormData(updatedTask);
   };
 
