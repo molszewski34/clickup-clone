@@ -11,6 +11,7 @@ interface ButtonProps {
   extraIcon?: React.ReactElement | null;
   groupIndex: number;
   NumberIndex: number;
+  startRenaming?: () => void; // Dodajemy nowy prop
 }
 
 const ButtonFileChanger: React.FC<ButtonProps> = ({
@@ -20,17 +21,21 @@ const ButtonFileChanger: React.FC<ButtonProps> = ({
   onClick,
   groupIndex,
   NumberIndex,
+  startRenaming, // Odbieramy nowy prop
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { spaceName } = useData();
   const [inputValue, setInputValue] = useState<string>("");
   const isFourthGroupAndIndex3 = groupIndex === 3 && NumberIndex === 2;
+  const isFirstGroupAndIndex0 = groupIndex === 0 && NumberIndex === 0;
 
   const closeModal = () => setIsModalOpen(false);
 
   const handleButtonClick = () => {
     if (isFourthGroupAndIndex3) {
       setIsModalOpen(!isModalOpen);
+    } else if (isFirstGroupAndIndex0 && startRenaming) {
+      startRenaming(); // Wywołujemy startRenaming dla przycisku "Rename"
     } else {
       onClick();
     }
@@ -52,8 +57,8 @@ const ButtonFileChanger: React.FC<ButtonProps> = ({
               className: active
                 ? "text-blue-700"
                 : isFourthGroupAndIndex3
-                  ? "text-red-500"
-                  : "text-gray-500",
+                ? "text-red-500"
+                : "text-gray-500",
             })}
           </div>
           <div className="flex justify-start items-center flex-grow min-w-0 ml-1">
@@ -62,8 +67,8 @@ const ButtonFileChanger: React.FC<ButtonProps> = ({
                 active
                   ? "text-blue-700"
                   : isFourthGroupAndIndex3
-                    ? "text-red-500"
-                    : "text-gray-500"
+                  ? "text-red-500"
+                  : "text-gray-500"
               }`}
             >
               {label}
