@@ -4,19 +4,19 @@ import { Task } from "../types";
 
 export const updateTask = async (
   task: Task,
-  userId: string,
+
   workspaceId: string,
-  projectId: string,
+  spaceId: string,
+  listId: string,
   selectedTaskId: string
 ) => {
   try {
     const taskRef = doc(
       db,
-      `users/${userId}/workspaces/${workspaceId}/projects/${projectId}/tasks/${selectedTaskId}`
+      `workspace/${workspaceId}/spaces/${spaceId}/lists/${listId}/tasks/${selectedTaskId}`
     );
 
     await updateDoc(taskRef, {
-      assignees: task.assignees,
       status: task.status,
       priority: task.priority,
       taskName: task.taskName,

@@ -2,17 +2,23 @@ import { useData } from "@/context/DataProvider/DataProvider";
 import { useTaskFormContext } from "@/context/FormProviders/TaskFormProvider";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updateTask } from "@/app/server-actions/task/updateTask";
-import { useUser } from "@/context/DataProvider/UserDataProvider";
+import useGetCurrentWorkspace from "./useGetCurrentWorkspace";
 
 export const useUpdateTask = () => {
   const { formData } = useTaskFormContext();
-  const { projectId, workspaceId } = useData();
-  const { userId } = useUser();
+  const { listId, spaceId } = useData();
+  const { workspaceId } = useGetCurrentWorkspace();
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async () => {
-      return await updateTask(formData, userId, workspaceId, projectId, formData.id);
+      return await updateTask(
+        formData,
+        workspaceId as string,
+        spaceId,
+        listId,
+        formData.id
+      );
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
