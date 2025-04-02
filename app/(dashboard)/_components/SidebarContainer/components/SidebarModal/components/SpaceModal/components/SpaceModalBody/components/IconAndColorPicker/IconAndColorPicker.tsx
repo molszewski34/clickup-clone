@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import ColorChoice from "./components/ColorChoice";
-import SelectIcon from "./components/SelectIcon/SelectIcon";
+import SelectIcon from "./components/SelectIcon/SelectIcona";
 
 interface IconAndColorPickerProps {
   onColorChange: (color: string) => void;

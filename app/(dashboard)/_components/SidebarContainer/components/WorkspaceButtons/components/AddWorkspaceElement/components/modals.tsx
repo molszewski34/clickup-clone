@@ -21,12 +21,14 @@ interface ModalProps {
   ) => void;
   width?: number;
   offsetTopState?: number | null;
+  startRenaming?: () => void;
 }
 
 export const MenuListChangerModal: React.FC<ModalProps> = ({
   modalState,
   toggleModal,
   width = 0,
+  startRenaming,
 }) => {
   if (modalState !== "menuListChanger") return null;
   return (
@@ -40,7 +42,7 @@ export const MenuListChangerModal: React.FC<ModalProps> = ({
         style={{ left: `${width - 20}px`, bottom: "10px" }}
         onClick={(e) => e.stopPropagation()}
       >
-        <MenuListChanger />
+        <MenuListChanger startRenaming={startRenaming} />
       </div>
     </div>
   );
@@ -50,6 +52,7 @@ export const MenuFileChangerModal: React.FC<ModalProps> = ({
   modalState,
   toggleModal,
   width = 0,
+  startRenaming,
 }) => {
   if (modalState !== "menuFileChanger") return null;
   return (
@@ -63,7 +66,7 @@ export const MenuFileChangerModal: React.FC<ModalProps> = ({
         style={{ left: `${width - 20}px`, bottom: "10px" }}
         onClick={(e) => e.stopPropagation()}
       >
-        <MenuFileChanger />
+        <MenuFileChanger startRenaming={startRenaming} />
       </div>
     </div>
   );

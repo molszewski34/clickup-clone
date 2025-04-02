@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import buttonsMenuListChanger from "./components/buttonsMenuListChanger";
 import ButtonListChanger from "./components/ButtonListChanger";
 
-const MenuListChanger: React.FC = () => {
+interface MenuListChangerProps {
+  startRenaming?: () => void;
+}
+
+const MenuListChanger: React.FC<MenuListChangerProps> = ({ startRenaming }) => {
   const [activeButton, setActiveButton] = useState<number | null>(null);
 
   const buttonGroups = [
-    buttonsMenuListChanger.slice(0, 2),
-    buttonsMenuListChanger.slice(2, 7),
+    buttonsMenuListChanger.slice(0, 1),
+    buttonsMenuListChanger.slice(1, 7),
     buttonsMenuListChanger.slice(7, 11),
     buttonsMenuListChanger.slice(11, 15),
   ];
@@ -27,6 +31,7 @@ const MenuListChanger: React.FC = () => {
               }}
               groupIndex={groupIndex}
               NumberIndex={index}
+              startRenaming={startRenaming}
             />
           ))}
           {groupIndex < buttonGroups.length - 1 && (

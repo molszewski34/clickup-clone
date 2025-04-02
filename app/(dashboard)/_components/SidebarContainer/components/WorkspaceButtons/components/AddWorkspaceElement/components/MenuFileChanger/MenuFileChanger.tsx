@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import buttonsMenuFileChanger from "./components/buttonsMenuFileChanger";
 import ButtonFileChanger from "./components/ButtonFileChanger";
+interface MenuFileChangerProps {
+  startRenaming?: () => void; // The '?' makes it optional
+}
 
-const MenuFileChanger: React.FC = () => {
+const MenuFileChanger: React.FC<MenuFileChangerProps> = ({ startRenaming }) => {
   const [activeButton, setActiveButton] = useState<number | null>(null);
 
   const buttonGroups = [
-    buttonsMenuFileChanger.slice(0, 2),
+    buttonsMenuFileChanger.slice(0, 1),
+    buttonsMenuFileChanger.slice(1, 2),
     buttonsMenuFileChanger.slice(2, 6),
-    buttonsMenuFileChanger.slice(6, 8),
-    buttonsMenuFileChanger.slice(8, 12),
+    buttonsMenuFileChanger.slice(6, 11),
   ];
 
   return (
@@ -27,6 +30,7 @@ const MenuFileChanger: React.FC = () => {
               }}
               groupIndex={groupIndex}
               NumberIndex={index}
+              startRenaming={startRenaming}
             />
           ))}
           {groupIndex < buttonGroups.length - 1 && (
