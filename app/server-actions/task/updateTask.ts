@@ -4,7 +4,6 @@ import { Task } from "../types";
 
 export const updateTask = async (
   task: Task,
-
   workspaceId: string,
   spaceId: string,
   listId: string,
@@ -17,6 +16,7 @@ export const updateTask = async (
     );
 
     await updateDoc(taskRef, {
+      assignees: task.assignees,
       status: task.status,
       priority: task.priority,
       taskName: task.taskName,

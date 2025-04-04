@@ -1,7 +1,9 @@
 import { TaskPriority, TaskStatus } from "../(dashboard)/[id]/home/types";
 
 export type Task = {
+  id?: string;
   taskName: string;
+  assignees: User[];
   createdAt: Date;
   status: TaskStatus;
   dueDate: Date | null;
