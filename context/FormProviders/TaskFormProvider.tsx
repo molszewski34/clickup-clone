@@ -15,6 +15,7 @@ export const TaskFormProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [formData, setFormData] = useState<Task>({
     taskName: "",
+    assignees: [],
     createdAt: new Date(),
     status: TaskStatus.todo,
     dueDate: null,

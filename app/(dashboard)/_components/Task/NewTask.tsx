@@ -38,6 +38,7 @@ export const NewTask = ({
 
   const clearedTaskForm: Task = {
     taskName: "",
+    assignees: [],
     createdAt: new Date() || null,
     status: TaskStatus.todo,
     dueDate: null,
