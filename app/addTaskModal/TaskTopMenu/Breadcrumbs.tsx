@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getTaskLocation } from "@/app/server-actions/List/getTaskLocation";
 import useGetCurrentWorkspace from "@/hooks/useGetCurrentWorkspace";
-import { useGetWorkspaceById } from "@/hooks/useGetWorkspaceById";
+
 import { db } from "@/db/firebase/lib/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { useParams } from "next/navigation";
@@ -19,11 +19,10 @@ const Breadcrumbs = () => {
   const [taskLocation, setTaskLocation] = useState<TaskLocation | null>(null);
 
   const [spaceName, setSpaceName] = useState("");
+  const [listName, setListName] = useState("");
   const [taskName, setTaskName] = useState("");
   const params = useParams();
-  const taskId = params.taskId as string; // Jeśli route wygląda np. tak: `/workspace/:workspaceId/task/:taskId`
-
-  const { data: workspace } = useGetWorkspaceById(workspaceId || "");
+  const taskId = params.taskId as string;
 
   useEffect(() => {
     if (!workspaceId) return;
@@ -43,7 +42,7 @@ const Breadcrumbs = () => {
   useEffect(() => {
     const fetchSpaceAndTaskNames = async () => {
       if (taskLocation) {
-        const { workspaceId, spaceId, taskId } = taskLocation;
+        const { workspaceId, spaceId, listId, taskId } = taskLocation;
 
         try {
           const spaceDocRef = doc(
@@ -56,6 +55,20 @@ const Breadcrumbs = () => {
           const spaceDoc = await getDoc(spaceDocRef);
           if (spaceDoc.exists()) {
             setSpaceName(spaceDoc.data().name);
+          }
+
+          const listDocRef = doc(
+            db,
+            "workspace",
+            workspaceId,
+            "spaces",
+            spaceId,
+            "lists",
+            listId
+          );
+          const listDoc = await getDoc(listDocRef);
+          if (listDoc.exists()) {
+            setListName(listDoc.data().name);
           }
 
           const taskDocRef = doc(
@@ -87,12 +100,16 @@ const Breadcrumbs = () => {
 
   return (
     <div className="flex items-center gap-2">
-      <div>{workspace?.name || <Skeleton />}</div>
+      <div>
+        {spaceName || <Skeleton width={120} height={16} borderRadius={4} />}
+      </div>
       <div>/</div>
-      <div>{spaceName || <Skeleton />}</div>
+      <div>
+        {listName || <Skeleton width={120} height={16} borderRadius={4} />}
+      </div>
       <div>/</div>
       <div className="font-medium text-gray-900">
-        {taskName || <Skeleton />}
+        {taskName || <Skeleton width={120} height={16} borderRadius={4} />}
       </div>
     </div>
   );
