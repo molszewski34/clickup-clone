@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Icons } from "@/icons/icons";
 import Breadcrumbs from "./TaskTopMenu/Breadcrumbs";
 import CreatedAtInfo from "./TaskTopMenu/CreatedAtInfo";
+import ShareButton from "./TaskTopMenu/ShareButton";
 
 export default function TaskTopMenu({
   onClose,
@@ -59,9 +60,7 @@ export default function TaskTopMenu({
         </div>
         <div className="flex items-center flex-shrink-0">
           <CreatedAtInfo />
-          <button className=" flex justify-center items-center h-8 px-3 rounded-lg bg-indigo-600 text-sm text-white font-semibold ml-2">
-            Share
-          </button>
+          <ShareButton />
           <div className="w-px h-6 mx-3 bg-gray-300"></div>
 
           {/* 
