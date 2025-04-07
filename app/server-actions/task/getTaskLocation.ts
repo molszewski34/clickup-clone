@@ -15,6 +15,9 @@ export const getTaskLocation = async (taskId: string) => {
       for (const spaceDoc of spacesSnapshot.docs) {
         const listsRef = collection(spaceDoc.ref, "lists");
         const listsSnapshot = await getDocs(listsRef);
+        if (listsSnapshot.empty) {
+          continue;
+        }
 
         for (const listDoc of listsSnapshot.docs) {
           const tasksRef = collection(listDoc.ref, "tasks");

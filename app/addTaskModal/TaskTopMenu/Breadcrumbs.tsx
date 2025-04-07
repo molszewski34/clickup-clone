@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getTaskLocation } from "@/app/server-actions/List/getTaskLocation";
+import { getTaskLocation } from "@/app/server-actions/task/getTaskLocation";
 import useGetCurrentWorkspace from "@/hooks/useGetCurrentWorkspace";
 
 import { db } from "@/db/firebase/lib/firebase";

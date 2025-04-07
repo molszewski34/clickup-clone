@@ -1,10 +1,11 @@
+import { Timestamp } from "firebase/firestore";
 import { TaskPriority, TaskStatus } from "../(dashboard)/[id]/home/types";
 
 export type Task = {
   id?: string;
   taskName: string;
   assignees: User[];
-  createdAt: Date;
+  createdAt: Timestamp;
   status: TaskStatus;
   dueDate: Date | null;
   timeEstimate: Date | null;
