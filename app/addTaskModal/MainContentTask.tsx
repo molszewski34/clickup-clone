@@ -1,6 +1,7 @@
 import { Icons } from "@/icons/icons";
 import { useState } from "react";
 import IconAI from "../(dashboard)/_components/TopbarNav/components/icon/IconAI";
+import ShareTaskIdButton from "./TaskTopMenu/ShareTaskIdButton";
 
 export default function MainContentTask() {
   const [TaskName, setTaskName] = useState(
@@ -23,11 +24,7 @@ export default function MainContentTask() {
                 <Icons.ArrowDownIcon className="text-[12px] text-gray-500" />
               </button>
               <div className="w-px h-full bg-gray-200"></div>
-              <button className="flex items-center justify-center hover:bg-gray-100 px-[7px] py-[3px]">
-                <div className="flex items-center text-xs font-sans font-medium text-gray-600">
-                  8696r9t8j
-                </div>
-              </button>
+              <ShareTaskIdButton />
             </div>
             <div className="flex gap-2 items-center">
               <button className="px-2 min-h-8 min-w-8 hover:bg-gray-200 rounded-lg">
