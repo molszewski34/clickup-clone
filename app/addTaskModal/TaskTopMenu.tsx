@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Icons } from "@/icons/icons";
 import Breadcrumbs from "./TaskTopMenu/Breadcrumbs";
+import CreatedAtInfo from "./TaskTopMenu/CreatedAtInfo";
 
 export default function TaskTopMenu({
   onClose,
@@ -57,13 +58,14 @@ export default function TaskTopMenu({
           </div>
         </div>
         <div className="flex items-center flex-shrink-0">
-          <div className="ml-2 font-sans text-gray-500 text-xs">
-            Created on Nov 21
-          </div>
+          <CreatedAtInfo />
           <button className=" flex justify-center items-center h-8 px-3 rounded-lg bg-indigo-600 text-sm text-white font-semibold ml-2">
             Share
           </button>
           <div className="w-px h-6 mx-3 bg-gray-300"></div>
+
+          {/* 
+          // TODO: Nie wiem czy będę wprowadzał ten feature.
           <button className="px-2 min-h-8 min-w-8 hover:bg-gray-200 rounded-lg">
             <Icons.ThreeDotsIcon className="text-[16px] text-gray-500" />
           </button>
@@ -76,7 +78,7 @@ export default function TaskTopMenu({
           </button>
           <button className="px-2 min-h-8 min-w-8 hover:bg-gray-200 rounded-lg">
             <Icons.Switch className="text-[16px] text-gray-500 stroke-2" />
-          </button>
+          </button> */}
           <button
             className="flex justify-center items-center px-1 min-h-8 min-w-8 hover:bg-gray-200 rounded-lg"
             onClick={onClose}
