@@ -1,3 +1,6 @@
+"use client";
+
+import { useTaskFormContext } from "@/context/FormProviders/TaskFormProvider";
 import { useTaskById } from "@/hooks/useTaskById";
 import { useParams } from "next/navigation";
 import React, { useEffect } from "react";
@@ -8,26 +11,34 @@ const TaskName = () => {
   const taskId = params.taskId as string;
 
   const { data: task, isLoading, error } = useTaskById(taskId);
+  const { formData, setFormData } = useTaskFormContext();
 
   const {
     register,
     formState: { errors },
-    trigger, // do ręcznego wywołania walidacji
-    setValue, // do ustawiania wartości inputu
+    trigger,
+    setValue,
   } = useForm();
 
-  // Funkcja uruchamiająca walidację przy każdej zmianie
+  useEffect(() => {
+    if (task) {
+      setFormData({ ...formData, taskName: task.taskName });
+      setValue("taskName", task.taskName);
+      trigger("taskName");
+    }
+  }, [task, setFormData, setValue, trigger]);
+
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = async (
     e
   ) => {
-    setValue("taskName", e.target.value); // Ustawiamy wartość inputu, aby trigger działał poprawnie
-    await trigger("taskName"); // Uruchamiamy walidację
+    const newValue = e.target.value;
+    setFormData({ ...formData, taskName: newValue });
+    setValue("taskName", newValue);
+    await trigger("taskName");
   };
 
-  useEffect(() => {
-    // Wywołanie walidacji przy załadowaniu komponentu (aby sprawdzić, czy istnieje początkowy błąd)
-    trigger("taskName");
-  }, [trigger]);
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
 
   return (
     <div className="w-full mb-3">
@@ -44,7 +55,8 @@ const TaskName = () => {
             message: "Task name cannot be longer than 30 characters",
           },
         })}
-        onChange={handleChange} // Uruchamiamy walidację przy każdej zmianie
+        value={formData.taskName}
+        onChange={handleChange}
         className={`pl-2 mr-auto focus:outline-none py-[7px] hover:bg-gray-100 text-3xl font-bold w-full font-sans border rounded-lg text-gray-800 
           ${errors.taskName ? "border-red-500" : "border-gray-200"}`}
       />

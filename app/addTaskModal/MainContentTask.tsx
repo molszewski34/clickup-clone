@@ -1,13 +1,10 @@
 import { Icons } from "@/icons/icons";
-import { useState } from "react";
+
 import IconAI from "../(dashboard)/_components/TopbarNav/components/icon/IconAI";
 import ShareTaskIdButton from "./TaskTopMenu/ShareTaskIdButton";
+import TaskName from "./MainContentTask/TaskName";
 
 export default function MainContentTask() {
-  const [TaskName, setTaskName] = useState(
-    "create-workspace-three-branch-colection"
-  );
-
   return (
     <>
       <div className="flex-grow h-full min-w-[565px] flex-col custom-scrollbar overflow-x-hidden overflow-y-auto">
@@ -39,16 +36,7 @@ export default function MainContentTask() {
               </button>
             </div>
           </div>
-          <div className="w-full mb-3">
-            <input
-              type="text"
-              name=""
-              id=""
-              value={TaskName}
-              onChange={(e) => setTaskName(e.target.value)}
-              className="pl-2 mr-auto focus:outline-none py-[7px] hover:bg-gray-100 text-3xl font-bold w-full font-sans border border-gray-200 rounded-lg text-gray-800"
-            />
-          </div>
+          <TaskName />
           <div className=" flex justify-between w-full p-4 rounded-lg bg-fuchsia-50 mb-10 font-sans text-sm">
             <div className="flex items-center">
               <IconAI
