@@ -1,6 +1,7 @@
 "use client";
 import { TaskPriority, TaskStatus } from "@/app/(dashboard)/[id]/home/types";
 import { Task } from "@/app/server-actions/types";
+import { Timestamp } from "firebase/firestore";
 import React, { createContext, useContext, useState } from "react";
 
 type TaskFormContext = {
@@ -16,7 +17,7 @@ export const TaskFormProvider: React.FC<{ children: React.ReactNode }> = ({
   const [formData, setFormData] = useState<Task>({
     taskName: "",
     assignees: [],
-    createdAt: new Date(),
+    createdAt: Timestamp.now(),
     status: TaskStatus.todo,
     dueDate: null,
     timeEstimate: null,
@@ -26,6 +27,7 @@ export const TaskFormProvider: React.FC<{ children: React.ReactNode }> = ({
     subtasks: [],
   });
 
+  console.log("formData w TaskFormProvider", formData);
   return (
     <TaskFormContext.Provider value={{ formData, setFormData }}>
       {children}
