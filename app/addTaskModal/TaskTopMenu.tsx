@@ -4,6 +4,7 @@ import { Icons } from "@/icons/icons";
 import Breadcrumbs from "./TaskTopMenu/Breadcrumbs";
 import CreatedAtInfo from "./TaskTopMenu/CreatedAtInfo";
 import ShareButton from "./TaskTopMenu/ShareButton";
+import { CloseButton } from "./TaskTopMenu/CloseButton";
 
 export default function TaskTopMenu({
   onClose,
@@ -78,12 +79,7 @@ export default function TaskTopMenu({
           <button className="px-2 min-h-8 min-w-8 hover:bg-gray-200 rounded-lg">
             <Icons.Switch className="text-[16px] text-gray-500 stroke-2" />
           </button> */}
-          <button
-            className="flex justify-center items-center px-1 min-h-8 min-w-8 hover:bg-gray-200 rounded-lg"
-            onClick={onClose}
-          >
-            <Icons.CloseIcon className="text-[20px] text-gray-500 stroke-2" />
-          </button>
+          <CloseButton closeEvent={onClose} />
         </div>
       </div>
     </>

@@ -22,7 +22,7 @@ export const TaskFormProvider: React.FC<{ children: React.ReactNode }> = ({
     dueDate: null,
     timeEstimate: null,
     priority: TaskPriority.none,
-    lastUpdated: new Date(),
+    lastUpdated: Timestamp.now(),
     details: "",
     subtasks: [],
   });

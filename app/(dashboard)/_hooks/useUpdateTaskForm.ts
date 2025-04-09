@@ -1,5 +1,6 @@
 import { Task } from "@/app/server-actions/types";
 import { useTaskFormContext } from "@/context/FormProviders/TaskFormProvider";
+import { Timestamp } from "firebase/firestore";
 
 export const useUpdateTaskForm = () => {
   const { formData, setFormData } = useTaskFormContext();
@@ -12,7 +13,7 @@ export const useUpdateTaskForm = () => {
   ) => {
     const updatedTask = structuredClone(formData);
     updatedTask[property] = value;
-    updatedTask.lastUpdated = new Date();
+    updatedTask.lastUpdated = Timestamp.now();
     setFormData(updatedTask);
   };
 

@@ -10,7 +10,7 @@ export type Task = {
   dueDate: Date | null;
   timeEstimate: Date | null;
   priority: TaskPriority;
-  lastUpdated: Date;
+  lastUpdated: Timestamp;
   details: string;
   subtasks?: Task[];
 };
