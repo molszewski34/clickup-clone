@@ -3,6 +3,7 @@ import { Icons } from "@/icons/icons";
 import IconAI from "../(dashboard)/_components/TopbarNav/components/icon/IconAI";
 import ShareTaskIdButton from "./TaskTopMenu/ShareTaskIdButton";
 import TaskName from "./MainContentTask/TaskName";
+import Status from "./MainContentTask/Status";
 
 export default function MainContentTask() {
   return (
@@ -58,24 +59,10 @@ export default function MainContentTask() {
               </button>
             </div>
           </div>
-          <div className=" grid grid-flow-col grid-cols-2 mb-10">
-            <div>
-              <div className="grid grid-cols-[minmax(130px,1fr)_minmax(150px,2fr)] gap-1">
-                <button className="flex items-center gap-2  h-9 font-sans text-sm text-gray-600">
-                  <Icons.EmptyCircle className=" text-[16px] text-gray-600" />
-                  Status
-                </button>
-                <button className="flex items-center pl-[6px] h-9 gap-2 hover:bg-gray-100 rounded-md">
-                  <div className=" flex items-center gap-1 h-6 bg-blue-500 text-white font-sans text-xs font-semibold px-2 rounded">
-                    IN PROGRESS <div className="w-px h-full bg-blue-700" />
-                    <Icons.Play className=" text-[10px] text-white" />
-                  </div>
-                  <button className="px-1 min-h-6 min-w-6 border border-gray-200 rounded-lg group hover:border-green-500">
-                    <Icons.Check className="text-[16px] text-gray-200 group-hover:text-green-500" />
-                  </button>
-                </button>
-              </div>
-              <div className="grid grid-cols-[minmax(130px,1fr)_minmax(150px,2fr)] gap-1">
+          <div className=" grid  grid-cols-2 mb-10">
+            {/* <div> */}
+            <Status />
+            {/* <div className="grid grid-cols-[minmax(130px,1fr)_minmax(150px,2fr)] gap-1">
                 <button className="flex items-center gap-2  h-9 font-sans text-sm text-gray-600">
                   <Icons.CalendarIcon className=" text-[16px] text-gray-600" />
                   Dates
@@ -85,8 +72,8 @@ export default function MainContentTask() {
                     Empty
                   </div>
                 </button>
-              </div>
-              <div className="grid grid-cols-[minmax(130px,1fr)_minmax(150px,2fr)] gap-1">
+              </div> */}
+            {/* <div className="grid grid-cols-[minmax(130px,1fr)_minmax(150px,2fr)] gap-1">
                 <button className="flex items-center gap-2  h-9 font-sans text-sm text-gray-600">
                   <Icons.Hourglass className=" text-[16px] text-gray-600" />
                   Time Estimate
@@ -96,8 +83,8 @@ export default function MainContentTask() {
                     Empty
                   </div>
                 </button>
-              </div>
-              <div className="grid grid-cols-[minmax(130px,1fr)_minmax(150px,2fr)] gap-1">
+              </div> */}
+            {/* <div className="grid grid-cols-[minmax(130px,1fr)_minmax(150px,2fr)] gap-1">
                 <button className="flex items-center gap-2  h-9 font-sans text-sm text-gray-600">
                   <Icons.StopWatchIcon className=" text-[16px] text-gray-600" />
                   Track Time
@@ -107,8 +94,8 @@ export default function MainContentTask() {
                     Empty
                   </div>
                 </button>
-              </div>
-              <div className="grid grid-cols-[minmax(130px,1fr)_minmax(150px,2fr)] gap-1">
+              </div> */}
+            {/* <div className="grid grid-cols-[minmax(130px,1fr)_minmax(150px,2fr)] gap-1">
                 <button className="flex items-center gap-2  h-9 font-sans text-sm text-gray-600">
                   <Icons.Relationship className=" text-[16px] text-gray-600" />
                   Relationships
@@ -118,36 +105,36 @@ export default function MainContentTask() {
                     Empty
                   </div>
                 </button>
-              </div>
+              </div> */}
+            {/* </div> */}
+            {/* <div> */}
+            <div className="grid grid-cols-[minmax(130px,1fr)_minmax(150px,2fr)] gap-1">
+              <button className="flex items-center gap-2  h-9 font-sans text-sm text-gray-600">
+                <Icons.PersonIcon className=" text-[16px] text-gray-600" />
+                Assignees
+              </button>
+              <button className="flex items-center justify-between pl-[6px] h-9 gap-2 rounded-md group">
+                {/* 2 first liters in name and surname */}
+                <div className=" flex justify-center items-center w-7 h-7 bg-blue-500 text-white font-sans text-xs font-semibold rounded-full">
+                  MO
+                </div>
+                <button className="px-1 min-h-6 min-w-6 items-center rounded-lg hidden group-hover:flex  hover:bg-gray-100">
+                  <Icons.CloseIcon className="text-[16px] text-gray-500" />
+                </button>
+              </button>
             </div>
-            <div>
-              <div className="grid grid-cols-[minmax(130px,1fr)_minmax(150px,2fr)] gap-1">
-                <button className="flex items-center gap-2  h-9 font-sans text-sm text-gray-600">
-                  <Icons.PersonIcon className=" text-[16px] text-gray-600" />
-                  Assignees
-                </button>
-                <button className="flex items-center justify-between pl-[6px] h-9 gap-2 rounded-md group">
-                  {/* 2 first liters in name and surname */}
-                  <div className=" flex justify-center items-center w-7 h-7 bg-blue-500 text-white font-sans text-xs font-semibold rounded-full">
-                    MO
-                  </div>
-                  <button className="px-1 min-h-6 min-w-6 items-center rounded-lg hidden group-hover:flex  hover:bg-gray-100">
-                    <Icons.CloseIcon className="text-[16px] text-gray-500" />
-                  </button>
-                </button>
-              </div>
-              <div className="grid grid-cols-[minmax(130px,1fr)_minmax(150px,2fr)] gap-1">
-                <button className="flex items-center gap-2  h-9 font-sans text-sm text-gray-600">
-                  <Icons.FlagIcon className=" text-[16px] text-gray-600" />
-                  Priority
-                </button>
-                <button className="flex items-center pl-[6px] h-9 gap-2 hover:bg-gray-100 rounded-md">
-                  <div className=" flex items-center gap-1 h-6 px-[6px]  text-gray-500 font-sans text-sm font-medium   rounded">
-                    Empty
-                  </div>
-                </button>
-              </div>
-              <div className="grid grid-cols-[minmax(130px,1fr)_minmax(150px,2fr)] gap-1">
+            <div className="grid grid-cols-[minmax(130px,1fr)_minmax(150px,2fr)] gap-1">
+              <button className="flex items-center gap-2  h-9 font-sans text-sm text-gray-600">
+                <Icons.FlagIcon className=" text-[16px] text-gray-600" />
+                Priority
+              </button>
+              <button className="flex items-center pl-[6px] h-9 gap-2 hover:bg-gray-100 rounded-md">
+                <div className=" flex items-center gap-1 h-6 px-[6px]  text-gray-500 font-sans text-sm font-medium   rounded">
+                  Empty
+                </div>
+              </button>
+            </div>
+            {/* <div className="grid grid-cols-[minmax(130px,1fr)_minmax(150px,2fr)] gap-1">
                 <button className="flex items-center gap-2  h-9 font-sans text-sm text-gray-600">
                   <Icons.CircleStar className=" text-[16px] text-gray-600" />
                   Sprint Points
@@ -157,8 +144,8 @@ export default function MainContentTask() {
                     Empty
                   </div>
                 </button>
-              </div>
-              <div className="grid grid-cols-[minmax(130px,1fr)_minmax(150px,2fr)] gap-1">
+              </div> */}
+            {/* <div className="grid grid-cols-[minmax(130px,1fr)_minmax(150px,2fr)] gap-1">
                 <button className="flex items-center gap-2  h-9 font-sans text-sm text-gray-600">
                   <Icons.TagIcon className=" text-[16px] text-gray-600" />
                   Tags
@@ -168,8 +155,8 @@ export default function MainContentTask() {
                     Empty
                   </div>
                 </button>
-              </div>
-            </div>
+              </div> */}
+            {/* </div> */}
           </div>
           <div className=" flex items-center p-3 border rounded-lg border-gray-200 mb-6">
             <div className="flex-row items-center w-full">
