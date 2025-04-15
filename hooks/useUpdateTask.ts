@@ -21,12 +21,36 @@ export const useUpdateTask = () => {
         (formData as { id: string }).id
       );
     },
+
+    onMutate: async () => {
+      await queryClient.cancelQueries({ queryKey: ["task", formData.id] });
+
+      const previousTask = queryClient.getQueryData<Task>([
+        "task",
+        formData.id,
+      ]);
+
+      queryClient.setQueryData<Task>(["task", formData.id], (old) => {
+        return old ? { ...old, ...formData } : (formData as Task);
+      });
+
+      return { previousTask };
+    },
+
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
       console.log("Task updated successfully!");
     },
-    onError: (error) => {
-      console.error("Error when updating the task: ", error);
+
+    onError: (_err, _updatedTask, context) => {
+      if (context?.previousTask) {
+        queryClient.setQueryData(["task", formData.id], context.previousTask);
+      }
+      console.error("Error when updating the task");
+    },
+
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["task", formData.id] });
     },
   });
 };
