@@ -4,6 +4,7 @@ import IconAI from "../(dashboard)/_components/TopbarNav/components/icon/IconAI"
 import ShareTaskIdButton from "./TaskTopMenu/ShareTaskIdButton";
 import TaskName from "./MainContentTask/TaskName";
 import Status from "./MainContentTask/Status";
+import Assignees from "./MainContentTask/Assignees";
 
 export default function MainContentTask() {
   return (
@@ -108,13 +109,14 @@ export default function MainContentTask() {
               </div> */}
             {/* </div> */}
             {/* <div> */}
-            <div className="grid grid-cols-[minmax(130px,1fr)_minmax(150px,2fr)] gap-1">
+            <Assignees />
+            {/* <div className="grid grid-cols-[minmax(130px,1fr)_minmax(150px,2fr)] gap-1">
               <button className="flex items-center gap-2  h-9 font-sans text-sm text-gray-600">
                 <Icons.PersonIcon className=" text-[16px] text-gray-600" />
                 Assignees
               </button>
               <button className="flex items-center justify-between pl-[6px] h-9 gap-2 rounded-md group">
-                {/* 2 first liters in name and surname */}
+             
                 <div className=" flex justify-center items-center w-7 h-7 bg-blue-500 text-white font-sans text-xs font-semibold rounded-full">
                   MO
                 </div>
@@ -122,7 +124,7 @@ export default function MainContentTask() {
                   <Icons.CloseIcon className="text-[16px] text-gray-500" />
                 </button>
               </button>
-            </div>
+            </div> */}
             <div className="grid grid-cols-[minmax(130px,1fr)_minmax(150px,2fr)] gap-1">
               <button className="flex items-center gap-2  h-9 font-sans text-sm text-gray-600">
                 <Icons.FlagIcon className=" text-[16px] text-gray-600" />
