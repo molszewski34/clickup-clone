@@ -5,6 +5,7 @@ import ShareTaskIdButton from "./TaskTopMenu/ShareTaskIdButton";
 import TaskName from "./MainContentTask/TaskName";
 import Status from "./MainContentTask/Status";
 import Assignees from "./MainContentTask/Assignees";
+import Priority from "./MainContentTask/TaskPriority";
 
 export default function MainContentTask() {
   return (
@@ -125,17 +126,7 @@ export default function MainContentTask() {
                 </button>
               </button>
             </div> */}
-            <div className="grid grid-cols-[minmax(130px,1fr)_minmax(150px,2fr)] gap-1">
-              <button className="flex items-center gap-2  h-9 font-sans text-sm text-gray-600">
-                <Icons.FlagIcon className=" text-[16px] text-gray-600" />
-                Priority
-              </button>
-              <button className="flex items-center pl-[6px] h-9 gap-2 hover:bg-gray-100 rounded-md">
-                <div className=" flex items-center gap-1 h-6 px-[6px]  text-gray-500 font-sans text-sm font-medium   rounded">
-                  Empty
-                </div>
-              </button>
-            </div>
+            <Priority />
             {/* <div className="grid grid-cols-[minmax(130px,1fr)_minmax(150px,2fr)] gap-1">
                 <button className="flex items-center gap-2  h-9 font-sans text-sm text-gray-600">
                   <Icons.CircleStar className=" text-[16px] text-gray-600" />
