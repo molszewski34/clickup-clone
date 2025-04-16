@@ -10,24 +10,30 @@ import { Icons } from "@/icons/icons";
 import { TaskPriority } from "../../[id]/home/types";
 
 type EditPriorityProps = {
-  setTaskRowEditableCell: Dispatch<SetStateAction<TaskRowEditableCell>>;
+  setTaskRowEditableCell?: Dispatch<SetStateAction<TaskRowEditableCell>>;
+  setOpenPrioritySelection?: Dispatch<SetStateAction<boolean>>;
 };
 
-export const EditPriority = ({ setTaskRowEditableCell }: EditPriorityProps) => {
+export const EditPriority = ({
+  setTaskRowEditableCell,
+  setOpenPrioritySelection,
+}: EditPriorityProps) => {
   const priorityRef = useRef(null);
   const { updateTaskForm } = useUpdateTaskForm();
   const { mutate } = useUpdateTask();
   const { formData } = useTaskFormContext();
 
   useOnClickOutside(priorityRef, () => {
-    setTaskRowEditableCell("");
+    if (setTaskRowEditableCell) setTaskRowEditableCell("");
+    else if (setOpenPrioritySelection) setOpenPrioritySelection(false);
   });
 
   return (
     <div className="relative pointer-events-auto z-10">
       <div
         className="absolute top-4 bg-white shadow-customPopupTableShadow w-44 rounded-lg"
-        ref={priorityRef}>
+        ref={priorityRef}
+      >
         <div className="flex flex-col p-2">
           {Object.keys(TaskPriority).map((key) => {
             const isSelected = formData.priority === key;
@@ -37,17 +43,25 @@ export const EditPriority = ({ setTaskRowEditableCell }: EditPriorityProps) => {
                 key={`priority-${key}`}
                 onClick={(e) => {
                   e.stopPropagation();
-                  updateTaskForm("priority", TaskPriority[key as keyof typeof TaskPriority]);
+                  updateTaskForm(
+                    "priority",
+                    TaskPriority[key as keyof typeof TaskPriority]
+                  );
                   mutate();
                 }}
-                className="flex h-8 hover:bg-gray-100 rounded-lg pl-1">
+                className="flex h-8 hover:bg-gray-100 rounded-lg pl-1"
+              >
                 <div className="flex flex-row items-center w-36 justify-between">
                   <div className="flex flex-row items-center gap-2">
-                    <Priority key={`priority-${key}`} taskPriority={key as TaskPriority} />
+                    <Priority
+                      key={`priority-${key}`}
+                      taskPriority={key as TaskPriority}
+                    />
                     <p
                       className={`text-gray-800 text-sm ${
                         isSelected && "font-semibold"
-                      } capitalize`}>
+                      } capitalize`}
+                    >
                       {key}
                     </p>
                   </div>
@@ -64,7 +78,8 @@ export const EditPriority = ({ setTaskRowEditableCell }: EditPriorityProps) => {
             e.stopPropagation();
             updateTaskForm("priority", TaskPriority.none);
             mutate();
-          }}>
+          }}
+        >
           <Icons.MdDoNotDisturbAlt color="gray" size={16} /> Clear
         </div>
       </div>

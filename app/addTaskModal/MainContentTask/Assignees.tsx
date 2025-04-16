@@ -26,7 +26,7 @@ const Assignees = () => {
         Assignees
       </button>
       <div
-        className="flex flex-row items-center relative w-full cursor-pointer"
+        className="flex flex-row items-center relative w-full cursor-pointer ml-4"
         onClick={() => setOpenUserList(true)}
       >
         {isLoading ? (
