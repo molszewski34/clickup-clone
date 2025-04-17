@@ -5,7 +5,12 @@ import { Timestamp } from "firebase/firestore";
 export const useUpdateTaskForm = () => {
   const { formData, setFormData } = useTaskFormContext();
 
-  type PropertyToChange = "taskName" | "assignees" | "priority" | "status";
+  type PropertyToChange =
+    | "taskName"
+    | "assignees"
+    | "priority"
+    | "status"
+    | "details";
 
   const updateTaskForm = <K extends PropertyToChange>(
     property: K,

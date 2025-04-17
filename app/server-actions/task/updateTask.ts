@@ -1,6 +1,7 @@
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "@/db/firebase/lib/firebase";
 import { Task } from "../types";
+import { Timestamp } from "firebase/firestore";
 
 export const updateTask = async (
   task: Task,
@@ -20,6 +21,8 @@ export const updateTask = async (
       status: task.status,
       priority: task.priority,
       taskName: task.taskName,
+      details: task.details,
+      lastUpdated: Timestamp.now(),
     });
 
     console.log(`Zaktualizowano task o id: ${selectedTaskId}`);

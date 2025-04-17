@@ -7,6 +7,8 @@ import Status from "./MainContentTask/Status";
 import Assignees from "./MainContentTask/Assignees";
 import Priority from "./MainContentTask/TaskPriority";
 
+import Description from "./MainContentTask/Description";
+
 export default function MainContentTask() {
   return (
     <>
@@ -64,7 +66,9 @@ export default function MainContentTask() {
           <div className=" grid  grid-cols-2 mb-10">
             {/* <div> */}
             <Status />
-            {/* <div className="grid grid-cols-[minmax(130px,1fr)_minmax(150px,2fr)] gap-1">
+            {/* 
+            // * Zakomentowane elementy intereface prawie na pewno nie zostana wprowadzone.
+            <div className="grid grid-cols-[minmax(130px,1fr)_minmax(150px,2fr)] gap-1">
                 <button className="flex items-center gap-2  h-9 font-sans text-sm text-gray-600">
                   <Icons.CalendarIcon className=" text-[16px] text-gray-600" />
                   Dates
@@ -152,28 +156,7 @@ export default function MainContentTask() {
             {/* </div> */}
           </div>
           <div className=" flex items-center p-3 border rounded-lg border-gray-200 mb-6">
-            <div className="flex-row items-center w-full">
-              <button className=" flex items-center h-8 w-full px-2 hover:bg-gray-100 rounded-md group">
-                <div className="flex justify-center items-center w-4 h-4 mr-[10px]">
-                  <Icons.EmptyDocIcon className=" text-[16px] text-gray-400 group-hover:text-gray-600" />
-                </div>
-
-                <div className="font-sans text-sm text-gray-400 group-hover:text-gray-600">
-                  Add description
-                </div>
-              </button>
-              <button className="flex items-center h-8 w-full px-2 hover:bg-gray-100 rounded-md group">
-                <div className="flex justify-center items-center w-4 h-4 mr-[10px]">
-                  <IconAI
-                    width="14"
-                    className="fill-[url(#custom-gradient)] opacity-50 group-hover:opacity-100"
-                  />
-                </div>
-                <div className="font-sans text-sm text-gray-400 group-hover:text-gray-600">
-                  Write with AI
-                </div>
-              </button>
-            </div>
+            <Description />
           </div>
           <div className="mb-10">
             <div className="flex justify-between items-center group ">
