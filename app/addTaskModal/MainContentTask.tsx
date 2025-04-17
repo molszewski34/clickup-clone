@@ -158,7 +158,7 @@ export default function MainContentTask() {
           <div className=" flex items-center p-3 border rounded-lg border-gray-200 mb-6">
             <Description />
           </div>
-          <div className="mb-10">
+          {/* <div className="mb-10">
             <div className="flex justify-between items-center group ">
               <div className=" py-2 font-sans text-lg text-gray-900 font-semibold ">
                 Custom Fields
@@ -171,8 +171,8 @@ export default function MainContentTask() {
               <Icons.PlusIcon className="text-[14px] text-gray-500 mr-3" />{" "}
               Create Custom Field
             </button>
-          </div>
-          <div className="mb-10">
+          </div> */}
+          {/* <div className="mb-10">
             <div className="flex justify-between items-center group ">
               <div className=" py-2 font-sans text-lg text-gray-900 font-semibold ">
                 Subtasks
@@ -185,8 +185,8 @@ export default function MainContentTask() {
               <Icons.PlusIcon className="text-[14px] text-gray-500 mr-3" /> New
               Task
             </button>
-          </div>
-          <div className="mb-10">
+          </div> */}
+          {/* <div className="mb-10">
             <div className="flex justify-between items-center group ">
               <div className=" py-2 font-sans text-lg text-gray-900 font-semibold ">
                 Checklists
@@ -199,8 +199,8 @@ export default function MainContentTask() {
               <Icons.PlusIcon className="text-[14px] text-gray-500 mr-3" />{" "}
               Create Checklist
             </button>
-          </div>
-          <div className="mb-20">
+          </div> */}
+          {/* <div className="mb-20">
             <div className="flex justify-between items-center group ">
               <div className=" py-2 font-sans text-lg text-gray-900 font-semibold ">
                 Attachments
@@ -213,7 +213,7 @@ export default function MainContentTask() {
               Drop your files here to
               <button className=" underline">Upload</button>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </>
