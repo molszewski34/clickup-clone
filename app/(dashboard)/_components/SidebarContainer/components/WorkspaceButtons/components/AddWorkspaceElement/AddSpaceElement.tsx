@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useRef, useState, useEffect } from "react";
 import ButtonProps from "./components/ButtonProps";
 import { Icons } from "@/icons/icons";
 import {
@@ -7,6 +7,7 @@ import {
   MenuListChangerModal,
   MenuSpaceListModal,
 } from "./components/modals";
+import { useData } from "@/context/DataProvider/DataProvider";
 
 const AddSpaceElement: React.FC<ButtonProps> = ({
   label,
@@ -22,7 +23,15 @@ const AddSpaceElement: React.FC<ButtonProps> = ({
   rotate = false,
 }) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const [offsetTopState, setOffsetTopState] = useState<number | null>(null);
+  const [isRenaming, setIsRenaming] = useState<boolean>(false);
+  const [inputValue, setInputValue] = useState<string>(label);
+  const { setSpaceName, setListName } = useData();
+
+  useEffect(() => {
+    setInputValue(label);
+  }, [label]);
 
   const handleClick = () => {
     if (buttonRef.current) {
@@ -74,6 +83,26 @@ const AddSpaceElement: React.FC<ButtonProps> = ({
     };
   }, [modalState, handleOutsideClick]);
 
+  const startRenaming = () => {
+    setIsRenaming(true);
+    setModalState("none");
+    setTimeout(() => {
+      inputRef.current?.focus();
+    }, 0);
+  };
+
+  const handleBlur = () => {
+    if (inputValue !== label) {
+      console.log("Zapisuję nową nazwę:", inputValue);
+      if (isSpace) {
+        setSpaceName(inputValue);
+      } else {
+        setListName(inputValue);
+      }
+    }
+    setIsRenaming(false);
+  };
+
   return (
     <div className="relative">
       <div
@@ -120,13 +149,24 @@ const AddSpaceElement: React.FC<ButtonProps> = ({
           </div>
           {width >= 200 && (
             <div className="flex justify-start items-center flex-grow min-w-0 ml-1">
-              <span
-                className={`block text-sm font-sans truncate ${
-                  active ? "text-blue-700" : "text-gray-700"
-                }`}
-              >
-                {label}
-              </span>
+              {isRenaming ? (
+                <input
+                  ref={inputRef}
+                  type="text"
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  onBlur={handleBlur}
+                  className="border border-gray-300 rounded-md px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              ) : (
+                <span
+                  className={`block text-sm font-sans truncate ${
+                    active ? "text-blue-700" : "text-gray-700"
+                  }`}
+                >
+                  {label}
+                </span>
+              )}
             </div>
           )}
           {width >= 200 && extraIcons > 0 && (
@@ -202,11 +242,13 @@ const AddSpaceElement: React.FC<ButtonProps> = ({
         modalState={modalState}
         toggleModal={toggleModal}
         width={width}
+        startRenaming={startRenaming}
       />
       <MenuFileChangerModal
         modalState={modalState}
         toggleModal={toggleModal}
         width={width}
+        startRenaming={startRenaming}
       />
       <MenuSpaceListModal
         modalState={modalState}
