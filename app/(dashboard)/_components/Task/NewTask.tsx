@@ -15,6 +15,7 @@ import { useUpdateTaskForm } from "../../_hooks/useUpdateTaskForm";
 import { NewTaskVisibility } from "../../[id]/l/[projectId]/components/TasksList";
 import useGetCurrentWorkspace from "@/hooks/useGetCurrentWorkspace";
 import { TaskPriority, TaskStatus } from "../../[id]/home/types";
+import { Timestamp } from "firebase/firestore";
 
 type NewTaskProps = {
   openedNewTask: NewTaskVisibility;
@@ -39,12 +40,12 @@ export const NewTask = ({
   const clearedTaskForm: Task = {
     taskName: "",
     assignees: [],
-    createdAt: new Date() || null,
+    createdAt: Timestamp.now() || null,
     status: TaskStatus.todo,
     dueDate: null,
     timeEstimate: null,
     priority: TaskPriority.none,
-    lastUpdated: new Date(),
+    lastUpdated: Timestamp.now(),
     details: "",
     subtasks: [],
   };
