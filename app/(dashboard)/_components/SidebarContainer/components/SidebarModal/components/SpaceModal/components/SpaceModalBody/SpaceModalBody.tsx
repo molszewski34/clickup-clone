@@ -1,7 +1,7 @@
 import React from "react";
 
 import { useWorkspaceFormContext } from "@/context/FormProviders/WorkspaceFormProvider";
-import { Workspace } from "@/app/server-actions/types";
+import { Space } from "@/app/server-actions/types";
 import { AddIcons } from "../../../AddIcons";
 import IconAndNamePicker from "./components/IconAndNamePicker";
 import DescriptionInput from "./components/DescriptionInput";
@@ -38,7 +38,7 @@ const SpaceModalBody: React.FC<SpaceModalBodyProps> = ({
         setSelectedIcon={(icon: keyof typeof AddIcons) => {
           console.log(icon);
           setSelectedIcon(icon);
-          setFormData((prevState: Workspace) => ({
+          setFormData((prevState: Space) => ({
             ...prevState,
             icon:
               typeof prevState.icon === "string"

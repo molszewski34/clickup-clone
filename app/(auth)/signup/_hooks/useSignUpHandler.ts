@@ -123,6 +123,13 @@ export const useSignUpHandler = () => {
                   isPrivate: false,
                   desc: "",
                   icon: { activeColor: "indigo-500", selectedIconName: "" },
+                  filtersState: {
+                    isOpen: false,
+                    searchQuery: "",
+                    assignedToMe: false,
+                    assignedTo: [""],
+                    statuses: ["To do", "In Progress"],
+                  },
                 },
                 userDefaultWorkspace.id
               );

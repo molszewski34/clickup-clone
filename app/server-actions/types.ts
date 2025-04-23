@@ -50,6 +50,13 @@ export type Space = {
   isPrivate: boolean;
   desc?: string;
   icon?: Icon;
+  filtersState: {
+    isOpen: boolean;
+    searchQuery: string;
+    assignedToMe: boolean;
+    assignedTo: string[];
+    statuses: string[];
+  };
 };
 
 export type NewDefaultSpace = Omit<Space, "id" | "createdAt">;

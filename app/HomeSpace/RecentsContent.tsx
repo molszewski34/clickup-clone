@@ -3,17 +3,18 @@
 import React, { useEffect, useState } from "react";
 import { Icons } from "@/icons/icons";
 import { useUser } from "@/context/DataProvider/UserDataProvider";
-import { getWorkspaces } from "../server-actions/workspace-old/getWorkspaces";
-import { getProjects } from "../server-actions/project/getProjects";
+
 import { getTasks } from "../server-actions/task/getTasks";
 import { getSubTasks } from "../server-actions/subtasks/getSubtasks";
-import { Project, Task } from "../server-actions/types";
+import { Project, Space, Task } from "../server-actions/types";
 import CardContainer from "./Components/CardContainer";
 import { useRouter } from "next/navigation";
 import { useData } from "@/context/DataProvider/DataProvider";
+import { getSpaces } from "../server-actions/space/getSpaces";
+import { getLists } from "../server-actions/List/getLists";
 
 const RenderButtons = () => {
-  const { setWorkspaceId, setProjectId, setProjectName } = useData();
+  const { setSpaceId, setListId, setListName } = useData();
   const { userId } = useUser();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [data, setData] = useState<any[]>([]);
@@ -23,40 +24,51 @@ const RenderButtons = () => {
     router.push(`/t/${taskId}`);
   };
 
-  const handleProjectClick = (workspaceId: string, projectId: string, projectName: string) => {
-    setWorkspaceId(workspaceId);
-    setProjectId(projectId);
-    setProjectName(projectName);
-    router.push(`/${userId}/l/${projectId}`);
+  const handleListClick = (
+    spaceId: string,
+    listId: string,
+    listName: string
+  ) => {
+    setSpaceId(spaceId);
+    setListId(listId);
+    setListName(listName);
+    router.push(`/${userId}/l/${listId}`);
   };
 
   useEffect(() => {
     const fetchData = async () => {
       if (userId) {
-        const workspaces = await getWorkspaces(userId);
-        const workspacesWithProjects = await Promise.all(
-          workspaces.map(async (workspace) => {
-            const projects = await getProjects(userId, workspace.id);
-            const projectsWithTasks = await Promise.all(
-              projects.map(async (project) => {
-                const tasks = await getTasks(userId, workspace.id, project.id);
+        const spaces = await getSpaces(userId);
+        const spacesWith = await Promise.all(
+          spaces.map(async (space: Space) => {
+            const lists = await getLists(userId, space.id);
+            const listsWithTasks = await Promise.all(
+              lists.map(async (list) => {
+                const tasks = await getTasks(userId, space.id, list.id);
                 const tasksWithSubTasks = await Promise.all(
                   tasks.map(async (task) => {
-                    const subtasks = await getSubTasks(userId, workspace.id, project.id, task.id);
+                    if (!task.id) return { ...task, subtasks: [] };
+
+                    const subtasks = await getSubTasks(
+                      userId,
+                      space.id,
+                      list.id,
+                      task.id
+                    );
                     return { ...task, subtasks };
                   })
                 );
                 return {
-                  ...project,
+                  ...list,
                   tasks: tasksWithSubTasks,
-                  workspaceName: workspace.name,
+                  spaceName: space.name,
                 };
               })
             );
-            return { ...workspace, projects: projectsWithTasks };
+            return { ...space, lists: listsWithTasks };
           })
         );
-        setData(workspacesWithProjects);
+        setData(spacesWith);
       }
     };
 
@@ -65,17 +77,24 @@ const RenderButtons = () => {
 
   return (
     <>
-      {data.flatMap((workspace) =>
-        workspace.projects.map((project: Project) => (
-          <div key={project.id} className="mb-2">
+      {data.flatMap((space) =>
+        space.lists.map((list: Project) => (
+          <div key={list.id} className="mb-2">
             <div
-              onClick={() => handleProjectClick(workspace.id, project.id ?? "", project.name ?? "")}
-              className="flex justify-between cursor-pointer w-full items-center mx-2 p-2 py-1 rounded-md hover:bg-gray-100 group/hidden">
+              onClick={() =>
+                handleListClick(space.id, list.id ?? "", list.name ?? "")
+              }
+              className="flex justify-between cursor-pointer w-full items-center mx-2 p-2 py-1 rounded-md hover:bg-gray-100 group/hidden"
+            >
               <div className="flex gap-2 items-center">
                 <Icons.ListOutline className="text-[16px] text-gray-700" />
-                <div className="font-sans font-medium text-sm text-gray-700">{project.name}</div>
+                <div className="font-sans font-medium text-sm text-gray-700">
+                  {list.name}
+                </div>
                 <div>&bull;</div>
-                <div className="font-sans text-sm text-gray-400">In {workspace.name}</div>
+                <div className="font-sans text-sm text-gray-400">
+                  In {space.name}
+                </div>
               </div>
               <div className=" hidden gap-1 items-center group-hover/hidden:flex">
                 <button className="w-6 h-6 flex justify-center items-center rounded-md border bg-white border-gray-200 hover:bg-gray-200">
@@ -86,18 +105,25 @@ const RenderButtons = () => {
                 </button>
               </div>
             </div>
-            {project.tasks.map((task: Task) => (
+            {list.tasks.map((task: Task) => (
               <div key={task.id} className="">
                 <div
-                  onClick={() => handlePushToTaskPage(task.id)}
-                  className="flex justify-between w-full items-center mx-2 p-2 py-1 cursor-pointer rounded-md hover:bg-gray-100 group/hidden">
+                  onClick={() => {
+                    if (task.id) {
+                      handlePushToTaskPage(task.id);
+                    }
+                  }}
+                  className="flex justify-between w-full items-center mx-2 p-2 py-1 cursor-pointer rounded-md hover:bg-gray-100 group/hidden"
+                >
                   <div className="flex gap-2 items-center">
                     <Icons.DotIcon className="text-[16px] text-gray-700" />
                     <div className="font-sans font-medium text-sm text-gray-700">
                       {task.taskName}
                     </div>
                     <div>&bull;</div>
-                    <div className="font-sans text-sm text-gray-400">In {project.name}</div>
+                    <div className="font-sans text-sm text-gray-400">
+                      In {list.name}
+                    </div>
                   </div>
                   <div className=" hidden gap-1 items-center group-hover/hidden:flex">
                     <button className="w-6 h-6 flex justify-center items-center rounded-md border bg-white border-gray-200 hover:bg-gray-200">

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useData } from "@/context/DataProvider/DataProvider";
 import useGetCurrentWorkspace from "@/hooks/useGetCurrentWorkspace";
-import { deleteList } from "@/app/server-actions/list/deleteList";
+import { deleteList } from "@/app/server-actions/List/deleteList";
 
 const DeleteListButton: React.FC = () => {
   const queryClient = useQueryClient();

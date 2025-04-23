@@ -5,9 +5,9 @@ import { useTasksQuery } from "@/hooks/useTaskQuery";
 import { useData } from "@/context/DataProvider/DataProvider";
 import { TaskTable } from "@/app/(dashboard)/_components/Task/TaskTable";
 import { TaskStatus } from "../../../home/types";
-import { Task } from "@/app/server-actions/types";
+import { Space, Task } from "@/app/server-actions/types";
 import { useWorkspaceFormContext } from "@/context/FormProviders/WorkspaceFormProvider";
-import { Workspace } from "@/app/server-actions/types";
+
 import { StatusBadge } from "@/app/(dashboard)/_components/Task/StatusBadge";
 import ButtonIcon from "@/app/(dashboard)/ui/ButtonIcon";
 import { Icons } from "@/icons/icons";
@@ -47,10 +47,7 @@ const TasksList = () => {
     }
   };
 
-  const applyFilters = (
-    tasks: Task[],
-    filtersState: Workspace["filtersState"]
-  ) => {
+  const applyFilters = (tasks: Task[], filtersState: Space["filtersState"]) => {
     return tasks.filter((task) => {
       // Filter by taskName
       if (
