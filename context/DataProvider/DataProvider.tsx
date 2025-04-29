@@ -21,6 +21,8 @@ type DataContextType = {
   setListId: Dispatch<SetStateAction<string>>;
   listName: string;
   setListName: Dispatch<SetStateAction<string>>;
+  isPrivate: boolean;
+  setIsPrivate: Dispatch<SetStateAction<boolean>>;
   taskId: string;
   setTaskId: Dispatch<SetStateAction<string>>;
   tasksLength: number;
@@ -39,8 +41,12 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({
   const [spaceName, setSpaceName] = useState("");
   const [listId, setListId] = useState("");
   const [listName, setListName] = useState("");
+  const [isPrivate, setIsPrivate] = useState(false);
   const [taskId, setTaskId] = useState("");
   const [tasksLength, setTasksLength] = useState(0);
+
+  console.log("space id", spaceId);
+  console.log("list id", listId);
 
   useEffect(() => {
     if (!spaceId) {
@@ -64,6 +70,8 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({
         setListId,
         listName,
         setListName,
+        isPrivate,
+        setIsPrivate,
         taskId,
         setTaskId,
         tasksLength,
