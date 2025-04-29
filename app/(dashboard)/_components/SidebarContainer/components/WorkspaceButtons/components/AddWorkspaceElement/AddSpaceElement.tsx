@@ -9,6 +9,10 @@ import {
 } from "./components/modals";
 import { useData } from "@/context/DataProvider/DataProvider";
 
+import useGetCurrentWorkspace from "@/hooks/useGetCurrentWorkspace";
+import { useUpdateList } from "@/hooks/useUpdateList";
+import { useUpdateSpace } from "@/hooks/useUpdateSpace";
+
 const AddSpaceElement: React.FC<ButtonProps> = ({
   label,
   icon,
@@ -28,6 +32,10 @@ const AddSpaceElement: React.FC<ButtonProps> = ({
   const [isRenaming, setIsRenaming] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>(label);
   const { setSpaceName, setListName } = useData();
+  useGetCurrentWorkspace();
+
+  const { mutate: updateListMutation } = useUpdateList();
+  const { mutate: updateSpaceMutation } = useUpdateSpace();
 
   useEffect(() => {
     setInputValue(label);
@@ -96,8 +104,11 @@ const AddSpaceElement: React.FC<ButtonProps> = ({
       console.log("Zapisuję nową nazwę:", inputValue);
       if (isSpace) {
         setSpaceName(inputValue);
+
+        updateSpaceMutation();
       } else {
         setListName(inputValue);
+        updateListMutation();
       }
     }
     setIsRenaming(false);
@@ -115,8 +126,8 @@ const AddSpaceElement: React.FC<ButtonProps> = ({
           modalState === "menuSpaceList" && !active
             ? "bg-gray-200"
             : active
-            ? "bg-blue-200 text-blue-700"
-            : "hover:bg-gray-200 hover:text-gray-700"
+              ? "bg-blue-200 text-blue-700"
+              : "hover:bg-gray-200 hover:text-gray-700"
         }`}
       >
         <div className="flex w-full justify-between items-center">
@@ -183,7 +194,7 @@ const AddSpaceElement: React.FC<ButtonProps> = ({
                       toggleModal("menuListChanger");
                     }}
                     className={`flex justify-center items-center h-6 w-6 rounded-md ${
-                      active ? "hover:bg-blue-300" : "hover:bg-gray-300"
+                      active ? "hover:bg-blue-300" : "hover:bg-gray-300 hidden"
                     }`}
                   >
                     <Icons.ThreeDotsIcon

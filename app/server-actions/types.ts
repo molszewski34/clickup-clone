@@ -61,12 +61,12 @@ export type Space = {
 
 export type NewDefaultSpace = Omit<Space, "id" | "createdAt">;
 
-export type List = {
+export interface List {
   id: string;
   createdAt: string;
   name: string;
-  isPrivate: string;
-};
+  isPrivate: boolean;
+}
 
 export enum Role {
   admin = "Admin",
