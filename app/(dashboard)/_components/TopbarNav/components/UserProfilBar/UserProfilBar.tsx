@@ -31,7 +31,7 @@ export default function UserProfilBar() {
           onClick={closeModal}
         >
           <div
-            className="bg-white rounded-lg w-[280px] h-[509px] mt-12 shadow-[0_20px_54px_#0000001a] border m-2 overflow-hidden"
+            className="bg-white rounded-lg w-[280px]  mt-12 shadow-[0_20px_54px_#0000001a] border m-2 max-h-36"
             onClick={(e) => e.stopPropagation()}
           >
             <UserProfilModal />

@@ -41,9 +41,9 @@ export default function ButtonRender() {
                 }
               />
             ))}
-            {groupIndex < buttonGroups.length - 1 && (
+            {/* {groupIndex < buttonGroups.length - 1 && (
               <div className="w-full h-[1px] bg-gray-200 my-2" />
-            )}
+            )} */}
           </React.Fragment>
         ))}
       </div>
