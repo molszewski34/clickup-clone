@@ -82,6 +82,7 @@ export default function SettingProfile() {
                 id="user-email"
                 type="text"
                 autoComplete="off"
+                disabled
                 {...register("signUpEmail", {
                   required: "Email jest wymagany",
                   pattern: {
@@ -98,9 +99,7 @@ export default function SettingProfile() {
               </p>
             )}
           </div>
-        </form>
-        {/* Password */}
-        <form autoComplete="off">
+
           <div className="mt-4">
             <h2 className="font-sans text-xs/snug font-medium text-gray-900 mb-2">
               Password

@@ -5,27 +5,50 @@ import React from "react";
 import { useUser } from "@/context/DataProvider/UserDataProvider";
 import { updateProfile, updatePassword } from "firebase/auth";
 import { auth } from "@/db/firebase/lib/firebase";
+import { updateUserAssociation } from "@/app/server-actions/user2workspace/updateUserAssociation";
+import { getUserAssociation } from "@/app/server-actions/user2workspace/getUserAssociation";
 
 const SettingSaveButton = () => {
-  const { watch } = useUserProfileForm();
-  const { signUpFullName, password } = watch();
+  const { getValues, resetField } = useUserProfileForm();
+
   const { userId } = useUser();
 
   const { mutate, isPending } = useMutation({
     mutationFn: async () => {
+      const { signUpFullName, password } = getValues();
       await updateUser(userId as string, undefined, signUpFullName);
 
       const currentUser = auth.currentUser;
+
       if (currentUser) {
         await updateProfile(currentUser, { displayName: signUpFullName });
 
-        if (password) {
-          await updatePassword(currentUser, password);
+        if (password?.trim()) {
+          try {
+            await updatePassword(currentUser, password.trim());
+          } catch (error) {
+            console.error("Błąd przy zmianie hasła:", error);
+          }
         }
+      }
+
+      const userAssociation = await getUserAssociation(userId);
+
+      if (userAssociation) {
+        await updateUserAssociation(
+          userAssociation.id,
+          undefined,
+          undefined,
+          signUpFullName,
+          userId
+        );
+      } else {
+        console.error("User association not found!");
       }
     },
     onSuccess: () => {
       console.log("Zaktualizowano dane użytkownika");
+      resetField("password");
     },
     onError: (error) => {
       console.error("Błąd przy aktualizacji:", error);
