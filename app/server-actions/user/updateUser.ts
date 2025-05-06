@@ -26,6 +26,7 @@ export const updateUser = async (
         activeWorkspace,
       });
     }
+    console.log("Zaktualizowano profil");
   } catch (error) {
     console.error("Błąd podczas aktualizowania użytkownika", error);
   }
