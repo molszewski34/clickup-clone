@@ -3,14 +3,14 @@ import { updateUser } from "@/app/server-actions/user/updateUser";
 import { useMutation } from "@tanstack/react-query";
 import React from "react";
 import { useUser } from "@/context/DataProvider/UserDataProvider";
-import { updateProfile, updatePassword } from "firebase/auth";
+import { updateProfile, updatePassword, signOut } from "firebase/auth";
 import { auth } from "@/db/firebase/lib/firebase";
 import { updateUserAssociation } from "@/app/server-actions/user2workspace/updateUserAssociation";
 import { getUserAssociation } from "@/app/server-actions/user2workspace/getUserAssociation";
+import router from "next/router";
 
 const SettingSaveButton = () => {
   const { getValues, resetField } = useUserProfileForm();
-
   const { userId } = useUser();
 
   const { mutate, isPending } = useMutation({
@@ -27,7 +27,22 @@ const SettingSaveButton = () => {
           try {
             await updatePassword(currentUser, password.trim());
           } catch (error) {
-            console.error("Błąd przy zmianie hasła:", error);
+            if (
+              typeof error === "object" &&
+              error !== null &&
+              "code" in error &&
+              (error as { code: string }).code === "auth/requires-recent-login"
+            ) {
+              alert("Musisz ponownie się zalogować, aby zmienić hasło.");
+              setTimeout(async () => {
+                await signOut(auth);
+                router.push("/login");
+              }, 2000);
+              return;
+            } else {
+              alert("Wystąpił błąd podczas zmiany hasła.");
+              console.error("Błąd:", error);
+            }
           }
         }
       }
