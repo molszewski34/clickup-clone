@@ -1,23 +1,27 @@
-import { deleteUser } from "./deleteUser";
+import { deleteUserFromFirestore } from "./deleteUser";
 
 jest.mock("./deleteUser", () => ({
-  deleteUser: jest.fn(),
+  deleteUserFromFirestore: jest.fn(),
 }));
 
-describe("deleteUser", () => {
+describe("deleteUserFromFirestore", () => {
   const userId = "testUserId";
 
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  it("should call deleteUser with correct parameters", async () => {
-    await deleteUser(userId);
-    expect(deleteUser).toHaveBeenCalledWith(userId);
+  it("should call deleteUserFromFirestore with correct parameters", async () => {
+    await deleteUserFromFirestore(userId);
+    expect(deleteUserFromFirestore).toHaveBeenCalledWith(userId);
   });
 
   it("should handle errors correctly", async () => {
-    (deleteUser as jest.Mock).mockRejectedValue(new Error("Mocked error"));
-    await expect(deleteUser(userId)).rejects.toThrow("Mocked error");
+    (deleteUserFromFirestore as jest.Mock).mockRejectedValue(
+      new Error("Mocked error")
+    );
+    await expect(deleteUserFromFirestore(userId)).rejects.toThrow(
+      "Mocked error"
+    );
   });
 });

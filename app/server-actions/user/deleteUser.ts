@@ -2,7 +2,7 @@ import { db } from "@/db/firebase/lib/firebase";
 import { doc, deleteDoc } from "firebase/firestore";
 import { User } from "../types";
 
-export const deleteUser = async (userId: User["userId"]) => {
+export const deleteUserFromFirestore = async (userId: User["userId"]) => {
   try {
     const userRef = doc(db, `users/${userId}`);
 
