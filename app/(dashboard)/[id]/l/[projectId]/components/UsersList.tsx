@@ -14,6 +14,7 @@ import getUsersAssignedToWorkspace from "@/app/server-actions/user/getUsersAssig
 import { createUserAssociationToTask } from "@/app/server-actions/user2task/createUserAssociationToTask";
 
 import { useData } from "@/context/DataProvider/DataProvider";
+import { checkIfUserAssociationToTaskExist } from "@/app/server-actions/user2task/checkIfUserAssociationToTaskExist";
 
 type UsersListProps = {
   filterUser: string;
@@ -61,6 +62,8 @@ export const UsersList = ({ filterUser }: UsersListProps) => {
   };
 
   async function handleCreatingUserAssociationToTask(userClicked: User) {
+    await checkIfUserAssociationToTaskExist(userClicked.id, taskId);
+
     await createUserAssociationToTask(userClicked.id, taskId);
   }
 
