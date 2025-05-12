@@ -11,6 +11,9 @@ import { useUpdateTask } from "@/hooks/useUpdateTask";
 import { useUser } from "@/context/DataProvider/UserDataProvider";
 import useGetCurrentWorkspace from "@/hooks/useGetCurrentWorkspace";
 import getUsersAssignedToWorkspace from "@/app/server-actions/user/getUsersAssignedToWorkspace";
+import { createUserAssociationToTask } from "@/app/server-actions/user2task/createUserAssociationToTask";
+
+import { useData } from "@/context/DataProvider/DataProvider";
 
 type UsersListProps = {
   filterUser: string;
@@ -18,6 +21,7 @@ type UsersListProps = {
 
 export const UsersList = ({ filterUser }: UsersListProps) => {
   const { workspaceId } = useGetCurrentWorkspace();
+  const { taskId } = useData();
 
   const { data: users = [] } = useQuery<User[]>({
     queryKey: ["users", workspaceId],
@@ -56,6 +60,10 @@ export const UsersList = ({ filterUser }: UsersListProps) => {
     }
   };
 
+  async function handleCreatingUserAssociationToTask(userClicked: User) {
+    await createUserAssociationToTask(userClicked.id, taskId);
+  }
+
   return (
     <ul className="max-h-[308px] overflow-y-scroll custom-scrollbar px-2 py-1">
       {filteredUsers.map((user) => {
@@ -70,6 +78,7 @@ export const UsersList = ({ filterUser }: UsersListProps) => {
               e.stopPropagation();
               handleClickOnUser(user);
               mutate();
+              handleCreatingUserAssociationToTask(user);
             }}
           >
             <div className="group/item flex items-center gap-3 py-1.5 px-1 rounded-lg hover:bg-gray-100">

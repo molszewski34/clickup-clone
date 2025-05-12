@@ -12,6 +12,7 @@ import { StatusIcon } from "./StatusIcon";
 import { StatusBadge } from "./StatusBadge";
 import { EditStatus } from "./EditStatus";
 import { useRouter } from "next/navigation";
+import { useData } from "@/context/DataProvider/DataProvider";
 
 type TaskTableRowProps = {
   row: Row<Task>;
@@ -31,6 +32,13 @@ export const TaskTableRow = ({ row }: TaskTableRowProps) => {
   const router = useRouter();
   const handlePushToTaskPage = (taskId: string) => {
     router.push(`/t/${taskId}`);
+  };
+  const { setTaskId } = useData();
+
+  const provideTaskId = (taskId: string | undefined) => {
+    if (taskId) {
+      setTaskId(taskId);
+    }
   };
 
   return (
@@ -66,6 +74,7 @@ export const TaskTableRow = ({ row }: TaskTableRowProps) => {
           key={`assignees-${row.original.id}`}
           onClick={() => {
             setTaskRowEditableCell("assignee");
+            provideTaskId(row.original.id);
           }}
         >
           <div
