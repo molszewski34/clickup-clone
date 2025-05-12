@@ -27,7 +27,7 @@ export const AuthGuard = ({
         } else return;
       } else {
         setUserId(user.uid);
-        if (pathname.includes("login") && isSuccess && userData) {
+        if (pathname.includes("login") && isSuccess && userData && userData.activeWorkspace) {
           router.push(`/${userData.activeWorkspace}/home`);
         }
       }

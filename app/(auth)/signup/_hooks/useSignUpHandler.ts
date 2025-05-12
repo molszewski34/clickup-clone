@@ -31,11 +31,7 @@ export const useSignUpHandler = () => {
     setIsSigningUp(true);
 
     try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        data.login,
-        data.password
-      );
+      const userCredential = await createUserWithEmailAndPassword(auth, data.login, data.password);
       const user = userCredential.user;
 
       if (user) {
@@ -109,12 +105,7 @@ export const useSignUpHandler = () => {
               if (!userAssociation) {
                 console.error("Could not create user association!");
               } else {
-                await updateUser(
-                  userCreated.id,
-                  undefined,
-                  undefined,
-                  userAssociation.workspaceId
-                );
+                await updateUser(userCreated.id, undefined, undefined, userAssociation.workspaceId);
               }
 
               const createNewSpace = await createSpace(
