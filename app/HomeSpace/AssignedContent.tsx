@@ -5,7 +5,23 @@ import ActionButton from "./Components/ComponentsAssignedContent/ActionButton";
 import TaskHeader from "./Components/ComponentsAssignedContent/TaskHeader";
 import SearchBar from "./Components/ComponentsAssignedContent/SearchBar";
 
-const AssignedContent: React.FC = () => {
+import useGetCurrentUser from "@/hooks/useGetCurrentUser";
+import { useGetTaskAssignedToUser } from "@/hooks/useGetTaskAssignedToUser";
+
+const AssignedContent = () => {
+  const { userId } = useGetCurrentUser();
+
+  const {
+    data: userAssociation,
+    isLoading,
+    error,
+  } = useGetTaskAssignedToUser(userId);
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error loading user association</div>;
+
+  console.log("user tasks", userAssociation);
+
   return (
     <CardContainer title="Assigned to me" NumberIcons={3} height="576px">
       <div className="h-10 px-[14px] flex items-center justify-between">
@@ -22,6 +38,7 @@ const AssignedContent: React.FC = () => {
           <ActionButton icon={Icons.SettingsIcon} />
         </div>
       </div>
+
       <div className="h-16 px-[14px] mt-2">
         <div className="flex items-center h-8 gap-1">
           <ActionButton
