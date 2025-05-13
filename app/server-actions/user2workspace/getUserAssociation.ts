@@ -3,7 +3,7 @@ import { User, UserAssociation } from "../types";
 import { db } from "@/db/firebase/lib/firebase";
 
 export const getUserAssociation = async (userId: User["id"]) => {
-  const userAssociationCollectionRef = collection(db, "user2workspace");
+  const userAssociationCollectionRef = collection(db, "user2task");
   const userAssociationDocQuery = query(
     userAssociationCollectionRef,
     where("userId", "==", userId)
