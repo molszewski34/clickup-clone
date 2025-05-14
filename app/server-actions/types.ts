@@ -85,6 +85,12 @@ export type UserAssociation = {
   joinedAt: Date;
 };
 
+export type UserTaskAssociation = {
+  id: string;
+  userId: string;
+  taskId: string;
+};
+
 export type Icon = {
   activeColor: string;
   selectedIconName: string | null;

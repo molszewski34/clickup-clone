@@ -1,5 +1,5 @@
 import { collection, getDocs, query, where } from "firebase/firestore";
-import { User, UserAssociation } from "../types";
+import { User, UserTaskAssociation } from "../types";
 import { db } from "@/db/firebase/lib/firebase";
 
 export const getUserAssociation = async (userId: User["id"]) => {
@@ -8,17 +8,17 @@ export const getUserAssociation = async (userId: User["id"]) => {
     userAssociationCollectionRef,
     where("userId", "==", userId)
   );
-  const userAssociation: UserAssociation[] = [];
+  const userAssociation: UserTaskAssociation[] = [];
 
   try {
     const userAssociationDocs = await getDocs(userAssociationDocQuery);
     userAssociationDocs.docs.forEach((singleAssociation) =>
       userAssociation.push({
         id: singleAssociation.id,
-        ...(singleAssociation.data() as Omit<UserAssociation, "id">),
+        ...(singleAssociation.data() as Omit<UserTaskAssociation, "id">),
       })
     );
-    return userAssociation[0];
+    return userAssociation;
   } catch (error) {
     console.log("Error occured when fetching user association.", error);
   }
