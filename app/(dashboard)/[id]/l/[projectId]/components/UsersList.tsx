@@ -44,28 +44,26 @@ export const UsersList = ({ filterUser }: UsersListProps) => {
       singleUser.signUpFullName.includes(filterUser)
   );
 
-  const handleClickOnUser = (userClicked: User) => {
-    if (
-      formData.assignees.find(
-        (singleAssignee) => singleAssignee.id === userClicked.id
-      )
-    ) {
+  const handleClickOnUser = async (userClicked: User) => {
+    const isAlreadyAssigned = formData.assignees.some(
+      (singleAssignee) => singleAssignee.id === userClicked.id
+    );
+
+    if (isAlreadyAssigned) {
       updateTaskForm(
         "assignees",
         formData.assignees.filter(
           (singleAssignee) => singleAssignee.id !== userClicked.id
         )
       );
+      await checkIfUserAssociationToTaskExist(userClicked.id, taskId);
     } else {
       updateTaskForm("assignees", [...formData.assignees, userClicked]);
+      await createUserAssociationToTask(userClicked.id, taskId);
     }
+
+    mutate();
   };
-
-  async function handleCreatingUserAssociationToTask(userClicked: User) {
-    await checkIfUserAssociationToTaskExist(userClicked.id, taskId);
-
-    await createUserAssociationToTask(userClicked.id, taskId);
-  }
 
   return (
     <ul className="max-h-[308px] overflow-y-scroll custom-scrollbar px-2 py-1">
@@ -80,8 +78,6 @@ export const UsersList = ({ filterUser }: UsersListProps) => {
             onClick={(e) => {
               e.stopPropagation();
               handleClickOnUser(user);
-              mutate();
-              handleCreatingUserAssociationToTask(user);
             }}
           >
             <div className="group/item flex items-center gap-3 py-1.5 px-1 rounded-lg hover:bg-gray-100">
