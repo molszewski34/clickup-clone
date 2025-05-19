@@ -6,13 +6,13 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { TaskTableRow } from "./TaskTableRow";
+
 import { Task } from "@/app/server-actions/types";
-import { NewTask } from "./NewTask";
-import { TaskStatus } from "../../[id]/home/types";
-import { Button } from "@/components/Button";
-import { Icons } from "@/icons/icons";
-import { NewTaskVisibility } from "../../[id]/l/[projectId]/components/TasksList";
+
+import { NewTaskVisibility } from "./List";
+import { TaskStatus } from "@/app/(dashboard)/[id]/home/types";
+import { NewTask } from "@/app/(dashboard)/_components/Task/NewTask";
+import { TaskTableRow } from "@/app/(dashboard)/_components/Task/TaskTableRow";
 
 type TableProps = {
   tasks: Task[];
@@ -21,7 +21,7 @@ type TableProps = {
   status?: TaskStatus;
 };
 
-export const TaskTable = ({
+export const TaskTableWithoutAddButton = ({
   tasks,
   openedNewTask,
   setOpenedNewTask,
@@ -99,42 +99,6 @@ export const TaskTable = ({
         {table.getRowModel().rows.map((singleRow) => {
           return <TaskTableRow key={singleRow.id} row={singleRow} />;
         })}
-        {openedNewTask.status === status &&
-        openedNewTask.newTaskVisibility === "bottom" ? (
-          <NewTask
-            status={status}
-            openedNewTask={openedNewTask}
-            setOpenedNewTask={setOpenedNewTask}
-          />
-        ) : (
-          status && (
-            <>
-              <td
-                key="status-icon"
-                className="justify-items-center text-gray-400"
-              >
-                <Icons.PlusIco size={14} />
-              </td>
-              <td
-                colSpan={4}
-                className="items-center min-w-56"
-                onClick={() =>
-                  setOpenedNewTask({
-                    status: status,
-                    newTaskVisibility: "bottom",
-                  })
-                }
-              >
-                <Button
-                  color="gray"
-                  className="h-6 rounded-[4.5px] -ml-2 text-sm text-gray-200 border-transparent group-hover:border-gray-300"
-                >
-                  Add Task
-                </Button>
-              </td>
-            </>
-          )
-        )}
       </tbody>
     </table>
   );

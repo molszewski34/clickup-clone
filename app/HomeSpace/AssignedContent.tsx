@@ -1,30 +1,21 @@
-import React from "react";
-import { Icons } from "@/icons/icons";
+import React, { useState } from "react";
 import CardContainer from "./Components/CardContainer";
-import ActionButton from "./Components/ComponentsAssignedContent/ActionButton";
-import TaskHeader from "./Components/ComponentsAssignedContent/TaskHeader";
-import SearchBar from "./Components/ComponentsAssignedContent/SearchBar";
 
-import useGetCurrentUser from "@/hooks/useGetCurrentUser";
-import { useGetTaskAssignedToUser } from "@/hooks/useGetTaskAssignedToUser";
+import List from "./Components/ComponentsAssignedContent/List";
+import FiltersBar from "./Components/ComponentsAssignedContent/FiltersBar";
 
 const AssignedContent = () => {
-  const { userId } = useGetCurrentUser();
+  // if (isLoading) return <div>Loading...</div>;
+  // if (error) return <div>Error loading user association</div>;
 
-  const {
-    data: userAssociation,
-    isLoading,
-    error,
-  } = useGetTaskAssignedToUser(userId);
+  // console.log("user tasks", userAssociation);
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error loading user association</div>;
-
-  console.log("user tasks", userAssociation);
+  const [subBarNavHeaderActive] = useState(true);
+  const [subBarNavFilterActive] = useState(true);
 
   return (
     <CardContainer title="Assigned to me" NumberIcons={3} height="576px">
-      <div className="h-10 px-[14px] flex items-center justify-between">
+      {/* <div className="h-10 px-[14px] flex items-center justify-between">
         <div className="flex items-center gap-1">
           <ActionButton icon={Icons.LayersIcon} />
           <ActionButton icon={Icons.Forked} />
@@ -37,9 +28,9 @@ const AssignedContent = () => {
           <SearchBar />
           <ActionButton icon={Icons.SettingsIcon} />
         </div>
-      </div>
+      </div> */}
 
-      <div className="h-16 px-[14px] mt-2">
+      {/* <div className="h-16 px-[14px] mt-2">
         <div className="flex items-center h-8 gap-1">
           <ActionButton
             icon={Icons.PlayWorkspace}
@@ -58,11 +49,15 @@ const AssignedContent = () => {
           </button>
         </div>
         <TaskHeader name="Name" priority="Priority" dueDate="Due date" />
-      </div>
+      </div> */}
 
       <div className="w-full h-[370px] pb-4 custom-scrollbar overflow-y-auto overflow-x-hidden">
         <div className="text-center font-sans text-base text-gray-400 mt-3">
-          Empty
+          <FiltersBar
+            subBarNavFilterActive={subBarNavFilterActive}
+            subBarNavHeaderActive={subBarNavHeaderActive}
+          />
+          <List />
         </div>
       </div>
     </CardContainer>
