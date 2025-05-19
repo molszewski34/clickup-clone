@@ -1,14 +1,8 @@
-import React from "react";
-import { Icons } from "@/icons/icons";
+import React, { useState } from "react";
 import CardContainer from "./Components/CardContainer";
-import ActionButton from "./Components/ComponentsAssignedContent/ActionButton";
 
-import SearchBar from "./Components/ComponentsAssignedContent/SearchBar";
-
-// import useGetCurrentUser from "@/hooks/useGetCurrentUser";
-// import { useGetTaskAssignedToUser } from "@/hooks/useGetTaskAssignedToUser";
-// import TasksList from "../(dashboard)/[id]/l/[projectId]/components/TasksList";
 import List from "./Components/ComponentsAssignedContent/List";
+import FiltersBar from "./Components/ComponentsAssignedContent/FiltersBar";
 
 const AssignedContent = () => {
   // if (isLoading) return <div>Loading...</div>;
@@ -16,9 +10,12 @@ const AssignedContent = () => {
 
   // console.log("user tasks", userAssociation);
 
+  const [subBarNavHeaderActive] = useState(true);
+  const [subBarNavFilterActive] = useState(true);
+
   return (
     <CardContainer title="Assigned to me" NumberIcons={3} height="576px">
-      <div className="h-10 px-[14px] flex items-center justify-between">
+      {/* <div className="h-10 px-[14px] flex items-center justify-between">
         <div className="flex items-center gap-1">
           <ActionButton icon={Icons.LayersIcon} />
           <ActionButton icon={Icons.Forked} />
@@ -31,7 +28,7 @@ const AssignedContent = () => {
           <SearchBar />
           <ActionButton icon={Icons.SettingsIcon} />
         </div>
-      </div>
+      </div> */}
 
       {/* <div className="h-16 px-[14px] mt-2">
         <div className="flex items-center h-8 gap-1">
@@ -56,6 +53,10 @@ const AssignedContent = () => {
 
       <div className="w-full h-[370px] pb-4 custom-scrollbar overflow-y-auto overflow-x-hidden">
         <div className="text-center font-sans text-base text-gray-400 mt-3">
+          <FiltersBar
+            subBarNavFilterActive={subBarNavFilterActive}
+            subBarNavHeaderActive={subBarNavHeaderActive}
+          />
           <List />
         </div>
       </div>

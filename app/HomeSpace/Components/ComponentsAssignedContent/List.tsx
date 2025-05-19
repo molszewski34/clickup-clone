@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 
 import { useData } from "@/context/DataProvider/DataProvider";
-import { TaskTable } from "@/app/(dashboard)/_components/Task/TaskTable";
 
 import { Space, Task } from "@/app/server-actions/types";
 import { useWorkspaceFormContext } from "@/context/FormProviders/WorkspaceFormProvider";
@@ -11,12 +10,12 @@ import { useWorkspaceFormContext } from "@/context/FormProviders/WorkspaceFormPr
 import { StatusBadge } from "@/app/(dashboard)/_components/Task/StatusBadge";
 import ButtonIcon from "@/app/(dashboard)/ui/ButtonIcon";
 import { Icons } from "@/icons/icons";
-import { Button } from "@/components/Button";
 
 import { TaskStatus } from "@/app/(dashboard)/[id]/home/types";
 import { useGetTaskAssignedToUser } from "@/hooks/useGetTaskAssignedToUser";
 import useGetCurrentUser from "@/hooks/useGetCurrentUser";
 import useGetCurrentWorkspace from "@/hooks/useGetCurrentWorkspace";
+import { TaskTableWithoutAddButton } from "./TaskTableWithoutAddButton";
 
 export type NewTaskVisibility = {
   status: TaskStatus;
@@ -140,7 +139,7 @@ const TasksList = () => {
               <p className="text-xs font-semibold">
                 {tasksGroupedByStatus[status].length}
               </p>
-              {openedNewTask.newTaskVisibility !== "top" && (
+              {/* {openedNewTask.newTaskVisibility !== "top" && (
                 <Button
                   color="gray"
                   className="px-0.5 gap-[8px] rounded-md text-xs font-semibold hover:bg-gray-100 border-transparent"
@@ -156,10 +155,10 @@ const TasksList = () => {
                     Add Task
                   </div>
                 </Button>
-              )}
+              )} */}
             </div>
             {isGroupVisible && (
-              <TaskTable
+              <TaskTableWithoutAddButton
                 tasks={tasksGroupedByStatus[status]}
                 status={status as TaskStatus}
                 openedNewTask={openedNewTask}

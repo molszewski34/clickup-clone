@@ -1,6 +1,7 @@
 import { getTasks } from "@/app/server-actions/task/getTasks";
 import { Task } from "@/app/server-actions/types";
-import { getUserAssociation } from "@/app/server-actions/user2workspace/getUserAssociation";
+import { getUserAssociations } from "@/app/server-actions/user/getUserAssociations";
+
 import { useQuery } from "@tanstack/react-query";
 
 export const useGetTaskAssignedToUser = (
@@ -14,7 +15,7 @@ export const useGetTaskAssignedToUser = (
     queryFn: async () => {
       if (!userId) throw new Error("userId is required");
 
-      const userAssociations = await getUserAssociation(userId);
+      const userAssociations = await getUserAssociations(userId);
       if (!userAssociations || userAssociations.length === 0) return [];
 
       const allTasks = await getTasks(workspaceId, spaceId, listId);
