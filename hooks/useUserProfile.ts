@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
-import { auth, db } from '@/db/firebase/lib/firebase';
-import { onAuthStateChanged, User } from 'firebase/auth';
-import { doc, getDoc } from 'firebase/firestore';
+import { useEffect, useState } from "react";
+import { db } from "@/db/firebase/lib/firebase";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
+import { User as FirebaseUser } from "firebase/auth";
 
 interface UserProfileData {
   signUpFullName: string;
@@ -11,14 +12,15 @@ interface UserProfileData {
 }
 
 interface UseUserProfileReturn {
-  user: User | null;
+  user: FirebaseUser | null;
   userData: UserProfileData | null;
   loading: boolean;
   error: string | null;
 }
 
 export function useUserProfile(): UseUserProfileReturn {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<FirebaseUser | null>(null);
+
   const [userData, setUserData] = useState<UserProfileData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -32,18 +34,20 @@ export function useUserProfile(): UseUserProfileReturn {
         setUser(currentUser);
 
         try {
-          const userDocRef = doc(db, 'users', currentUser.uid);
+          const userDocRef = doc(db, "users", currentUser.uid);
           const userDocSnap = await getDoc(userDocRef);
 
           if (userDocSnap.exists()) {
             setUserData(userDocSnap.data() as UserProfileData);
           } else {
-            setError('User data not found in Firestore.');
+            setError("User data not found in Firestore.");
           }
-        } catch (err: any) {
-          setError(
-            err.message || 'An error occurred while fetching user data.'
-          );
+        } catch (err: unknown) {
+          if (err instanceof Error) {
+            setError(err.message);
+          } else {
+            setError("An unknown error occurred while fetching user data.");
+          }
         }
       } else {
         setUser(null);

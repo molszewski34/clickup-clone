@@ -5,6 +5,7 @@ import SettingDangerZone from "./components/SettingDangerZone";
 import SettingPreference from "./components/SettingPreference/SettingPreference";
 import SettingTime from "./components/SettingTime/SettingTime";
 import SettingTheme from "./components/SettingTheme/SettingTheme";
+import SettingSaveButton from "./components/SettingSaveButton";
 
 export default function SettingsPreview() {
   return (
@@ -20,11 +21,7 @@ export default function SettingsPreview() {
         <SettingTime />
         <SettingPreference />
         <SettingDangerZone />
-        <div className="sticky bottom-0 flex justify-end  w-auto pl-12 py-3 border-t border-gray-200 bg-white">
-          <button className="px-[11px] max-w-fit border h-10 rounded-md bg-blue-600 font-sans text-sm/snug font-medium text-white">
-            Save changes
-          </button>
-        </div>
+        <SettingSaveButton />
       </div>
     </>
   );

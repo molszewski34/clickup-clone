@@ -5,7 +5,7 @@ import { Icons } from "@/icons/icons";
 import React, { useState } from "react";
 import FilterInput from "./FilterInput";
 import { useWorkspaceFormContext } from "@/context/FormProviders/WorkspaceFormProvider";
-import { Workspace } from "@/app/server-actions/types";
+import { Space } from "@/app/server-actions/types";
 import { TaskStatus } from "../../[id]/home/types";
 type Props = {
   subBarNavHeaderActive: boolean;
@@ -21,7 +21,7 @@ const SubBarNavFilters = ({
   );
   const { formData, setFormData } = useWorkspaceFormContext();
   const handleTaskNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prevState: Workspace) => ({
+    setFormData((prevState: Space) => ({
       ...prevState,
       filtersState: {
         ...prevState.filtersState,
@@ -33,8 +33,8 @@ const SubBarNavFilters = ({
     <div
       className={` flex gap-1 items-center bg-white transition-all duration-500 ease-in-out overflow-hidden
     ${subBarNavHeaderActive ? "px-12" : "px-4"} ${
-        subBarNavFilterActive ? " h-10 " : "h-0 "
-      }
+      subBarNavFilterActive ? " h-10 " : "h-0 "
+    }
       `}
       style={{ container: `filters/inline-size` }}
     >
@@ -77,7 +77,7 @@ const SubBarNavFilters = ({
           <FilterButton
             isActive={formData.filtersState.assignedToMe}
             onClick={() =>
-              setFormData((prevState: Workspace) => ({
+              setFormData((prevState: Space) => ({
                 ...prevState,
                 filtersState: {
                   ...prevState.filtersState,
@@ -93,7 +93,7 @@ const SubBarNavFilters = ({
             <ButtonVariant4
               className={`w-[22px] h-[22px] min-h-[22px] absolute right-[0.5px] bg-blue_150 hover:bg-blue_200 text-blue_300 z-30 opacity-0 group-hover:opacity-100`}
               onClick={() =>
-                setFormData((prevState: Workspace) => ({
+                setFormData((prevState: Space) => ({
                   ...prevState,
                   filtersState: {
                     ...prevState.filtersState,
@@ -123,7 +123,7 @@ const SubBarNavFilters = ({
               TaskStatus.completed
             )}
             onClick={() => {
-              setFormData((prevState: Workspace) => ({
+              setFormData((prevState: Space) => ({
                 ...prevState,
                 filtersState: {
                   ...prevState.filtersState,
@@ -152,7 +152,7 @@ const SubBarNavFilters = ({
         {formData.filtersState.searchQuery !== "" && (
           <ButtonVariant2
             onClick={() =>
-              setFormData((prevState: Workspace) => ({
+              setFormData((prevState: Space) => ({
                 ...prevState,
                 filtersState: {
                   ...prevState.filtersState,

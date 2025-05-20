@@ -1,6 +1,5 @@
 "use client";
 
-import { Icons } from "@/icons/icons";
 import MenuRightTask from "./MenuRightTask";
 import MainContentTask from "./MainContentTask";
 
@@ -13,7 +12,7 @@ export default function TaskModal({ isMenuOpen }: { isMenuOpen: boolean }) {
             isMenuOpen ? "w-[300px]" : "w-[0px]"
           } transition-all duration-300 overflow-hidden bg-gray-50 border-r border-gray-200`}
         >
-          {isMenuOpen && (
+          {/* {isMenuOpen && (
             <>
               <div className="h-12 pr-3 py-3 pl-4 font-sans text-xl/5 text-gray-900 font-semibold border-b border-gray-200">
                 Subtasks
@@ -39,7 +38,7 @@ export default function TaskModal({ isMenuOpen }: { isMenuOpen: boolean }) {
                 Add subtask
               </button>
             </>
-          )}
+          )} */}
         </div>
         <MainContentTask />
         <MenuRightTask />

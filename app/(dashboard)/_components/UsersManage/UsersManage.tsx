@@ -6,10 +6,31 @@ import SearchManageFull from "./components/Search/SearchManageFull";
 import ContentManageGuests from "./components/ContentMenage/ContentManageGuests";
 import ContentManageLimited from "./components/ContentMenage/ContentManageLimited";
 import ContentManageFull from "./components/ContentMenage/ContentManageFull";
+import useGetCurrentWorkspace from "@/hooks/useGetCurrentWorkspace";
+import getUsersAssignedToWorkspace from "@/app/server-actions/user/getUsersAssignedToWorkspace";
+import { useQuery } from "@tanstack/react-query";
+import { User } from "@/app/server-actions/types";
 
 export default function UsersManage() {
   const [activeTab, setActiveTab] = useState("full");
   const [filterUser, setFilterUser] = useState("");
+
+  const { workspaceId } = useGetCurrentWorkspace();
+
+  const { data: users = [] } = useQuery<User[]>({
+    queryKey: ["users", workspaceId],
+    queryFn: () => {
+      if (!workspaceId) return Promise.resolve([]);
+      return getUsersAssignedToWorkspace(workspaceId);
+    },
+    enabled: !!workspaceId,
+  });
+
+  const filteredUsers: User[] = users.filter(
+    (singleUser) =>
+      singleUser.signUpEmail.includes(filterUser) ||
+      singleUser.signUpFullName.includes(filterUser)
+  );
 
   const handleSearchInputChange = (event: {
     target: { value: SetStateAction<string> };
@@ -69,7 +90,7 @@ export default function UsersManage() {
             className={`text-${activeTab === "full" ? "black" : "gray-400"}`}
             onClick={() => setActiveTab("full")}
           >
-            Full members (1)
+            Full members ({filteredUsers.length})
           </button>
           <button
             className={`flex text-${

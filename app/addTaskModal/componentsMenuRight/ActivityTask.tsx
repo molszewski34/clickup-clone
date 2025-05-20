@@ -1,5 +1,3 @@
-import { Icons } from "@/icons/icons";
-
 export default function ActivityTask() {
   return (
     <>
@@ -7,7 +5,7 @@ export default function ActivityTask() {
         <div className=" font-sans text-xl/5 text-gray-900 font-semibold">
           Subtasks
         </div>
-        <div className="flex">
+        {/* <div className="flex">
           <button className="px-2 min-h-8 min-w-8 hover:bg-gray-200 rounded-lg">
             <Icons.SearchIcon className="text-[16px] text-gray-500" />
           </button>
@@ -17,9 +15,9 @@ export default function ActivityTask() {
           <button className="px-2 min-h-8 min-w-8 hover:bg-gray-200 rounded-lg">
             <Icons.SortIcon className="text-[16px] text-gray-500" />
           </button>
-        </div>
+        </div> */}
       </div>
-      <div className="flex  min-h-max w-full overflow-y-auto overflow-x-hidden  flex-col px-3 ">
+      {/* <div className="flex  min-h-max w-full overflow-y-auto overflow-x-hidden  flex-col px-3 ">
         <button className="flex pl-1 mt-2 py-[6px] items-center gap-2 hover:bg-gray-100 rounded-md h-7 w-full text-xs font-sans text-gray-500">
           <Icons.ArrowForward className="text-[16px] text-gray-500" />
           Show more
@@ -44,7 +42,7 @@ export default function ActivityTask() {
             </button>
           </div>
         </div>
-      </div>{" "}
+      </div> */}
     </>
   );
 }

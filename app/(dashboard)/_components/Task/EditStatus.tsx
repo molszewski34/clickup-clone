@@ -9,42 +9,63 @@ import { useTaskFormContext } from "@/context/FormProviders/TaskFormProvider";
 import { TaskStatus } from "../../[id]/home/types";
 
 type EditStatusProps = {
-  setTaskRowEditableCell: Dispatch<SetStateAction<TaskRowEditableCell>>;
+  setTaskRowEditableCell?: Dispatch<SetStateAction<TaskRowEditableCell>>;
+  setStatusMenuOpen?: Dispatch<SetStateAction<boolean>>;
 };
 
-export const EditStatus = ({ setTaskRowEditableCell }: EditStatusProps) => {
+export const EditStatus = ({
+  setTaskRowEditableCell,
+  setStatusMenuOpen,
+}: EditStatusProps) => {
   const statusRef = useRef(null);
   const { updateTaskForm } = useUpdateTaskForm();
   const { mutate, isSuccess } = useUpdateTask();
   const { formData } = useTaskFormContext();
-  useOnClickOutside(statusRef, () => setTaskRowEditableCell(""));
+
+  useOnClickOutside(statusRef, () => {
+    if (setTaskRowEditableCell) setTaskRowEditableCell("");
+    else if (setStatusMenuOpen) setStatusMenuOpen(false);
+  });
 
   useEffect(() => {
-    if (isSuccess) setTaskRowEditableCell("");
-  }, [isSuccess]);
+    if (isSuccess && setTaskRowEditableCell) {
+      setTaskRowEditableCell("");
+    }
+  }, [isSuccess, setTaskRowEditableCell]);
+
+  useEffect(() => {
+    if (isSuccess && setStatusMenuOpen) {
+      setStatusMenuOpen(false);
+    }
+  }, [isSuccess, setStatusMenuOpen]);
 
   return (
     <div
       className="absolute top-8 z-10 bg-white rounded-lg shadow-customPopupTableShadow w-fit p-2"
-      ref={statusRef}>
+      ref={statusRef}
+    >
       {Object.keys(TaskStatus).map((key) => {
-        const isSelected = formData.status === TaskStatus[key as keyof typeof TaskStatus];
+        const statusValue = TaskStatus[key as keyof typeof TaskStatus];
+        const isSelected = formData.status === statusValue;
+
         return (
           <div
             key={key}
             className="flex flex-row px-2 py-1 gap-2 hover:bg-zinc-100 rounded-lg justify-between"
             onClick={(e) => {
               e.stopPropagation();
-              updateTaskForm("status", TaskStatus[key as keyof typeof TaskStatus]);
+              updateTaskForm("status", statusValue);
               mutate();
-            }}>
+            }}
+          >
             <div className="flex flex-row gap-2">
-              <StatusIcon taskStatus={TaskStatus[key as keyof typeof TaskStatus]} />
+              <StatusIcon taskStatus={statusValue} />
               <p
-                className={` text-xs uppercase font-semibold text-nowrap ${
+                className={`text-xs uppercase font-semibold text-nowrap ${
                   isSelected ? "text-black" : "text-gray-600"
-                }`}>
-                {TaskStatus[key as keyof typeof TaskStatus]}
+                }`}
+              >
+                {statusValue}
               </p>
             </div>
             {isSelected && <Icons.IoMdCheckmark color="indigo" />}

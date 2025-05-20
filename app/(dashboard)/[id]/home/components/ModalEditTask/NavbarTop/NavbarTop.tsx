@@ -1,11 +1,11 @@
-import React from 'react';
-import Breadcrumbs from './Breadcrumbs';
-import { Icons } from '@/icons/icons';
-import Icon from '@/app/(dashboard)/ui/Icon';
-import SwitchTask from './SwitchTask';
-import RightSectionBtns from './RightSectionBtns';
-import ShareBtn from './ShareBtn';
-import Timestamp from './Timestamp';
+import React from "react";
+import Breadcrumbs from "./Breadcrumbs";
+import { Icons } from "@/icons/icons";
+import Icon from "@/app/(dashboard)/ui/Icon";
+import SwitchTask from "./SwitchTask";
+import RightSectionBtns from "./RightSectionBtns";
+import ShareBtn from "./ShareBtn";
+import Timestamp from "./Timestamp";
 
 const NavbarTop = () => {
   return (

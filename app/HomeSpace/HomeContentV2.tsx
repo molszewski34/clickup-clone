@@ -1,13 +1,13 @@
-import RecentsContent from "./RecentsContent";
-import AgendaContent from "./AgendaContent";
+// import RecentsContent from "./RecentsContent";
+// import AgendaContent from "./AgendaContent";
 import MyWorkContent from "./MyWorkContent";
 import AssignedContent from "./AssignedContent";
-import PersonalListIMG from "../img/empty-my-list.svg";
-import AssignedCommentsIMG from "../img/no-assigned.svg";
-import LineUpIMG from "../img/empty-lineup.svg";
+// import PersonalListIMG from "../img/empty-my-list.svg";
+// import AssignedCommentsIMG from "../img/no-assigned.svg";
+// import LineUpIMG from "../img/empty-lineup.svg";
 import { useUserProfile } from "@/hooks/useUserProfile";
-import CardContainer from "./Components/CardContainer";
-import EmptyCardContent from "./Components/EmptyCardContetnt";
+// import CardContainer from "./Components/CardContainer";
+// import EmptyCardContent from "./Components/EmptyCardContetnt";
 
 export default function HomeContentV2() {
   const { userData } = useUserProfile();
@@ -20,15 +20,15 @@ export default function HomeContentV2() {
           Good evening, {firstName}
         </h1>
         <div className=" flex flex-col mt-4 mb-[14px] gap-4 ">
-          <div className="grid grid-flow-col grid-cols-2  gap-4">
+          {/* <div className="grid grid-flow-col grid-cols-2  gap-4">
             <RecentsContent />
             <AgendaContent />
-          </div>
+          </div> */}
           <div className="grid grid-flow-col grid-cols-2 gap-4">
             <MyWorkContent />
             <AssignedContent />
           </div>
-          <div className="grid grid-flow-col grid-cols-2 gap-4">
+          {/* <div className="grid grid-flow-col grid-cols-2 gap-4">
             <CardContainer title="Personal List" NumberIcons={3} height="456px">
               <EmptyCardContent
                 imageSrc={PersonalListIMG}
@@ -52,8 +52,8 @@ export default function HomeContentV2() {
                 </span>
               </EmptyCardContent>
             </CardContainer>
-          </div>
-          <div className="grid grid-flow-col grid-cols-1">
+          </div> */}
+          {/* <div className="grid grid-flow-col grid-cols-1">
             <CardContainer title="LineUp" NumberIcons={2} height="318px">
               <EmptyCardContent
                 imageSrc={LineUpIMG}
@@ -62,7 +62,7 @@ export default function HomeContentV2() {
                 height="280px"
               />
             </CardContainer>
-          </div>
+          </div> */}
         </div>
       </div>
     </>

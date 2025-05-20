@@ -3,19 +3,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "@/db/firebase/lib/firebase";
 import { useData } from "@/context/DataProvider/DataProvider";
-import { useUser } from "@/context/DataProvider/UserDataProvider";
-
-const deleteProject = async (
-  userId: string,
-  workspaceId: string,
-  projectId: string
-): Promise<void> => {
-  const projectRef = doc(
-    db,
-    `users/${userId}/workspaces/${workspaceId}/projects/${projectId}`
-  );
-  await deleteDoc(projectRef);
-};
+import useGetCurrentWorkspace from "@/hooks/useGetCurrentWorkspace";
+import { deleteList } from "@/app/server-actions/List/deleteList";
 
 const DeleteProjectButton: React.FC = () => {
   const queryClient = useQueryClient();

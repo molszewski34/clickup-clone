@@ -1,14 +1,24 @@
 import { Task } from "@/app/server-actions/types";
 import { useTaskFormContext } from "@/context/FormProviders/TaskFormProvider";
+import { Timestamp } from "firebase/firestore";
 
 export const useUpdateTaskForm = () => {
   const { formData, setFormData } = useTaskFormContext();
 
-  type PropertyToChange = "taskName" | "assignees" | "priority" | "status";
+  type PropertyToChange =
+    | "taskName"
+    | "assignees"
+    | "priority"
+    | "status"
+    | "details";
 
-  const updateTaskForm = <K extends PropertyToChange>(property: K, value: Task[K]) => {
+  const updateTaskForm = <K extends PropertyToChange>(
+    property: K,
+    value: Task[K]
+  ) => {
     const updatedTask = structuredClone(formData);
     updatedTask[property] = value;
+    updatedTask.lastUpdated = Timestamp.now();
     setFormData(updatedTask);
   };
 

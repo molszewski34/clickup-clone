@@ -5,7 +5,7 @@ import { useUser } from "@/context/DataProvider/UserDataProvider";
 import { useCreateTask } from "@/hooks/useCreateTask";
 import { useData } from "@/context/DataProvider/DataProvider";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { TaskPriority, TaskStatus } from "../../[id]/home/types";
+
 import { Task } from "@/app/server-actions/types";
 import { StatusIcon } from "./StatusIcon";
 import { Icons } from "@/icons/icons";
@@ -13,6 +13,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { createNewTaskSchema } from "../../schemas/createNewTaskSchema";
 import { useUpdateTaskForm } from "../../_hooks/useUpdateTaskForm";
 import { NewTaskVisibility } from "../../[id]/l/[projectId]/components/TasksList";
+import useGetCurrentWorkspace from "@/hooks/useGetCurrentWorkspace";
+import { TaskPriority, TaskStatus } from "../../[id]/home/types";
+import { Timestamp } from "firebase/firestore";
 
 type NewTaskProps = {
   openedNewTask: NewTaskVisibility;
@@ -21,24 +24,30 @@ type NewTaskProps = {
   ref?: React.MutableRefObject<null>;
 };
 
-export const NewTask = ({ status, openedNewTask, setOpenedNewTask, ref }: NewTaskProps) => {
+export const NewTask = ({
+  status,
+  openedNewTask,
+  setOpenedNewTask,
+  ref,
+}: NewTaskProps) => {
   const { formData, setFormData } = useTaskFormContext();
   const { userId } = useUser();
-  const { projectId, workspaceId } = useData();
+  const { listId, spaceId } = useData();
+  const { workspaceId } = useGetCurrentWorkspace();
   const createTaskMutation = useCreateTask();
   const { updateTaskForm } = useUpdateTaskForm();
 
   const clearedTaskForm: Task = {
-    id: "",
-    projectId: "",
     taskName: "",
     assignees: [],
-    timeEstimate: "",
-    priority: TaskPriority.none,
-    details: "",
-    status: status || TaskStatus.todo,
-    createdAt: null,
+    createdAt: Timestamp.now() || null,
+    status: TaskStatus.todo,
     dueDate: null,
+    timeEstimate: null,
+    priority: TaskPriority.none,
+    lastUpdated: Timestamp.now(),
+    details: "",
+    subtasks: [],
   };
 
   useEffect(() => {
@@ -54,9 +63,10 @@ export const NewTask = ({ status, openedNewTask, setOpenedNewTask, ref }: NewTas
     }
     createTaskMutation.mutate({
       formData,
+      workspaceId: workspaceId as string,
       userId,
-      workspaceId,
-      projectId,
+      spaceId,
+      listId,
     });
     setOpenedNewTask({ ...openedNewTask, newTaskVisibility: "none" });
   };
@@ -70,9 +80,11 @@ export const NewTask = ({ status, openedNewTask, setOpenedNewTask, ref }: NewTas
   return (
     <tr
       className={`h-8 group w-full table-row border-b ${
-        openedNewTask.newTaskVisibility === "none" && "hover:cursor-pointer hover:bg-gray-50"
+        openedNewTask.newTaskVisibility === "none" &&
+        "hover:cursor-pointer hover:bg-gray-50"
       }`}
-      ref={ref}>
+      ref={ref}
+    >
       <>
         <td key="status-icon" className="justify-items-center">
           <div className="relative hover:bg-gray-200 hover:cursor-pointer h-6 w-6 place-content-center rounded-md">
@@ -82,7 +94,8 @@ export const NewTask = ({ status, openedNewTask, setOpenedNewTask, ref }: NewTas
         <td key="title" colSpan={4} className="h-8 text-nowrap text-gray-500 ">
           <form
             className="flex flex-row w-full h-8 text-sm items-center"
-            onSubmit={handleSubmit(onSubmit)}>
+            onSubmit={handleSubmit(onSubmit)}
+          >
             <div className="flex flex-row w-9/12 justify-between">
               <div className="flex flex-row">
                 <input
@@ -95,21 +108,27 @@ export const NewTask = ({ status, openedNewTask, setOpenedNewTask, ref }: NewTas
                   type="text"
                   value={taskNameValue}
                   placeholder="New task name"
-                  className="outline-none bg-transparent"></input>
+                  className="outline-none bg-transparent"
+                ></input>
               </div>
               <div className="flex flex-row gap-2">
                 <Button
                   color="gray"
                   className="text-xs font-semibold rounded-[4.5px]"
                   onClick={() => {
-                    setOpenedNewTask({ ...openedNewTask, newTaskVisibility: "none" });
-                  }}>
+                    setOpenedNewTask({
+                      ...openedNewTask,
+                      newTaskVisibility: "none",
+                    });
+                  }}
+                >
                   Cancel
                 </Button>
                 <Button
                   color="indigo"
                   className="text-xs font-semibold rounded-[4.5px]"
-                  type="submit">
+                  type="submit"
+                >
                   <div className="flex flex-row items-end gap-1">
                     <p>Save</p>
                     <Icons.BsArrowReturnLeft size={14} />

@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useWorkspaceFormContext } from "@/context/FormProviders/WorkspaceFormProvider";
-import { Workspace } from "@/app/server-actions/types";
+import { Space } from "@/app/server-actions/types";
 import { ColorChoiceProps } from "../../../../../../types";
 
 const ColorChoice: React.FC<ColorChoiceProps> = ({ onColorChange }) => {
@@ -28,7 +28,7 @@ const ColorChoice: React.FC<ColorChoiceProps> = ({ onColorChange }) => {
   const handleColorChange = (color: string) => {
     setActiveColor(color);
 
-    setFormData((prevState: Workspace) => ({
+    setFormData((prevState: Space) => ({
       ...prevState,
       icon:
         typeof prevState.icon === "string"

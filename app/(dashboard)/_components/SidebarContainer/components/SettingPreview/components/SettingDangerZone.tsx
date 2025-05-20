@@ -1,7 +1,38 @@
+import { getAuth, deleteUser } from "firebase/auth";
 import useLogoutHandler from "@/app/(auth)/login/_hooks/useLogoutHandler";
+import router from "next/router";
 
+import { deleteUserFromFirestore } from "@/app/server-actions/user/deleteUser";
+import useGetCurrentUser from "@/hooks/useGetCurrentUser";
+import { deleteUserAssociation } from "@/app/server-actions/user2workspace/deleteUserAssociation";
 export default function SettingDangerZone() {
   const { handleLogout } = useLogoutHandler();
+
+  const { userId } = useGetCurrentUser();
+
+  const handleDeleteAccount = async () => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    if (!user) {
+      return;
+    }
+
+    try {
+      if (userId) {
+        await deleteUserFromFirestore(userId);
+        await deleteUserAssociation(userId);
+      }
+
+      await deleteUser(user);
+      handleLogout();
+      router.push("/login");
+      alert("Account successfully deleted");
+    } catch (err) {
+      console.error("Failed to delete account:", err);
+      alert("Failed to delete account. Please try again.");
+    }
+  };
 
   return (
     <div className="grid gap-x-9 gap-y-6 grid-cols-custom-grid pb-6">
@@ -26,7 +57,10 @@ export default function SettingDangerZone() {
             >
               Log out of all sessions
             </button>
-            <button className="px-[11px] max-w-fit border h-8 rounded-md bg-red-600 font-sans text-sm/snug font-medium text-white">
+            <button
+              className="px-[11px] max-w-fit border h-8 rounded-md bg-red-600 font-sans text-sm/snug font-medium text-white"
+              onClick={handleDeleteAccount}
+            >
               Delete account
             </button>
           </div>

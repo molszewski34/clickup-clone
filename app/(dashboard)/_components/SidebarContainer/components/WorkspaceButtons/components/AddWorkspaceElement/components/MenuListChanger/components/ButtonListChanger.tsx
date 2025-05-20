@@ -11,6 +11,7 @@ interface ButtonProps {
   extraIcon?: React.ReactElement | null;
   groupIndex: number;
   NumberIndex: number;
+  startRenaming?: () => void;
 }
 
 const ButtonListChanger: React.FC<ButtonProps> = ({
@@ -20,6 +21,7 @@ const ButtonListChanger: React.FC<ButtonProps> = ({
   onClick,
   groupIndex,
   NumberIndex,
+  startRenaming,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -28,10 +30,13 @@ const ButtonListChanger: React.FC<ButtonProps> = ({
   const { projectName, tasksLength } = useData();
 
   const isFourthGroupAndIndex3 = groupIndex === 3 && NumberIndex === 3;
+  const isFirstGroupAndIndex0 = groupIndex === 0 && NumberIndex === 0;
 
   const handleButtonClick = () => {
     if (isFourthGroupAndIndex3) {
       setIsModalOpen(!isModalOpen);
+    } else if (isFirstGroupAndIndex0 && startRenaming) {
+      startRenaming();
     } else {
       onClick();
     }

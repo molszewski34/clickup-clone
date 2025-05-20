@@ -1,7 +1,9 @@
 import { getInitials } from "@/app/(dashboard)/[id]/l/[projectId]/utils/getInitials";
 import { User } from "@/app/server-actions/types";
-import { getUsers } from "@/app/server-actions/user/getUser";
+
+import getUsersAssignedToWorkspace from "@/app/server-actions/user/getUsersAssignedToWorkspace";
 import { useUser } from "@/context/DataProvider/UserDataProvider";
+import useGetCurrentWorkspace from "@/hooks/useGetCurrentWorkspace";
 import { Icons } from "@/icons/icons";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
@@ -13,9 +15,15 @@ type UsersListProps = {
 export default function ContentManageFull({
   filterUser,
 }: UsersListProps): JSX.Element {
-  const { data: users = [] } = useQuery({
-    queryKey: ["users"],
-    queryFn: getUsers,
+  const { workspaceId } = useGetCurrentWorkspace();
+
+  const { data: users = [] } = useQuery<User[]>({
+    queryKey: ["users", workspaceId],
+    queryFn: () => {
+      if (!workspaceId) return Promise.resolve([]);
+      return getUsersAssignedToWorkspace(workspaceId);
+    },
+    enabled: !!workspaceId,
   });
 
   const { userId } = useUser();
@@ -25,10 +33,10 @@ export default function ContentManageFull({
 
   const modalRef = useRef<HTMLDivElement | null>(null);
 
-  const filteredUsers: User[] = users.filter((singleUser) =>
-    [singleUser.signUpEmail, singleUser.signUpFullName].some((field) =>
-      field.toLowerCase().includes(filterUser.toLowerCase())
-    )
+  const filteredUsers: User[] = users.filter(
+    (singleUser) =>
+      singleUser.signUpEmail.includes(filterUser) ||
+      singleUser.signUpFullName.includes(filterUser)
   );
 
   const copyToClipboard = (text: string, type: "email" | "id") => {

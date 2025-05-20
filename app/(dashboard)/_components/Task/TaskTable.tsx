@@ -1,6 +1,11 @@
 "use client";
 import React, { ReactNode } from "react";
-import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
+import {
+  ColumnDef,
+  flexRender,
+  getCoreRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
 import { TaskTableRow } from "./TaskTableRow";
 import { Task } from "@/app/server-actions/types";
 import { NewTask } from "./NewTask";
@@ -16,7 +21,12 @@ type TableProps = {
   status?: TaskStatus;
 };
 
-export const TaskTable = ({ tasks, openedNewTask, setOpenedNewTask, status }: TableProps) => {
+export const TaskTable = ({
+  tasks,
+  openedNewTask,
+  setOpenedNewTask,
+  status,
+}: TableProps) => {
   const columns: ColumnDef<Task, ReactNode>[] = [
     {
       accessorKey: "status-icon",
@@ -56,7 +66,8 @@ export const TaskTable = ({ tasks, openedNewTask, setOpenedNewTask, status }: Ta
         {table.getHeaderGroups().map((headerGroup) => (
           <tr key={headerGroup.id} className="w-full text-xs h-8 ">
             {headerGroup.headers.map((header) => {
-              const isDisabled = header.id === "comments" || header.id === "addField";
+              const isDisabled =
+                header.id === "comments" || header.id === "addField";
               return (
                 <th
                   key={header.id}
@@ -64,8 +75,12 @@ export const TaskTable = ({ tasks, openedNewTask, setOpenedNewTask, status }: Ta
                     isDisabled
                       ? "hover:cursor-not-allowed bg-gray-50 text-gray-300"
                       : "hover:cursor-pointer hover:bg-gray-200 text-gray-500"
-                  }  border-b p-1`}>
-                  {flexRender(header.column.columnDef.header, header.getContext())}
+                  }  border-b p-1`}
+                >
+                  {flexRender(
+                    header.column.columnDef.header,
+                    header.getContext()
+                  )}
                 </th>
               );
             })}
@@ -73,17 +88,19 @@ export const TaskTable = ({ tasks, openedNewTask, setOpenedNewTask, status }: Ta
         ))}
       </thead>
       <tbody className="">
-        {openedNewTask.status === status && openedNewTask.newTaskVisibility === "top" && (
-          <NewTask
-            status={status}
-            openedNewTask={openedNewTask}
-            setOpenedNewTask={setOpenedNewTask}
-          />
-        )}
+        {openedNewTask.status === status &&
+          openedNewTask.newTaskVisibility === "top" && (
+            <NewTask
+              status={status}
+              openedNewTask={openedNewTask}
+              setOpenedNewTask={setOpenedNewTask}
+            />
+          )}
         {table.getRowModel().rows.map((singleRow) => {
           return <TaskTableRow key={singleRow.id} row={singleRow} />;
         })}
-        {openedNewTask.status === status && openedNewTask.newTaskVisibility === "bottom" ? (
+        {openedNewTask.status === status &&
+        openedNewTask.newTaskVisibility === "bottom" ? (
           <NewTask
             status={status}
             openedNewTask={openedNewTask}
@@ -92,16 +109,26 @@ export const TaskTable = ({ tasks, openedNewTask, setOpenedNewTask, status }: Ta
         ) : (
           status && (
             <>
-              <td key="status-icon" className="justify-items-center text-gray-400">
+              <td
+                key="status-icon"
+                className="justify-items-center text-gray-400"
+              >
                 <Icons.PlusIco size={14} />
               </td>
               <td
                 colSpan={4}
                 className="items-center min-w-56"
-                onClick={() => setOpenedNewTask({ status: status, newTaskVisibility: "bottom" })}>
+                onClick={() =>
+                  setOpenedNewTask({
+                    status: status,
+                    newTaskVisibility: "bottom",
+                  })
+                }
+              >
                 <Button
                   color="gray"
-                  className="h-6 rounded-[4.5px] -ml-2 text-sm text-gray-200 border-transparent group-hover:border-gray-300">
+                  className="h-6 rounded-[4.5px] -ml-2 text-sm text-gray-200 border-transparent group-hover:border-gray-300"
+                >
                   Add Task
                 </Button>
               </td>
