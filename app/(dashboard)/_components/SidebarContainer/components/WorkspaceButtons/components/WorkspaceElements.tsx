@@ -1,28 +1,26 @@
 import React, { ReactNode, useState } from "react";
 import { Icons } from "@/icons/icons";
 import { AddIcons } from "../../SidebarModal/components/AddIcons";
+import AddWorkspaceElement from "./AddWorkspaceElement/AddWorkspaceElement";
+import { Workspace } from "@/app/server-actions/types";
 
-import { Space } from "@/app/server-actions/types";
-import AddSpaceElement from "./AddWorkspaceElement/AddSpaceElement";
-
-interface SpaceElementProps {
-  space: Space;
-
+interface WorkspaceElementProps {
+  workspace: Workspace;
   isActive: boolean;
-  onClick: (spaceId: string, spaceName: string) => void;
+  onClick: (workspaceId: string, workspaceName: string) => void;
   width: number;
-  setSpaceName: (name: string) => void;
+  setWorkspaceName: (name: string) => void;
   children?: ReactNode;
 }
 
-export const SpaceElements = ({
-  space,
+export const WorkspaceElement = ({
+  workspace,
   isActive,
   onClick,
   width,
-  setSpaceName,
+  setWorkspaceName,
   children,
-}: SpaceElementProps) => {
+}: WorkspaceElementProps) => {
   const [hoverStates, setHoverStates] = useState<{ [key: string]: boolean }>(
     {}
   );
@@ -35,10 +33,11 @@ export const SpaceElements = ({
     setHoverStates((prevState) => ({ ...prevState, [id]: false }));
   };
 
-  const firstLetterOfWorkspaceName = space.name?.charAt(0).toUpperCase() || "?";
+  const firstLetterOfWorkspaceName =
+    workspace.name?.charAt(0).toUpperCase() || "?";
 
-  const selectedIcon = Array.isArray(space.icon)
-    ? space.icon.reverse().find((item) => item.selectedIconName)
+  const selectedIcon = Array.isArray(workspace.icon)
+    ? workspace.icon.reverse().find((item) => item.selectedIconName)
     : null;
 
   const DynamicIcon = selectedIcon?.selectedIconName
@@ -47,10 +46,10 @@ export const SpaceElements = ({
 
   return (
     <div>
-      <AddSpaceElement
-        label={space.name}
+      <AddWorkspaceElement
+        label={workspace.name}
         icon={
-          hoverStates[space.id] ? (
+          hoverStates[workspace.id] ? (
             <Icons.PlayWorkspace className="text-[20px] text-white" />
           ) : DynamicIcon ? (
             <DynamicIcon className="text-[20px] text-white" />
@@ -61,21 +60,21 @@ export const SpaceElements = ({
           )
         }
         color={
-          Array.isArray(space.icon)
-            ? ([...space.icon].reverse().find((item) => item?.activeColor)
-                ?.activeColor ?? "indigo-500")
+          Array.isArray(workspace.icon)
+            ? [...workspace.icon].reverse().find((item) => item?.activeColor)
+                ?.activeColor ?? "indigo-500"
             : "indigo-500"
         }
         extraIcons={2}
         active={isActive}
-        onClick={() => onClick(space.id, space.name)}
+        onClick={() => onClick(workspace.id, workspace.name)}
         width={width}
         onMouseEnter={() => {
-          handleMouseEnter(space.id);
-          setSpaceName(space.name);
+          handleMouseEnter(workspace.id);
+          setWorkspaceName(workspace.name);
         }}
-        onMouseLeave={() => handleMouseLeave(space.id)}
-        isSpace={true}
+        onMouseLeave={() => handleMouseLeave(workspace.id)}
+        isWorkspace={true}
         rotate={true}
       />
       {children}

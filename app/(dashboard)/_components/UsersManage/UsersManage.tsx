@@ -2,7 +2,7 @@ import { SetStateAction, useState } from "react";
 import { Icons } from "@/icons/icons";
 import SearchManageGuests from "./components/Search/SearchManageGuests";
 import SearchManageLimited from "./components/Search/SearchManageLimited";
-import SearchManageFull from "./components/Search/SearchManageFull/SearchManageFull";
+import SearchManageFull from "./components/Search/SearchManageFull";
 import ContentManageGuests from "./components/ContentMenage/ContentManageGuests";
 import ContentManageLimited from "./components/ContentMenage/ContentManageLimited";
 import ContentManageFull from "./components/ContentMenage/ContentManageFull";

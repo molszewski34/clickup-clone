@@ -1,9 +1,11 @@
+
 import { render, fireEvent, waitFor } from "@testing-library/react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/db/firebase/lib/firebase";
 import { useSignUpHandler } from "./useSignUpHandler";
 
-jest.mock("firebase/auth", () => ({
+jest.mock('firebase/auth', () => ({
+
   createUserWithEmailAndPassword: jest.fn(),
   getAuth: jest.fn().mockReturnValue({}),
 }));
@@ -38,6 +40,7 @@ const TestComponent = () => {
   );
 };
 
+
 describe("useSignUpHandler", () => {
   it("should handle successful registration", async () => {
     const { getByPlaceholderText, getByText } = render(<TestComponent />);
@@ -57,8 +60,10 @@ describe("useSignUpHandler", () => {
     await waitFor(() => {
       expect(createUserWithEmailAndPassword).toHaveBeenCalledWith(
         auth,
+
         "test@example.com",
         "password123"
+
       );
     });
   });
