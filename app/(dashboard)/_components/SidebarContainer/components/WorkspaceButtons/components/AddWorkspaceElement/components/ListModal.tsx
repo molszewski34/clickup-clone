@@ -1,10 +1,10 @@
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useUser } from "@/context/DataProvider/UserDataProvider";
-import { useCreateProject } from "@/app/(dashboard)/_hooks/useCreateProject";
+import { useCreateList } from "@/app/(dashboard)/_hooks/useCreateList";
 
 interface ListModalProps {
-  toggleModal: (modal: "none" | "menuWorkspaceList" | "createList") => void;
+  toggleModal: (modal: "none" | "menuSpaceList" | "createList") => void;
 }
 
 interface FormValues {
@@ -14,7 +14,7 @@ interface FormValues {
 
 const ListModal: React.FC<ListModalProps> = ({ toggleModal }) => {
   const { userId } = useUser();
-  const createProjectMutation = useCreateProject({ toggleModal });
+  const createListMutation = useCreateList({ toggleModal });
 
   const {
     register,
@@ -31,10 +31,9 @@ const ListModal: React.FC<ListModalProps> = ({ toggleModal }) => {
       return;
     }
 
-    createProjectMutation.mutate({
-      projectName: data.name,
+    createListMutation.mutate({
+      listName: data.name,
       isPrivate: data.isPrivate,
-      userId,
     });
   };
 

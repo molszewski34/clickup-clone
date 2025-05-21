@@ -19,6 +19,9 @@ export type User = {
   id: string;
   signUpFullName: string;
   signUpEmail: string;
+  activeWorkspace: string;
+  lastActive: Timestamp;
+  userId: string;
 };
 
 export interface Project {

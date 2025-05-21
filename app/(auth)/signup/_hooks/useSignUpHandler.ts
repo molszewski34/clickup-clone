@@ -1,6 +1,5 @@
 import { useState } from "react";
-
-import { auth, db } from "@/db/firebase/lib/firebase";
+import { auth } from "@/db/firebase/lib/firebase";
 import {
   createUserWithEmailAndPassword,
   updateProfile,
@@ -26,15 +25,13 @@ export const useSignUpHandler = () => {
   const [signUpError, setSignUpError] = useState("");
   const [isSigningUp, setIsSigningUp] = useState(false);
   const [signUpSuccess, setSignUpSuccess] = useState("");
+
   const handleRegister = async (data: SignupInputs) => {
     setSignUpError("");
     setIsSigningUp(true);
+
     try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        data.login,
-        data.password
-      );
+      const userCredential = await createUserWithEmailAndPassword(auth, data.login, data.password);
       const user = userCredential.user;
 
       if (user) {
@@ -108,12 +105,7 @@ export const useSignUpHandler = () => {
               if (!userAssociation) {
                 console.error("Could not create user association!");
               } else {
-                await updateUser(
-                  userCreated.id,
-                  undefined,
-                  undefined,
-                  userAssociation.workspaceId
-                );
+                await updateUser(userCreated.id, undefined, undefined, userAssociation.workspaceId);
               }
 
               const createNewSpace = await createSpace(
@@ -168,5 +160,3 @@ export const useSignUpHandler = () => {
     handleRegister,
   };
 };
-
-export default useSignUpHandler;

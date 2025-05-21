@@ -10,11 +10,12 @@ import UserProfile from "./components/UserProfile";
 
 export default function SidebarContainer() {
   const {
+    isLoading,
+    currentWorkspace,
+    workspacesToSwitch,
     modalState,
     width,
-    userName,
     userInitial,
-    loading,
     isModalOpen,
     openModal,
     closeModal,
@@ -37,16 +38,15 @@ export default function SidebarContainer() {
         >
           <div>
             <UserProfile
-              userName={userName}
+              isLoading={isLoading}
+              currentWorkspace={currentWorkspace}
+              workspacesToSwitch={workspacesToSwitch}
               userInitial={userInitial}
-              loading={loading}
               width={width}
               shrinkSidebar={shrinkSidebar}
             />
             <SidebarContent
-              userName={`${userName} workspace`}
               userInitial={userInitial}
-              loading={loading}
               width={width}
               openModal={openModal}
               toggleModal={toggleModal}
@@ -64,7 +64,7 @@ export default function SidebarContainer() {
           onClick={() => toggleModal("none")}
         >
           <div
-            id="menuWorkspaceList"
+            id="menuSpaceList"
             className="fixed z-50 top-10 w-[255px] bg-gray-50 border-r border-gray-300 py-2"
             style={{ left: "60px", height: "calc(100vh - 40px)" }}
             onClick={(e) => e.stopPropagation()}
@@ -80,7 +80,7 @@ export default function SidebarContainer() {
           onClick={() => toggleModal("none")}
         >
           <div
-            id="menuWorkspaceList"
+            id="menuSpaceList"
             className="fixed z-50 top-10 w-[255px] bg-gray-50 border-r border-gray-300 py-2"
             style={{ left: "60px", height: "calc(100vh - 40px)" }}
             onClick={(e) => e.stopPropagation()}

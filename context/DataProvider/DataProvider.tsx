@@ -21,10 +21,6 @@ type DataContextType = {
   setListId: Dispatch<SetStateAction<string>>;
   listName: string;
   setListName: Dispatch<SetStateAction<string>>;
-  workspaceId: string;
-  setWorkspaceId: Dispatch<SetStateAction<string>>;
-  projectId: string;
-  setProjectId: Dispatch<SetStateAction<string>>;
   isPrivate: boolean;
   setIsPrivate: Dispatch<SetStateAction<boolean>>;
   taskId: string;
@@ -45,8 +41,6 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({
   const [spaceName, setSpaceName] = useState("");
   const [listId, setListId] = useState("");
   const [listName, setListName] = useState("");
-  const [workspaceId, setWorkspaceId] = useState("");
-  const [projectId, setProjectId] = useState("");
   const [isPrivate, setIsPrivate] = useState(false);
   const [taskId, setTaskId] = useState("");
   const [tasksLength, setTasksLength] = useState(0);
@@ -55,11 +49,11 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({
   console.log("list id", listId);
 
   useEffect(() => {
-    if (!workspaceId) {
-      setWorkspaceId(localStorage.getItem("workspaceId") || "");
+    if (!spaceId) {
+      setSpaceId(localStorage.getItem("spaceId") || "");
     }
-    if (!projectId) {
-      setProjectId(localStorage.getItem("projectId") || "");
+    if (!listId) {
+      setListId(localStorage.getItem("listId") || "");
     }
   }, []);
 
@@ -68,10 +62,6 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({
       value={{
         userId,
         setUserId,
-        workspaceId,
-        setWorkspaceId,
-        projectId,
-        setProjectId,
         spaceId,
         setSpaceId,
         spaceName,
