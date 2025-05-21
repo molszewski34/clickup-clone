@@ -6,12 +6,10 @@ import { Icons } from "@/icons/icons";
 import buttons from "./components/buttons";
 import Button from "./components/Button";
 import ButtonFavourites from "./components/ButtonFavourites";
-import WorkspaceButtons from "../WorkspaceButtons/WorkspaceButtons";
+import SpaceButtons from "../WorkspaceButtons/SpaceButtons";
 
 interface SidebarContentProps {
-  userName: string;
   userInitial: string;
-  loading: boolean;
   width: number;
   openModal: () => void;
   toggleModal: (modal: "none" | "menuFavorite" | "menuSpace") => void;
@@ -131,7 +129,7 @@ const SidebarContent = ({
             width < 200 ? "hidden" : ""
           }`}
         >
-          <WorkspaceButtons width={width} />
+          <SpaceButtons width={width} />
         </div>
       </div>
     </>

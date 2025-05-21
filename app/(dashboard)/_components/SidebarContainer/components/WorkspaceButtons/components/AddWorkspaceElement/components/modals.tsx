@@ -7,14 +7,14 @@ import ListModal from "./ListModal";
 interface ModalProps {
   modalState:
     | "none"
-    | "menuWorkspaceList"
+    | "menuSpaceList"
     | "createList"
     | "menuFileChanger"
     | "menuListChanger";
   toggleModal: (
     modal:
       | "none"
-      | "menuWorkspaceList"
+      | "menuSpaceList"
       | "createList"
       | "menuFileChanger"
       | "menuListChanger"
@@ -72,20 +72,20 @@ export const MenuFileChangerModal: React.FC<ModalProps> = ({
   );
 };
 
-export const MenuWorkspaceListModal: React.FC<ModalProps> = ({
+export const MenuSpaceListModal: React.FC<ModalProps> = ({
   modalState,
   toggleModal,
   width = 0,
   offsetTopState = null,
 }) => {
-  if (modalState !== "menuWorkspaceList") return null;
+  if (modalState !== "menuSpaceList") return null;
   return (
     <div
       className="fixed inset-0 flex justify-center bg-transparent bg-opacity-50 z-50"
       onClick={() => toggleModal("none")}
     >
       <div
-        id="menuWorkspaceList"
+        id="menuSpaceList"
         className="fixed z-50 top-2/4 bg-white border border-gray-300 shadow-lg rounded-lg py-2"
         style={{ left: `${width - 20}px`, top: `${offsetTopState}px` }}
         onClick={(e) => e.stopPropagation()}

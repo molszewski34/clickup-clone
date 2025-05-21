@@ -1,5 +1,6 @@
 import { db } from "@/db/firebase/lib/firebase";
 import { doc, deleteDoc } from "firebase/firestore";
+import { User } from "../types";
 
 export const deleteUserFromFirestore = async (userId: User["userId"]) => {
   try {

@@ -49,11 +49,11 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({
   console.log("list id", listId);
 
   useEffect(() => {
-    if (!workspaceId) {
-      setWorkspaceId(localStorage.getItem("workspaceId") || "");
+    if (!spaceId) {
+      setSpaceId(localStorage.getItem("spaceId") || "");
     }
-    if (!projectId) {
-      setProjectId(localStorage.getItem("projectId") || "");
+    if (!listId) {
+      setListId(localStorage.getItem("listId") || "");
     }
   }, []);
 
