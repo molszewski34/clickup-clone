@@ -1,8 +1,7 @@
 import { getInitials } from "@/app/(dashboard)/[id]/l/[projectId]/utils/getInitials";
-import { User } from "@/app/server-actions/types";
+import { UserAssociation } from "@/app/server-actions/types";
 
-import getUsersAssignedToWorkspace from "@/app/server-actions/user/getUsersAssignedToWorkspace";
-import { useUser } from "@/context/DataProvider/UserDataProvider";
+import getUsersAssociatedToWorkspace from "@/app/server-actions/user/getUsersAssociatedToWorkspace";
 import useGetCurrentWorkspace from "@/hooks/useGetCurrentWorkspace";
 import { Icons } from "@/icons/icons";
 import { useQuery } from "@tanstack/react-query";
@@ -12,32 +11,23 @@ type UsersListProps = {
   filterUser: string;
 };
 
-export default function ContentManageFull({
-  filterUser,
-}: UsersListProps): JSX.Element {
+export default function ContentManageFull({}: UsersListProps): JSX.Element {
   const { workspaceId } = useGetCurrentWorkspace();
 
-  const { data: users = [] } = useQuery<User[]>({
-    queryKey: ["users", workspaceId],
+  const { data: users = [] } = useQuery<UserAssociation[]>({
+    queryKey: ["user2workspace", workspaceId],
     queryFn: () => {
       if (!workspaceId) return Promise.resolve([]);
-      return getUsersAssignedToWorkspace(workspaceId);
+      return getUsersAssociatedToWorkspace(workspaceId);
     },
     enabled: !!workspaceId,
   });
 
-  const { userId } = useUser();
   const [copiedEmail, setCopiedEmail] = useState<string | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [activeUserId, setActiveUserId] = useState<string | null>(null);
 
   const modalRef = useRef<HTMLDivElement | null>(null);
-
-  const filteredUsers: User[] = users.filter(
-    (singleUser) =>
-      singleUser.signUpEmail.includes(filterUser) ||
-      singleUser.signUpFullName.includes(filterUser)
-  );
 
   const copyToClipboard = (text: string, type: "email" | "id") => {
     navigator.clipboard
@@ -85,7 +75,7 @@ export default function ContentManageFull({
           <button className="w-1/3 h-full uppercase">Settings</button>
         </div>
       </div>
-      {filteredUsers.map((user) => {
+      {users.map((user) => {
         return (
           <div
             key={user.id}
@@ -94,33 +84,33 @@ export default function ContentManageFull({
             <div className="w-4/12 h-full flex items-center">
               <button className="flex w-full h-7 items-center gap-2">
                 <div className="w-7 h-7 rounded-full bg-violet-700 text-white flex items-center justify-center font-sans text-[10px]">
-                  {getInitials(user.signUpFullName)}
+                  {getInitials(user.userFullName)}
                 </div>
                 <div className="text-sm hover:bg-gray-100 rounded px-2">
-                  {user.signUpFullName}
+                  {user.userFullName}
                 </div>
               </button>
               <div className="flex items-center gap-1 px-[15px]">
-                <div className="flex px-3 text-violet-500 rounded font-medium border border-violet-500 items-center justify-center h-6 text-[9px]">
-                  {userId === user.id ? "OWNER" : "MEMBER"}
+                <div className="flex px-3 text-violet-500 rounded font-medium border border-violet-500 items-center justify-center h-6 text-[9px] uppercase">
+                  {user.role}
                 </div>
                 <div>
                   <Icons.Info className="text-[12px] text-gray-700" />
                 </div>
               </div>
             </div>
-            <div className="flex items-center w-4/12 h-full gap-2 group">
-              <div className="text-xs">{user.signUpEmail}</div>
+            <div className="flex items-center justify-center w-4/12 h-full gap-2 group">
+              <div className="text-xs">{user.userEmail}</div>
               <button
                 className="bg-violet-700 h-6 rounded text-white text-xs font-medium px-2 hidden group-hover:block"
-                onClick={() => copyToClipboard(user.signUpEmail, "email")}
+                onClick={() => copyToClipboard(user.userEmail, "email")}
               >
-                {copiedEmail === user.signUpEmail ? "Copied!" : "Copy"}
+                {copiedEmail === user.userEmail ? "Copied!" : "Copy"}
               </button>
             </div>
             <div className="flex items-center w-4/12 h-full text-xs ">
               <div className="flex items-center justify-center w-1/3 h-full">
-                {userId === user.id ? "Owner" : "no declared role"}
+                {user.role}
               </div>
               <div className="flex items-center justify-center w-1/3 h-full">
                 none
