@@ -1,5 +1,4 @@
 import {
-  getFirestore,
   collection,
   query,
   where,
@@ -7,8 +6,7 @@ import {
   Timestamp,
 } from "firebase/firestore";
 import { UserAssociation } from "../types";
-
-const db = getFirestore();
+import { db } from "@/db/firebase/lib/firebase";
 
 export default async function getUsersAssociatedToWorkspace(
   workspaceId: string
