@@ -1,5 +1,4 @@
 import {
-  getFirestore,
   collection,
   query,
   where,
@@ -7,8 +6,7 @@ import {
   documentId,
 } from "firebase/firestore";
 import { User } from "@/app/server-actions/types";
-
-const db = getFirestore();
+import { db } from "@/db/firebase/lib/firebase";
 
 export default async function getUsersAssignedToWorkspace(
   workspaceId: string
