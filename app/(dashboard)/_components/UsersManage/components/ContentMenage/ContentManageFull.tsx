@@ -14,11 +14,29 @@ type UsersListProps = {
 export default function ContentManageFull({}: UsersListProps): JSX.Element {
   const { workspaceId } = useGetCurrentWorkspace();
 
+  console.log("[ContentManageFull] workspaceId:", workspaceId); // 🔍
+
   const { data: users = [] } = useQuery<UserAssociation[]>({
     queryKey: ["user2workspace", workspaceId],
     queryFn: () => {
-      if (!workspaceId) return Promise.resolve([]);
-      return getUsersAssociatedToWorkspace(workspaceId);
+      console.log("[ContentManageFull] 🔄 queryFn fired"); // 🔍
+      if (!workspaceId) {
+        console.log("[ContentManageFull] ⛔ No workspaceId");
+        return Promise.resolve([]);
+      }
+
+      return getUsersAssociatedToWorkspace(workspaceId)
+        .then((data) => {
+          console.log("[ContentManageFull] ✅ Fetched users:", data); // 🔍
+          return data;
+        })
+        .catch((err) => {
+          console.error(
+            "[ContentManageFull] ❌ Error in getUsersAssociatedToWorkspace:",
+            err
+          ); // 🔍
+          return [];
+        });
     },
     enabled: !!workspaceId,
   });
