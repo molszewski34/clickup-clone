@@ -1,8 +1,10 @@
-import useGetCurrentUser from "./useGetCurrentUser";
+import { useUser } from "@/context/DataProvider/UserDataProvider";
+
 import { useUsersGetUserById } from "./useUsersGetUserById";
 
 function useGetCurrentWorkspace() {
-  const { userId } = useGetCurrentUser();
+  // const { userId } = useGetCurrentUser();
+  const { userId } = useUser();
   console.log("[useGetCurrentWorkspace] userId:", userId);
 
   const {
