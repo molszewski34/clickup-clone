@@ -13,7 +13,9 @@ export default async function getUsersAssociatedToWorkspace(
 ): Promise<UserAssociation[]> {
   try {
     if (!workspaceId) {
-      console.error("workspaceId is undefined or empty!");
+      console.error(
+        "[getUsersAssociatedToWorkspace] workspaceId is undefined or empty!"
+      );
       return [];
     }
 
@@ -35,9 +37,14 @@ export default async function getUsersAssociatedToWorkspace(
       };
     });
 
+    console.log("[getUsersAssociatedToWorkspace] Found users:", users);
+
     return users;
   } catch (error) {
-    console.error("Error fetching user2workspace entries:", error);
+    console.error(
+      "[getUsersAssociatedToWorkspace] Error fetching user2workspace entries:",
+      error
+    );
     throw error;
   }
 }
