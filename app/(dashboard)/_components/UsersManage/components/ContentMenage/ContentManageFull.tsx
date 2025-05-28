@@ -110,11 +110,11 @@ export default function ContentManageFull({}: UsersListProps): JSX.Element {
               </button>
               <div className="flex items-center gap-1 px-[15px]">
                 <div className="flex px-3 text-violet-500 rounded font-medium border border-violet-500 items-center justify-center h-6 text-[9px] uppercase">
-                  {user.role}
+                  {user.userFullName === "Unregistered" ? "Pending" : user.role}
                 </div>
-                <div>
+                {/* <div>
                   <Icons.Info className="text-[12px] text-gray-700" />
-                </div>
+                </div> */}
               </div>
             </div>
             <div className="flex items-center justify-center w-4/12 h-full gap-2 group">
