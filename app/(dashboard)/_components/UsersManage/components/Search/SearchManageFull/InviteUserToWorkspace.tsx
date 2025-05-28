@@ -1,3 +1,5 @@
+"use client";
+
 import { useForm } from "react-hook-form";
 import { Icons } from "@/icons/icons";
 import { getUsers } from "@/app/server-actions/user/getUsers";
@@ -9,6 +11,7 @@ import { createUser } from "@/app/server-actions/user/createUser";
 import { Role, User } from "@/app/server-actions/types";
 import { generateFirebaseId } from "./utils/generateFirebaseId";
 import { sendInvitationEmail } from "./utils/sendEmail";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 interface InviteFormProps {
   openModal: () => void;
@@ -25,64 +28,61 @@ const InviteForm: React.FC<InviteFormProps> = ({
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<{ email: string }>();
 
   const auth = getAuth();
+  const queryClient = useQueryClient();
 
-  const onSubmit = async (data: { email: string }) => {
-    try {
+  const inviteUserMutation = useMutation({
+    mutationFn: async (email: string) => {
       const user = auth.currentUser;
       if (!user) throw new Error("User not authenticated");
 
       const users = await getUsers();
       const userToWorkspaceRef = await getUserAssociation(user.uid);
-      if (!userToWorkspaceRef) {
-        throw new Error("User association not found");
-      }
+      if (!userToWorkspaceRef) throw new Error("User association not found");
 
       const associatedWorkspace: string = userToWorkspaceRef.workspaceId;
       const userFullName = userToWorkspaceRef.userFullName;
       const userEmail = userToWorkspaceRef?.userEmail;
       const workspace = await getWorkspaceById(associatedWorkspace);
-      if (!workspace) {
-        throw new Error("Workspace not found");
-      }
-      const workspaceName = workspace?.name;
+      if (!workspace) throw new Error("Workspace not found");
+
+      const workspaceName = workspace.name;
       const role = buttonText as Role;
       const invitedUserId = generateFirebaseId();
-      const signUpFullName = "Unregistered";
-      const signUpEmail = data.email;
 
       const userExists = users.some(
-        (existingUser: User) => existingUser.signUpEmail === data.email
+        (existingUser: User) => existingUser.signUpEmail === email
       );
 
       if (userExists) {
         await createUserAssociation(user.uid, associatedWorkspace, role);
-        await sendInvitationEmail(
-          data.email,
-          userFullName,
-          userEmail,
-          workspaceName
-        );
       } else {
         await createUser(
-          signUpFullName,
-          signUpEmail,
+          "Unregistered",
+          email,
           invitedUserId,
           associatedWorkspace
         );
         await createUserAssociation(invitedUserId, associatedWorkspace, role);
-        await sendInvitationEmail(
-          data.email,
-          userFullName,
-          userEmail,
-          workspaceName
-        );
       }
-    } catch (error) {
-      console.error("Error fetching users:", error);
-    }
+
+      await sendInvitationEmail(email, userFullName, userEmail, workspaceName);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["users"] });
+      queryClient.invalidateQueries({ queryKey: ["user2workspace"] });
+      reset();
+    },
+    onError: (error) => {
+      console.error("Invitation error:", error);
+    },
+  });
+
+  const onSubmit = (data: { email: string }) => {
+    inviteUserMutation.mutate(data.email);
   };
 
   return (
@@ -123,8 +123,9 @@ const InviteForm: React.FC<InviteFormProps> = ({
       <button
         type="submit"
         className="flex items-center px-[30px] text-sm font-medium text-white h-full bg-violet-700 rounded-r"
+        disabled={inviteUserMutation.isPending}
       >
-        Invite
+        {inviteUserMutation.isPending ? "Inviting..." : "Invite"}
       </button>
     </form>
   );
