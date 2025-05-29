@@ -1,18 +1,21 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { useTasksQuery } from "@/hooks/useTaskQuery";
+import React, { useState } from "react";
+
 import { useData } from "@/context/DataProvider/DataProvider";
-import { TaskTable } from "@/app/(dashboard)/_components/Task/TaskTable";
-import { TaskStatus } from "../../../home/types";
+
 import { Space, Task } from "@/app/server-actions/types";
 import { useWorkspaceFormContext } from "@/context/FormProviders/WorkspaceFormProvider";
 
 import { StatusBadge } from "@/app/(dashboard)/_components/Task/StatusBadge";
 import ButtonIcon from "@/app/(dashboard)/ui/ButtonIcon";
 import { Icons } from "@/icons/icons";
-import { Button } from "@/components/Button";
+
+import { TaskStatus } from "@/app/(dashboard)/[id]/home/types";
+import { useGetTaskAssignedToUser } from "@/hooks/useGetTaskAssignedToUser";
+import useGetCurrentUser from "@/hooks/useGetCurrentUser";
 import useGetCurrentWorkspace from "@/hooks/useGetCurrentWorkspace";
+import { TaskTableWithoutAddButton } from "@/app/HomeSpace/Components/ComponentsAssignedContent/TaskTableWithoutAddButton";
 
 export type NewTaskVisibility = {
   status: TaskStatus;
@@ -23,35 +26,32 @@ const TasksList = () => {
   const { formData } = useWorkspaceFormContext();
   const { spaceId, listId } = useData();
   const { workspaceId } = useGetCurrentWorkspace();
+  //   const { workspaceId } = useGetCurrentWorkspace();
 
-  const { data: tasks = [] } = useTasksQuery(
-    workspaceId as string,
+  //   const { data: tasks = [] } = useTasksQuery(
+  //     workspaceId as string,
+  //     spaceId,
+  //     listId
+  //   );
+  const { userId } = useGetCurrentUser();
+
+  const { data: tasks } = useGetTaskAssignedToUser(
+    userId!,
+    workspaceId!,
     spaceId,
     listId
   );
-
   const [visibleGroups, setVisibleGroups] = useState<TaskStatus[]>([]);
   const [openedNewTask, setOpenedNewTask] = useState<NewTaskVisibility>({
     status: TaskStatus.todo,
     newTaskVisibility: "none",
   });
 
-  useEffect(() => {
-    console.log("Workspace ID:", workspaceId);
-    console.log("Space ID:", spaceId);
-    console.log("List ID:", listId);
-  }, [workspaceId, spaceId, listId]);
-
-  useEffect(() => {
-    console.log("Fetched tasks:", tasks);
-  }, [tasks]);
-
-  useEffect(() => {
-    console.log("Form data filters state:", formData.filtersState);
-  }, [formData.filtersState]);
+  console.log("tasks", tasks);
+  console.log("spaceId", spaceId);
+  console.log("listId", listId);
 
   const handleVisibleGroups = (status: TaskStatus) => {
-    console.log("Toggling visibility for group:", status);
     if (visibleGroups.includes(status)) {
       setVisibleGroups(
         visibleGroups.filter(
@@ -64,7 +64,8 @@ const TasksList = () => {
   };
 
   const applyFilters = (tasks: Task[], filtersState: Space["filtersState"]) => {
-    const result = tasks.filter((task) => {
+    return tasks.filter((task) => {
+      // Filter by taskName
       if (
         filtersState?.searchQuery &&
         !task.taskName
@@ -73,13 +74,31 @@ const TasksList = () => {
       ) {
         return false;
       }
+
+      // Filtrer by status
+      // if (filtersState?.statuses.length > 0 &&
+      //     !filtersState.statuses.includes(task.status)) {
+      //   return false;
+      // }
+
+      // Filter by user, show only taskassigned to logged user
+      // if (filtersState.assignedToMe && !task.assignedUsers.includes(filtersState.userId)) {
+      //   return false;
+      // }
+
+      // Filter by assigned user to some task, show tasks choosen user
+      // if (filtersState.assignedTo.length > 0 &&
+      //     !filtersState.assignedTo.some(user => task.assignedUsers.includes(user))) {
+      //   return false;
+      // }
       return true;
     });
-    console.log("Filtered tasks after applyFilters:", result);
-    return result;
   };
-
-  const filteredTasks = applyFilters(tasks, formData.filtersState);
+  //   const filteredTasks = applyFilters(tasks, formData.filtersState);
+  const filteredTasks = applyFilters(
+    Array.isArray(tasks) ? tasks : [],
+    formData.filtersState
+  );
 
   const tasksGroupedByStatus = {
     [TaskStatus.todo]: filteredTasks.filter(
@@ -92,16 +111,11 @@ const TasksList = () => {
       (task) => task.status === TaskStatus.completed
     ),
   };
-
-  console.log("Grouped tasks by status:", tasksGroupedByStatus);
-
   const tableOrder = formData.filtersState?.statuses?.includes(
     TaskStatus.completed
   )
     ? [TaskStatus.completed, TaskStatus.inProgress, TaskStatus.todo]
     : [TaskStatus.inProgress, TaskStatus.todo];
-
-  console.log("Table order:", tableOrder);
 
   return (
     <div className="flex flex-col gap-4 p-5">
@@ -125,7 +139,7 @@ const TasksList = () => {
               <p className="text-xs font-semibold">
                 {tasksGroupedByStatus[status].length}
               </p>
-              {openedNewTask.newTaskVisibility !== "top" && (
+              {/* {openedNewTask.newTaskVisibility !== "top" && (
                 <Button
                   color="gray"
                   className="px-0.5 gap-[8px] rounded-md text-xs font-semibold hover:bg-gray-100 border-transparent"
@@ -141,10 +155,10 @@ const TasksList = () => {
                     Add Task
                   </div>
                 </Button>
-              )}
+              )} */}
             </div>
             {isGroupVisible && (
-              <TaskTable
+              <TaskTableWithoutAddButton
                 tasks={tasksGroupedByStatus[status]}
                 status={status as TaskStatus}
                 openedNewTask={openedNewTask}
