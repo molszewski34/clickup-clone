@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useTasksQuery } from "@/hooks/useTaskQuery";
 import { useData } from "@/context/DataProvider/DataProvider";
 import { TaskTable } from "@/app/(dashboard)/_components/Task/TaskTable";
@@ -29,13 +29,29 @@ const TasksList = () => {
     spaceId,
     listId
   );
+
   const [visibleGroups, setVisibleGroups] = useState<TaskStatus[]>([]);
   const [openedNewTask, setOpenedNewTask] = useState<NewTaskVisibility>({
     status: TaskStatus.todo,
     newTaskVisibility: "none",
   });
 
+  useEffect(() => {
+    console.log("Workspace ID:", workspaceId);
+    console.log("Space ID:", spaceId);
+    console.log("List ID:", listId);
+  }, [workspaceId, spaceId, listId]);
+
+  useEffect(() => {
+    console.log("Fetched tasks:", tasks);
+  }, [tasks]);
+
+  useEffect(() => {
+    console.log("Form data filters state:", formData.filtersState);
+  }, [formData.filtersState]);
+
   const handleVisibleGroups = (status: TaskStatus) => {
+    console.log("Toggling visibility for group:", status);
     if (visibleGroups.includes(status)) {
       setVisibleGroups(
         visibleGroups.filter(
@@ -48,8 +64,7 @@ const TasksList = () => {
   };
 
   const applyFilters = (tasks: Task[], filtersState: Space["filtersState"]) => {
-    return tasks.filter((task) => {
-      // Filter by taskName
+    const result = tasks.filter((task) => {
       if (
         filtersState?.searchQuery &&
         !task.taskName
@@ -58,26 +73,12 @@ const TasksList = () => {
       ) {
         return false;
       }
-
-      // Filtrer by status
-      // if (filtersState?.statuses.length > 0 &&
-      //     !filtersState.statuses.includes(task.status)) {
-      //   return false;
-      // }
-
-      // Filter by user, show only taskassigned to logged user
-      // if (filtersState.assignedToMe && !task.assignedUsers.includes(filtersState.userId)) {
-      //   return false;
-      // }
-
-      // Filter by assigned user to some task, show tasks choosen user
-      // if (filtersState.assignedTo.length > 0 &&
-      //     !filtersState.assignedTo.some(user => task.assignedUsers.includes(user))) {
-      //   return false;
-      // }
       return true;
     });
+    console.log("Filtered tasks after applyFilters:", result);
+    return result;
   };
+
   const filteredTasks = applyFilters(tasks, formData.filtersState);
 
   const tasksGroupedByStatus = {
@@ -91,11 +92,16 @@ const TasksList = () => {
       (task) => task.status === TaskStatus.completed
     ),
   };
+
+  console.log("Grouped tasks by status:", tasksGroupedByStatus);
+
   const tableOrder = formData.filtersState?.statuses?.includes(
     TaskStatus.completed
   )
     ? [TaskStatus.completed, TaskStatus.inProgress, TaskStatus.todo]
     : [TaskStatus.inProgress, TaskStatus.todo];
+
+  console.log("Table order:", tableOrder);
 
   return (
     <div className="flex flex-col gap-4 p-5">
