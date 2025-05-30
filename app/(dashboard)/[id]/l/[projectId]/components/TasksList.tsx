@@ -1,18 +1,16 @@
 "use client";
 
 import React, { useState } from "react";
-import { useTasksQuery } from "@/hooks/useTaskQuery";
-import { useData } from "@/context/DataProvider/DataProvider";
-import { TaskTable } from "@/app/(dashboard)/_components/Task/TaskTable";
-import { TaskStatus } from "../../../home/types";
 import { Space, Task } from "@/app/server-actions/types";
 import { useWorkspaceFormContext } from "@/context/FormProviders/WorkspaceFormProvider";
-
 import { StatusBadge } from "@/app/(dashboard)/_components/Task/StatusBadge";
 import ButtonIcon from "@/app/(dashboard)/ui/ButtonIcon";
 import { Icons } from "@/icons/icons";
-import { Button } from "@/components/Button";
+import { TaskStatus } from "@/app/(dashboard)/[id]/home/types";
+import { useGetTaskAssignedToUser } from "@/hooks/useGetTaskAssignedToUser";
+import useGetCurrentUser from "@/hooks/useGetCurrentUser";
 import useGetCurrentWorkspace from "@/hooks/useGetCurrentWorkspace";
+import { TaskTableWithoutAddButton } from "@/app/HomeSpace/Components/ComponentsAssignedContent/TaskTableWithoutAddButton";
 
 export type NewTaskVisibility = {
   status: TaskStatus;
@@ -21,14 +19,10 @@ export type NewTaskVisibility = {
 
 const TasksList = () => {
   const { formData } = useWorkspaceFormContext();
-  const { spaceId, listId } = useData();
   const { workspaceId } = useGetCurrentWorkspace();
+  const { userId } = useGetCurrentUser();
 
-  const { data: tasks = [] } = useTasksQuery(
-    workspaceId as string,
-    spaceId,
-    listId
-  );
+  const { data: tasks } = useGetTaskAssignedToUser(userId!, workspaceId!);
   const [visibleGroups, setVisibleGroups] = useState<TaskStatus[]>([]);
   const [openedNewTask, setOpenedNewTask] = useState<NewTaskVisibility>({
     status: TaskStatus.todo,
@@ -78,7 +72,11 @@ const TasksList = () => {
       return true;
     });
   };
-  const filteredTasks = applyFilters(tasks, formData.filtersState);
+  //   const filteredTasks = applyFilters(tasks, formData.filtersState);
+  const filteredTasks = applyFilters(
+    Array.isArray(tasks) ? tasks : [],
+    formData.filtersState
+  );
 
   const tasksGroupedByStatus = {
     [TaskStatus.todo]: filteredTasks.filter(
@@ -119,7 +117,7 @@ const TasksList = () => {
               <p className="text-xs font-semibold">
                 {tasksGroupedByStatus[status].length}
               </p>
-              {openedNewTask.newTaskVisibility !== "top" && (
+              {/* {openedNewTask.newTaskVisibility !== "top" && (
                 <Button
                   color="gray"
                   className="px-0.5 gap-[8px] rounded-md text-xs font-semibold hover:bg-gray-100 border-transparent"
@@ -135,10 +133,10 @@ const TasksList = () => {
                     Add Task
                   </div>
                 </Button>
-              )}
+              )} */}
             </div>
             {isGroupVisible && (
-              <TaskTable
+              <TaskTableWithoutAddButton
                 tasks={tasksGroupedByStatus[status]}
                 status={status as TaskStatus}
                 openedNewTask={openedNewTask}

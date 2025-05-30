@@ -8,6 +8,8 @@ import { getTaskLocation } from "../task/getTaskLocation";
 
 export const createUserAssociationToTask = async (
   userId: User["id"],
+  spaceId: string,
+  listId: string,
   taskId: Workspace["id"]
 ) => {
   const user2TaskRef = collection(db, "user2task");
@@ -38,6 +40,8 @@ export const createUserAssociationToTask = async (
 
     const properties = {
       userId: user.id,
+      spaceId,
+      listId,
       taskId,
     };
 

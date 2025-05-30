@@ -22,7 +22,7 @@ type UsersListProps = {
 
 export const UsersList = ({ filterUser }: UsersListProps) => {
   const { workspaceId } = useGetCurrentWorkspace();
-  const { taskId } = useData();
+  const { spaceId, listId, taskId } = useData();
 
   const { data: users = [] } = useQuery<User[]>({
     queryKey: ["users", workspaceId],
@@ -59,7 +59,12 @@ export const UsersList = ({ filterUser }: UsersListProps) => {
       await checkIfUserAssociationToTaskExist(userClicked.id, taskId);
     } else {
       updateTaskForm("assignees", [...formData.assignees, userClicked]);
-      await createUserAssociationToTask(userClicked.id, taskId);
+      await createUserAssociationToTask(
+        userClicked.id,
+        spaceId,
+        listId,
+        taskId
+      );
     }
 
     mutate();

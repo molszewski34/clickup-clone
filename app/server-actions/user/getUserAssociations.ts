@@ -1,6 +1,7 @@
 import { collection, getDocs, query, where } from "firebase/firestore";
-import { User, UserTaskAssociation } from "../types";
+import { User } from "../types";
 import { db } from "@/db/firebase/lib/firebase";
+import { DataContextType } from "@/context/DataProvider/DataProvider";
 
 export const getUserAssociations = async (userId: User["id"]) => {
   const userAssociationCollectionRef = collection(db, "user2task");
@@ -8,15 +9,12 @@ export const getUserAssociations = async (userId: User["id"]) => {
     userAssociationCollectionRef,
     where("userId", "==", userId)
   );
-  const userAssociation: UserTaskAssociation[] = [];
+  const userAssociation: DataContextType[] = [];
 
   try {
     const userAssociationDocs = await getDocs(userAssociationDocQuery);
     userAssociationDocs.docs.forEach((singleAssociation) =>
-      userAssociation.push({
-        id: singleAssociation.id,
-        ...(singleAssociation.data() as Omit<UserTaskAssociation, "id">),
-      })
+      userAssociation.push(singleAssociation.data() as DataContextType)
     );
     return userAssociation;
   } catch (error) {
