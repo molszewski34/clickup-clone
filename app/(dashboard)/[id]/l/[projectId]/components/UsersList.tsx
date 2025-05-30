@@ -40,8 +40,9 @@ export const UsersList = ({ filterUser }: UsersListProps) => {
 
   const filteredUsers: User[] = users.filter(
     (singleUser) =>
-      singleUser.signUpEmail.includes(filterUser) ||
-      singleUser.signUpFullName.includes(filterUser)
+      singleUser.signUpFullName !== "Unregistered" &&
+      (singleUser.signUpEmail.includes(filterUser) ||
+        singleUser.signUpFullName.includes(filterUser))
   );
 
   const handleClickOnUser = async (userClicked: User) => {
