@@ -1,16 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
-
-import { useData } from "@/context/DataProvider/DataProvider";
-
 import { Space, Task } from "@/app/server-actions/types";
 import { useWorkspaceFormContext } from "@/context/FormProviders/WorkspaceFormProvider";
-
 import { StatusBadge } from "@/app/(dashboard)/_components/Task/StatusBadge";
 import ButtonIcon from "@/app/(dashboard)/ui/ButtonIcon";
 import { Icons } from "@/icons/icons";
-
 import { TaskStatus } from "@/app/(dashboard)/[id]/home/types";
 import { useGetTaskAssignedToUser } from "@/hooks/useGetTaskAssignedToUser";
 import useGetCurrentUser from "@/hooks/useGetCurrentUser";
@@ -24,15 +19,7 @@ export type NewTaskVisibility = {
 
 const TasksList = () => {
   const { formData } = useWorkspaceFormContext();
-  const { spaceId, listId } = useData();
   const { workspaceId } = useGetCurrentWorkspace();
-  //   const { workspaceId } = useGetCurrentWorkspace();
-
-  //   const { data: tasks = [] } = useTasksQuery(
-  //     workspaceId as string,
-  //     spaceId,
-  //     listId
-  //   );
   const { userId } = useGetCurrentUser();
 
   const { data: tasks } = useGetTaskAssignedToUser(userId!, workspaceId!);
@@ -41,10 +28,6 @@ const TasksList = () => {
     status: TaskStatus.todo,
     newTaskVisibility: "none",
   });
-
-  console.log("tasks", tasks);
-  console.log("spaceId", spaceId);
-  console.log("listId", listId);
 
   const handleVisibleGroups = (status: TaskStatus) => {
     if (visibleGroups.includes(status)) {
