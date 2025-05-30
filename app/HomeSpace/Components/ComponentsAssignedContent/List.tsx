@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useTasksQuery } from "@/hooks/useTaskQuery";
 import { useData } from "@/context/DataProvider/DataProvider";
 import { TaskTable } from "@/app/(dashboard)/_components/Task/TaskTable";
@@ -37,35 +37,16 @@ const List = () => {
     newTaskVisibility: "none",
   });
 
-  useEffect(() => {
-    console.log("Workspace ID:", workspaceId);
-    console.log("Space ID:", spaceId);
-    console.log("List ID:", listId);
-  }, [workspaceId, spaceId, listId]);
-
-  useEffect(() => {
-    console.log("Fetched tasks:", tasks);
-  }, [tasks]);
-
-  useEffect(() => {
-    console.log("Form data filters state:", formData.filtersState);
-  }, [formData.filtersState]);
-
   const handleVisibleGroups = (status: TaskStatus) => {
-    console.log("Toggling visibility for group:", status);
     if (visibleGroups.includes(status)) {
-      setVisibleGroups(
-        visibleGroups.filter(
-          (singleVisibleGroup) => singleVisibleGroup !== status
-        )
-      );
+      setVisibleGroups(visibleGroups.filter((s) => s !== status));
     } else {
       setVisibleGroups([...visibleGroups, status]);
     }
   };
 
   const applyFilters = (tasks: Task[], filtersState: Space["filtersState"]) => {
-    const result = tasks.filter((task) => {
+    return tasks.filter((task) => {
       if (
         filtersState?.searchQuery &&
         !task.taskName
@@ -76,8 +57,6 @@ const List = () => {
       }
       return true;
     });
-    console.log("Filtered tasks after applyFilters:", result);
-    return result;
   };
 
   const filteredTasks = applyFilters(tasks, formData.filtersState);
@@ -94,15 +73,11 @@ const List = () => {
     ),
   };
 
-  console.log("Grouped tasks by status:", tasksGroupedByStatus);
-
   const tableOrder = formData.filtersState?.statuses?.includes(
     TaskStatus.completed
   )
     ? [TaskStatus.completed, TaskStatus.inProgress, TaskStatus.todo]
     : [TaskStatus.inProgress, TaskStatus.todo];
-
-  console.log("Table order:", tableOrder);
 
   return (
     <div className="flex flex-col gap-4 p-5">
@@ -121,7 +96,7 @@ const List = () => {
                 }
                 onClick={() => handleVisibleGroups(status)}
                 className="flex items-center justify-center w-5 h-5 hover:bg-gray-200 rounded"
-              ></ButtonIcon>
+              />
               <StatusBadge taskStatus={status} />
               <p className="text-xs font-semibold">
                 {tasksGroupedByStatus[status].length}
