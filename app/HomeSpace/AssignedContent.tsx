@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import CardContainer from "./Components/CardContainer";
-
-import List from "./Components/ComponentsAssignedContent/List";
 import FiltersBar from "./Components/ComponentsAssignedContent/FiltersBar";
+import TasksList from "../(dashboard)/[id]/l/[projectId]/components/TasksList";
 
 const AssignedContent = () => {
   // if (isLoading) return <div>Loading...</div>;
@@ -57,7 +56,7 @@ const AssignedContent = () => {
             subBarNavFilterActive={subBarNavFilterActive}
             subBarNavHeaderActive={subBarNavHeaderActive}
           />
-          <List />
+          <TasksList />
         </div>
       </div>
     </CardContainer>

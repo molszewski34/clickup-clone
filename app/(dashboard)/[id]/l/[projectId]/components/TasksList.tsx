@@ -35,12 +35,7 @@ const TasksList = () => {
   //   );
   const { userId } = useGetCurrentUser();
 
-  const { data: tasks } = useGetTaskAssignedToUser(
-    userId!,
-    workspaceId!,
-    spaceId,
-    listId
-  );
+  const { data: tasks } = useGetTaskAssignedToUser(userId!, workspaceId!);
   const [visibleGroups, setVisibleGroups] = useState<TaskStatus[]>([]);
   const [openedNewTask, setOpenedNewTask] = useState<NewTaskVisibility>({
     status: TaskStatus.todo,

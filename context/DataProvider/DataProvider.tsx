@@ -10,7 +10,7 @@ import React, {
   useState,
 } from "react";
 
-type DataContextType = {
+export type DataContextType = {
   userId: string | null;
   setUserId: Dispatch<React.SetStateAction<string>>;
   spaceId: string;
