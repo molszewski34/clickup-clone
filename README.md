@@ -44,8 +44,7 @@ ClickUp Clone to niekomercyjny projekt zespołowy inspirowany aplikacją ClickUp
 
 Wersje live można zobaczyć na stronie https://clickup-clone-sable.vercel.app/login.
 
-⚠️ Prosimy o niepodawanie prawdziwych adresów e-mail – aplikacja wykorzystuje publicznie widoczną listę użytkowników.
-Mail jest wymagany w procesie logowania! Prosimy również byście drodzy testerzy - nie rozwalili naszej apki w pierwszym tygodniu jej upublicznia :)
+⚠️ Prosimy o niepodawanie prawdziwych adresów e-mail. Sugerujemy użycie jednego z generatorów skrzynek mailowych do testów. Mail jest wymagany w procesie logowania! Prosimy również byście drodzy testerzy - nie rozwalili naszej apki w pierwszym tygodniu jej upublicznia :)
 
 ## 🛠️ Użyte technologie
 
@@ -140,7 +139,7 @@ npm run test
 **Odpowiedzialni za stronę**: Mariusz Olszewski, Karol Słupiński
 
 - Karol Słupiński - user interface i walidacja danych za pomocą react-hook-form i yup.
-- Mariusz Olszewski - tworzenie tras, połączenie z bazą danych, zapisywanie danych do bazy danych, ustawienie połączenia z google mail.
+- Mariusz Olszewski - tworzenie routes, połączenie z bazą danych, zapisywanie danych do bazy danych.
 
 #### Jak korzystać
 
@@ -152,8 +151,8 @@ Strona przyjmuje adres email i hasło. Hasło musi składać się z przynajmniej
 
 **Odpowiedzialni za stronę**: Mariusz Olszewski, Karol Słupiński
 
-- Karol Słupiński - user interface i walidacja danych za pomocą react-hook-form i yup.
-- Mariusz Olszewski - tworzenie tras, połączenie z bazą danych, zapisywanie danych do bazy danych, ustawienie połączenia z google mail.
+- Karol Słupiński - user interface, walidacja danych za pomocą react-hook-form i yup. Stworzenie i wdrożenie kolekcji w której są zapisywane powiązania użytkownikiem z workspace.
+- Mariusz Olszewski - tworzenie routes, połączenie z bazą danych, zapisywanie danych do bazy danych, ustawienie skrzynki pocztowej do wysyłania mailów z zaproszeniem do rejestracji
 
 #### Jak korzystać
 
@@ -195,16 +194,16 @@ Ta część nawigacji bocznej jest odpowiedzialna za pokazywanie w formie folder
 ### Elementy dolnej nawigacji
 
 **Lista**
-Po kliknięciu któregoś z folderów użytkownik jest odsyłany do ścieżki strony składającej się z workspace `workspaceId/l/projectId`. Adres jest dynamicznie ustalana za pomocą providera `useData.tsx` i `useUser.tsx` które otrzymują id od elementów danej listy. Id jest przesyłane akcją onMouseEnter w WorkspaceButtons.tsx. W dynamicznym generowaniu stron kluczowy był `params` i `useRouter` w `SidebarContent.tsx`.
+Po kliknięciu któregoś z folderów użytkownik jest odsyłany do ścieżki strony składającej się z workspace `workspaceId/l/projectId`. Adres jest dynamicznie ustalana za pomocą providera `useData.tsx` i `useUser.tsx` które otrzymują id od elementów danej listy. sW dynamicznym generowaniu stron kluczowy był `params` i `useRouter` w `SidebarContent.tsx`.
 
 **Workspace**
-Workspace jest folderem przechowującym listy z taskami. Gdy dodawany jest workspace to wzraz z nim umieszczana jest pierwsza domyślna lista o nazwie "List".
+Workspace jest folderem przechowującym space z listami zawierającymi taski. Gdy dodawany jest space to wraz z nim umieszczany jest pierwszy domyślny List o nazwie "List".
 
-Dodawanie workspace:
+Dodawanie space:
 Workspace jest dodawany z modala
 ![Imgur](https://imgur.com/zji5801.png)
 
-Usuwanie workspace:
+Usuwanie Space:
 Menu pojawia się po nacisnieciu przycisku który pojawia się po najechaniu na element listy.
 
 ![Imgur](https://imgur.com/rRGAx47.png)
@@ -216,15 +215,15 @@ Po wybraniu opcji Delete pojawia się ten modal
 W celu usunięcia workspace należy wpisać nazwe listy i zatwierdzić.
 
 **Sprawy techniczne**
-Na ten moment workspaces jest pod kolekcją obiektu User. Podobnie jak User, Workspace zawiera podkolekcje pod kolekcje list, tasków i sub tasków.
+Na ten moment spaces jest pod kolekcją obiektu Workspace. Podobnie jak Workspace - Space zawiera podkolekcje list i tasków.
 
-Główne pliki uczestniczące w procesach workspace:
-`getWorkspaces.ts` - pobieranie wszystkich workspace
-`createNewWorkspace.ts`- tworzenie nowego workspace
-`deleteWorkspace.ts`
-`updateWorkspace.ts`
+Główne pliki uczestniczące w procesach space:
+`getSpaces.ts` - pobieranie wszystkich space
+`createSpace.ts`- tworzenie nowego space
+`deleteSpace.ts`
+`updateSpace.ts`
 
-Pliki te są akcjami które są później obsługiwane poprzez react-query. Nie ma konkretnej zależności i podczas badania powiązań można natrafić zarówno na hooki jak i komponenty w których query jest przekazywane do akcji. W procesie tym pośredniczy też Provider - WorkspaceFormProvider który zbiera informacje z poszczególnych input.
+Pliki te są akcjami które są później obsługiwane poprzez react-query. Podczas badania powiązań można natrafić zarówno na hooki jak i komponenty. W procesie tym pośredniczy też Provider - WorkspaceFormProvider który zbiera informacje z poszczególnych input.
 
 #### Subbar
 
@@ -242,7 +241,7 @@ Subbar występuje w dwóch głównych formach:
 
 ## 👥 Zespół
 
-- 👨‍💻 Mariusz Olszewski – Backend, Frontend, testy
+- 👨‍💻 Mariusz Olszewski – Backend, Frontend, testy, zarządzanie projektem: przydzielanie zadań, ustalanie priorytetów i podejmowanie decyzji odnośnie końcowego kształtu projektu.
 - 🎨 Karol Słupiński – Frontend, Backend (assocjacje Firebase)
 - 🧩 Jakub King – UI, logika komponentów
 - 🧩 Jakub Skrzeczowski – UI, logika komponentów
