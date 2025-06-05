@@ -26,13 +26,13 @@ const ButtonFileChanger: React.FC<ButtonProps> = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { spaceName } = useData();
   const [inputValue, setInputValue] = useState<string>("");
-  const isFourthGroupAndIndex3 = groupIndex === 3 && NumberIndex === 2;
+  const isFourthGroupAndIndex4 = groupIndex === 3 && NumberIndex === 4;
   const isFirstGroupAndIndex0 = groupIndex === 0 && NumberIndex === 0;
 
   const closeModal = () => setIsModalOpen(false);
 
   const handleButtonClick = () => {
-    if (isFourthGroupAndIndex3) {
+    if (isFourthGroupAndIndex4) {
       setIsModalOpen(!isModalOpen);
     } else if (isFirstGroupAndIndex0 && startRenaming) {
       startRenaming(); // Wywołujemy startRenaming dla przycisku "Rename"
@@ -56,9 +56,9 @@ const ButtonFileChanger: React.FC<ButtonProps> = ({
             {React.cloneElement(icon, {
               className: active
                 ? "text-blue-700"
-                : isFourthGroupAndIndex3
-                ? "text-red-500"
-                : "text-gray-500",
+                : isFourthGroupAndIndex4
+                  ? "text-red-500"
+                  : "text-gray-500",
             })}
           </div>
           <div className="flex justify-start items-center flex-grow min-w-0 ml-1">
@@ -66,9 +66,9 @@ const ButtonFileChanger: React.FC<ButtonProps> = ({
               className={`block text-sm font-sans truncate ${
                 active
                   ? "text-blue-700"
-                  : isFourthGroupAndIndex3
-                  ? "text-red-500"
-                  : "text-gray-500"
+                  : isFourthGroupAndIndex4
+                    ? "text-red-500"
+                    : "text-gray-500"
               }`}
             >
               {label}
