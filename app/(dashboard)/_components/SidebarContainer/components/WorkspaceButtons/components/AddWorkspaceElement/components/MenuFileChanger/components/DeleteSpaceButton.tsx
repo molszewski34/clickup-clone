@@ -6,7 +6,7 @@ import { useUsersGetUserById } from "@/hooks/useUsersGetUserById";
 import useUserAssociation from "@/hooks/useUserAssociation";
 import { deleteSpace } from "@/app/server-actions/space/deleteSpace";
 
-const DeleteWorkspaceButton = ({
+const DeleteSpaceButton = ({
   spaceName,
   inputValue,
 }: {
@@ -40,7 +40,7 @@ const DeleteWorkspaceButton = ({
   const mutation = useMutation<void, Error>({
     mutationFn: () => deleteSpace(workspaceId, spaceId),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["workspaces"] });
+      queryClient.invalidateQueries({ queryKey: ["spaces"] });
     },
     onError: (error) => {
       console.error("Error deleting project:", error);
@@ -68,4 +68,4 @@ const DeleteWorkspaceButton = ({
   );
 };
 
-export default DeleteWorkspaceButton;
+export default DeleteSpaceButton;
