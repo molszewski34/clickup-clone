@@ -2,6 +2,8 @@ import { Icons } from "@/icons/icons";
 import React, { useState } from "react";
 import DeleteProjectButton from "./DeleteListButton";
 import { useData } from "@/context/DataProvider/DataProvider";
+import useGetCurrentWorkspace from "@/hooks/useGetCurrentWorkspace";
+import { useTasksQuery } from "@/hooks/useTaskQuery";
 
 interface ButtonProps {
   label: string;
@@ -25,12 +27,18 @@ const ButtonListChanger: React.FC<ButtonProps> = ({
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const [NumbersTemplates] = useState(0);
-
-  const { listName, tasksLength } = useData();
+  const { listName, spaceId, listId } = useData();
 
   const isFourthGroupAndIndex3 = groupIndex === 3 && NumberIndex === 3;
   const isFirstGroupAndIndex0 = groupIndex === 0 && NumberIndex === 0;
+
+  const { workspaceId } = useGetCurrentWorkspace();
+
+  const { data: tasks = [] } = useTasksQuery(
+    workspaceId as string,
+    spaceId,
+    listId
+  );
 
   const handleButtonClick = () => {
     if (isFourthGroupAndIndex3) {
@@ -58,8 +66,8 @@ const ButtonListChanger: React.FC<ButtonProps> = ({
               className: active
                 ? "text-blue-700"
                 : isFourthGroupAndIndex3
-                ? "text-red-500"
-                : "text-gray-500",
+                  ? "text-red-500"
+                  : "text-gray-500",
             })}
           </div>
           <div className="flex justify-start items-center flex-grow min-w-0 ml-1">
@@ -68,8 +76,8 @@ const ButtonListChanger: React.FC<ButtonProps> = ({
                 active
                   ? "text-blue-700"
                   : isFourthGroupAndIndex3
-                  ? "text-red-500"
-                  : "text-gray-500"
+                    ? "text-red-500"
+                    : "text-gray-500"
               }`}
             >
               {label}
@@ -106,14 +114,9 @@ const ButtonListChanger: React.FC<ButtonProps> = ({
               <div className="flex mt-1 text-sm font-sans text-gray-950">
                 <span>
                   <b className="text-gray-600 font-semibold mr-1">
-                    {tasksLength} tasks
+                    {tasks.length} {tasks.length === 1 ? "task" : "tasks"}
                   </b>
-                  and
-                  <b className="text-gray-600 font-semibold mx-1">
-                    {NumbersTemplates} templates
-                  </b>
-                  within this List will be deleted. Additionally, automations
-                  will become inactive.
+                  within this List will be deleted.
                 </span>
               </div>
             </div>
