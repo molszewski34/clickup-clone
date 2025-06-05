@@ -1,6 +1,5 @@
 import { getInitials } from "@/app/(dashboard)/[id]/l/[projectId]/utils/getInitials";
 import { UserAssociation } from "@/app/server-actions/types";
-
 import getUsersAssociatedToWorkspace from "@/app/server-actions/user/getUsersAssociatedToWorkspace";
 import useGetCurrentWorkspace from "@/hooks/useGetCurrentWorkspace";
 import { Icons } from "@/icons/icons";
@@ -9,25 +8,28 @@ import { useEffect, useRef, useState } from "react";
 
 type UsersListProps = {
   filterUser: string;
+  openRemoveUserFromWorkspaceModal: boolean;
+  setOpenRemoveUserFromWorkspaceModal: (value: boolean) => void;
+  setRemovedUserName: (value: string) => void;
+  setAssociationId: (value: string) => void;
 };
 
-export default function ContentManageFull({}: UsersListProps): JSX.Element {
+export default function ContentManageFull({
+  setOpenRemoveUserFromWorkspaceModal,
+  setRemovedUserName,
+  setAssociationId,
+}: UsersListProps): JSX.Element {
   const { workspaceId } = useGetCurrentWorkspace();
-
-  console.log("[ContentManageFull] workspaceId:", workspaceId); // 🔍
 
   const { data: users = [] } = useQuery<UserAssociation[]>({
     queryKey: ["user2workspace", workspaceId],
     queryFn: () => {
-      console.log("[ContentManageFull] 🔄 queryFn fired"); // 🔍
       if (!workspaceId) {
-        console.log("[ContentManageFull] ⛔ No workspaceId");
         return Promise.resolve([]);
       }
 
       return getUsersAssociatedToWorkspace(workspaceId)
         .then((data) => {
-          console.log("[ContentManageFull] ✅ Fetched users:", data); // 🔍
           return data;
         })
         .catch((err) => {
@@ -112,9 +114,6 @@ export default function ContentManageFull({}: UsersListProps): JSX.Element {
                 <div className="flex px-3 text-violet-500 rounded font-medium border border-violet-500 items-center justify-center h-6 text-[9px] uppercase">
                   {user.userFullName === "Unregistered" ? "Pending" : user.role}
                 </div>
-                {/* <div>
-                  <Icons.Info className="text-[12px] text-gray-700" />
-                </div> */}
               </div>
             </div>
             <div className="flex items-center justify-center w-4/12 h-full gap-2 group">
@@ -145,14 +144,25 @@ export default function ContentManageFull({}: UsersListProps): JSX.Element {
             {activeUserId === user.id && (
               <div
                 ref={modalRef}
-                className="absolute  top-full right-2 z-50 bg-white border border-gray-300 shadow-lg rounded-md  w-48 h-[41px]"
+                className="absolute  top-full right-2 z-50 bg-white border border-gray-300 rounded w-48  "
               >
                 <button
-                  className="w-full hover:bg-gray-100 bg-white flex items-center gap-1 text-gray-500 h-full text-sm font-normal py-[6px] px-[20px] rounded"
+                  className="w-full hover:bg-gray-100 bg-white flex items-center gap-1 text-gray-500 text-sm font-normal py-[6px] px-[20px]"
                   onClick={() => copyToClipboard(user.id, "id")}
                 >
                   <Icons.Copy className="text-[16px] text-gray-700" />
                   {copiedId === user.id ? "Copied!" : "Copy member ID"}
+                </button>
+                <button
+                  className="w-full hover:bg-gray-100 bg-white flex items-center gap-1 text-red-500  text-sm font-normal py-[6px] px-[20px]"
+                  onClick={() => {
+                    setOpenRemoveUserFromWorkspaceModal(true);
+                    setRemovedUserName(user.userFullName);
+                    setAssociationId(user.id);
+                  }}
+                >
+                  <Icons.Trash className="text-[16px] text-red-500 " />
+                  Remove
                 </button>
               </div>
             )}

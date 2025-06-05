@@ -4,7 +4,8 @@ import router from "next/router";
 
 import { deleteUserFromFirestore } from "@/app/server-actions/user/deleteUser";
 import useGetCurrentUser from "@/hooks/useGetCurrentUser";
-import { deleteUserAssociation } from "@/app/server-actions/user2workspace/deleteUserAssociation";
+import { deleteUserAssociationByUserId } from "@/app/server-actions/user2workspace/deleteUserAssociationByUserId";
+
 export default function SettingDangerZone() {
   const { handleLogout } = useLogoutHandler();
 
@@ -21,7 +22,7 @@ export default function SettingDangerZone() {
     try {
       if (userId) {
         await deleteUserFromFirestore(userId);
-        await deleteUserAssociation(userId);
+        await deleteUserAssociationByUserId(userId);
       }
 
       await deleteUser(user);
