@@ -1,7 +1,7 @@
-import { deleteUserAssociation } from "./deleteUserAssociation";
+import { deleteUserAssociationByUserId } from "./deleteUserAssociationByUserId";
 
-jest.mock("./deleteUserAssociation", () => ({
-  deleteUserAssociation: jest.fn(),
+jest.mock("./deleteUserAssociationByUserId", () => ({
+  deleteUserAssociationByUserId: jest.fn(),
 }));
 
 describe("deleteUserAssociation", () => {
@@ -12,15 +12,15 @@ describe("deleteUserAssociation", () => {
   });
 
   it("should call deleteUserAssociation with correct parameters", async () => {
-    await deleteUserAssociation(mockUserId);
-    expect(deleteUserAssociation).toHaveBeenCalledWith(mockUserId);
+    await deleteUserAssociationByUserId(mockUserId);
+    expect(deleteUserAssociationByUserId).toHaveBeenCalledWith(mockUserId);
   });
 
   it("should handle errors correctly", async () => {
-    (deleteUserAssociation as jest.Mock).mockRejectedValue(
+    (deleteUserAssociationByUserId as jest.Mock).mockRejectedValue(
       new Error("Mocked error")
     );
-    await expect(deleteUserAssociation(mockUserId)).rejects.toThrow(
+    await expect(deleteUserAssociationByUserId(mockUserId)).rejects.toThrow(
       "Mocked error"
     );
   });

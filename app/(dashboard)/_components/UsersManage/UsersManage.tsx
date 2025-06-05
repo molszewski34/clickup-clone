@@ -10,11 +10,17 @@ import useGetCurrentWorkspace from "@/hooks/useGetCurrentWorkspace";
 import getUsersAssignedToWorkspace from "@/app/server-actions/user/getUsersAssignedToWorkspace";
 import { useQuery } from "@tanstack/react-query";
 import { User } from "@/app/server-actions/types";
+import RemoveUserFromWorkspaceButton from "./RemoveUserFromWorkspaceButton";
 
 export default function UsersManage() {
   const [activeTab, setActiveTab] = useState("full");
   const [filterUser, setFilterUser] = useState("");
-
+  const [associatonId, setAssociationId] = useState("");
+  const [
+    openRemoveUserFromWorkspaceModal,
+    setOpenRemoveUserFromWorkspaceModal,
+  ] = useState(false);
+  const [removedUserName, setRemovedUserName] = useState("");
   const { workspaceId } = useGetCurrentWorkspace();
 
   const { data: users = [] } = useQuery<User[]>({
@@ -63,7 +69,17 @@ export default function UsersManage() {
         return <ContentManageLimited />;
       case "full":
       default:
-        return <ContentManageFull filterUser={filterUser} />;
+        return (
+          <ContentManageFull
+            filterUser={filterUser}
+            openRemoveUserFromWorkspaceModal={openRemoveUserFromWorkspaceModal}
+            setOpenRemoveUserFromWorkspaceModal={
+              setOpenRemoveUserFromWorkspaceModal
+            }
+            setRemovedUserName={setRemovedUserName}
+            setAssociationId={setAssociationId}
+          />
+        );
     }
   };
 
@@ -116,6 +132,40 @@ export default function UsersManage() {
           </button>
         </div>
         {renderContentComponent()}
+        {openRemoveUserFromWorkspaceModal && (
+          <div className="fixed inset-0 flex justify-center bg-gray-950 bg-opacity-50 z-50">
+            <div
+              className="bg-white rounded-xl w-[440px] h-fit mt-[128px] shadow-lg border border-gray-200 overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex flex-col p-6">
+                <div className="flex justify-center items-center w-10 h-10 border-red-300 border bg-red-50 rounded-xl ">
+                  <Icons.Trash className="text-[18px] text-red-800 " />
+                </div>
+                <div className="flex items-center text-lg  mt-4 font-sans font-medium text-gray-950">
+                  <span className=" ml-2">Remove {removedUserName}</span>
+                </div>
+                <div className="flex mt-1 text-sm font-sans text-gray-950">
+                  <span>This user will be removed. Are you sure?</span>
+                </div>
+              </div>
+              <div className="flex items-center gap-3 px-6 py-4 w-auto h-auto border-t border-gray-200  bg-gray-100">
+                <button
+                  className=" flex-1 px-4 w- py-2 bg-white font-sans text-sm font-medium text-gray-700 rounded-lg border border-gray-200 hover:bg-gray-200"
+                  onClick={() => setOpenRemoveUserFromWorkspaceModal(false)}
+                >
+                  Cancel
+                </button>
+                <RemoveUserFromWorkspaceButton
+                  associationId={associatonId}
+                  setOpenRemoveUserFromWorkspaceModal={
+                    setOpenRemoveUserFromWorkspaceModal
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );
