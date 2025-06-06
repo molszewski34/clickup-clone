@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTasksQuery } from "@/hooks/useTaskQuery";
 import { useData } from "@/context/DataProvider/DataProvider";
 import { TaskTable } from "@/app/(dashboard)/_components/Task/TaskTable";
@@ -31,11 +31,24 @@ const List = () => {
     listId
   );
 
-  const [visibleGroups, setVisibleGroups] = useState<TaskStatus[]>([]);
   const [openedNewTask, setOpenedNewTask] = useState<NewTaskVisibility>({
     status: TaskStatus.todo,
     newTaskVisibility: "none",
   });
+
+  const [visibleGroups, setVisibleGroups] = useState<TaskStatus[]>(() => {
+    if (typeof window !== "undefined") {
+      const saveVisibleGroup = localStorage.getItem("visibleGroups");
+      return saveVisibleGroup
+        ? (JSON.parse(saveVisibleGroup) as TaskStatus[])
+        : [];
+    }
+    return [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("visibleGroups", JSON.stringify(visibleGroups));
+  }, [visibleGroups]);
 
   const handleVisibleGroups = (status: TaskStatus) => {
     if (visibleGroups.includes(status)) {
