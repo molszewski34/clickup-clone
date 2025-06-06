@@ -23,9 +23,7 @@ const IconAndNamePicker: React.FC<IconAndNamePickerProps> = ({
 }) => {
   const bodyRef = useRef<HTMLDivElement | null>(null);
 
-  const { formData, setFormData, error } = useWorkspaceFormContext();
-
-  console.log("formData w IconAndNamePicker", formData);
+  const { setFormData, error } = useWorkspaceFormContext();
 
   const handleOutsideClick = useCallback(
     (event: MouseEvent) => {

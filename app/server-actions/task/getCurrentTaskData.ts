@@ -24,7 +24,6 @@ export const getCurrentTaskData = async (
       "tasks",
       location.taskId
     );
-    console.log("Pobieranie taska z lokalizacji:", location);
 
     const taskSnap = await getDoc(taskRef);
 

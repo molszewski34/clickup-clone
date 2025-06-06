@@ -1,5 +1,5 @@
-import { deleteDoc, doc } from 'firebase/firestore';
-import { db } from '@/db/firebase/lib/firebase';
+import { deleteDoc, doc } from "firebase/firestore";
+import { db } from "@/db/firebase/lib/firebase";
 
 export const deleteProject = async (
   userId: string,
@@ -13,11 +13,7 @@ export const deleteProject = async (
     );
 
     await deleteDoc(projectRef);
-
-    console.log(
-      `Usunięto projekt o ID: "${selectedProjectId}" z workspace ${workspaceId}`
-    );
   } catch (error) {
-    console.error('Błąd podczas usuwania projektu', error);
+    console.error("Błąd podczas usuwania projektu", error);
   }
 };

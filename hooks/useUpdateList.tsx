@@ -42,7 +42,6 @@ export const useUpdateList = () => {
 
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["lists"] });
-      console.log("List updated successfully!");
     },
 
     onError: (_err, _updatedTask, context) => {

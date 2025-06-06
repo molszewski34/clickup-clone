@@ -17,8 +17,6 @@ export const createTask = async (
     await addDoc(taskRef, {
       ...formData,
     });
-
-    console.log(`Dodano task "${formData.taskName}" do listy ${listId}`);
   } catch (error) {
     console.error("Błąd podczas dodawania taska", error);
   }

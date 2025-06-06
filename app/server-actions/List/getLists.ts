@@ -18,7 +18,7 @@ export const getLists = async (
       id: doc.id,
       ...(doc.data() as Omit<List, "id">),
     }));
-    console.log("Pobrano Listy");
+
     return lists;
   } catch (error) {
     console.error("Błąd podczas pobierania lists:", error);

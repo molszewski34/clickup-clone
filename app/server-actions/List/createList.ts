@@ -18,7 +18,7 @@ export const createList = async (
       createdAt: serverTimestamp(),
       lastUpdated: serverTimestamp(),
     });
-    console.log("List was added successfully");
+
     return { id: newList.id };
   } catch (error) {
     console.error("Error adding new space:", error);

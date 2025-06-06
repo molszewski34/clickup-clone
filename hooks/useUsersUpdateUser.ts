@@ -15,9 +15,7 @@ export const useUsersUpdateUser = () => {
     }) => {
       return await updateUser(userId, userLastActive, userFullName);
     },
-    onSuccess: () => {
-      console.log(`User updated successfully!`);
-    },
+    onSuccess: () => {},
     onError: (error) => {
       console.error("Error when updating the user data: ", error);
     },

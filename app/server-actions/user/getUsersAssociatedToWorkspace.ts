@@ -37,8 +37,6 @@ export default async function getUsersAssociatedToWorkspace(
       };
     });
 
-    console.log("[getUsersAssociatedToWorkspace] Found users:", users);
-
     return users;
   } catch (error) {
     console.error(

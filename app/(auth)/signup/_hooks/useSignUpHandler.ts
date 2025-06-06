@@ -31,7 +31,11 @@ export const useSignUpHandler = () => {
     setIsSigningUp(true);
 
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, data.login, data.password);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        data.login,
+        data.password
+      );
       const user = userCredential.user;
 
       if (user) {
@@ -43,7 +47,6 @@ export const useSignUpHandler = () => {
         const userMailId = userMailExist?.id; //* Here code starts to be complicated. Because firebase (or any db model) don't allow to change key of user - server takes record with old id - clones to new (id from firebase auth) and delete old. It uses additional db callbacks but makes job done. All of this is made because this hook can't take params needed for proper workflow. Hook is also out of context scope. This operation is required for updateUser to work.
 
         if (userMailExist) {
-          console.log("Procedura dodawania do workspace");
           await sendEmailVerification(user);
           const auth = getAuth();
           const currentUser = auth.currentUser;
@@ -105,7 +108,12 @@ export const useSignUpHandler = () => {
               if (!userAssociation) {
                 console.error("Could not create user association!");
               } else {
-                await updateUser(userCreated.id, undefined, undefined, userAssociation.workspaceId);
+                await updateUser(
+                  userCreated.id,
+                  undefined,
+                  undefined,
+                  userAssociation.workspaceId
+                );
               }
 
               const createNewSpace = await createSpace(

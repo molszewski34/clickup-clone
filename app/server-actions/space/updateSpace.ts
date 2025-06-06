@@ -24,8 +24,6 @@ export const updateSpace = async (
         statuses: [],
       },
     });
-
-    console.log(`Zaktualizowano space o id: ${spaceId}`);
   } catch (error) {
     console.error("Błąd podczas aktualizowania listy", error);
   }

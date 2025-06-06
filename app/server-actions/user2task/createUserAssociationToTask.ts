@@ -46,7 +46,7 @@ export const createUserAssociationToTask = async (
     };
 
     const newUserAssociationToTask = await addDoc(user2TaskRef, properties);
-    console.log("User added to task successfully!");
+
     return { id: newUserAssociationToTask.id, ...properties };
   } catch (error) {
     console.error("Error occured when adding user to task. ", error);

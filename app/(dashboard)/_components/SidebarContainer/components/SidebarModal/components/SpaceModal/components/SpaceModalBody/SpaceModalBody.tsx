@@ -36,7 +36,6 @@ const SpaceModalBody: React.FC<SpaceModalBodyProps> = ({
           setSelectedColor(color);
         }}
         setSelectedIcon={(icon: keyof typeof AddIcons) => {
-          console.log(icon);
           setSelectedIcon(icon);
           setFormData((prevState: Space) => ({
             ...prevState,

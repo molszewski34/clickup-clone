@@ -1,5 +1,5 @@
-import { deleteDoc, doc } from 'firebase/firestore';
-import { db } from '@/db/firebase/lib/firebase';
+import { deleteDoc, doc } from "firebase/firestore";
+import { db } from "@/db/firebase/lib/firebase";
 
 export const deleteTask = async (
   userId: string,
@@ -14,11 +14,7 @@ export const deleteTask = async (
     );
 
     await deleteDoc(taskRef);
-
-    console.log(
-      `Usunięto task o ID: "${selectedTaskId}" z projektu ${projectId}`
-    );
   } catch (error) {
-    console.error('Błąd podczas usuwania taska', error);
+    console.error("Błąd podczas usuwania taska", error);
   }
 };

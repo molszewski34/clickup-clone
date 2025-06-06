@@ -101,7 +101,6 @@ const AddSpaceElement: React.FC<ButtonProps> = ({
 
   const handleBlur = () => {
     if (inputValue !== label) {
-      console.log("Zapisuję nową nazwę:", inputValue);
       if (isSpace) {
         setSpaceName(inputValue);
 

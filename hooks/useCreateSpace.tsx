@@ -33,7 +33,6 @@ export const useCreateSpace = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["spaces"] });
-      console.log("Space created successfully!");
     },
     onError: (error: unknown) => {
       console.error("Error creating workspace:", error);

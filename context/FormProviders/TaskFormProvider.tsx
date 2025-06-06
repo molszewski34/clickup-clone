@@ -27,7 +27,6 @@ export const TaskFormProvider: React.FC<{ children: React.ReactNode }> = ({
     subtasks: [],
   });
 
-  console.log("formData w TaskFormProvider", formData);
   return (
     <TaskFormContext.Provider value={{ formData, setFormData }}>
       {children}

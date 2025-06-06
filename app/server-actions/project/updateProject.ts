@@ -1,11 +1,11 @@
-import { doc, setDoc } from 'firebase/firestore';
-import { db } from '@/db/firebase/lib/firebase';
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "@/db/firebase/lib/firebase";
 
 export const addProject = async (
   userId: string,
   workspaceId: string,
   selectedProjectId: string,
-  projectName: string = 'List',
+  projectName: string = "List",
   isPrivate: boolean
 ) => {
   try {
@@ -19,9 +19,7 @@ export const addProject = async (
       id: selectedProjectId,
       isPrivate: isPrivate,
     });
-
-    console.log(`Dodano projekt "${projectName}" do workspace ${workspaceId}`);
   } catch (error) {
-    console.error('Błąd podczas dodawania projektu', error);
+    console.error("Błąd podczas dodawania projektu", error);
   }
 };

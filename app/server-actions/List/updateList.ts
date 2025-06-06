@@ -20,8 +20,6 @@ export const updateList = async (
       createdAt: serverTimestamp(),
       lastUpdated: serverTimestamp(),
     });
-
-    console.log(`Zaktualizowano liste o id: ${listId}`);
   } catch (error) {
     console.error("Błąd podczas aktualizowania listy", error);
   }

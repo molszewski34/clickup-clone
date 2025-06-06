@@ -17,7 +17,6 @@ const Status = () => {
   const { mutate } = useUpdateTask();
   const { data: task, isLoading } = useTaskById(taskId);
 
-  console.log("task status", task?.status);
   return (
     <div className="grid grid-cols-[minmax(130px,1fr)_minmax(150px,2fr)] gap-1 relative">
       <button className="flex items-center gap-2  h-9 font-sans text-sm text-gray-600">

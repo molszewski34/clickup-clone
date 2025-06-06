@@ -39,7 +39,6 @@ export const useUpdateTask = () => {
 
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
-      console.log("Task updated successfully!");
     },
 
     onError: (_err, _updatedTask, context) => {

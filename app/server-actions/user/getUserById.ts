@@ -12,7 +12,7 @@ export const getUserById = async (userId: string) => {
     }
     return { id: userData.id, ...userData.data() } as User;
   } catch (error) {
-    console.log("Error occured when accessing user details", error);
+    console.error("Error occured when accessing user details", error);
     return;
   }
 };

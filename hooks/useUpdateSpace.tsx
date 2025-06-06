@@ -39,7 +39,6 @@ export const useUpdateSpace = () => {
 
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["spaces"] });
-      console.log("Space updated successfully!");
     },
 
     onError: (_err, _updatedTask, context) => {

@@ -34,7 +34,6 @@ const RemoveUserFromWorkspaceButton: React.FC<Props> = ({
           : "bg-red-600 hover:bg-red-800"
       }`}
       onClick={() => {
-        console.log("🖱️ Remove button clicked");
         mutation.mutate();
       }}
       disabled={mutation.isPending}

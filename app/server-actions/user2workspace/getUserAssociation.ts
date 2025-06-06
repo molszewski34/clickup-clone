@@ -20,6 +20,6 @@ export const getUserAssociation = async (userId: User["id"]) => {
     );
     return userAssociation[0];
   } catch (error) {
-    console.log("Error occured when fetching user association.", error);
+    console.error("Error occured when fetching user association.", error);
   }
 };

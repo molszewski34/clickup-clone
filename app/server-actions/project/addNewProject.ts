@@ -20,12 +20,9 @@ export const addProject = async (
       isPrivate: isPrivate,
     });
 
-    console.log(`Dodano projekt "${projectName}" do workspace ${workspaceId}`);
-
-    // Return the project ID after successful creation
     return { id: projectUUID };
   } catch (error) {
     console.error("Błąd podczas dodawania projektu", error);
-    throw error; // Re-throw the error to handle it in the calling code
+    throw error;
   }
 };

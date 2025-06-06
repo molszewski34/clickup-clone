@@ -1,5 +1,5 @@
-import { collection, query, getDocs, doc, setDoc } from 'firebase/firestore';
-import { db } from '@/db/firebase/lib/firebase';
+import { collection, query, getDocs, doc, setDoc } from "firebase/firestore";
+import { db } from "@/db/firebase/lib/firebase";
 
 export const createDefaultWorkspace = async (userId: string) => {
   const workspaceCollectionRef = collection(db, `users/${userId}/workspaces`);
@@ -9,7 +9,6 @@ export const createDefaultWorkspace = async (userId: string) => {
       query(workspaceCollectionRef)
     );
     if (!existingWorkspacesSnapshot.empty) {
-      console.log('Workspace already exists.');
       return;
     }
 
@@ -17,12 +16,12 @@ export const createDefaultWorkspace = async (userId: string) => {
     const workspaceRef = doc(db, `users/${userId}/workspaces/${cryptoUUID}`);
 
     await setDoc(workspaceRef, {
-      name: 'Workspace',
+      name: "Workspace",
       id: cryptoUUID,
       createdAt: new Date(),
       userId,
-      desc: '',
-      icon: { activeColor: 'indigo-500', selectedIconName: '' },
+      desc: "",
+      icon: { activeColor: "indigo-500", selectedIconName: "" },
       isPrivate: false,
     });
 
@@ -32,7 +31,7 @@ export const createDefaultWorkspace = async (userId: string) => {
       `users/${userId}/workspaces/${cryptoUUID}/projects/${projectUUID}`
     );
     await setDoc(projectRef, {
-      name: 'Project',
+      name: "Project",
       id: projectUUID,
       isPrivate: false,
     });
@@ -44,16 +43,14 @@ export const createDefaultWorkspace = async (userId: string) => {
     );
     await setDoc(taskRef, {
       id: taskUUID,
-      taskName: 'Task',
-      dueDate: '',
+      taskName: "Task",
+      dueDate: "",
       assignees: [],
-      timeEstimate: '',
-      priority: '',
-      details: '',
+      timeEstimate: "",
+      priority: "",
+      details: "",
     });
-
-    console.log('Stworzono domyślny workspace');
   } catch (error) {
-    console.error('Błąd podczas tworzenia workspace', error);
+    console.error("Błąd podczas tworzenia workspace", error);
   }
 };

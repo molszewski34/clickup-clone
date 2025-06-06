@@ -7,8 +7,6 @@ export const deleteUserFromFirestore = async (userId: User["userId"]) => {
     const userRef = doc(db, `users/${userId}`);
 
     await deleteDoc(userRef);
-
-    console.log(`User o id: ${userId} został usunięty`);
   } catch (error) {
     console.error("Error deleting workspace", error);
     throw new Error("Error deleting workspace: " + error);

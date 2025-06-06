@@ -67,7 +67,7 @@ export function useSidebar() {
     (e: MouseEvent) => {
       if (isResizing) {
         const newWidth = e.clientX;
-        console.log("Mouse Move: Setting width to", newWidth);
+
         setWidth(newWidth < 200 ? 60 : Math.min(Math.max(newWidth, 60), 369));
       }
     },

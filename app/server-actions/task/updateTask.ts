@@ -24,8 +24,6 @@ export const updateTask = async (
       details: task.details,
       lastUpdated: Timestamp.now(),
     });
-
-    console.log(`Zaktualizowano task o id: ${selectedTaskId}`);
   } catch (error) {
     console.error("Błąd podczas aktualizowania taska", error);
   }

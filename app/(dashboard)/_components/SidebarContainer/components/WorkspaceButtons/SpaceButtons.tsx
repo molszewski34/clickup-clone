@@ -59,8 +59,6 @@ const SpaceButtons = ({ width }: { width: number }) => {
     }
   };
 
-  console.log("lists", lists);
-
   const handleListClick = (listId: string, listName: string) => {
     // Changed from handleListHover to handleListClick
     setActiveList((prev) => (prev === listId ? null : listId));
