@@ -19,7 +19,7 @@ export const sendInvitationEmail = async (
       },
     });
 
-    const result = await response.json();
+    await response.json();
   } catch (error) {
     console.error("Error sending invitation email:", error);
   }
