@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Space, Task } from "@/app/server-actions/types";
 import { useWorkspaceFormContext } from "@/context/FormProviders/WorkspaceFormProvider";
 import { StatusBadge } from "@/app/(dashboard)/_components/Task/StatusBadge";
@@ -23,11 +23,29 @@ const TasksList = () => {
   const { userId } = useGetCurrentUser();
 
   const { data: tasks } = useGetTaskAssignedToUser(userId!, workspaceId!);
-  const [visibleGroups, setVisibleGroups] = useState<TaskStatus[]>([]);
   const [openedNewTask, setOpenedNewTask] = useState<NewTaskVisibility>({
     status: TaskStatus.todo,
     newTaskVisibility: "none",
   });
+
+  const [visibleGroups, setVisibleGroups] = useState<TaskStatus[]>(() => {
+    if (typeof window !== "undefined") {
+      const saveVisibleGroup = localStorage.getItem(
+        "visibleTaskGroupsInHomePage"
+      );
+      return saveVisibleGroup
+        ? (JSON.parse(saveVisibleGroup) as TaskStatus[])
+        : [];
+    }
+    return [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem(
+      "visibleTaskGroupsInHomePage",
+      JSON.stringify(visibleGroups)
+    );
+  }, [visibleGroups]);
 
   const handleVisibleGroups = (status: TaskStatus) => {
     if (visibleGroups.includes(status)) {
@@ -98,6 +116,10 @@ const TasksList = () => {
   return (
     <div className="flex flex-col gap-4 p-5">
       {tableOrder.map((status) => {
+        const tasksInGroup = tasksGroupedByStatus[status];
+        if (tasksInGroup.length === 0 && status !== TaskStatus.todo)
+          return null;
+
         const isGroupVisible = visibleGroups.includes(status);
         return (
           <div key={status}>
