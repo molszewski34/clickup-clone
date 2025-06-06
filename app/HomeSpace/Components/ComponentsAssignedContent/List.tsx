@@ -95,7 +95,12 @@ const List = () => {
   return (
     <div className="flex flex-col gap-4 p-5">
       {tableOrder.map((status) => {
+        const tasksInGroup = tasksGroupedByStatus[status];
+        if (tasksInGroup.length === 0 && status !== TaskStatus.todo)
+          return null;
+
         const isGroupVisible = visibleGroups.includes(status);
+
         return (
           <div key={status}>
             <div className="flex flex-row items-center gap-3 text-gray-500">
@@ -111,9 +116,7 @@ const List = () => {
                 className="flex items-center justify-center w-5 h-5 hover:bg-gray-200 rounded"
               />
               <StatusBadge taskStatus={status} />
-              <p className="text-xs font-semibold">
-                {tasksGroupedByStatus[status].length}
-              </p>
+              <p className="text-xs font-semibold">{tasksInGroup.length}</p>
               {openedNewTask.newTaskVisibility !== "top" && (
                 <Button
                   color="gray"
@@ -134,8 +137,8 @@ const List = () => {
             </div>
             {isGroupVisible && (
               <TaskTable
-                tasks={tasksGroupedByStatus[status]}
-                status={status as TaskStatus}
+                tasks={tasksInGroup}
+                status={status}
                 openedNewTask={openedNewTask}
                 setOpenedNewTask={setOpenedNewTask}
               />
