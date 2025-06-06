@@ -32,10 +32,8 @@ export const createUser = async (
 
       const newDoc = await getDoc(usersRef);
       if (!newDoc.data()) {
-        console.log("New user not found!");
         return;
       } else {
-        console.log("User created succesfully!");
         return {
           ...(newDoc.data() as Omit<User, "id">),
           id: newDoc.id,

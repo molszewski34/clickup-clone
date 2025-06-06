@@ -45,9 +45,6 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({
   const [taskId, setTaskId] = useState("");
   const [tasksLength, setTasksLength] = useState(0);
 
-  console.log("space id", spaceId);
-  console.log("list id", listId);
-
   useEffect(() => {
     if (!spaceId) {
       setSpaceId(localStorage.getItem("spaceId") || "");

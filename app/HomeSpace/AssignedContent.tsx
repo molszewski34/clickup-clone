@@ -7,8 +7,6 @@ const AssignedContent = () => {
   // if (isLoading) return <div>Loading...</div>;
   // if (error) return <div>Error loading user association</div>;
 
-  // console.log("user tasks", userAssociation);
-
   const [subBarNavHeaderActive] = useState(true);
   const [subBarNavFilterActive] = useState(true);
 
@@ -34,7 +32,7 @@ const AssignedContent = () => {
           <ActionButton
             icon={Icons.PlayWorkspace}
             sclass="rotate-90"
-            onClick={() => console.log("Play")}
+       
           />
           <button className="flex items-center h-6 gap-2 rounded-md px-2 text-xs bg-blue-700 text-white font-semibold">
             <Icons.DotIcon className="text-[12px] text-white" />

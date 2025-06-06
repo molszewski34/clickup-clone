@@ -28,8 +28,7 @@ export const updateUserAssociation = async (
 
   try {
     await updateDoc(userAssociationRef, userAssociationProperties);
-    console.log(`User's role set to ${role}`);
   } catch (error) {
-    console.log(`Error when updating user's role. `, error);
+    console.error(`Error when updating user's role. `, error);
   }
 };

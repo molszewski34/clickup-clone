@@ -23,13 +23,14 @@ export const checkIfUserAssociationToTaskExist = async (
     const snapshot = await getDocs(q);
 
     if (snapshot.empty) {
-      console.log(`No association found for user ${userId} and task ${taskId}`);
+      console.error(
+        `No association found for user ${userId} and task ${taskId}`
+      );
       return;
     }
 
     snapshot.forEach(async (doc) => {
       await deleteDoc(doc.ref);
-      console.log(`User ${userId} removed from task ${taskId}`);
     });
   } catch (error) {
     console.error(

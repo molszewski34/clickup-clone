@@ -30,7 +30,6 @@ export const ChangeWorkspace = ({
   const { userAssociation } = useUserAssociation();
   const userRole = userAssociation?.role;
 
-  console.log("user role", userRole);
   return (
     <>
       <div className="flex flex-col h-fit p-2">

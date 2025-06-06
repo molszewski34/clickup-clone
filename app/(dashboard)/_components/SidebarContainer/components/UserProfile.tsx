@@ -30,7 +30,10 @@ const UserProfile: React.FC<UserProfileProps> = ({
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
         setModalIsOpen(false);
       }
     };
@@ -46,7 +49,8 @@ const UserProfile: React.FC<UserProfileProps> = ({
         className={`flex items-center rounded-md hover:bg-gray-200 hover:bg-opacity-50 h-8 w-auto mr-1 pl-1 flex-grow min-w-0 ${
           width < 200 ? "justify-start" : ""
         }`}
-        onClick={() => setModalIsOpen(true)}>
+        onClick={() => setModalIsOpen(true)}
+      >
         <div className="flex justify-center items-center min-w-6 h-6 bg-emerald-600 rounded-md text-white text-xs font-sans font-bold">
           {userInitial}
         </div>
@@ -74,10 +78,13 @@ const UserProfile: React.FC<UserProfileProps> = ({
           <button
             onClick={() => {
               shrinkSidebar();
-              console.log("Button clicked, sidebar should shrink");
             }}
-            className="flex justify-center items-center hover:bg-white bg-opacity-10 hover:bg-opacity-20 rounded-md h-8 w-8">
-            <Icon className="text-[20px] text-gray-700" icon={<Icons.CreateDocIcon />} />
+            className="flex justify-center items-center hover:bg-white bg-opacity-10 hover:bg-opacity-20 rounded-md h-8 w-8"
+          >
+            <Icon
+              className="text-[20px] text-gray-700"
+              icon={<Icons.CreateDocIcon />}
+            />
           </button>
         </div>
       )}
@@ -85,7 +92,8 @@ const UserProfile: React.FC<UserProfileProps> = ({
         <div className="absolute left-[0] top-full mt-2 z-50 flex">
           <div
             ref={modalRef}
-            className="bg-gray-50 w-[250px] border border-gray-200 rounded-md shadow-lg flex flex-col">
+            className="bg-gray-50 w-[250px] border border-gray-200 rounded-md shadow-lg flex flex-col"
+          >
             <ChangeWorkspace
               workspacesToSwitch={workspacesToSwitch}
               currentWorkspace={currentWorkspace}

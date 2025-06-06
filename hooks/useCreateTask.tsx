@@ -23,7 +23,6 @@ export const useCreateTask = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
-      console.log("Task created successfully!");
     },
     onError: (error: unknown) => {
       console.error("Error creating task:", error);

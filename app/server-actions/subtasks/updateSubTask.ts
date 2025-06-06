@@ -1,5 +1,5 @@
-import { doc, updateDoc } from 'firebase/firestore';
-import { db } from '@/db/firebase/lib/firebase';
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "@/db/firebase/lib/firebase";
 
 export const updateSubTask = async (
   userId: string,
@@ -34,9 +34,7 @@ export const updateSubTask = async (
       priority,
       details,
     });
-
-    console.log(`Zaktualizowano "${subTaskName}" ${projectId}`);
   } catch (error) {
-    console.error('Błąd podczas aktualizowania taska', error);
+    console.error("Błąd podczas aktualizowania taska", error);
   }
 };

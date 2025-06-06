@@ -26,7 +26,6 @@ export const getProjects = async (
       ...doc.data(),
     }));
 
-    console.log("Pobrano projekty:", projects);
     return projects;
   } catch (error) {
     console.error("Błąd podczas pobierania projektów", error);

@@ -45,7 +45,7 @@ export const createUserAssociation = async (
     } as Omit<UserAssociation, "id" | "userLastActive">;
 
     const newUserAssociation = await addDoc(user2workspaceRef, properties);
-    console.log("User added to workspace successfully!");
+
     return { id: newUserAssociation.id, ...properties } as Omit<
       UserAssociation,
       "id" | "userLastActive"

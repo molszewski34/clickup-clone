@@ -40,7 +40,6 @@ export const useChangeUserActiveWorkspace = () => {
     }) => changeUserActiveWorkspace({ userId, newActiveWorkspaceId }),
     onSuccess: (_, variables) => {
       router.push(`/${variables.newActiveWorkspaceId}/home`);
-      console.log("Workspace switched successfully");
     },
     onError: (error) => {
       console.error("Error occured when switching workspace.", error);

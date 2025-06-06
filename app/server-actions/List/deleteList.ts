@@ -13,10 +13,6 @@ export const deleteList = async (
     );
 
     await deleteDoc(projectRef);
-
-    console.log(
-      `Usunięto projekt o ID: "${listId}" z workspace ${workspaceId}`
-    );
   } catch (error) {
     console.error("Błąd podczas usuwania projektu", error);
   }

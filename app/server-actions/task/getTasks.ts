@@ -19,7 +19,6 @@ export const getTasks = async (
       ...(doc.data() as Omit<Task, "id">),
     }));
 
-    console.log("Pobrano taski:", tasks);
     return tasks;
   } catch (error) {
     console.error("Błąd podczas pobierania tasków", error);

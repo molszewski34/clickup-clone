@@ -13,7 +13,7 @@ export const createWorkspace = async (
       description,
       createdAt: new Date(),
     });
-    console.log("Workspace added successfully");
+
     return { id: newWorkspace.id };
   } catch (error) {
     console.error("Error adding document:", error);

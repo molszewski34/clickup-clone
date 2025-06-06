@@ -1,5 +1,5 @@
-import { doc, setDoc } from 'firebase/firestore';
-import { db } from '@/db/firebase/lib/firebase';
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "@/db/firebase/lib/firebase";
 
 export const addSubTask = async (
   userId: string,
@@ -34,9 +34,7 @@ export const addSubTask = async (
       priority,
       details,
     });
-
-    console.log(`Dodano task "${subTaskName}" do projektu ${projectId}`);
   } catch (error) {
-    console.error('Błąd podczas dodawania taska', error);
+    console.error("Błąd podczas dodawania taska", error);
   }
 };

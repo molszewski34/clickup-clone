@@ -1,5 +1,5 @@
-import { collection, getDocs } from 'firebase/firestore';
-import { db } from '@/db/firebase/lib/firebase';
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "@/db/firebase/lib/firebase";
 
 export const getSubTasks = async (
   userId: string,
@@ -19,10 +19,9 @@ export const getSubTasks = async (
       ...doc.data(),
     }));
 
-    console.log('Pobrano sub taski:', subTasks);
     return subTasks;
   } catch (error) {
-    console.error('Błąd podczas pobierania tasków', error);
+    console.error("Błąd podczas pobierania tasków", error);
     return [];
   }
 };

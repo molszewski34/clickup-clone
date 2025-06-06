@@ -62,7 +62,6 @@ const SettingSaveButton = () => {
       }
     },
     onSuccess: () => {
-      console.log("Zaktualizowano dane użytkownika");
       resetField("password");
     },
     onError: (error) => {

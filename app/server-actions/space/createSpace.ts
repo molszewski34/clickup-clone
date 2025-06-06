@@ -15,7 +15,7 @@ export const createSpace = async (
       desc: formData.desc,
       icon: formData.icon,
     });
-    console.log("Space added successfully");
+
     return { id: newSpace.id };
   } catch (error) {
     console.error("Error adding new space:", error);

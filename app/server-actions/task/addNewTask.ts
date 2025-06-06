@@ -1,6 +1,6 @@
-import { doc, setDoc } from 'firebase/firestore';
-import { db } from '@/db/firebase/lib/firebase';
-import { Task } from '../types';
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "@/db/firebase/lib/firebase";
+import { Task } from "../types";
 
 export const addNewTask = async (
   formData: Task,
@@ -22,9 +22,7 @@ export const addNewTask = async (
       workspaceId,
       projectId,
     });
-
-    console.log(`Dodano task "${formData.taskName}" do projektu ${projectId}`);
   } catch (error) {
-    console.error('Błąd podczas dodawania taska', error);
+    console.error("Błąd podczas dodawania taska", error);
   }
 };
